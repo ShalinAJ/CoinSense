@@ -1,9 +1,30 @@
+require("dotenv").config();
 const express = require("express");
-
-const app = express();
+const mongoose = require("mongoose");
 
 const userRoutes = require("./routes/user.jsx");
 
-app.use(userRoutes);
+const app = express();
 
-app.listen(4000);
+app.use(express.json());
+
+app.use((req, res, next) => {
+  console.log(req.path, res.method);
+  next();
+});
+
+// Routes
+//app.use(userRoutes);
+
+// Conncet to database
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(process.env.PORT),
+      () => {
+        console.log("Connected to DB and listning on port", process.env.PORT);
+      };
+  })
+  .catch((error) => {
+    console.log(error);
+  });

@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const LoginPage = () => {
@@ -41,7 +40,7 @@ const LoginPage = () => {
             <input
               className="rounded-md py-2 pl-2 text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
               id="password"
-              tsype="password"
+              type="password"
               name="password"
             />
           </div>
