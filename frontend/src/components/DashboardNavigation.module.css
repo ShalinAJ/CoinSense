@@ -18,6 +18,10 @@ a.active {
   border-radius: 8px;
 }
 
-.svg-fill {
+svg path {
   fill: black;
+}
+
+svg path:selected {
+  fill: white;
 }

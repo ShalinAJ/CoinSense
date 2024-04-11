@@ -1,10 +1,13 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-import dashboardImg from "../assets/dashboard.svg";
+import dashboardImg from "../assets/dashboard.png";
 import transactionsImg from "../assets/transactions.png";
 import walletImg from "../assets/wallet.png";
 import accountImg from "../assets/account.png";
+import dashboardImgActive from "../assets/dashboard-active.png";
+import transactionsImgActive from "../assets/transactions-active.png";
+import walletImgActive from "../assets/wallet-active.png";
+import accountImgActive from "../assets/account-active.png";
 import classes from "./DashboardNavigation.module.css";
+import DashboardNavLinks from "./DashboardNavLinks";
 
 const DashboardNavigation = () => {
   return (
@@ -15,48 +18,36 @@ const DashboardNavigation = () => {
       <div className="mt-[4.5rem]">
         <ul>
           <li className={classes.list}>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-              end
-              to={"/dashboard"}
-            >
-              <img className="w-4" src={dashboardImg}></img>Dashboard
-            </NavLink>
+            <DashboardNavLinks
+              title={"Dashboard"}
+              image={dashboardImg}
+              activeImage={dashboardImgActive}
+              link={"/dashboard"}
+            />
           </li>
           <li className={classes.list}>
-            {" "}
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-              to={"/dashboard/transactions"}
-            >
-              <img className="w-4" src={transactionsImg}></img>Transaction
-            </NavLink>
+            <DashboardNavLinks
+              title={"Transactions"}
+              image={transactionsImg}
+              activeImage={transactionsImgActive}
+              link={"/dashboard/transactions"}
+            />
           </li>
           <li className={classes.list}>
-            {" "}
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-              to={"/dashboard/wallet"}
-            >
-              <img className="w-4" src={walletImg}></img>Wallet
-            </NavLink>
+            <DashboardNavLinks
+              title={"Wallet"}
+              image={walletImg}
+              activeImage={walletImgActive}
+              link={"/dashboard/wallet"}
+            />
           </li>
           <li className={classes.list}>
-            {" "}
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? classes.active : undefined
-              }
-              to={"/dashboard/account"}
-            >
-              <img className="w-4" src={accountImg}></img>Account
-            </NavLink>
+            <DashboardNavLinks
+              title={"Account"}
+              image={accountImg}
+              activeImage={accountImgActive}
+              link={"/dashboard/account"}
+            />
           </li>
         </ul>
       </div>
