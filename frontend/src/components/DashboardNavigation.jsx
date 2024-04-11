@@ -4,7 +4,7 @@ import dashboardImg from "../assets/dashboard.svg";
 import transactionsImg from "../assets/transactions.png";
 import walletImg from "../assets/wallet.png";
 import accountImg from "../assets/account.png";
-import classes from "./Dashboard.module.css";
+import classes from "./DashboardNavigation.module.css";
 
 const DashboardNavigation = () => {
   return (
