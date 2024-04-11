@@ -1,0 +1,23 @@
+a {
+  font-size: 15px;
+  display: flex;
+  gap: 18px;
+  padding: 12px;
+  align-items: center;
+  padding-left: 10px;
+}
+
+li {
+  padding: 8px 0 8px 0;
+}
+
+a.active {
+  color: #fff;
+  background: #152dff;
+
+  border-radius: 8px;
+}
+
+.svg-fill {
+  fill: black;
+}

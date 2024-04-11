@@ -4,6 +4,11 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import RootLayout from "./pages/Root";
+import DashboardRootLayout from "./pages/DashboardRoot";
+import DashboardPage from "./pages/Dashboard";
+import TransactionsPage from "./pages/Transactions";
+import WalletPage from "./pages/Wallet";
+import AccountPage from "./pages/Account";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +18,19 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/register", element: <RegisterPage /> },
+      {
+        path: "/dashboard",
+        element: <DashboardRootLayout />,
+        children: [
+          {
+            index: true,
+            element: <DashboardPage />,
+          },
+          { path: "/dashboard/transactions", element: <TransactionsPage /> },
+          { path: "/dashboard/wallet", element: <WalletPage /> },
+          { path: "/dashboard/account", element: <AccountPage /> },
+        ],
+      },
     ],
   },
 ]);
