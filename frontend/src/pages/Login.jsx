@@ -18,7 +18,9 @@ const LoginPage = () => {
       <div className="h-[100%] flex flex-wrap flex-col content-center justify-center">
         <div className=" w-[350px] px-4 py-6 bg-white rounded-md">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-black font-medium">Sign In</h2>
+            <h2 className="text-black font-medium flex justify-center">
+              Sign In
+            </h2>
 
             <p className="mb-5 mt-6 text-[#626262] flex flex-left text-xs">
               Sign in to your CoinSense Account
@@ -56,22 +58,23 @@ const LoginPage = () => {
               />
             </div>
 
-            <div className="text-right my-4">
-              <a className="text-xs font-medium" href="">
+            <div className="text-right flex justify-end my-5">
+              <a className="text-xs p-0 text-[#152DFF] font-medium" href="">
                 Forgot Password
               </a>
             </div>
 
             <p>
-              <button className="w-full bg-[#152DFF] text-white">
-                Sign in
-              </button>
+              <button className="w-full bg-[#152DFF]">Sign in</button>
             </p>
           </form>
           <div className="mt-4">
-            <p className="text-xs font-medium text-black">
-              Dont have an account?{" "}
-              <Link className="text-xs font-medium" to="/register">
+            <p className="flex content-center justify-center items-center text-xs font-medium text-black">
+              Dont have an account?
+              <Link
+                className="text-xs font-medium py-0 text-[#152DFF]"
+                to="/register"
+              >
                 Sign Up
               </Link>
             </p>

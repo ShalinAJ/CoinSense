@@ -18,7 +18,9 @@ const RegisterPage = () => {
       <div className="h-[100%] flex flex-wrap flex-col content-center justify-center">
         <div className="w-[350px] px-4 py-6 bg-white rounded-md">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-black font-medium">Sign Up</h2>
+            <h2 className="text-black font-medium flex justify-center">
+              Sign Up
+            </h2>
 
             <p className="mb-5 mt-6 text-[#626262] flex flex-left text-xs">
               Sign Up and create your CoinSense Account
@@ -74,15 +76,16 @@ const RegisterPage = () => {
             </div>
 
             <p>
-              <button className="w-full bg-[#152DFF] text-white">
-                Sign up
-              </button>
+              <button className="w-full bg-[#152DFF]">Sign up</button>
             </p>
           </form>
           <div className="mt-4">
-            <p className="text-xs font-medium text-black">
+            <p className="flex content-center justify-center items-center text-xs font-medium text-black">
               Already have an account?{" "}
-              <Link className="text-xs font-medium" to="/login">
+              <Link
+                className="text-xs font-medium py-0 text-[#152DFF]"
+                to="/login"
+              >
                 Sign In
               </Link>
             </p>
