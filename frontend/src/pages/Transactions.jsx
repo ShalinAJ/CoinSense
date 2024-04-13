@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
+import { json, redirect } from "react-router-dom";
 
 const TRANSACTIONS = [
   {
@@ -62,27 +63,29 @@ const TransactionsPage = () => {
         </div>
         <div className=" pl-[38px] py-[36px]">
           <table className="w-[100%]">
-            <tr className="text-left text-sm leading-[45px]">
-              <th>Name</th>
-              <th>Date</th>
-              <th>Amount</th>
-              <th className="text-center">Status</th>
-            </tr>
-            {TRANSACTIONS.map((transaction) => (
-              <tr
-                id={transaction.id}
-                className="text-sm font-medium leading-[48px]"
-              >
-                <td>{transaction.name}</td>
-                <td>{transaction.date}</td>
-                <td>{transaction.amount}</td>
-                <td className=" text-center text-xs flex justify-center">
-                  <p className="py-1 w-[50%] bg-[#bcffde] text-[#02B15A] rounded-xl">
-                    {transaction.status}
-                  </p>
-                </td>
+            <tbody>
+              <tr className="text-left text-sm leading-[45px]">
+                <th>Name</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th className="text-center">Status</th>
               </tr>
-            ))}
+              {TRANSACTIONS.map((transaction) => (
+                <tr
+                  key={transaction.id}
+                  className="text-sm font-medium leading-[48px]"
+                >
+                  <td>{transaction.name}</td>
+                  <td>{transaction.date}</td>
+                  <td>{transaction.amount}</td>
+                  <td className=" text-center text-xs flex justify-center">
+                    <p className="py-1 w-[50%] bg-[#bcffde] text-[#02B15A] rounded-xl">
+                      {transaction.status}
+                    </p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
           </table>
         </div>
       </div>
@@ -102,7 +105,7 @@ export async function action({ request }) {
     status: data.get("status"),
   };
 
-  const response = await fetch("...URI...", {
+  const response = await fetch("http://localhost:4000//transaction/new", {
     method: "POST",
     body: JSON.stringify(eventData),
   });

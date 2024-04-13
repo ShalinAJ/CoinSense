@@ -6,7 +6,9 @@ import RegisterPage from "./pages/Register";
 import RootLayout from "./pages/Root";
 import DashboardRootLayout from "./pages/DashboardRoot";
 import DashboardPage from "./pages/Dashboard";
-import TransactionsPage from "./pages/Transactions";
+import TransactionsPage, {
+  action as newTransactionAction,
+} from "./pages/Transactions";
 import WalletPage from "./pages/Wallet";
 import AccountPage from "./pages/Account";
 
@@ -26,7 +28,11 @@ const router = createBrowserRouter([
             index: true,
             element: <DashboardPage />,
           },
-          { path: "/dashboard/transactions", element: <TransactionsPage /> },
+          {
+            path: "/dashboard/transactions",
+            element: <TransactionsPage />,
+            action: newTransactionAction,
+          },
           { path: "/dashboard/wallet", element: <WalletPage /> },
           { path: "/dashboard/account", element: <AccountPage /> },
         ],

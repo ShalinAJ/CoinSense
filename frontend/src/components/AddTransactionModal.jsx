@@ -47,9 +47,9 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
                   id="status"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
                 >
-                  <option value="income">Income</option>
-                  <option value="expense">Expense</option>
-                  <option value="investment">Investment</option>
+                  <option value="Income">Income</option>
+                  <option value="Expense">Expense</option>
+                  <option value="Investment">Investment</option>
                 </select>
               </div>
               <div className="flex justify-end">
