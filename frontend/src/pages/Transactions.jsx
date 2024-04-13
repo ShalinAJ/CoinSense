@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import AddTransactionModal from "../components/AddTransactionModal.jsx";
 
 const TRANSACTIONS = [
   {
@@ -32,17 +33,30 @@ const TRANSACTIONS = [
 ];
 
 const TransactionsPage = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
     <>
+      <AddTransactionModal isOpen={modalOpen} onClose={closeModal} />
       <div className="w-[80%] ">
-        <div className="flex items-start justify-between px-[28px] pt-[28px]">
+        <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
             <h2 className="text-2xl font-bold">Transactions</h2>
             <p className="text-sm pt-2 font-light">
               Detailed view of your transactions
             </p>
           </div>
-          <button className="bg-[#152DFF] text-white text-xs px-10">
+          <button
+            onClick={openModal}
+            className="bg-[#152DFF] text-white text-xs px-10"
+          >
             Add Transaction
           </button>
         </div>
@@ -74,3 +88,25 @@ const TransactionsPage = () => {
 };
 
 export default TransactionsPage;
+
+export async function action({ request }) {
+  const data = await request.formData();
+
+  const eventData = {
+    transaction: data.get("transaction"),
+    date: data.get("date"),
+    amount: data.get("amount"),
+    status: data.get("status"),
+  };
+
+  const response = await fetch("...URI...", {
+    method: "POST",
+    body: JSON.stringify(eventData),
+  });
+
+  if (!response.ok) {
+    throw json({ message: "Could not save event." }, { status: 500 });
+  }
+
+  return redirect("/transactions");
+}
