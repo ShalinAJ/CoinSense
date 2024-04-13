@@ -41,7 +41,7 @@ const createTransaction = async (req, res) => {
 
   try {
     const user_id = req.user._id;
-    const transactions = await Transaciton.create({
+    const transactions = await Transaction.create({
       status,
       date,
       amount,
@@ -58,7 +58,7 @@ const createTransaction = async (req, res) => {
 const getIncomes = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const incomeTransactions = await Transaciton.find({
+    const incomeTransactions = await Transaction.find({
       status: "Income",
       user_id,
     }).sort({

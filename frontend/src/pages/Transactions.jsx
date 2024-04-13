@@ -98,11 +98,12 @@ export default TransactionsPage;
 export async function action({ request }) {
   const data = await request.formData();
 
+  const date = new Date(data.get("date")).toISOString();
   const amount = parseFloat(data.get("amount"));
 
   const eventData = {
     transaction: data.get("transaction"),
-    date: data.get("date"),
+    date: date,
     amount: amount,
     status: data.get("status"),
   };
