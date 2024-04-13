@@ -69,7 +69,10 @@ const TransactionsPage = () => {
               <th className="text-center">Status</th>
             </tr>
             {TRANSACTIONS.map((transaction) => (
-              <tr className="text-sm font-medium leading-[48px]">
+              <tr
+                id={transaction.id}
+                className="text-sm font-medium leading-[48px]"
+              >
                 <td>{transaction.name}</td>
                 <td>{transaction.date}</td>
                 <td>{transaction.amount}</td>

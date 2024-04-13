@@ -35,14 +35,28 @@ h1 {
   line-height: 1.1;
 }
 
+label {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+input {
+  border-radius: 5px;
+  font-size: 15px;
+  color: #000;
+  font-weight: 500;
+  padding: 0 12px 0 12px;
+}
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
+  color: #fff;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #152dff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
