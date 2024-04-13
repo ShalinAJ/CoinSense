@@ -1,8 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useLogin } from "../Hooks/useLogin";
 
 const LoginPage = () => {
-  function handleSubmit(event) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, isLoading, error } = useLogin();
+
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    await login(email, password);
   }
 
   return (
@@ -28,6 +36,7 @@ const LoginPage = () => {
                 id="email"
                 type="email"
                 name="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -43,6 +52,7 @@ const LoginPage = () => {
                 id="password"
                 type="password"
                 name="password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 

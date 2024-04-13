@@ -5,7 +5,7 @@ import { useRegister } from "../Hooks/useRegister";
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { register, isLoading, error } = useRegister();
+  const { register } = useRegister();
 
   async function handleSubmit(event) {
     event.preventDefault();
