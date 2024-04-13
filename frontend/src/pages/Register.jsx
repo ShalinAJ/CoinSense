@@ -1,8 +1,16 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useRegister } from "../Hooks/useRegister";
 
 const RegisterPage = () => {
-  function handleSubmit(event) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { register, isLoading, error } = useRegister();
+
+  async function handleSubmit(event) {
     event.preventDefault();
+
+    await register(email, password);
   }
 
   return (
@@ -43,6 +51,8 @@ const RegisterPage = () => {
                 id="email"
                 type="email"
                 name="email"
+                onChange={(e) => setEmail(e.target.value)}
+                //value={email}
               />
             </div>
 
@@ -58,6 +68,8 @@ const RegisterPage = () => {
                 id="password"
                 type="password"
                 name="password"
+                onChange={(e) => setPassword(e.target.value)}
+                //value={password}
               />
             </div>
 
