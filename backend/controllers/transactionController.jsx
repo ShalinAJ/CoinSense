@@ -1,11 +1,11 @@
-const Transaciton = require("../models/transactionModel.jsx");
+const Transaction = require("../models/transactionModel.jsx");
 const mongoose = require("mongoose");
 
 // GET all transactions
 const getTransactions = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const transactions = await Transaciton.find({ user_id }).sort({
+    const transactions = await Transaction.find({ user_id }).sort({
       createdAt: -1,
     });
     res.status(200).json(transactions);
@@ -74,7 +74,7 @@ const getIncomes = async (req, res) => {
 const getExpenses = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const transactions = await Transaciton.find({ status: "Expense" }).sort({
+    const transactions = await Transaction.find({ status: "Expense" }).sort({
       createdAt: -1,
       user_id,
     });
@@ -88,7 +88,7 @@ const getExpenses = async (req, res) => {
 const getInvestments = async (req, res) => {
   try {
     const user_id = req.user._id;
-    const transactions = await Transaciton.find({ status: "Investments" }).sort(
+    const transactions = await Transaction.find({ status: "Investments" }).sort(
       {
         createdAt: -1,
         user_id,
@@ -110,7 +110,7 @@ const deleteTransaction = async (req, res) => {
       .json({ error: "NO such a contact (mongoose ID is invalid)" });
   }
 
-  const transaction = await Transaciton.findOneAndDelete({ _id: id });
+  const transaction = await Transaction.findOneAndDelete({ _id: id });
 
   if (!transaction) {
     return res
@@ -131,7 +131,7 @@ const updateTransaction = async (req, res) => {
       .json({ error: "NO such a contact (mongoose ID is invalid)" });
   }
 
-  const transaciton = await Transaciton.findOneAndUpdate(
+  const transaciton = await Transaction.findOneAndUpdate(
     { _id: id },
     { ...req.body }
   );

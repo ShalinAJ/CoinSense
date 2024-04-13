@@ -98,15 +98,20 @@ export default TransactionsPage;
 export async function action({ request }) {
   const data = await request.formData();
 
+  const amount = parseFloat(data.get("amount"));
+
   const eventData = {
     transaction: data.get("transaction"),
     date: data.get("date"),
-    amount: data.get("amount"),
+    amount: amount,
     status: data.get("status"),
   };
 
-  const response = await fetch("http://localhost:4000//transaction/new", {
+  console.log(eventData);
+
+  const response = await fetch("http://localhost:4000/transaction/new", {
     method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(eventData),
   });
 
