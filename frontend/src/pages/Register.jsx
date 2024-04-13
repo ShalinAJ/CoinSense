@@ -76,9 +76,7 @@ const RegisterPage = () => {
             </div>
 
             <p>
-              <button className="w-full text-white bg-[#152DFF]">
-                Sign up
-              </button>
+              <button className="w-full bg-[#152DFF]">Sign up</button>
             </p>
           </form>
           <div className="mt-4">

@@ -65,9 +65,7 @@ const LoginPage = () => {
             </div>
 
             <p>
-              <button className="w-full text-white bg-[#152DFF]">
-                Sign in
-              </button>
+              <button className="w-full bg-[#152DFF]">Sign in</button>
             </p>
           </form>
           <div className="mt-4">
