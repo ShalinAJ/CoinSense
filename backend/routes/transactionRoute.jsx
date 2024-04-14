@@ -31,7 +31,7 @@ router.get("/transactions", getTransactions);
 // post a new transaction
 router.post("/transaction/new", createTransaction);
 
-// delete a transaciton
+// delete a transaction
 router.delete("/:id", deleteTransaction);
 
 // update a transaction

@@ -11,6 +11,7 @@ const RegisterPage = () => {
     event.preventDefault();
 
     await register(email, password);
+    location.reload();
   }
 
   return (

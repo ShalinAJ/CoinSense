@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 import { useLogin } from "../Hooks/useLogin";
 
 const LoginPage = () => {
@@ -11,6 +11,7 @@ const LoginPage = () => {
     event.preventDefault();
 
     await login(email, password);
+    location.reload();
   }
 
   return (

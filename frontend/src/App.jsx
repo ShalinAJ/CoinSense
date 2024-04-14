@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import "./App.css";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/Login";
@@ -13,30 +17,44 @@ import TransactionsPage, {
 import WalletPage from "./pages/Wallet";
 import AccountPage from "./pages/Account";
 
+var user = JSON.parse(localStorage.getItem("user"));
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/register", element: <RegisterPage /> },
+      {
+        path: "/login",
+        element: user ? <Navigate to="/dashboard" /> : <LoginPage />,
+      },
+      {
+        path: "/register",
+        element: user ? <Navigate to="/dashboard" /> : <RegisterPage />,
+      },
       {
         path: "/dashboard",
         element: <DashboardRootLayout />,
         children: [
           {
             index: true,
-            element: <DashboardPage />,
+            element: user ? <DashboardPage /> : <Navigate to="/login" />,
           },
           {
             path: "/dashboard/transactions",
-            element: <TransactionsPage />,
+            element: user ? <TransactionsPage /> : <Navigate to="/login" />,
             loader: transacitonsLoader,
             action: newTransactionAction,
           },
-          { path: "/dashboard/wallet", element: <WalletPage /> },
-          { path: "/dashboard/account", element: <AccountPage /> },
+          {
+            path: "/dashboard/wallet",
+            element: user ? <WalletPage /> : <Navigate to="/login" />,
+          },
+          {
+            path: "/dashboard/account",
+            element: user ? <AccountPage /> : <Navigate to="/login" />,
+          },
         ],
       },
     ],
