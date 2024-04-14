@@ -8,6 +8,7 @@ import DashboardRootLayout from "./pages/DashboardRoot";
 import DashboardPage from "./pages/Dashboard";
 import TransactionsPage, {
   action as newTransactionAction,
+  loader as transacitonsLoader,
 } from "./pages/Transactions";
 import WalletPage from "./pages/Wallet";
 import AccountPage from "./pages/Account";
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/transactions",
             element: <TransactionsPage />,
+            loader: transacitonsLoader,
             action: newTransactionAction,
           },
           { path: "/dashboard/wallet", element: <WalletPage /> },
