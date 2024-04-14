@@ -52,6 +52,12 @@ const BalanceEvolutionChart = () => {
             },
           },
         },
+        layout: {
+          padding: {
+            left: 12,
+            right: 12,
+          },
+        },
       },
     });
   }, []);

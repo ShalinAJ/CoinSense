@@ -46,10 +46,14 @@ const DashboardPage = () => {
             </div>
           </div>
           <div className="w-[100%] h-[100%]">
-            <div className="border-4 border-coinsense-blue rounded-xl p-4">
+            <div className="border-[3px] border-coinsense-blue rounded-xl p-4">
+              <h2 className="p-3 text-base font-medium">
+                Financial Inflow Outflow
+              </h2>
               <InflowOutflowChart />
             </div>
-            <div className="border-4 border-coinsense-blue rounded-xl p-4 mt-10 mb-10">
+            <div className="border-[3px] border-coinsense-blue rounded-xl p-4 mt-10 mb-10">
+              <h2 className="p-3 text-base font-medium">Balance Evolution</h2>
               <BalanceEvolutionChart />
             </div>
           </div>
