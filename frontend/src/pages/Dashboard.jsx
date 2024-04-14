@@ -3,6 +3,8 @@ import { Bar, Doughnut, Line } from "react-chartjs-2";
 import totalIncomeImg from "../assets/total-income.png";
 import totalExpenseImg from "../assets/total-expenses.png";
 import totalInvestmentImg from "../assets/total-investments.png";
+import InflowOutflowChart from "../charts/InflowOutflowChart";
+import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
 
 const DashboardPage = () => {
   const headingText = "Here's what's happening with your money today.";
@@ -44,45 +46,12 @@ const DashboardPage = () => {
             </div>
           </div>
           <div className="w-[100%] h-[100%]">
-            <div className="border-4 .barrs border-coinsense-blue rounded-xl p-4">
-              <Bar
-                data={{
-                  labels: [
-                    "Jan",
-                    "Feb",
-                    "Mar",
-                    "Apr",
-                    "May",
-                    "Jun",
-                    "Jul",
-                    "Aug",
-                    "Sep",
-                    "Oct",
-                    "Nov",
-                    "Dec",
-                  ],
-                  datasets: [
-                    {
-                      backgroundColor: "#152DFF",
-                      label: "inflow",
-                      data: [
-                        200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100,
-                        1200, 1300,
-                      ],
-                    },
-                    {
-                      backgroundColor: "#C4C4C4",
-                      label: "outflow",
-                      data: [
-                        200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100,
-                        1200, 1300,
-                      ],
-                    },
-                  ],
-                }}
-              />
+            <div className="border-4 border-coinsense-blue rounded-xl p-4">
+              <InflowOutflowChart />
             </div>
-            <div className="border-4 border-coinsense-blue rounded-xl p-4 mt-10"></div>
+            <div className="border-4 border-coinsense-blue rounded-xl p-4 mt-10 mb-10">
+              <BalanceEvolutionChart />
+            </div>
           </div>
         </div>
       </div>
