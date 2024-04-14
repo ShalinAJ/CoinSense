@@ -51,11 +51,9 @@ const DashboardNavigation = () => {
             />
           </li>
         </ul>
-        <p>
-          <Form action="/logout" method="post">
-            <button>Logout</button>
-          </Form>
-        </p>
+        <Form action="/logout" method="post">
+          <button>Logout</button>
+        </Form>
       </div>
     </div>
   );
