@@ -8,6 +8,7 @@ import walletImgActive from "../assets/wallet-active.png";
 import accountImgActive from "../assets/account-active.png";
 import classes from "./DashboardNavigation.module.css";
 import DashboardNavLinks from "./DashboardNavLinks";
+import { Form } from "react-router-dom";
 
 const DashboardNavigation = () => {
   return (
@@ -50,6 +51,11 @@ const DashboardNavigation = () => {
             />
           </li>
         </ul>
+        <p>
+          <Form action="/logout" method="post">
+            <button>Logout</button>
+          </Form>
+        </p>
       </div>
     </div>
   );

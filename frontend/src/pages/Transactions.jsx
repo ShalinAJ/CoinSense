@@ -44,8 +44,6 @@ export async function action({ request }) {
 }
 
 export async function loader() {
-  const user = JSON.parse(localStorage.getItem("user"));
-
   const response = await fetch("http://localhost:4000/transactions");
 
   if (!response.ok) {

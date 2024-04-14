@@ -16,6 +16,7 @@ import TransactionsPage, {
 } from "./pages/Transactions";
 import WalletPage from "./pages/Wallet";
 import AccountPage from "./pages/Account";
+import { action as logoutAction } from "./pages/Logout";
 
 var user = JSON.parse(localStorage.getItem("user"));
 
@@ -57,6 +58,7 @@ const router = createBrowserRouter([
           },
         ],
       },
+      { path: "logout", action: logoutAction },
     ],
   },
 ]);
