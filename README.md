@@ -1,3 +1,3 @@
-# React-Project-1
+# CoinSense
 
 ### npm start to start the backend
