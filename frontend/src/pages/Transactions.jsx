@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
 import { json, redirect } from "react-router-dom";
+import { useAuthContext } from "../Hooks/useAuthContext.jsx";
 
 const TRANSACTIONS = [
   {
@@ -35,6 +36,7 @@ const TRANSACTIONS = [
 
 const TransactionsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  //const { user } = useAuthContext();
 
   const openModal = () => {
     setModalOpen(true);
@@ -112,7 +114,7 @@ export async function action({ request }) {
 
   const response = await fetch("http://localhost:4000/transaction/new", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    Authorization: `Bearer ${user.token}`,
     body: JSON.stringify(eventData),
   });
 
