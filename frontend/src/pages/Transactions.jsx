@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
 import { json, redirect } from "react-router-dom";
-import { useAuthContext } from "../Hooks/useAuthContext.jsx";
 
 const TRANSACTIONS = [
   {
@@ -99,6 +98,7 @@ export default TransactionsPage;
 
 export async function action({ request }) {
   const data = await request.formData();
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const date = new Date(data.get("date")).toISOString();
   const amount = parseFloat(data.get("amount"));
@@ -111,15 +111,20 @@ export async function action({ request }) {
   };
 
   console.log(eventData);
+  console.log(user.token);
 
   const response = await fetch("http://localhost:4000/transaction/new", {
     method: "POST",
-    Authorization: `Bearer ${user.token}`,
+
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify(eventData),
   });
 
   if (!response.ok) {
-    throw json({ message: "Could not save event." }, { status: 500 });
+    throw json({ message: "Could not save." }, { status: 500 });
   }
 
   return redirect("/transactions");
