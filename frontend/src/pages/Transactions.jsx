@@ -35,7 +35,6 @@ const TRANSACTIONS = [
 
 const TransactionsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  //const { user } = useAuthContext();
 
   const openModal = () => {
     setModalOpen(true);
@@ -110,9 +109,6 @@ export async function action({ request }) {
     status: data.get("status"),
   };
 
-  console.log(eventData);
-  console.log(user.token);
-
   const response = await fetch("http://localhost:4000/transaction/new", {
     method: "POST",
 
@@ -127,5 +123,6 @@ export async function action({ request }) {
     throw json({ message: "Could not save." }, { status: 500 });
   }
 
-  return redirect("/transactions");
+  window.location.reload();
+  return null;
 }
