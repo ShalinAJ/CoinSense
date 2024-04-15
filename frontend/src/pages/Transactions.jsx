@@ -1,12 +1,19 @@
-import React from "react";
-import { json, useLoaderData } from "react-router-dom";
+import React, { Suspense } from "react";
+import { Await, defer, json, useLoaderData } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable.jsx";
 
 const TransactionsPage = () => {
-  const data = useLoaderData();
-  const transactions = data.events;
+  const { transactions } = useLoaderData();
 
-  return <TransactionsTable transactions={transactions} />;
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <Await resolve={transactions}>
+        {(loadedTransactions) => (
+          <TransactionsTable transactions={loadedTransactions} />
+        )}
+      </Await>
+    </Suspense>
+  );
 };
 
 export default TransactionsPage;
@@ -18,7 +25,7 @@ export async function action({ request }) {
   const date = new Date(data.get("date")).toISOString();
   const amount = parseFloat(data.get("amount"));
 
-  const eventData = {
+  const transactionData = {
     transaction: data.get("transaction"),
     date: date,
     amount: amount,
@@ -32,7 +39,7 @@ export async function action({ request }) {
       Authorization: `Bearer ${user.token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(eventData),
+    body: JSON.stringify(transactionData),
   });
 
   if (!response.ok) {
@@ -43,12 +50,22 @@ export async function action({ request }) {
   return null;
 }
 
-export async function loader() {
-  const response = await fetch("http://localhost:4000/transactions");
+async function loadTransactions() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/transactions", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
 
   if (!response.ok) {
     return json({ message: "Could not fetch events." }, { status: 500 });
   } else {
-    return response;
+    const transactions = await response.json();
+    return transactions;
   }
+}
+
+export function loader() {
+  return defer({ transactions: loadTransactions() });
 }
