@@ -57,7 +57,7 @@ const DashboardNavigation = () => {
               method="post"
               className="fixed bottom-8 left-8"
             >
-              <button className="p-3 bg-transparent border-solid border-2 border-red-400 hover:border-red-400 hover:bg-red-50">
+              <button className="p-3 bg-transparent border-solid border-2 border-red-400 hover:border-red-400 hover:bg-red-100">
                 <img className="w-4" src={logOut} alt="" />
               </button>
             </Form>

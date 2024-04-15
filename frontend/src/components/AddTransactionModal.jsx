@@ -53,7 +53,7 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
                 </select>
               </div>
               <div className="flex justify-end">
-                <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end">
+                <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker">
                   Add
                 </button>
               </div>

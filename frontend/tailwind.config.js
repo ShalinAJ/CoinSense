@@ -5,6 +5,7 @@ export default {
     extend: {
       backgroundColor: {
         "coinsense-blue": "#152DFF",
+        "coinsense-blue-darker": "#0418bf",
       },
       colors: {
         "coinsense-blue": "#152DFF",

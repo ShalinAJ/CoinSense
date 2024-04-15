@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
+
 import { useRegister } from "../Hooks/useRegister";
+import addUser from "../assets/add-user.svg";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -19,9 +21,12 @@ const RegisterPage = () => {
       <div className="h-[100%] flex flex-wrap flex-col content-center justify-center">
         <div className="w-[350px] px-4 py-6 bg-white rounded-md">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-black font-medium flex justify-center">
-              Sign Up
-            </h2>
+            <div className="flex text-center">
+              <img src={addUser} alt="add user sign" className="w-9 ml-20" />
+              <p className="text-black font-medium flex justify-center mt-1 ml-5">
+                Sign Up
+              </p>
+            </div>
 
             <p className="mb-5 mt-6 text-[#626262] flex flex-left text-xs">
               Sign Up and create your CoinSense Account
@@ -77,7 +82,9 @@ const RegisterPage = () => {
             </div>
 
             <p>
-              <button className="w-full bg-[#152DFF]">Sign up</button>
+              <button className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker">
+                Sign up
+              </button>
             </p>
           </form>
           <div className="mt-4">

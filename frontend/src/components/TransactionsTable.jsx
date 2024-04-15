@@ -56,7 +56,7 @@ const TransactionsTable = ({ transactions }) => {
           </div>
           <button
             onClick={openModal}
-            className="bg-[#152DFF] text-white text-xs px-10"
+            className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
           >
             Add Transaction
           </button>

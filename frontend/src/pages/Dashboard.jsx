@@ -18,7 +18,7 @@ const DashboardPage = () => {
           </div>
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
             <div className="basis-1/3">
-              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	">
+              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl hover:bg-coinsense-blue-darker">
                 <img src={totalIncomeImg} alt="" className="w-12" />
                 <div>
                   <p className="text-sm font-medium">Total Income</p>
@@ -27,7 +27,7 @@ const DashboardPage = () => {
               </button>
             </div>
             <div className="basis-1/3">
-              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	">
+              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
                 <img src={totalExpenseImg} alt="" className="w-12" />
                 <div>
                   <p className="text-sm font-medium">Total Expences</p>
@@ -36,7 +36,7 @@ const DashboardPage = () => {
               </button>
             </div>
             <div className="basis-1/3">
-              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	">
+              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
                 <img src={totalInvestmentImg} alt="" className="w-12" />
                 <div>
                   <p className="text-sm font-medium">Total Investments</p>

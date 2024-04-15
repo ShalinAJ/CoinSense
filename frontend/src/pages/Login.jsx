@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import { useLogin } from "../Hooks/useLogin";
+import addUser from "../assets/add-user.svg";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, isLoading, error } = useLogin();
+  const { login } = useLogin();
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -19,9 +21,12 @@ const LoginPage = () => {
       <div className="h-[100%] flex flex-wrap flex-col content-center justify-center">
         <div className=" w-[350px] px-4 py-6 bg-white rounded-md">
           <form onSubmit={handleSubmit}>
-            <h2 className="text-black font-medium flex justify-center">
-              Sign In
-            </h2>
+            <div className="flex text-center">
+              <img src={addUser} alt="add user sign" className="w-9 ml-20" />
+              <p className="text-black font-medium flex justify-center mt-1 ml-5">
+                Sign In
+              </p>
+            </div>
 
             <p className="mb-5 mt-6 text-[#626262] flex flex-left text-xs">
               Sign in to your CoinSense Account
@@ -66,7 +71,9 @@ const LoginPage = () => {
             </div>
 
             <p>
-              <button className="w-full bg-[#152DFF]">Sign in</button>
+              <button className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker">
+                Sign in
+              </button>
             </p>
           </form>
           <div className="mt-4">
