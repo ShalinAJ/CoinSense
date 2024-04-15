@@ -1,12 +1,62 @@
-import { Chart as ChartJS } from "chart.js/auto";
-import { Bar, Doughnut, Line } from "react-chartjs-2";
 import totalIncomeImg from "../assets/total-income.png";
 import totalExpenseImg from "../assets/total-expenses.png";
 import totalInvestmentImg from "../assets/total-investments.png";
 import InflowOutflowChart from "../charts/InflowOutflowChart";
 import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
+import { json } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
+  const [totalIncome, setTotalIncome] = useState(0);
+  const [totalInvestment, setTotalInvestment] = useState(0);
+  const [totalExpense, setTotalExpense] = useState(0);
+
+  async function loadTransactions() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const response = await fetch("http://localhost:4000/transactions", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      return json({ message: "Could not fetch events." }, { status: 500 });
+    } else {
+      const transactions = await response.json();
+      return transactions;
+    }
+  }
+
+  useEffect(() => {
+    async function transactionInfo() {
+      try {
+        const transactions = await loadTransactions();
+
+        let totalIncome = 0;
+        let totalInvestment = 0;
+        let totalExpense = 0;
+
+        transactions.forEach((trans) => {
+          if (trans.status === "Investment") {
+            totalInvestment += trans.amount;
+          }
+          if (trans.status === "Income") {
+            totalIncome += trans.amount;
+          }
+          if (trans.status === "Expense") {
+            totalExpense += trans.amount;
+          }
+        });
+        setTotalIncome(totalIncome);
+        setTotalExpense(totalExpense);
+        setTotalInvestment(totalInvestment);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    transactionInfo();
+  }, []);
   const headingText = "Here's what's happening with your money today.";
   return (
     <>
@@ -22,7 +72,7 @@ const DashboardPage = () => {
                 <img src={totalIncomeImg} alt="" className="w-12" />
                 <div>
                   <p className="text-sm font-medium">Total Income</p>
-                  <p className="text-lg font-semibold">$602.000</p>
+                  <p className="text-lg font-semibold">${totalIncome}</p>
                 </div>
               </button>
             </div>
@@ -31,7 +81,7 @@ const DashboardPage = () => {
                 <img src={totalExpenseImg} alt="" className="w-12" />
                 <div>
                   <p className="text-sm font-medium">Total Expences</p>
-                  <p className="text-lg font-semibold">$602.000</p>
+                  <p className="text-lg font-semibold">${totalExpense}</p>
                 </div>
               </button>
             </div>
@@ -40,7 +90,7 @@ const DashboardPage = () => {
                 <img src={totalInvestmentImg} alt="" className="w-12" />
                 <div>
                   <p className="text-sm font-medium">Total Investments</p>
-                  <p className="text-lg font-semibold">$602.000</p>
+                  <p className="text-lg font-semibold">${totalInvestment}</p>
                 </div>
               </button>
             </div>
