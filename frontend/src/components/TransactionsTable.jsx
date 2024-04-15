@@ -42,7 +42,7 @@ const TransactionsTable = ({ transactions }) => {
               </tr>
               {transactions.map((transaction) => (
                 <tr
-                  key={transaction.id}
+                  key={transaction._id}
                   className="text-sm font-medium leading-[48px]"
                 >
                   <td>{transaction.transaction}</td>
