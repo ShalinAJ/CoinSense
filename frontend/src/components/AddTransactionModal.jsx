@@ -34,7 +34,7 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
               </div>
               <div className="flex flex-col my-3">
                 <label htmlFor="">Amount ($)</label>
-                <input id="amount" type="number" name="amount"></input>
+                <input id="amount" type="float" name="amount"></input>
               </div>
               <div className="flex flex-col my-2">
                 <label htmlFor="">Date</label>
