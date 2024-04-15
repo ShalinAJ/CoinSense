@@ -1,36 +1,6 @@
 import React, { useState } from "react";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
-
-const TRANSACTIONS = [
-  {
-    id: "T1",
-    name: "Adobe",
-    date: "2023.02.01",
-    amount: "$25.09",
-    status: "Paid",
-  },
-  {
-    id: "T2",
-    name: "Microsoft",
-    date: "2023.02.01",
-    amount: "$25.09",
-    status: "Paid",
-  },
-  {
-    id: "T3",
-    name: "Dell",
-    date: "2023.02.01",
-    amount: "$25.09",
-    status: "Paid",
-  },
-  {
-    id: "T4",
-    name: "Msi",
-    date: "2023.02.01",
-    amount: "$25.09",
-    status: "Paid",
-  },
-];
+import { format } from "date-fns";
 
 const TransactionsTable = ({ transactions }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -70,14 +40,26 @@ const TransactionsTable = ({ transactions }) => {
                 <th>Amount</th>
                 <th className="text-center">Status</th>
               </tr>
-              {TRANSACTIONS.map((transaction) => (
+              {transactions.map((transaction) => (
                 <tr
-                  key={transaction.id}
+                  key={transaction._id}
                   className="text-sm font-medium leading-[48px]"
                 >
-                  <td>{transaction.name}</td>
-                  <td>{transaction.date}</td>
-                  <td>{transaction.amount}</td>
+                  <td>{transaction.transaction}</td>
+                  <td>
+                    {new Date(transaction.date).toLocaleString("en-US", {
+                      weekday: "short",
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </td>
+                  <td>
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(transaction.amount)}
+                  </td>
                   <td className=" text-center text-xs flex justify-center">
                     <p className="py-1 w-[50%] bg-[#bcffde] text-[#02B15A] rounded-xl">
                       {transaction.status}
