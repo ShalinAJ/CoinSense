@@ -60,8 +60,17 @@ const TransactionsTable = ({ transactions }) => {
                       currency: "USD",
                     }).format(transaction.amount)}
                   </td>
-                  <td className=" text-center text-xs flex justify-center">
-                    <p className="py-1 w-[50%] bg-[#bcffde] text-[#02B15A] rounded-xl">
+                  <td className="mt-3 text-center text-xs flex justify-center">
+                    <p
+                      className={
+                        (transaction.status === "Income" &&
+                          "py-1 w-[55%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                        (transaction.status === "Expense" &&
+                          "py-1 w-[55%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
+                        (transaction.status === "Investment" &&
+                          "py-1 w-[55%] bg-[#001aff24] text-[#001aff] rounded-xl")
+                      }
+                    >
                       {transaction.status}
                     </p>
                   </td>
