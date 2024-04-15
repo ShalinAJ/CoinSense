@@ -26,8 +26,8 @@ const BalanceEvolutionChart = () => {
           {
             label: "Dataset 2",
             data: [2, 3, 4, 5, 6, 2, 8, 10, 6, 4, 3, 9],
-            borderColor: "#152DFF",
-            backgroundColor: "#152dff26",
+            borderColor: "#152dff26",
+            backgroundColor: "#152DFF",
             tension: 0.4,
           },
         ],
@@ -44,6 +44,9 @@ const BalanceEvolutionChart = () => {
             },
           },
           x: {
+            grid: {
+              display: false,
+            },
             ticks: {
               font: {
                 size: 10,
@@ -56,6 +59,11 @@ const BalanceEvolutionChart = () => {
           padding: {
             left: 12,
             right: 12,
+          },
+        },
+        plugins: {
+          legend: {
+            display: false,
           },
         },
       },

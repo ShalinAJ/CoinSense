@@ -24,19 +24,28 @@ const InflowOutflowChart = () => {
         ],
         datasets: [
           {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3, 18, 12, 7, 3, 5, 9],
-            borderWidth: 2,
-            borderColor: "#c4c4c4",
-            backgroundColor: "#f3f3f3e8",
+            label: "Inflow",
+            data: [2, 3, 4, 5, 6, 12, 11, 8, 6, 4, 3, 9],
+            borderWidth: 1,
+            borderColor: "#152DFF",
+            backgroundColor: "#152dff26",
+            barThickness: 10,
             borderRadius: 50,
           },
           {
-            label: "Dataset 2",
-            data: [2, 3, 4, 5, 6, 12, 11, 8, 6, 4, 3, 9],
-            borderWidth: 2,
-            borderColor: "#152DFF",
-            backgroundColor: "#152dff26",
+            label: "",
+            data: [],
+            barPercentage: 0.01,
+            borderWidth: 0,
+            backgroundColor: "transparent",
+          },
+          {
+            label: "Outflow",
+            data: [12, 19, 3, 5, 2, 3, 18, 12, 7, 3, 5, 9],
+            borderWidth: 1,
+            borderColor: "#c4c4c4",
+            backgroundColor: "#f3f3f3e8",
+            barThickness: 10,
             borderRadius: 50,
           },
         ],
@@ -48,15 +57,18 @@ const InflowOutflowChart = () => {
             ticks: {
               font: {
                 size: 10,
-                family: "Inter",
+                family: "inter",
               },
             },
           },
           x: {
+            grid: {
+              display: false,
+            },
             ticks: {
               font: {
                 size: 10,
-                family: "Inter",
+                family: "inter",
               },
             },
           },
@@ -65,6 +77,20 @@ const InflowOutflowChart = () => {
           padding: {
             left: 12,
             right: 12,
+          },
+        },
+        plugins: {
+          legend: {
+            labels: {
+              boxWidth: 10,
+              color: "black",
+              pointStyle: "circle",
+              font: {
+                weight: "normal",
+              },
+              useBorderRadius: true,
+              borderRadius: 5,
+            },
           },
         },
       },

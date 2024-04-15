@@ -13,7 +13,7 @@ const DashboardPage = () => {
       <div className="w-[80%]">
         <div className="bg-white flex flex-col items-start justify-between px-[28px] pt-[45px]">
           <div className="mr-20 mb-8">
-            <p className="text-2xl font-bold">Welcome Back, Ali 👋</p>
+            <p className="text-2xl font-bold">Welcome Back 👋</p>
             <p className="text-sm pt-2 font-light">{headingText} </p>
           </div>
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
@@ -46,14 +46,16 @@ const DashboardPage = () => {
             </div>
           </div>
           <div className="w-[100%] h-[100%]">
-            <div className="border-[3px] border-coinsense-blue rounded-xl p-4">
+            <div className="border-[2px] border-[#152dff61] rounded-xl p-4">
               <h2 className="p-3 text-base font-medium">
                 Financial Inflow Outflow
               </h2>
               <InflowOutflowChart />
             </div>
-            <div className="border-[3px] border-coinsense-blue rounded-xl p-4 mt-10 mb-10">
-              <h2 className="p-3 text-base font-medium">Balance Evolution</h2>
+            <div className="border-[2px] border-[#152dff61] rounded-xl p-4 mt-10 mb-10">
+              <h2 className="p-3 mb-5 text-base font-medium">
+                Balance Evolution
+              </h2>
               <BalanceEvolutionChart />
             </div>
           </div>
