@@ -7,12 +7,13 @@ import addUser from "../assets/add-user.svg";
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const { register } = useRegister();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
-    await register(email, password);
+    await register(name, email, password);
     location.reload();
   }
 
@@ -44,6 +45,7 @@ const RegisterPage = () => {
                 id="name"
                 type="name"
                 name="name"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 

@@ -5,6 +5,11 @@ const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
+  name: {
+    type: String,
+    require: true,
+    unique: true,
+  },
   email: {
     type: String,
     require: true,
@@ -17,9 +22,9 @@ const userSchema = new Schema({
 });
 
 // static register method
-userSchema.statics.register = async function (email, password) {
+userSchema.statics.register = async function (name, email, password) {
   // validation
-  if (!email || !password) {
+  if (!email || !password || !name) {
     throw error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
@@ -37,7 +42,7 @@ userSchema.statics.register = async function (email, password) {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const user = await this.create({ email, password: hash });
+  const user = await this.create({ name, email, password: hash });
 
   return user;
 };

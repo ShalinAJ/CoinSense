@@ -58,12 +58,17 @@ const DashboardPage = () => {
     transactionInfo();
   }, []);
   const headingText = "Here's what's happening with your money today.";
+  const { name } = JSON.parse(localStorage.getItem("user"));
+  let firstName;
+  name ? (firstName = name.split(" ")[0]) : "";
   return (
     <>
       <div className="w-[80%]">
         <div className="bg-white flex flex-col items-start justify-between px-[28px] pt-[45px]">
           <div className="mr-20 mb-8">
-            <p className="text-2xl font-bold">Welcome Back 👋</p>
+            <p className="text-2xl font-bold">
+              Welcome Back, {!firstName ? "[YOUR NAME]" : firstName} 👋
+            </p>
             <p className="text-sm pt-2 font-light">{headingText} </p>
           </div>
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
