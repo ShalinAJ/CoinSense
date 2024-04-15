@@ -1,5 +1,6 @@
-const Transaction = require("../models/transactionModel.jsx");
 const mongoose = require("mongoose");
+
+const Transaction = require("../models/transactionModel.jsx");
 
 // GET all transactions
 const getTransactions = async (req, res) => {
