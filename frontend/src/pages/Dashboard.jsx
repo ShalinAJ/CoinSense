@@ -57,7 +57,7 @@ const DashboardPage = () => {
 
     transactionInfo();
   }, []);
-  const headingText = "Here's what's happening with your money today.";
+  const headingText = "Here's overview of your financial portfolio.";
   const { name } = JSON.parse(localStorage.getItem("user"));
   let firstName;
   name ? (firstName = name.split(" ")[0]) : "";
