@@ -52,7 +52,7 @@ const LoginPage = () => {
                 className="mb-1 text-black text-xs font-semibold"
                 htmlFor="email"
               >
-                Email
+                Email <seciton className="text-red-600">*</seciton>
               </label>
               <div className="relative">
                 <img
@@ -75,7 +75,7 @@ const LoginPage = () => {
                 className="mb-1 text-black text-xs font-semibold"
                 htmlFor="password"
               >
-                Password
+                Password <seciton className="text-red-600">*</seciton>
               </label>
               <div className="relative">
                 <img

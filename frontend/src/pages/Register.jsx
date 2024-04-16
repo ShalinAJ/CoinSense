@@ -3,6 +3,9 @@ import { useState } from "react";
 
 import { useRegister } from "../Hooks/useRegister";
 import addUser from "../assets/add-user.svg";
+import loginInputEmail from "../assets/login-input-email.png";
+import loginInputPswd from "../assets/login-input-pswd.png";
+import registerInputProfile from "../assets/register-profile.png";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -38,15 +41,22 @@ const RegisterPage = () => {
                 className="mb-1 text-black text-xs font-semibold"
                 htmlFor="name"
               >
-                Full Name
+                Full Name <seciton className="text-red-600">*</seciton>
               </label>
-              <input
-                className="rounded-md py-2 pl-2  text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
-                id="name"
-                type="name"
-                name="name"
-                onChange={(e) => setName(e.target.value)}
-              />
+              <div className="relative">
+                <img
+                  src={registerInputProfile}
+                  alt=""
+                  className="absolute left-2 top-2 max-w-4"
+                />
+                <input
+                  className="rounded-md py-2 pl-8 w-80 text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
+                  id="name"
+                  type="name"
+                  name="name"
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="flex flex-col text-left mb-4">
@@ -54,16 +64,22 @@ const RegisterPage = () => {
                 className="mb-1 text-black text-xs font-semibold"
                 htmlFor="email"
               >
-                Email
+                Email <seciton className="text-red-600">*</seciton>
               </label>
-              <input
-                className="rounded-md py-2 pl-2 text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
-                id="email"
-                type="email"
-                name="email"
-                onChange={(e) => setEmail(e.target.value)}
-                //value={email}
-              />
+              <div className="relative">
+                <img
+                  src={loginInputEmail}
+                  alt=""
+                  className="absolute left-2 top-2 max-w-4"
+                />
+                <input
+                  className="rounded-md py-2 pl-8 w-80 text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
+                  id="email"
+                  type="email"
+                  name="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="flex flex-col text-left mb-6">
@@ -71,16 +87,22 @@ const RegisterPage = () => {
                 className="mb-1 text-black text-xs font-semibold"
                 htmlFor="password"
               >
-                Password
+                Password <seciton className="text-red-600">*</seciton>
               </label>
-              <input
-                className="rounded-md py-2 pl-2 text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
-                id="password"
-                type="password"
-                name="password"
-                onChange={(e) => setPassword(e.target.value)}
-                //value={password}
-              />
+              <div className="relative">
+                <img
+                  src={loginInputPswd}
+                  alt=""
+                  className="absolute left-2 top-2 max-w-4"
+                />
+                <input
+                  className="rounded-md py-2 pl-8 w-80 text-xs text-black bg-white border border-grey-800 focus:outline-none focus:border-[#152DFF]"
+                  id="password"
+                  type="password"
+                  name="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
             </div>
 
             <p>
