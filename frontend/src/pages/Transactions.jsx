@@ -18,7 +18,7 @@ const TransactionsPage = () => {
   return (
     <>
       <AddTransactionModal isOpen={modalOpen} onClose={closeModal} />
-      <div className="w-[80%] ">
+      <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
             <h2 className="text-2xl font-bold">Transactions</h2>

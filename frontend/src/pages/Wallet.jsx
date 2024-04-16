@@ -18,12 +18,12 @@ const WalletPage = () => {
   return (
     <>
       <AddWalletModal isOpen={modalOpen} onClose={closeModal} />
-      <div className="w-[80%] ">
+      <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
-            <h2 className="text-2xl font-bold">Wallets</h2>
+            <h2 className="text-2xl font-bold">My Wallets</h2>
             <p className="text-sm pt-2 font-light">
-              Detailed view of your walletss
+              Detailed view of your wallets
             </p>
           </div>
           <button
@@ -33,7 +33,7 @@ const WalletPage = () => {
             Add Wallet
           </button>
         </div>
-        <div className=" pl-[28px] py-6">
+        <div className=" px-[28px] py-6">
           <Suspense fallback={<p>Loading...</p>}>
             <Await resolve={wallets}>
               {(loadedWallets) => <WalletsList wallets={loadedWallets} />}
@@ -57,6 +57,7 @@ export async function action({ request }) {
     expMonth: data.get("expMonth"),
     expYear: data.get("expYear"),
     nickname: data.get("nickname"),
+    cardbalance: data.get("cardbalance"),
   };
 
   const response = await fetch("http://localhost:4000/wallet/new", {

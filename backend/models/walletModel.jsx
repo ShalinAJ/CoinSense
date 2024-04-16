@@ -24,6 +24,10 @@ const walletSchema = new Schema(
       type: String,
       require: true,
     },
+    cardbalance: {
+      type: Number,
+      require: true,
+    },
     user_id: {
       type: String,
       require: true,
