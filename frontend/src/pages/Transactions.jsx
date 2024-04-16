@@ -1,18 +1,49 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Await, defer, json, useLoaderData } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable.jsx";
+import AddTransactionModal from "../components/AddTransactionModal.jsx";
 
 const TransactionsPage = () => {
   const { transactions } = useLoaderData();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <Await resolve={transactions}>
-        {(loadedTransactions) => (
-          <TransactionsTable transactions={loadedTransactions} />
-        )}
-      </Await>
-    </Suspense>
+    <>
+      <AddTransactionModal isOpen={modalOpen} onClose={closeModal} />
+      <div className="w-[80%] ">
+        <div className="flex items-start justify-between px-[28px] pt-[45px]">
+          <div>
+            <h2 className="text-2xl font-bold">Transactions</h2>
+            <p className="text-sm pt-2 font-light">
+              Detailed view of your transactions
+            </p>
+          </div>
+          <button
+            onClick={openModal}
+            className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
+          >
+            Add Transaction
+          </button>
+        </div>
+        <div className=" pl-[28px] py-6">
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await resolve={transactions}>
+              {(loadedTransactions) => (
+                <TransactionsTable transactions={loadedTransactions} />
+              )}
+            </Await>
+          </Suspense>
+        </div>
+      </div>
+    </>
   );
 };
 
@@ -59,7 +90,7 @@ async function loadTransactions() {
   });
 
   if (!response.ok) {
-    return json({ message: "Could not fetch events." }, { status: 500 });
+    return json({ message: "Could not fetch transactions." }, { status: 500 });
   } else {
     const transactions = await response.json();
     return transactions;

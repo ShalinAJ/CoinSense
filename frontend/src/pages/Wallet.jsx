@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import AddWalletModal from "../components/AddWalletModal";
+import { Await, defer, useLoaderData } from "react-router-dom";
+import WalletsList from "../components/WalletsList";
 
 const WalletPage = () => {
+  const { wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -30,8 +33,12 @@ const WalletPage = () => {
             Add Wallet
           </button>
         </div>
-        <div className=" pl-[38px] py-[36px]">
-          <div>add cards..</div>
+        <div className=" pl-[28px] py-6">
+          <Suspense fallback={<p>Loading...</p>}>
+            <Await resolve={wallets}>
+              {(loadedWallets) => <WalletsList wallets={loadedWallets} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
     </>
@@ -49,6 +56,7 @@ export async function action({ request }) {
     number: data.get("number"),
     expMonth: data.get("expMonth"),
     expYear: data.get("expYear"),
+    nickname: data.get("nickname"),
   };
 
   const response = await fetch("http://localhost:4000/wallet/new", {
@@ -67,4 +75,24 @@ export async function action({ request }) {
 
   window.location.reload();
   return null;
+}
+
+async function loadWallets() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/wallets", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch wallets." }, { status: 500 });
+  } else {
+    const wallets = await response.json();
+    return wallets;
+  }
+}
+
+export function loader() {
+  return defer({ wallets: loadWallets() });
 }

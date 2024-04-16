@@ -15,7 +15,7 @@ const getWallets = async (req, res) => {
 
 // POST a new wallet
 const createWallet = async (req, res) => {
-  const { name, number, expMonth, expYear } = req.body;
+  const { name, number, expMonth, expYear, nickname } = req.body;
 
   const emptyFields = [];
 
@@ -33,6 +33,10 @@ const createWallet = async (req, res) => {
     emptyFields.push(expYear);
   }
 
+  if (!nickname) {
+    emptyFields.push(nickname);
+  }
+
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -46,6 +50,7 @@ const createWallet = async (req, res) => {
       number,
       expMonth,
       expYear,
+      nickname,
       user_id,
     });
     res.status(200).json(wallet);

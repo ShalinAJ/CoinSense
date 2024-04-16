@@ -56,7 +56,16 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                   type="number"
                   name="expYear"
                   maxLength="2"
-                  className="w-[13%123] mx-2"
+                  className="w-[13%] mx-2"
+                ></input>
+              </div>
+              <div className="flex flex-col mb-3 mt-3 w-[44.4%]">
+                <label htmlFor="">Nickname</label>
+                <input
+                  id="nickname"
+                  type="text"
+                  name="nickname"
+                  maxLength="10"
                 ></input>
               </div>
               {/* not sure about the bottom input field */}

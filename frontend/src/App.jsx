@@ -14,7 +14,10 @@ import TransactionsPage, {
   action as newTransactionAction,
   loader as transacitonsLoader,
 } from "./pages/Transactions";
-import WalletPage, { action as newWalletAction } from "./pages/Wallet";
+import WalletPage, {
+  action as newWalletAction,
+  loader as walletsLoader,
+} from "./pages/Wallet";
 import AccountPage from "./pages/Account";
 import { action as logoutAction } from "./pages/Logout";
 
@@ -52,6 +55,7 @@ const router = createBrowserRouter([
             path: "/dashboard/wallet",
             element: user ? <WalletPage /> : <Navigate to="/login" />,
             action: newWalletAction,
+            loader: walletsLoader,
           },
           {
             path: "/dashboard/account",

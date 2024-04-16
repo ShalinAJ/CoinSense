@@ -20,6 +20,10 @@ const walletSchema = new Schema(
       type: Number,
       require: true,
     },
+    nickname: {
+      type: String,
+      require: true,
+    },
     user_id: {
       type: String,
       require: true,
