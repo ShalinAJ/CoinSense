@@ -5,6 +5,8 @@ import { useLogin } from "../Hooks/useLogin";
 import addUser from "../assets/add-user.svg";
 import loginInputEmail from "../assets/login-input-email.png";
 import loginInputPswd from "../assets/login-input-pswd.png";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +19,17 @@ const LoginPage = () => {
     await login(email, password);
     location.reload();
   }
+
+  const handleSuccess = (credentialResponse) => {
+    // Handle the successful login here
+    const decoded = jwtDecode(credentialResponse?.credential);
+    console.log("Google login successful", decoded);
+  };
+
+  const handleError = () => {
+    // Handle login errors here
+    console.log("Google login failed");
+  };
 
   return (
     <>
@@ -120,6 +133,9 @@ const LoginPage = () => {
             <hr className="flex-1 border-t border-[#E0E0E0]" />
             <span className="mx-2 text-xs text-black">OR</span>
             <hr className="flex-1 border-t border-[#E0E0E0]" />
+          </div>
+          <div>
+            <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
           </div>
         </div>
       </div>
