@@ -27,7 +27,7 @@ const WalletPage = () => {
             onClick={openModal}
             className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
           >
-            Add A New Wallet
+            Add Wallet
           </button>
         </div>
         <div className=" pl-[38px] py-[36px]">
@@ -39,3 +39,32 @@ const WalletPage = () => {
 };
 
 export default WalletPage;
+
+export async function action({ request }) {
+  const data = await request.formData();
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  const walletData = {
+    name: data.get("name"),
+    number: data.get("number"),
+    expMonth: data.get("expMonth"),
+    expYear: data.get("expYear"),
+  };
+
+  const response = await fetch("http://localhost:4000/wallet/new", {
+    method: "POST",
+
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(walletData),
+  });
+
+  if (!response.ok) {
+    throw json({ message: "Could not save." }, { status: 500 });
+  }
+
+  window.location.reload();
+  return null;
+}

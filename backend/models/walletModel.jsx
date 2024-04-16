@@ -12,8 +12,12 @@ const walletSchema = new Schema(
       type: Number,
       require: true,
     },
-    expDate: {
-      type: Date,
+    expMonth: {
+      type: Number,
+      require: true,
+    },
+    expYear: {
+      type: Number,
       require: true,
     },
     user_id: {

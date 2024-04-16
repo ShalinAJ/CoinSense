@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form } from "react-router-dom";
 
 const AddWalletModal = ({ isOpen, onClose }) => {
@@ -35,28 +35,28 @@ const AddWalletModal = ({ isOpen, onClose }) => {
               <div className="flex flex-col my-3">
                 <label htmlFor="">Card number</label>
                 <input
-                  id="cardnumber"
+                  id="number"
                   type="text"
-                  name="cardnumber"
-                  maxlength="16"
+                  name="number"
+                  maxLength="16"
                 ></input>
               </div>
               <div className="flex flex-row items-center my-4 ">
                 <label htmlFor="">Expiry date : </label>
                 <input
-                  id="month"
-                  type="text"
-                  name="month"
+                  id="expMonth"
+                  type="number"
+                  name="expMonth"
                   maxLength="2"
-                  className="w-[10%] mx-2"
+                  className="w-[13%] mx-2"
                 ></input>
                 /
                 <input
-                  id="year"
-                  type="text"
-                  name="year"
+                  id="expYear"
+                  type="number"
+                  name="expYear"
                   maxLength="2"
-                  className="w-[10%] mx-2"
+                  className="w-[13%123] mx-2"
                 ></input>
               </div>
               {/* not sure about the bottom input field */}
