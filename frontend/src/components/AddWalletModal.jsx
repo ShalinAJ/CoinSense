@@ -59,26 +59,26 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                   className="w-[13%] mx-2"
                 ></input>
               </div>
-              <div className="flex flex-col mb-3 mt-3 w-[44.4%]">
-                <label htmlFor="">Nickname</label>
-                <input
-                  id="nickname"
-                  type="text"
-                  name="nickname"
-                  maxLength="10"
-                ></input>
+              <div className="flex flex-row mb-3 mt-3 gap-5 justify-between intems-center">
+                <div className="flex flex-col w-[50%]">
+                  <label htmlFor="">Nickname</label>
+                  <input
+                    id="nickname"
+                    type="text"
+                    name="nickname"
+                    maxLength="10"
+                  ></input>
+                </div>
+                <div className="flex flex-col  w-[50%]">
+                  <label htmlFor="">Last balance :</label>
+                  <input
+                    id="cardbalance"
+                    type="float"
+                    name="cardbalance"
+                  ></input>
+                </div>
               </div>
-              {/* not sure about the bottom input field */}
-              {/* 
-              <div className="flex flex-row items-center my-3">
-                <label htmlFor="">Last balance :</label>
-                <input
-                  id="lastbalance"
-                  type="float"
-                  name="lastbalance"
-                  className="w-[40%] ml-3 "
-                ></input>
-              </div> */}
+
               <div className="flex justify-end">
                 <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker">
                   Add
