@@ -1,220 +1,90 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Chart from "chart.js/auto";
 
 const InflowOutflowChart = () => {
-  const inflows = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  const outflows = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-  async function loadTransactions() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch("http://localhost:4000/transactions", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-
-    if (!response.ok) {
-      return json(
-        { message: "Could not fetch transactions." },
-        { status: 500 }
-      );
-    } else {
-      const transactions = await response.json();
-      return transactions;
-    }
-  }
+  const [inflows, setInflows] = useState(Array(12).fill(0));
+  const [outflows, setOutflows] = useState(Array(12).fill(0));
+  const chartRef = useRef(null);
 
   useEffect(() => {
-    async function transactionInfo() {
+    const loadTransactions = async () => {
       try {
-        const transactions = await loadTransactions();
-
-        let inflowCounter = 0;
-        let outflowCounter = 0;
-
-        transactions.forEach((transaction) => {
-          const transactionDate = new Date(transaction.date).toLocaleString(
-            "en-US",
-            {
-              month: "long",
-            }
-          );
-
-          if (
-            transactionDate === "January" &&
-            transaction.status === "Income"
-          ) {
-            inflowCounter = transaction.amount;
-            inflows[0] = inflowCounter;
-            return inflows;
-          }
-
-          if (
-            transactionDate === "February" &&
-            transaction.status === "Income"
-          ) {
-            inflowCounter = transaction.amount;
-            inflows[1] = inflowCounter;
-            return inflows;
-          }
-          if (transactionDate === "March" && transaction.status === "Income") {
-            inflowCounter = transaction.amount;
-            inflows[2] = inflowCounter;
-            return inflows;
-          }
-          if (transactionDate === "April" && transaction.status === "Income") {
-            inflowCounter = transaction.amount;
-            inflows[3] = inflowCounter;
-            return inflows;
-          }
-          if (transactionDate === "May" && transaction.status === "Income") {
-            inflowCounter = transaction.amount;
-            inflows[4] = inflowCounter;
-            return inflows;
-          }
-          if (transactionDate === "June" && transaction.status === "Income") {
-            inflowCounter = transaction.amount;
-            inflows[5] = inflowCounter;
-            return inflows;
-          }
-          if (transactionDate === "Jully" && transaction.status === "Income") {
-            inflowCounter = transaction.amount;
-            inflows[6] = inflowCounter;
-            return inflows;
-          }
-          if (transactionDate === "Augest" && transaction.status === "Income") {
-            inflowCounter = transaction.amount;
-            inflows[7] = inflowCounter;
-            return inflows;
-          }
-          if (
-            transactionDate === "September" &&
-            transaction.status === "Income"
-          ) {
-            inflowCounter = transaction.amount;
-            inflows[8] = inflowCounter;
-            return inflows;
-          }
-          if (
-            transactionDate === "October" &&
-            transaction.status === "Income"
-          ) {
-            inflowCounter = transaction.amount;
-            inflows[9] = inflowCounter;
-            return inflows;
-          }
-          if (
-            transactionDate === "November" &&
-            transaction.status === "Income"
-          ) {
-            inflowCounter = transaction.amount;
-            inflows[10] = inflowCounter;
-            return inflows;
-          }
-          if (
-            transactionDate === "December" &&
-            transaction.status === "Income"
-          ) {
-            inflowCounter = transaction.amount;
-            inflows[11] = inflowCounter;
-            return inflows;
-          }
-
-          if (
-            transactionDate === "January" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[0] = outflowCounter;
-            return outflows;
-          }
-
-          if (
-            transactionDate === "February" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[1] = outflowCounter;
-            return outflows;
-          }
-          if (transactionDate === "March" && transaction.status === "Expense") {
-            outflowCounter = transaction.amount;
-            outflows[2] = outflowCounter;
-            return outflows;
-          }
-          if (transactionDate === "April" && transaction.status === "Expense") {
-            outflowCounter = transaction.amount;
-            outflows[3] = outflowCounter;
-            return outflows;
-          }
-          if (transactionDate === "May" && transaction.status === "Expense") {
-            outflowCounter = transaction.amount;
-            outflows[4] = outflowCounter;
-            return outflows;
-          }
-          if (transactionDate === "June" && transaction.status === "Expense") {
-            outflowCounter = transaction.amount;
-            outflows[5] = outflowCounter;
-            return outflows;
-          }
-          if (transactionDate === "Jully" && transaction.status === "Expense") {
-            outflowCounter = transaction.amount;
-            outflows[6] = outflowCounter;
-            return outflows;
-          }
-          if (
-            transactionDate === "Augest" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[7] = outflowCounter;
-            return outflows;
-          }
-          if (
-            transactionDate === "September" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[8] = outflowCounter;
-            return outflows;
-          }
-          if (
-            transactionDate === "October" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[9] = outflowCounter;
-            return outflows;
-          }
-          if (
-            transactionDate === "November" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[10] = outflowCounter;
-            return outflows;
-          }
-          if (
-            transactionDate === "December" &&
-            transaction.status === "Expense"
-          ) {
-            outflowCounter = transaction.amount;
-            outflows[11] = outflowCounter;
-            return outflows;
-          }
+        const user = JSON.parse(localStorage.getItem("user"));
+        const response = await fetch("http://localhost:4000/transactions", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         });
-        renderChart();
+
+        if (!response.ok) {
+          throw new Error("Could not fetch transactions.");
+        }
+
+        const transactions = await response.json();
+        processTransactions(transactions);
       } catch (error) {
         console.error(error.message);
       }
-    }
+    };
 
-    transactionInfo();
+    const processTransactions = (transactions) => {
+      const monthIndexMap = {
+        January: 0,
+        February: 1,
+        March: 2,
+        April: 3,
+        May: 4,
+        June: 5,
+        July: 6,
+        August: 7,
+        September: 8,
+        October: 9,
+        November: 10,
+        December: 11,
+      };
+
+      transactions.slice(0, 12).forEach((transaction) => {
+        const transactionDate = new Date(transaction.date).toLocaleString(
+          "en-US",
+          {
+            month: "long",
+          }
+        );
+        const monthIndex = monthIndexMap[transactionDate];
+        if (monthIndex !== undefined) {
+          if (transaction.status === "Income") {
+            setInflows((prevInflows) => {
+              const updatedInflows = [...prevInflows];
+              updatedInflows[monthIndex] += transaction.amount;
+              return updatedInflows;
+            });
+          } else if (transaction.status === "Expense") {
+            setOutflows((prevOutflows) => {
+              const updatedOutflows = [...prevOutflows];
+              updatedOutflows[monthIndex] += transaction.amount;
+              return updatedOutflows;
+            });
+          }
+        }
+      });
+    };
+
+    loadTransactions();
   }, []);
 
-  function renderChart() {
+  useEffect(() => {
+    renderChart();
+  }, [inflows, outflows]);
+
+  const renderChart = () => {
     const ctx = document.getElementById("inflowOutflow");
-    new Chart(ctx, {
+    if (!ctx) return;
+
+    if (chartRef.current) {
+      chartRef.current.destroy();
+    }
+
+    chartRef.current = new Chart(ctx, {
       type: "bar",
       data: {
         labels: [
@@ -304,7 +174,7 @@ const InflowOutflowChart = () => {
         },
       },
     });
-  }
+  };
 
   return <canvas width="100" height="30" id="inflowOutflow"></canvas>;
 };
