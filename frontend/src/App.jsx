@@ -44,6 +44,7 @@ const router = createBrowserRouter([
           {
             index: true,
             element: user ? <DashboardPage /> : <Navigate to="/login" />,
+            loader: transacitonsLoader,
           },
           {
             path: "/dashboard/transactions",

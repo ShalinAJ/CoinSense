@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 
-const BalanceEvolutionChart = () => {
+const BalanceEvolutionChart = ({ selectedYear }) => {
   const [balanceEvolution, setBalanceEvolution] = useState(Array(12).fill(0));
 
   useEffect(() => {
@@ -41,34 +41,30 @@ const BalanceEvolutionChart = () => {
         December: 11,
       };
 
-      transactions.slice(0, 12).forEach((transaction) => {
-        const transactionDate = new Date(transaction.date).toLocaleString(
-          "en-US",
-          {
-            month: "long",
-          }
-        );
-        const monthIndex = monthIndexMap[transactionDate];
-        if (monthIndex !== undefined) {
+      const balanceForYear = Array(12).fill(0);
+
+      transactions.forEach((transaction) => {
+        const transactionDate = new Date(transaction.date);
+        const transactionYear = transactionDate.getFullYear();
+        const transactionMonthIndex =
+          monthIndexMap[
+            transactionDate.toLocaleString("en-US", { month: "long" })
+          ];
+
+        if (transactionYear.toString() === selectedYear) {
           if (transaction.status === "Income") {
-            setBalanceEvolution((prevbalances) => {
-              const updatedbalances = [...prevbalances];
-              updatedbalances[monthIndex] += transaction.amount;
-              return updatedbalances;
-            });
+            balanceForYear[transactionMonthIndex] += transaction.amount;
           } else if (transaction.status === "Expense") {
-            setBalanceEvolution((prevbalances) => {
-              const updatedbalances = [...prevbalances];
-              updatedbalances[monthIndex] -= transaction.amount;
-              return updatedbalances;
-            });
+            balanceForYear[transactionMonthIndex] -= transaction.amount;
           }
         }
       });
+
+      setBalanceEvolution(balanceForYear);
     };
 
     loadTransactions();
-  }, []);
+  }, [selectedYear]);
 
   useEffect(() => {
     if (balanceEvolution.length > 0) {
@@ -79,7 +75,6 @@ const BalanceEvolutionChart = () => {
   const renderChart = () => {
     const ctx = document.getElementById("balanceEvolution");
 
-    // Cleanup previous chart instance
     Chart.getChart(ctx)?.destroy();
 
     new Chart(ctx, {
@@ -101,7 +96,7 @@ const BalanceEvolutionChart = () => {
         ],
         datasets: [
           {
-            label: "Dataset 2",
+            label: "Balance",
             data: balanceEvolution,
             borderColor: "#152dff26",
             backgroundColor: "#152DFF",
@@ -112,7 +107,7 @@ const BalanceEvolutionChart = () => {
       options: {
         scales: {
           y: {
-            beginAtZero: false,
+            beginAtZero: true,
             ticks: {
               font: {
                 size: 10,
@@ -121,6 +116,7 @@ const BalanceEvolutionChart = () => {
             },
           },
           x: {
+            beginAtZero: true,
             grid: {
               display: false,
             },

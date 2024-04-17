@@ -3,40 +3,31 @@ import totalExpenseImg from "../assets/total-expenses.png";
 import totalInvestmentImg from "../assets/total-investments.png";
 import InflowOutflowChart from "../charts/InflowOutflowChart";
 import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
-import { json } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
+  const { transactions } = useLoaderData();
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalInvestment, setTotalInvestment] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
-
-  async function loadTransactions() {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch("http://localhost:4000/transactions", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-
-    if (!response.ok) {
-      return json({ message: "Could not fetch events." }, { status: 500 });
-    } else {
-      const transactions = await response.json();
-      return transactions;
-    }
-  }
+  const [transactionYears, setTransactionYears] = useState([]);
+  const [selectedYearBE, setSelectedYearBE] = useState(
+    `${new Date().getFullYear()}`
+  );
+  const [selectedYearIO, setSelectedYearIO] = useState(
+    `${new Date().getFullYear()}`
+  );
 
   useEffect(() => {
     async function transactionInfo() {
       try {
-        const transactions = await loadTransactions();
-
+        const loadedTransactions = await transactions;
         let totalIncome = 0;
         let totalInvestment = 0;
         let totalExpense = 0;
 
-        transactions.forEach((trans) => {
+        loadedTransactions.forEach((trans) => {
           if (trans.status === "Investment") {
             totalInvestment += trans.amount;
           }
@@ -58,14 +49,46 @@ const DashboardPage = () => {
       } catch (error) {
         console.error(error.message);
       }
+      const transactionD = await transactions;
+      return transactionD;
     }
 
     transactionInfo();
   }, []);
+
+  useEffect(() => {
+    async function transactionYear() {
+      try {
+        const loadedTransactions = await transactions;
+        const years = [
+          ...new Set(
+            loadedTransactions.map((trans) =>
+              new Date(trans.date).getFullYear()
+            )
+          ),
+        ];
+        setTransactionYears(years);
+      } catch (error) {
+        console.error(error.message);
+      }
+    }
+
+    transactionYear();
+  }, [transactions]);
+
+  const handleYearChangeBE = (event) => {
+    setSelectedYearBE(event.target.value);
+  };
+
+  const handleYearChangeIO = (event) => {
+    setSelectedYearIO(event.target.value);
+  };
+
   const headingText = "Here's overview of your financial portfolio.";
   const { name } = JSON.parse(localStorage.getItem("user"));
   let firstName;
   name ? (firstName = name.split(" ")[0]) : "";
+
   return (
     <>
       <div className="w-[80%]">
@@ -107,16 +130,46 @@ const DashboardPage = () => {
           </div>
           <div className="w-[100%] h-[100%]">
             <div className="border-[2px] border-[#152dff61] rounded-xl p-4">
-              <h2 className="p-3 text-base font-medium">
-                Financial Inflow Outflow
-              </h2>
-              <InflowOutflowChart />
+              <div className="flex flex-row justify-between items-center">
+                <h2 className="p-3 text-base font-medium">
+                  Financial Inflow Outflow
+                </h2>
+                <select
+                  name="years1"
+                  id="years1"
+                  value={selectedYearIO}
+                  onChange={handleYearChangeIO}
+                  className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                >
+                  {transactionYears.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <InflowOutflowChart selectedYear={selectedYearIO} />
             </div>
             <div className="border-[2px] border-[#152dff61] rounded-xl p-4 mt-10 mb-10">
-              <h2 className="p-3 mb-5 text-base font-medium">
-                Balance Evolution
-              </h2>
-              <BalanceEvolutionChart />
+              <div className="flex flex-row justify-between items-center">
+                <h2 className="p-3 mb-5 text-base font-medium">
+                  Balance Evolution
+                </h2>
+                <select
+                  name="years2"
+                  id="years2"
+                  value={selectedYearBE}
+                  onChange={handleYearChangeBE}
+                  className="bg-transparent mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                >
+                  {transactionYears.map((year) => (
+                    <option key={year} value={year}>
+                      {year}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <BalanceEvolutionChart selectedYear={selectedYearBE} />
             </div>
           </div>
         </div>

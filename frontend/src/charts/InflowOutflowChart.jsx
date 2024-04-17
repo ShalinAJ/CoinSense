@@ -1,10 +1,52 @@
 import React, { useEffect, useState, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const InflowOutflowChart = () => {
-  const [inflows, setInflows] = useState(Array(12).fill(0));
-  const [outflows, setOutflows] = useState(Array(12).fill(0));
+const InflowOutflowChart = ({ selectedYear }) => {
+  const [inflows, setInflows] = useState();
+  const [outflows, setOutflows] = useState();
   const chartRef = useRef(null);
+
+  const processTransactions = (transactions) => {
+    const monthIndexMap = {
+      January: 0,
+      February: 1,
+      March: 2,
+      April: 3,
+      May: 4,
+      June: 5,
+      July: 6,
+      August: 7,
+      September: 8,
+      October: 9,
+      November: 10,
+      December: 11,
+    };
+
+    const inflows = Array(12).fill(0);
+    const outflows = Array(12).fill(0);
+
+    transactions.forEach((transaction) => {
+      const transactionDate = new Date(transaction.date).toLocaleString(
+        "en-US",
+        { month: "long" }
+      );
+      const transactionYear = new Date(transaction.date).getFullYear();
+      const monthIndex = monthIndexMap[transactionDate];
+
+      if (transactionYear.toString() === selectedYear) {
+        if (monthIndex !== undefined) {
+          if (transaction.status === "Income") {
+            inflows[monthIndex] += transaction.amount;
+          } else if (transaction.status === "Expense") {
+            outflows[monthIndex] += transaction.amount;
+          }
+        }
+      }
+    });
+
+    setInflows(inflows);
+    setOutflows(outflows);
+  };
 
   useEffect(() => {
     const loadTransactions = async () => {
@@ -27,50 +69,8 @@ const InflowOutflowChart = () => {
       }
     };
 
-    const processTransactions = (transactions) => {
-      const monthIndexMap = {
-        January: 0,
-        February: 1,
-        March: 2,
-        April: 3,
-        May: 4,
-        June: 5,
-        July: 6,
-        August: 7,
-        September: 8,
-        October: 9,
-        November: 10,
-        December: 11,
-      };
-
-      transactions.slice(0, 12).forEach((transaction) => {
-        const transactionDate = new Date(transaction.date).toLocaleString(
-          "en-US",
-          {
-            month: "long",
-          }
-        );
-        const monthIndex = monthIndexMap[transactionDate];
-        if (monthIndex !== undefined) {
-          if (transaction.status === "Income") {
-            setInflows((prevInflows) => {
-              const updatedInflows = [...prevInflows];
-              updatedInflows[monthIndex] += transaction.amount;
-              return updatedInflows;
-            });
-          } else if (transaction.status === "Expense") {
-            setOutflows((prevOutflows) => {
-              const updatedOutflows = [...prevOutflows];
-              updatedOutflows[monthIndex] += transaction.amount;
-              return updatedOutflows;
-            });
-          }
-        }
-      });
-    };
-
     loadTransactions();
-  }, []);
+  }, [selectedYear]);
 
   useEffect(() => {
     renderChart();
