@@ -47,6 +47,11 @@ const DashboardPage = () => {
             totalExpense += trans.amount;
           }
         });
+
+        totalIncome = parseFloat(totalIncome.toFixed(2));
+        totalInvestment = parseFloat(totalInvestment.toFixed(2));
+        totalExpense = parseFloat(totalExpense.toFixed(2));
+
         setTotalIncome(totalIncome);
         setTotalExpense(totalExpense);
         setTotalInvestment(totalInvestment);
