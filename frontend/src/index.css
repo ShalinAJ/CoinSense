@@ -72,6 +72,10 @@ button:focus-visible {
   outline: none;
 }
 
+.box-shadow {
+  box-shadow: 0px 0px 16px -10px #152dff;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
