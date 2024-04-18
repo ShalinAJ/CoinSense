@@ -12,7 +12,7 @@ import DashboardRootLayout from "./pages/DashboardRoot";
 import DashboardPage from "./pages/Dashboard";
 import TransactionsPage, {
   action as newTransactionAction,
-  loader as transacitonsLoader,
+  loader as transactionsLoader,
 } from "./pages/Transactions";
 import WalletPage, {
   action as newWalletAction,
@@ -44,12 +44,12 @@ const router = createBrowserRouter([
           {
             index: true,
             element: user ? <DashboardPage /> : <Navigate to="/login" />,
-            loader: transacitonsLoader,
+            loader: transactionsLoader,
           },
           {
             path: "/dashboard/transactions",
             element: user ? <TransactionsPage /> : <Navigate to="/login" />,
-            loader: transacitonsLoader,
+            loader: transactionsLoader,
             action: newTransactionAction,
           },
           {
@@ -61,6 +61,7 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/account",
             element: user ? <AccountPage /> : <Navigate to="/login" />,
+            loader: walletsLoader,
           },
         ],
       },

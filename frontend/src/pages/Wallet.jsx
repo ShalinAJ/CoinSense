@@ -94,6 +94,22 @@ async function loadWallets() {
   }
 }
 
+async function loadTransactions() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/transactions", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch transactions." }, { status: 500 });
+  } else {
+    const transactions = await response.json();
+    return transactions;
+  }
+}
+
 export function loader() {
-  return defer({ wallets: loadWallets() });
+  return defer({ wallets: loadWallets(), transactions: loadTransactions() });
 }

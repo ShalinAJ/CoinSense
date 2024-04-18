@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import userImg from "../assets/user-image.png";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const AccountPage = () => {
+  const { transactions, wallets } = useLoaderData();
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
+  const [transactionTotal, setTransactionTotal] = useState(0);
+  const [walletTotal, setWalletTotal] = useState(0);
+  console.log(transactions);
+  useEffect(() => {
+    async function dataTotalHandler() {
+      try {
+        const transactionData = await transactions;
+        const walletData = await wallets;
+        const transactionDataTotal = transactionData.length;
+        const walletDataTotal = walletData.length;
+        setTransactionTotal(transactionDataTotal);
+        setWalletTotal(walletDataTotal);
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    }
+
+    dataTotalHandler();
+  }, [transactions]);
 
   return (
     <div className="w-[80%]">
@@ -11,14 +31,16 @@ const AccountPage = () => {
         <img
           src={userImg}
           alt=""
-          className="w-[10rem] mt-[4rem] rounded-full box-shadow"
+          className="w-[10rem] mt-[3.5rem] rounded-full box-shadow"
         />
-        <p className="text-2xl font-bold pt-4">{userInfo.name}</p>
+        <p className="text-2xl font-bold pt-4">
+          {userInfo.name ? userInfo.name : "Username"}
+        </p>
         <p className="text-xs pt-2">
-          User since {userInfo.date ? userInfo.date : "2024"}
+          User since {userInfo.date ? userInfo.date : "--"}
         </p>
       </div>
-      <div className="flex flex-row justify-between px-[10rem] pt-[4.5rem]">
+      <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
         <div className="w-[50%] flex flex-col">
           <p className="text-xs font-medium pb-3 text-gray-400">
             Contact Information
@@ -36,9 +58,7 @@ const AccountPage = () => {
               <p className="text-[13px] font-bold">Address :</p>
             </div>
             <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.address
-                ? userInfo.address
-                : "1306 Wilfredo Crest, West Conchitaport, DE 83119 United States"}
+              {userInfo.address ? userInfo.address : "--"}
             </p>
           </div>
           <div className=" flex flex-row pb-6">
@@ -46,7 +66,7 @@ const AccountPage = () => {
               <p className=" text-[13px]  font-bold ">Phone :</p>
             </div>
             <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.phone ? userInfo.phone : "+1 123 456 7890"}
+              {userInfo.phone ? userInfo.phone : "--"}
             </p>
           </div>
           <p className="text-xs font-medium pb-3 text-gray-400">
@@ -57,7 +77,7 @@ const AccountPage = () => {
               <p className=" text-[13px]  font-bold ">Birthday :</p>
             </div>
             <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.birthday ? userInfo.birthday : "January 1, 2048"}
+              {userInfo.birthday ? userInfo.birthday : "--"}
             </p>
           </div>
           <div className="flex flex-row">
@@ -65,11 +85,34 @@ const AccountPage = () => {
               <p className="text-[13px]  font-bold">Gender :</p>
             </div>
             <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.gender ? userInfo.gender : "Male"}
+              {userInfo.gender ? userInfo.gender : "--"}
             </p>
           </div>
         </div>
-        <div>widget</div>
+        <div className="flex flex-col gap-4 pt-4">
+          <Link
+            to={"../transactions"}
+            className="gap-0 p-3 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
+          >
+            <p className="text-mediums font-semibold">Transactions</p>
+            <p className="text-lg font-semibold text-[#152DFF]">
+              {transactionTotal ? transactionTotal : 0}
+            </p>
+          </Link>
+          <Link
+            to={"../wallet"}
+            className="gap-0 p-3 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
+          >
+            <p className="text-mediums font-semibold">Wallets</p>
+            <p className="text-lg font-semibold text-[#152DFF]">
+              {walletTotal ? walletTotal : 0}
+            </p>
+          </Link>
+          <Link className="gap-0 p-3 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]">
+            <p className="text-mediums font-semibold">Investments</p>
+            <p className="text-lg font-semibold text-[#152DFF]">24</p>
+          </Link>
+        </div>
       </div>
     </div>
   );
