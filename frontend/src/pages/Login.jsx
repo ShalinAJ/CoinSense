@@ -42,10 +42,6 @@ const LoginPage = () => {
           <p className="mt-4 ">
             Register to CoinSense - enjoy exclusive features & many more
           </p>
-          <div className="border-2 mt-20 rounded-2xl p-4 bg-[#525dfc]">
-            Simple unbelievable! I am really satisfied by Cubik Agencys work.
-            They are absolutely an amazing team!
-          </div>
         </div>
         <div className=" w-[350px] px-4 py-6 bg-white rounded-md mt-20 mb-20">
           <form onSubmit={handleSubmit}>

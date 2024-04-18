@@ -7,15 +7,21 @@ const AccountPage = () => {
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [transactionTotal, setTransactionTotal] = useState(0);
   const [walletTotal, setWalletTotal] = useState(0);
-  console.log(transactions);
+  const [investmentsTotal, setInvestmentsTotal] = useState(0);
+
   useEffect(() => {
     async function dataTotalHandler() {
       try {
         const transactionData = await transactions;
         const walletData = await wallets;
         const transactionDataTotal = transactionData.length;
+        const investmentTransactions = transactionData.filter(
+          (transaction) => transaction.status === "Investment"
+        );
+        const investmentsTotal = investmentTransactions.length;
         const walletDataTotal = walletData.length;
         setTransactionTotal(transactionDataTotal);
+        setInvestmentsTotal(investmentsTotal);
         setWalletTotal(walletDataTotal);
       } catch (error) {
         console.error("Error fetching data", error);
@@ -89,10 +95,10 @@ const AccountPage = () => {
             </p>
           </div>
         </div>
-        <div className="flex flex-col gap-4 pt-4">
+        <div className="flex flex-col gap-4 pt-5">
           <Link
             to={"../transactions"}
-            className="gap-0 p-3 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
+            className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
           >
             <p className="text-mediums font-semibold">Transactions</p>
             <p className="text-lg font-semibold text-[#152DFF]">
@@ -101,16 +107,18 @@ const AccountPage = () => {
           </Link>
           <Link
             to={"../wallet"}
-            className="gap-0 p-3 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
+            className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
           >
             <p className="text-mediums font-semibold">Wallets</p>
             <p className="text-lg font-semibold text-[#152DFF]">
               {walletTotal ? walletTotal : 0}
             </p>
           </Link>
-          <Link className="gap-0 p-3 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]">
+          <Link className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]">
             <p className="text-mediums font-semibold">Investments</p>
-            <p className="text-lg font-semibold text-[#152DFF]">24</p>
+            <p className="text-lg font-semibold text-[#152DFF]">
+              {investmentsTotal ? investmentsTotal : 0}
+            </p>
           </Link>
         </div>
       </div>
