@@ -1,0 +1,17 @@
+.pageLink {
+  color: black;
+  background-color: transparent;
+  border: none;
+  font-size: 11px;
+}
+
+.pageItem {
+  padding: 0px;
+  margin-top: 35px;
+}
+
+.active {
+  color: #fff;
+  background-color: #152dff;
+  border-radius: 100px;
+}

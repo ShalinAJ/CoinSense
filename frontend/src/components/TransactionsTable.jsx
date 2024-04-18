@@ -1,4 +1,6 @@
 import deleteImg from "../assets/delete.png";
+import { useState } from "react";
+import styles from "./TransactionTable.module.css";
 
 const TransactionsTable = ({ transactions }) => {
   const deleteHandler = async (id) => {
@@ -19,59 +21,90 @@ const TransactionsTable = ({ transactions }) => {
     return null;
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
-    <table className="w-[100%]">
-      <tbody>
-        <tr className="text-left text-sm leading-[45px]">
-          <th>Transaction</th>
-          <th>Date</th>
-          <th>Amount</th>
-          <th className="text-center pl-[80px]">Status</th>
-        </tr>
-        {transactions.map((transaction) => (
-          <tr
-            key={transaction._id}
-            className="text-sm font-medium leading-[48px]"
-          >
-            <td>{transaction.transaction}</td>
-            <td>
-              {new Date(transaction.date).toLocaleString("en-US", {
-                weekday: "short",
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}
-            </td>
-            <td>
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(transaction.amount)}
-            </td>
-            <td className="mt-3 text-center text-xs flex justify-end pr-9">
-              <p
-                className={
-                  (transaction.status === "Income" &&
-                    "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
-                  (transaction.status === "Expense" &&
-                    "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
-                  (transaction.status === "Investment" &&
-                    "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl")
-                }
-              >
-                {transaction.status}
-              </p>
-              <button
-                onClick={() => deleteHandler(transaction._id)}
-                className="p-0 m-0 ml-2 border-none bg-transparent"
-              >
-                <img src={deleteImg} className="w-4" />
-              </button>
-            </td>
+    <div>
+      <table className="w-[100%]">
+        <tbody>
+          <tr className="text-left text-sm leading-[45px]">
+            <th>Transaction</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th className="text-center pl-[80px]">Status</th>
           </tr>
+          {currentItems.map((transaction) => (
+            <tr
+              key={transaction._id}
+              className="text-sm font-medium leading-[48px]"
+            >
+              <td>{transaction.transaction}</td>
+              <td>
+                {new Date(transaction.date).toLocaleString("en-US", {
+                  weekday: "short",
+                  day: "numeric",
+                  month: "short",
+                  year: "numeric",
+                })}
+              </td>
+              <td>
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(transaction.amount)}
+              </td>
+              <td className="mt-3 text-center text-xs flex justify-end pr-9">
+                <p
+                  className={
+                    (transaction.status === "Income" &&
+                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                    (transaction.status === "Expense" &&
+                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
+                    (transaction.status === "Investment" &&
+                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl")
+                  }
+                >
+                  {transaction.status}
+                </p>
+                <button
+                  onClick={() => deleteHandler(transaction._id)}
+                  className="p-0 m-0 ml-2 border-none bg-transparent"
+                >
+                  <img src={deleteImg} className="w-4" />
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <ul className={`${styles.pagination} flex flex-row gap-1`}>
+        {Array.from({
+          length: Math.ceil(transactions.length / itemsPerPage),
+        }).map((_, index) => (
+          <li
+            key={index}
+            className={`${styles.pageItem} ${
+              currentPage === index + 1 ? styles.active : ""
+            }`}
+          >
+            <button
+              onClick={() => paginate(index + 1)}
+              className={`${styles.pageLink} ${
+                currentPage === index + 1 ? styles.active : ""
+              }`}
+            >
+              {index + 1}
+            </button>
+          </li>
         ))}
-      </tbody>
-    </table>
+      </ul>
+    </div>
   );
 };
 
