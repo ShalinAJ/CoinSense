@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import { Form } from "react-router-dom";
 
-const AddTransactionModal = ({ isOpen, onClose }) => {
+const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
+  const [selectedCard, setSelectedCard] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
   if (!isOpen) return null;
 
   const closeModal = () => {
     onClose();
   };
+
+  function cardSelecterHandler(event) {
+    setSelectedCard(event.target.value);
+  }
+
+  function statusSelecterHandler(event) {
+    setSelectedStatus(event.target.value);
+  }
 
   return (
     <>
@@ -46,13 +56,52 @@ const AddTransactionModal = ({ isOpen, onClose }) => {
                   name="status"
                   id="status"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
+                  onChange={statusSelecterHandler}
                 >
+                  <option value=""></option>
                   <option value="Income">Income</option>
                   <option value="Expense">Expense</option>
                   <option value="Investment">Investment</option>
                 </select>
               </div>
-              <div className="flex justify-end">
+              <div className="my-1">
+                <label htmlFor="">Card used for trasanction : </label>
+                <select
+                  name="cards"
+                  id="cards"
+                  className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
+                  onChange={cardSelecterHandler}
+                  value={selectedCard}
+                >
+                  {walletCards.map((cards) => (
+                    <option key={cards} value={cards}>
+                      {cards}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="flex justify-between items-end ">
+                {selectedCard ? (
+                  <div className="flex flex-row items-center">
+                    <div
+                      className={`${
+                        (selectedStatus === "Income" && "bg-green-400") ||
+                        (selectedStatus === "Expense" && "bg-red-400") ||
+                        (selectedStatus === "Investment" && "bg-blue-400")
+                      } text-green w-[8px] h-[8px] mt-8 mr-2 rounded-full`}
+                    ></div>
+                    <p className="text-[10px] mt-8 py-1">
+                      {(selectedStatus === "Income" &&
+                        `Transaction will be credited to ${selectedCard}`) ||
+                        (selectedStatus === "Expense" &&
+                          `Transaction will be debited from ${selectedCard}`) ||
+                        (selectedStatus === "Investment" &&
+                          `Transaction will be debited from ${selectedCard}`)}
+                    </p>
+                  </div>
+                ) : (
+                  <p></p>
+                )}
                 <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker">
                   Add
                 </button>

@@ -1,11 +1,23 @@
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { Await, defer, json, useLoaderData } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable.jsx";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
 
 const TransactionsPage = () => {
-  const { transactions } = useLoaderData();
+  const { transactions, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
+  const [walletList, setWalletList] = useState();
+
+  useEffect(() => {
+    async function walletCountHandler() {
+      const walletList = await wallets;
+      const cards = walletList.map((wallet) => wallet.nickname);
+      const cardArray = ["", ...cards];
+      setWalletList(cardArray);
+    }
+
+    walletCountHandler();
+  }, [wallets]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -17,7 +29,12 @@ const TransactionsPage = () => {
 
   return (
     <>
-      <AddTransactionModal isOpen={modalOpen} onClose={closeModal} />
+      {console.log(walletList)}
+      <AddTransactionModal
+        walletCards={walletList}
+        isOpen={modalOpen}
+        onClose={closeModal}
+      />
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
@@ -97,6 +114,22 @@ async function loadTransactions() {
   }
 }
 
+async function loadWallets() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/wallets", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch wallets." }, { status: 500 });
+  } else {
+    const wallets = await response.json();
+    return wallets;
+  }
+}
+
 export function loader() {
-  return defer({ transactions: loadTransactions() });
+  return defer({ transactions: loadTransactions(), wallets: loadWallets() });
 }
