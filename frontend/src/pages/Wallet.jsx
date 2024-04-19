@@ -4,7 +4,7 @@ import { Await, defer, useLoaderData } from "react-router-dom";
 import WalletsList from "../components/WalletsList";
 
 const WalletPage = () => {
-  const { wallets } = useLoaderData();
+  const { wallets, transactions } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -36,7 +36,12 @@ const WalletPage = () => {
         <div className=" px-[28px] py-6">
           <Suspense fallback={<p>Loading...</p>}>
             <Await resolve={wallets}>
-              {(loadedWallets) => <WalletsList wallets={loadedWallets} />}
+              {(loadedWallets) => (
+                <WalletsList
+                  wallets={loadedWallets}
+                  transactions={transactions}
+                />
+              )}
             </Await>
           </Suspense>
         </div>

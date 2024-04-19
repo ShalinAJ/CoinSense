@@ -20,6 +20,10 @@ const transactionSchema = new Schema(
       type: String,
       require: true,
     },
+    card: {
+      type: String,
+      require: true,
+    },
     user_id: {
       type: String,
       require: true,

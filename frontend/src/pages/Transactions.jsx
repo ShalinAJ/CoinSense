@@ -29,12 +29,18 @@ const TransactionsPage = () => {
 
   return (
     <>
-      {console.log(walletList)}
-      <AddTransactionModal
-        walletCards={walletList}
-        isOpen={modalOpen}
-        onClose={closeModal}
-      />
+      <Suspense>
+        <Await resolve={transactions}>
+          {() => (
+            <AddTransactionModal
+              walletCards={walletList}
+              isOpen={modalOpen}
+              onClose={closeModal}
+            />
+          )}
+        </Await>
+      </Suspense>
+
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
@@ -78,6 +84,7 @@ export async function action({ request }) {
     date: date,
     amount: amount,
     status: data.get("status"),
+    card: data.get("card"),
   };
 
   const response = await fetch("http://localhost:4000/transaction/new", {

@@ -4,7 +4,6 @@ import styles from "./TransactionTable.module.css";
 
 const TransactionsTable = ({ transactions }) => {
   const deleteHandler = async (id) => {
-    console.log(id);
     const user = JSON.parse(localStorage.getItem("user"));
     const response = await fetch("http://localhost:4000/" + id, {
       method: "DELETE",
@@ -54,10 +53,15 @@ const TransactionsTable = ({ transactions }) => {
                 })}
               </td>
               <td>
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                }).format(transaction.amount)}
+                <div className="flex flex-row">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(transaction.amount)}
+                  <p className="pl-2 text-[10px] text-gray-500 font-light">
+                    {transaction.card}
+                  </p>
+                </div>
               </td>
               <td className="mt-3 text-center text-xs flex justify-end pr-9">
                 <p

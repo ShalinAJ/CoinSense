@@ -17,7 +17,7 @@ const getTransactions = async (req, res) => {
 
 // POST a new transaction
 const createTransaction = async (req, res) => {
-  const { status, date, amount, transaction } = req.body;
+  const { status, date, amount, transaction, card } = req.body;
 
   const emptyFields = [];
 
@@ -34,6 +34,10 @@ const createTransaction = async (req, res) => {
     emptyFields.push(transaction);
   }
 
+  if (!card) {
+    emptyFields.push(card);
+  }
+
   if (emptyFields.length > 0) {
     return res
       .status(400)
@@ -47,6 +51,7 @@ const createTransaction = async (req, res) => {
       date,
       amount,
       transaction,
+      card,
       user_id,
     });
     res.status(200).json(transactions);

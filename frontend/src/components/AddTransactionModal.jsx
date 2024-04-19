@@ -65,10 +65,10 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                 </select>
               </div>
               <div className="my-1">
-                <label htmlFor="">Card used for trasanction : </label>
+                <label htmlFor="">Card used for transaction : </label>
                 <select
-                  name="cards"
-                  id="cards"
+                  name="card"
+                  id="card"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
                   onChange={cardSelecterHandler}
                   value={selectedCard}
