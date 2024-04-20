@@ -1,6 +1,6 @@
 import { Suspense, useState } from "react";
 import AddWalletModal from "../components/AddWalletModal";
-import { Await, defer, useLoaderData } from "react-router-dom";
+import { Await, defer, json, useLoaderData } from "react-router-dom";
 import WalletsList from "../components/WalletsList";
 
 const WalletPage = () => {
