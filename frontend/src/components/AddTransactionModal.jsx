@@ -75,7 +75,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                 >
                   {walletCards.map((card) => (
                     <option key={card.number} value={card.number}>
-                      {card.nickname} {card.number}
+                      {card.nickname}
                     </option>
                   ))}
                 </select>
@@ -92,11 +92,20 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                     ></div>
                     <p className="text-[10px] mt-8 py-1">
                       {(selectedStatus === "Income" &&
-                        `Transaction will be credited to card ${selectedCard}`) ||
+                        `Transaction will be credited to card XXXX XXXX XXXX ${selectedCard.slice(
+                          12,
+                          16
+                        )}`) ||
                         (selectedStatus === "Expense" &&
-                          `Transaction will be debited from card ${selectedCard}`) ||
+                          `Transaction will be debited from card XXXX XXXX XXXX  ${selectedCard.slice(
+                            12,
+                            16
+                          )}`) ||
                         (selectedStatus === "Investment" &&
-                          `Transaction will be debited from card ${selectedCard}`)}
+                          `Transaction will be debited from card XXXX XXXX XXXX ${selectedCard.slice(
+                            12,
+                            16
+                          )}`)}
                     </p>
                   </div>
                 ) : (
