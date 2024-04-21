@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import visaLogo from "../assets/visa-logo.png";
 import mastercardLogo from "../assets/mastercard-logo.png";
-import deleteImg from "../assets/delete.png";
-import editImg from "../assets/edit.png";
 import EditWalletModal from "./EditWalletModal";
 
 const WalletsList = ({ wallets, transactions }) => {

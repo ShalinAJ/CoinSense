@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
 import { useRegister } from "../Hooks/useRegister";
 import addUser from "../assets/add-user.svg";
 import loginInputEmail from "../assets/login-input-email.png";
