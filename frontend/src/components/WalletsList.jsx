@@ -19,22 +19,6 @@ const WalletsList = ({ wallets, transactions }) => {
     setModalOpen(false);
   };
 
-  const deleteHandler = async (id) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch("http://localhost:4000/wallet/" + id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Could not delete transaction.");
-    }
-
-    window.location.reload();
-  };
-
   useEffect(() => {
     async function walletBalanceCalculator() {
       const cardTransactions = await transactions;
@@ -43,7 +27,7 @@ const WalletsList = ({ wallets, transactions }) => {
       const updatedWalletData = walletData.map((wallet) => {
         const updatedWallet = { ...wallet };
         cardTransactions.forEach((transaction) => {
-          if (transaction.card === wallet.nickname) {
+          if (parseInt(transaction.card) === parseInt(wallet.number)) {
             if (transaction.status === "Income") {
               updatedWallet.cardbalance += transaction.amount;
             } else if (transaction.status === "Expense") {
@@ -107,9 +91,8 @@ const WalletsList = ({ wallets, transactions }) => {
                 <p className="text-white">
                   {`${wallet.number.toString().slice(0, 4)} ${wallet.number
                     .toString()
-                    .slice(4, 8)} ${wallet.number
-                    .toString()
-                    .slice(8, 12)} ${wallet.number.toString().slice(12, 16)}`}
+                    .slice(4, 8)} ${wallet.number.toString().slice(8, 12)}
+                  ${wallet.number.toString().slice(12, 16)}`}
                 </p>
                 <p className="text-white text-xs">{`${wallet.expMonth}/${wallet.expYear}`}</p>
               </div>

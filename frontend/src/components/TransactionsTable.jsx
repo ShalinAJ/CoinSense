@@ -35,7 +35,7 @@ const TransactionsTable = ({ transactions }) => {
           <tr className="text-left text-sm leading-[45px]">
             <th>Transaction</th>
             <th>Date</th>
-            <th>Amount</th>
+            <th className="w-[15%]">Amount</th>
             <th className="text-center pl-[80px]">Status</th>
           </tr>
           {currentItems.map((transaction) => (
@@ -59,7 +59,9 @@ const TransactionsTable = ({ transactions }) => {
                     currency: "USD",
                   }).format(transaction.amount)}
                   <p className="pl-2 text-[10px] text-gray-500 font-light">
-                    {transaction.card}
+                    {transaction.card
+                      ? "Card " + transaction.card.slice(12, 16)
+                      : undefined}
                   </p>
                 </div>
               </td>

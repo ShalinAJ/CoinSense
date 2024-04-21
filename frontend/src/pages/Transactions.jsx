@@ -11,7 +11,10 @@ const TransactionsPage = () => {
   useEffect(() => {
     async function walletCountHandler() {
       const walletList = await wallets;
-      const cards = walletList.map((wallet) => wallet.nickname);
+      const cards = walletList.map((wallet) => ({
+        number: wallet.number,
+        nickname: wallet.nickname,
+      }));
       const cardArray = ["", ...cards];
       setWalletList(cardArray);
     }
@@ -29,6 +32,7 @@ const TransactionsPage = () => {
 
   return (
     <>
+      {console.log(walletList)}
       <Suspense>
         <Await resolve={transactions}>
           {() => (
