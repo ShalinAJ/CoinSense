@@ -71,13 +71,13 @@ const ExpensePage = () => {
             </p>
           </div>
           <div className="bg-[#ff00001f] text-[#ff0000] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
-            <p className="text-black pr-2">Total expenses: </p>
+            <p className="text-black pr-2">Expense count: </p>
             <p className="font-semibold">{expenseCount}</p>
           </div>
         </div>
         <div className="flex justify-center mt-1 mb-3">
           <div className="flex flex-col justify-center items-center my-10 ">
-            <p className="text-sm font-medium text-gray-400">Expense count</p>
+            <p className="text-sm font-medium text-gray-400">Total Expense</p>
             <p className="text-[28px] font-bold pb-1">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
