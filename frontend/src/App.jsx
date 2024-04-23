@@ -59,11 +59,13 @@ const router = createBrowserRouter([
             path: "/dashboard/income",
             element: <IncomePage />,
             loader: transactionsLoader,
+            action: newTransactionAction,
           },
           {
             path: "/dashboard/expense",
             element: <ExpensePage />,
             loader: transactionsLoader,
+            action: newTransactionAction,
           },
           {
             path: "/dashboard/wallet",
