@@ -23,6 +23,7 @@ import { action as logoutAction } from "./pages/Logout";
 import { elements } from "chart.js";
 import IncomePage from "./pages/Income";
 import ExpensePage from "./pages/Expense";
+import InvestmentsPage from "./pages/Investments";
 
 var user = JSON.parse(localStorage.getItem("user"));
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
             element: user ? <TransactionsPage /> : <Navigate to="/login" />,
             loader: transactionsLoader,
             action: newTransactionAction,
+          },
+          {
+            path: "/dashboard/investment",
+            element: user ? <InvestmentsPage /> : <Navigate to="/login" />,
           },
           {
             path: "/dashboard/income",
