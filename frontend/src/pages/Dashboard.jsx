@@ -3,7 +3,7 @@ import totalExpenseImg from "../assets/total-expenses.png";
 import totalInvestmentImg from "../assets/total-investments.png";
 import InflowOutflowChart from "../charts/InflowOutflowChart";
 import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
-import { json, useLoaderData } from "react-router-dom";
+import { json, NavLink, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const DashboardPage = () => {
@@ -101,31 +101,37 @@ const DashboardPage = () => {
           </div>
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
             <div className="basis-1/3">
-              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl hover:bg-coinsense-blue-darker">
+              <NavLink
+                to={"/dashboard/income"}
+                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl hover:bg-coinsense-blue-darker"
+              >
                 <img src={totalIncomeImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Income</p>
                   <p className="text-lg font-semibold">${totalIncome}</p>
                 </div>
-              </button>
+              </NavLink>
             </div>
             <div className="basis-1/3">
-              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
+              <NavLink
+                to={"/dashboard/expense"}
+                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker"
+              >
                 <img src={totalExpenseImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Expences</p>
                   <p className="text-lg font-semibold">${totalExpense}</p>
                 </div>
-              </button>
+              </NavLink>
             </div>
             <div className="basis-1/3">
-              <button className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
+              <NavLink className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
                 <img src={totalInvestmentImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Investments</p>
                   <p className="text-lg font-semibold">${totalInvestment}</p>
                 </div>
-              </button>
+              </NavLink>
             </div>
           </div>
           <div className="w-[100%] h-[100%]">
