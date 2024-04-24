@@ -20,15 +20,13 @@ const LoginPage = () => {
     location.reload();
   }
 
-  const handleSuccess = (credentialResponse) => {
-    // Handle the successful login here
-    const decoded = jwtDecode(credentialResponse?.credential);
-    //
-    console.log("Google login successful", decoded);
+  const handleSuccess = async (credentialResponse) => {
+    const decoded = jwtDecode(credentialResponse.credential);
+    await login(String(decoded.email), String(decoded.azp));
+    //location.reload();
   };
 
   const handleError = () => {
-    // Handle login errors here
     console.log("Google login failed");
   };
 

@@ -23,7 +23,6 @@ export const useRegister = () => {
       setError(json.error);
     }
     if (response.ok) {
-      // save user to localstorage
       localStorage.setItem("user", JSON.stringify(json));
 
       // update the auth context

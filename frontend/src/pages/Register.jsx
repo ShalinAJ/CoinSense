@@ -5,6 +5,8 @@ import addUser from "../assets/add-user.svg";
 import loginInputEmail from "../assets/login-input-email.png";
 import loginInputPswd from "../assets/login-input-pswd.png";
 import registerInputProfile from "../assets/register-profile.png";
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
 
 const RegisterPage = () => {
   const [email, setEmail] = useState("");
@@ -18,6 +20,20 @@ const RegisterPage = () => {
     await register(name, email, password);
     location.reload();
   }
+
+  const handleSuccess = async (credentialResponse) => {
+    const decoded = jwtDecode(credentialResponse.credential);
+    await register(
+      String(decoded.name),
+      String(decoded.email),
+      String(decoded.azp)
+    );
+    location.reload();
+  };
+
+  const handleError = () => {
+    console.log("Google login failed");
+  };
 
   return (
     <>
@@ -125,6 +141,9 @@ const RegisterPage = () => {
             <hr className="flex-1 border-t border-[#E0E0E0]" />
             <span className="mx-2 text-xs text-black">OR</span>
             <hr className="flex-1 border-t border-[#E0E0E0]" />
+          </div>
+          <div className="pb-5">
+            <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
           </div>
         </div>
       </div>
