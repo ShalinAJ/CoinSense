@@ -95,7 +95,7 @@ const DashboardPage = () => {
         <div className="bg-white flex flex-col items-start justify-between px-[28px] pt-[45px]">
           <div className="mr-20 mb-8">
             <p className="text-2xl font-bold">
-              Welcome Back, {!firstName ? "[YOUR NAME]" : firstName} 👋
+              Welcome Back, {!firstName ? "Username" : firstName} 👋
             </p>
             <p className="text-sm pt-2 font-light">{headingText} </p>
           </div>

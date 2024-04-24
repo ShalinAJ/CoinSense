@@ -59,6 +59,7 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/investment",
             element: user ? <InvestmentsPage /> : <Navigate to="/login" />,
+            loader: transactionsLoader,
           },
           {
             path: "/dashboard/income",
