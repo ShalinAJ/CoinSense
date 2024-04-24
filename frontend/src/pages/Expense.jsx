@@ -1,7 +1,8 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Await, defer, json, useLoaderData } from "react-router-dom";
+import { Await, defer, json, Link, useLoaderData } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable.jsx";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
+import backArrow from "../assets/back-arrow.png";
 
 const ExpensePage = () => {
   const { transactions: transactionPromise, wallets } = useLoaderData();
@@ -63,8 +64,11 @@ const ExpensePage = () => {
       </Suspense>
 
       <div className="w-[80%] h-[max-content] bg-white">
-        <div className="flex items-start justify-between px-[28px] pt-[45px]">
+        <div className="flex items-start justify-between px-[28px] pt-[29px]">
           <div>
+            <Link to={".."} className="p-0 m-0 w-4">
+              <img src={backArrow} alt="" />
+            </Link>
             <h2 className="text-2xl font-bold">Expense Data</h2>
             <p className="text-sm pt-2 font-light">
               Detailed view of all expense transactions{" "}
