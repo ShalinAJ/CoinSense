@@ -22,8 +22,12 @@ const LoginPage = () => {
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
-    await login(String(decoded.email), String(decoded.azp));
-    //location.reload();
+    await login(
+      String(decoded.email),
+      String(decoded.azp),
+      String(decoded.name)
+    );
+    location.reload();
   };
 
   const handleError = () => {
