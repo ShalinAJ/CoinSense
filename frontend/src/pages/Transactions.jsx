@@ -61,10 +61,15 @@ const TransactionsPage = () => {
           </button>
         </div>
         <div className=" pl-[28px] py-6">
-          <Suspense fallback={<p>Loading...</p>}>
+          <Suspense
+            fallback={<p className="text-sm font-medium">Loading...</p>}
+          >
             <Await resolve={transactions}>
               {(loadedTransactions) => (
-                <TransactionsTable transactions={loadedTransactions} />
+                <TransactionsTable
+                  transactions={loadedTransactions}
+                  transactionStatus={""}
+                />
               )}
             </Await>
           </Suspense>

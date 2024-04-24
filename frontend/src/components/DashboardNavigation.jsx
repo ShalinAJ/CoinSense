@@ -1,9 +1,11 @@
 import dashboardImg from "../assets/dashboard.png";
 import transactionsImg from "../assets/transactions.png";
+import investmentImg from "../assets/investment.png";
 import walletImg from "../assets/wallet.png";
 import accountImg from "../assets/account.png";
 import dashboardImgActive from "../assets/dashboard-active.png";
 import transactionsImgActive from "../assets/transactions-active.png";
+import investmentImgActive from "../assets/investment-active.png";
 import walletImgActive from "../assets/wallet-active.png";
 import accountImgActive from "../assets/account-active.png";
 import logOut from "../assets/log-out.png";
@@ -34,6 +36,14 @@ const DashboardNavigation = () => {
                 image={transactionsImg}
                 activeImage={transactionsImgActive}
                 link={"/dashboard/transactions"}
+              />
+            </li>
+            <li className={classes.list}>
+              <DashboardNavLinks
+                title={"Investment"}
+                image={investmentImg}
+                activeImage={investmentImgActive}
+                link={"/dashboard/investment"}
               />
             </li>
             <li className={classes.list}>

@@ -2,7 +2,7 @@ import deleteImg from "../assets/delete.png";
 import { useState } from "react";
 import styles from "./TransactionTable.module.css";
 
-const TransactionsTable = ({ transactions }) => {
+const TransactionsTable = ({ transactions, transactionStatus }) => {
   const deleteHandler = async (id) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const response = await fetch("http://localhost:4000/" + id, {
@@ -20,11 +20,17 @@ const TransactionsTable = ({ transactions }) => {
     return null;
   };
 
+  const pageTransactionFilter = transactions.filter(
+    (transaction) => transaction.status === transactionStatus
+  );
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = (
+    transactionStatus === "" ? transactions : pageTransactionFilter
+  ).slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
