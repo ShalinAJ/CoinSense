@@ -34,17 +34,22 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="h-[100%] flex flex-wrap flex-rowcontent-center bg-coinsense-blue">
-        <div className="bg-coinsense-blue text-white max-w-[450px] mt-4 mb-4 ml-4 rounded-xl p-10 mr-72 ">
-          <p className="text-3xl font-bold">CoinSense</p>
-          <p className="text-4xl font-semibold mt-40">
-            Start Your <br /> Journy with Us.
-          </p>
-          <p className="mt-4 ">
-            Register to CoinSense - enjoy exclusive features & many more
-          </p>
+      <div className="h-[100%] flex justify-between items-center bg-coinsense-blue">
+        <div className="flex flex-row h-[100%] pt-[8rem]">
+          <div className="ml-[10rem] w-[80%] text-white mb-4 rounded-xl p-10 mr- flex flex-col">
+            <p className="text-4xl font-bold">CoinSense</p>
+            <p className="text-6xl font-bold mt-[4rem] leading-[4.5rem]">
+              Begin your journey with CoinSense
+            </p>
+            <p className="mt-10 w-[80%]">
+              Unlock exclusive features and more by logging in or registering
+              with us today. Your gateway to seamless financial management
+              starts here!
+            </p>
+          </div>
         </div>
-        <div className=" w-[350px] px-4 py-6 bg-white rounded-md mt-20 mb-20">
+
+        <div className=" w-[400px] px-4 py-6 border shadow-lg bg-white rounded-xl mt-20 mb-20 mr-[10rem]">
           <form onSubmit={handleSubmit}>
             <div className="flex text-center">
               <img src={addUser} alt="add user sign" className="w-9 ml-20" />
@@ -131,7 +136,7 @@ const LoginPage = () => {
             <span className="mx-2 text-xs text-black">OR</span>
             <hr className="flex-1 border-t border-[#E0E0E0]" />
           </div>
-          <div>
+          <div className="pb-5">
             <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
           </div>
         </div>
