@@ -46,7 +46,7 @@ const InvestmentsPage = () => {
         </div>
       </div>
       <div>
-        <InvestmentChart />
+        <InvestmentChart className="bg-black" />
       </div>
     </div>
   );

@@ -255,11 +255,9 @@ const ApexChart = () => {
         type: "candlestick",
         height: 350,
       },
-      title: {
-        text: "CandleStick Chart",
-        align: "left",
+      fill: {
+        colors: ["#F44336", "#E91E63", "#9C27B0"],
       },
-      colors: ["#00BFA5", "#FF1744"],
       xaxis: {
         type: "datetime",
       },
@@ -268,12 +266,18 @@ const ApexChart = () => {
           enabled: true,
         },
       },
+      toolbar: {
+        show: true,
+      },
     },
   });
 
   return (
     <div>
-      <div id="chart">
+      <div
+        id="chart"
+        className="p-5 rounded-3xl flex flex-col border shadow-lg shadow-grey-500/40 h-[24rem]"
+      >
         <ReactApexChart
           options={chartData.options}
           series={chartData.series}
@@ -281,7 +285,6 @@ const ApexChart = () => {
           height={350}
         />
       </div>
-      <div id="html-dist"></div>
     </div>
   );
 };
