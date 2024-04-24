@@ -36,7 +36,7 @@ const LoginPage = () => {
     <>
       <div className="h-[100%] flex justify-between items-center bg-coinsense-blue">
         <div className="flex flex-row h-[100%] pt-[8rem]">
-          <div className="ml-[10rem] w-[80%] text-white mb-4 rounded-xl p-10 mr- flex flex-col">
+          <div className="ml-[10rem] w-[80%] text-white mb-4 rounded-xl pt-10 flex flex-col">
             <p className="text-4xl font-bold">CoinSense</p>
             <p className="text-6xl font-bold mt-[4rem] leading-[4.5rem]">
               Begin your journey with CoinSense
