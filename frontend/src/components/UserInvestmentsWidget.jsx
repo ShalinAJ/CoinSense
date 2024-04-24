@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
   return (
@@ -48,8 +49,13 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
             ))
           )}
         </div>
-        <div className="h-[20%] flex flex-col justify-center items-center pt-6 pb-6">
-          <button className="text-xs px-10">View all Investments</button>
+        <div className="h-[20%]  flex flex-col justify-center items-center pt-6 pb-6">
+          <Link
+            to={"/dashboard/investment/user-investments"}
+            className="text-white text-xs px-10 py-[7.5px] bg-coinsense-blue rounded-lg"
+          >
+            View all Investments
+          </Link>
         </div>
       </div>
     </>

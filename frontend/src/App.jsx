@@ -24,6 +24,8 @@ import { elements } from "chart.js";
 import IncomePage from "./pages/Income";
 import ExpensePage from "./pages/Expense";
 import InvestmentsPage from "./pages/Investments";
+import AllInvestmentsPage from "./pages/AllInvestments";
+import InvestmentRootLayout from "./pages/InvestmentRoot";
 
 var user = JSON.parse(localStorage.getItem("user"));
 
@@ -32,7 +34,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <HomePage /> },
+      { element: <HomePage /> }, // Removed index: true
       {
         path: "/login",
         element: user ? <Navigate to="/dashboard" /> : <LoginPage />,
@@ -51,36 +53,48 @@ const router = createBrowserRouter([
             loader: transactionsLoader,
           },
           {
-            path: "/dashboard/transactions",
+            path: "transactions",
             element: user ? <TransactionsPage /> : <Navigate to="/login" />,
             loader: transactionsLoader,
             action: newTransactionAction,
           },
           {
-            path: "/dashboard/investment",
-            element: user ? <InvestmentsPage /> : <Navigate to="/login" />,
-            loader: transactionsLoader,
+            path: "investment",
+            element: <InvestmentRootLayout />,
+            children: [
+              {
+                index: true,
+                element: user ? <InvestmentsPage /> : <Navigate to="/login" />, // Removed index: true
+                loader: transactionsLoader,
+              },
+              {
+                path: "user-investments",
+                element: <AllInvestmentsPage />,
+                loader: transactionsLoader,
+                action: newTransactionAction,
+              },
+            ],
           },
           {
-            path: "/dashboard/income",
+            path: "income",
             element: <IncomePage />,
             loader: transactionsLoader,
             action: newTransactionAction,
           },
           {
-            path: "/dashboard/expense",
+            path: "expense",
             element: <ExpensePage />,
             loader: transactionsLoader,
             action: newTransactionAction,
           },
           {
-            path: "/dashboard/wallet",
+            path: "wallet",
             element: user ? <WalletPage /> : <Navigate to="/login" />,
             action: newWalletAction,
             loader: walletsLoader,
           },
           {
-            path: "/dashboard/account",
+            path: "account",
             element: user ? <AccountPage /> : <Navigate to="/login" />,
             loader: walletsLoader,
           },
