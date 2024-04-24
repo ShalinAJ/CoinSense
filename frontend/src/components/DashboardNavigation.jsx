@@ -40,7 +40,7 @@ const DashboardNavigation = () => {
             </li>
             <li className={classes.list}>
               <DashboardNavLinks
-                title={"Investment"}
+                title={"Investments"}
                 image={investmentImg}
                 activeImage={investmentImgActive}
                 link={"/dashboard/investment"}

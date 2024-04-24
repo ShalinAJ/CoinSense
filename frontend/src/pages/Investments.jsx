@@ -30,7 +30,7 @@ const InvestmentsPage = () => {
 
   return (
     <div className="w-[80%] h-[max-content] bg-white px-[28px] pt-[45px]">
-      <div className="text-2xl font-bold">Investments Page</div>
+      <div className="text-2xl font-bold">Investments</div>
       <p className="text-sm pt-2 font-light">
         Detailed view of your investments{" "}
       </p>
