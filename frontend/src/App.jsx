@@ -26,6 +26,7 @@ import ExpensePage from "./pages/Expense";
 import InvestmentsPage from "./pages/Investments";
 import AllInvestmentsPage from "./pages/AllInvestments";
 import InvestmentRootLayout from "./pages/InvestmentRoot";
+import ErrorPage from "./pages/Error";
 
 var user = JSON.parse(localStorage.getItem("user"));
 
@@ -33,6 +34,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    //errorElement: <ErrorPage />, Disabled for now
     children: [
       { element: <HomePage /> },
       {
