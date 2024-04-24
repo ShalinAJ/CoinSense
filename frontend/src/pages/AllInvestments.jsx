@@ -50,7 +50,6 @@ const AllInvestmentsPage = () => {
 
   return (
     <>
-      {console.log(walletList)}
       <Suspense>
         <Await resolve={transactionPromise}>
           {() => (

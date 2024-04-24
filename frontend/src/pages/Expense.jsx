@@ -50,7 +50,6 @@ const ExpensePage = () => {
 
   return (
     <>
-      {console.log(walletList)}
       <Suspense>
         <Await resolve={transactionPromise}>
           {() => (

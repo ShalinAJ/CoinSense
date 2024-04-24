@@ -43,9 +43,24 @@ const DashboardPage = () => {
         totalInvestment = parseFloat(totalInvestment.toFixed(2));
         totalExpense = parseFloat(totalExpense.toFixed(2));
 
-        setTotalIncome(totalIncome);
-        setTotalExpense(totalExpense);
-        setTotalInvestment(totalInvestment);
+        const totalIncomeFormated = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(totalIncome);
+
+        const totalExpenseFormated = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(totalExpense);
+
+        const totalInvestmentFormated = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(totalInvestment);
+
+        setTotalIncome(totalIncomeFormated);
+        setTotalExpense(totalExpenseFormated);
+        setTotalInvestment(totalInvestmentFormated);
       } catch (error) {
         console.error(error.message);
       }
@@ -108,7 +123,7 @@ const DashboardPage = () => {
                 <img src={totalIncomeImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Income</p>
-                  <p className="text-lg font-semibold">${totalIncome}</p>
+                  <p className="text-lg font-semibold">{totalIncome}</p>
                 </div>
               </NavLink>
             </div>
@@ -120,7 +135,7 @@ const DashboardPage = () => {
                 <img src={totalExpenseImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Expences</p>
-                  <p className="text-lg font-semibold">${totalExpense}</p>
+                  <p className="text-lg font-semibold">{totalExpense}</p>
                 </div>
               </NavLink>
             </div>
@@ -129,7 +144,7 @@ const DashboardPage = () => {
                 <img src={totalInvestmentImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Investments</p>
-                  <p className="text-lg font-semibold">${totalInvestment}</p>
+                  <p className="text-lg font-semibold">{totalInvestment}</p>
                 </div>
               </NavLink>
             </div>
