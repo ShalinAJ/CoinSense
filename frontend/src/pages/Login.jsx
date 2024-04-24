@@ -23,6 +23,7 @@ const LoginPage = () => {
   const handleSuccess = (credentialResponse) => {
     // Handle the successful login here
     const decoded = jwtDecode(credentialResponse?.credential);
+    //
     console.log("Google login successful", decoded);
   };
 
@@ -33,7 +34,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="h-[100%] flex flex-wrap flex-rowcontent-center">
+      <div className="h-[100%] flex flex-wrap flex-rowcontent-center bg-coinsense-blue">
         <div className="bg-coinsense-blue text-white max-w-[450px] mt-4 mb-4 ml-4 rounded-xl p-10 mr-72 ">
           <p className="text-3xl font-bold">CoinSense</p>
           <p className="text-4xl font-semibold mt-40">
