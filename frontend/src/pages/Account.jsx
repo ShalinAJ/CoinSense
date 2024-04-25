@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useState } from "react";
 import userImg from "../assets/user-image.png";
-import { Await, Link, useLoaderData } from "react-router-dom";
+import { Await, Link, json, useLoaderData } from "react-router-dom";
 import EditAccountInfo from "../components/EditAccountInfo";
 
 const AccountPage = () => {
@@ -10,6 +10,7 @@ const AccountPage = () => {
   const [walletTotal, setWalletTotal] = useState(0);
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
+  const [AccountDetails, setAccountDetails] = useState("");
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -35,7 +36,6 @@ const AccountPage = () => {
 
   // handle submit in EditAccountInfo
   const handleSubmit = async (formData) => {
-    const user = JSON.parse(localStorage.getItem("user"));
     const account = JSON.parse(localStorage.getItem("account"));
     const id = account._id;
 
@@ -43,7 +43,7 @@ const AccountPage = () => {
       const response = await fetch("http://localhost:4000/account/" + id, {
         method: "PATCH",
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${userInfo.token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
@@ -55,11 +55,32 @@ const AccountPage = () => {
 
       // Optionally handle success response here
       console.log("Account details saved successfully");
-      location.reload();
+      getAccountDetails();
+      //location.reload();
     } catch (error) {
       console.error("Error saving account details:", error.message);
     }
   };
+
+  const getAccountDetails = async () => {
+    const response = await fetch("http://localhost:4000/account", {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      return json(
+        { message: "Could not fetch transactions." },
+        { status: 500 }
+      );
+    } else {
+      const details = await response.json();
+      setAccountDetails(details[0]);
+    }
+  };
+
+  getAccountDetails();
 
   const openModal = () => {
     setModalOpen(true);
@@ -112,7 +133,7 @@ const AccountPage = () => {
                 <p className="text-[13px] font-bold">Address :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {userInfo.address ? userInfo.address : "--"}
+                {AccountDetails.address ?? "--"}
               </p>
             </div>
             <div className=" flex flex-row pb-6">
@@ -120,7 +141,7 @@ const AccountPage = () => {
                 <p className=" text-[13px]  font-bold ">Phone :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {userInfo.phone ? userInfo.phone : "--"}
+                {AccountDetails.phoneNo ?? "--"}
               </p>
             </div>
             <p className="text-xs font-medium pb-3 text-gray-400">
@@ -131,7 +152,7 @@ const AccountPage = () => {
                 <p className=" text-[13px]  font-bold ">Birthday :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {userInfo.birthday ? userInfo.birthday : "--"}
+                {AccountDetails.birthday ?? "--"}
               </p>
             </div>
             <div className="flex flex-row">
@@ -139,7 +160,7 @@ const AccountPage = () => {
                 <p className="text-[13px]  font-bold">Gender :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {userInfo.gender ? userInfo.gender : "--"}
+                {AccountDetails.gender ?? "--"}
               </p>
             </div>
             <div>

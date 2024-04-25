@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const Account = require("../models/accountModel.jsx");
 
 const updateAccountDetails = async (req, res) => {
-  // const { address, phoneNo, birthday, gender } = req.body;
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -20,20 +19,6 @@ const updateAccountDetails = async (req, res) => {
       .json({ error: "NO such a contact (contact ID is invalid)" });
   }
   res.status(200).json(details);
-
-  // try {
-  //   const user_id = req.user._id;
-  //   const account = await Account.create({
-  //     address,
-  //     phoneNo,
-  //     birthday,
-  //     gender,
-  //     user_id,
-  //   });
-  //   res.status(200).json(account);
-  // } catch (error) {
-  //   res.status(400).json({ error: error.message });
-  // }
 };
 
 const createAccountDetails = async (req, res) => {
@@ -58,4 +43,20 @@ const createAccountDetails = async (req, res) => {
   }
 };
 
-module.exports = { createAccountDetails, updateAccountDetails };
+const getAccountDetails = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const accountDetails = await Account.find({ user_id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(accountDetails);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = {
+  createAccountDetails,
+  updateAccountDetails,
+  getAccountDetails,
+};
