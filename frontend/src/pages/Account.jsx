@@ -60,31 +60,34 @@ const AccountPage = () => {
 
       // Optionally handle success response here
       console.log("Account details saved successfully");
-      getAccountDetails();
       //location.reload();
     } catch (error) {
       console.error("Error saving account details:", error.message);
     }
   };
 
-  const getAccountDetails = async () => {
-    const response = await fetch("http://localhost:4000/account", {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
+  useEffect(() => {
+    const getAccountDetails = async () => {
+      const response = await fetch("http://localhost:4000/account", {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
 
-    if (!response.ok) {
-      return json(
-        { message: "Could not fetch transactions." },
-        { status: 500 }
-      );
-    } else {
-      const details = await response.json();
-      setAccountDetails(details[0]);
-    }
-  };
+      if (!response.ok) {
+        return json(
+          { message: "Could not fetch transactions." },
+          { status: 500 }
+        );
+      } else {
+        const details = await response.json();
+        setAccountDetails(details);
+      }
+    };
 
+    getAccountDetails();
+  }, []);
+  console.log(accountDetails);
   const openModal = () => {
     setModalOpen(true);
   };
@@ -136,7 +139,7 @@ const AccountPage = () => {
                 <p className="text-[13px] font-bold">Address :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {accountDetails.address ? accountDetails.address ?? "--" : "--"}
+                {accountDetails.address ? accountDetails.address : "--"}
               </p>
             </div>
             <div className=" flex flex-row pb-6">
@@ -144,7 +147,7 @@ const AccountPage = () => {
                 <p className=" text-[13px]  font-bold ">Phone :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {accountDetails.phoneNo ? accountDetails.phoneNo ?? "--" : "--"}
+                {accountDetails.phoneNo ? accountDetails.phoneNo : "--"}
               </p>
             </div>
             <p className="text-xs font-medium pb-3 text-gray-400">
