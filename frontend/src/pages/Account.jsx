@@ -33,10 +33,12 @@ const AccountPage = () => {
     dataTotalHandler();
   }, [transactions]);
 
+  // handle submit in EditAccountInfo
   const handleSubmit = async (formData) => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const id = userInfo._id;
-    console.log(id);
+    const account = JSON.parse(localStorage.getItem("account"));
+    const id = account._id;
+
     try {
       const response = await fetch("http://localhost:4000/account/" + id, {
         method: "PATCH",
@@ -53,6 +55,7 @@ const AccountPage = () => {
 
       // Optionally handle success response here
       console.log("Account details saved successfully");
+      location.reload();
     } catch (error) {
       console.error("Error saving account details:", error.message);
     }

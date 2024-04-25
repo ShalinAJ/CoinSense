@@ -4,7 +4,7 @@ import { Form } from "react-router-dom";
 const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
   const [formData, setFormData] = useState({
     address: "",
-    phone: "",
+    phoneNo: "",
     birthday: "",
     gender: "",
   });
@@ -64,10 +64,10 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
               <div className="flex flex-col my-3">
                 <label htmlFor="">Phone </label>
                 <input
-                  id="phoneNum"
-                  type="text"
-                  name="phoneNum"
-                  onChange={(e) => handleChange("phone", e.target.value)}
+                  id="phoneNo"
+                  type="number"
+                  name="phoneNo"
+                  onChange={(e) => handleChange("phoneNo", e.target.value)}
                 />
               </div>
               <div className="flex flex-col my-2">
