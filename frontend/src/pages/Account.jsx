@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import userImg from "../assets/user-image.png";
-import { Link, useLoaderData } from "react-router-dom";
+import { Await, Link, useLoaderData } from "react-router-dom";
+import EditAccountInfo from "../components/EditAccountInfo";
 
 const AccountPage = () => {
   const { transactions, wallets } = useLoaderData();
@@ -8,6 +9,7 @@ const AccountPage = () => {
   const [transactionTotal, setTransactionTotal] = useState(0);
   const [walletTotal, setWalletTotal] = useState(0);
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -31,94 +33,114 @@ const AccountPage = () => {
     dataTotalHandler();
   }, [transactions]);
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
-    <div className="w-[80%]">
-      <div className="flex flex-col items-center">
-        <img
-          src={userImg}
-          alt=""
-          className="w-[10rem] mt-[3.5rem] rounded-full box-shadow"
-        />
-        <p className="text-2xl font-bold pt-4">{userInfo.name ?? "Username"}</p>
-        <p className="text-xs pt-2">User since {userInfo.date ?? "--"}</p>
-      </div>
-      <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
-        <div className="w-[50%] flex flex-col">
-          <p className="text-xs font-medium pb-3 text-gray-400">
-            Contact Information
+    <>
+      <Suspense>
+        <Await resolve={transactions}>
+          {() => <EditAccountInfo isOpen={modalOpen} onClose={closeModal} />}
+        </Await>
+      </Suspense>
+      <div className="w-[80%]">
+        <div className="flex flex-col items-center">
+          <img
+            src={userImg}
+            alt=""
+            className="w-[10rem] mt-[3.5rem] rounded-full box-shadow"
+          />
+          <p className="text-2xl font-bold pt-4">
+            {userInfo.name ?? "Username"}
           </p>
-          <div className=" flex flex-row">
-            <div className="w-[30%]">
-              <p className=" text-[13px] font-bold ">Email :</p>
-            </div>
-            <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.email}
+          <p className="text-xs pt-2">User since {userInfo.date ?? "--"}</p>
+        </div>
+        <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
+          <div className="w-[50%] flex flex-col">
+            <p className="text-xs font-medium pb-3 text-gray-400">
+              Contact Information
             </p>
+            <div className=" flex flex-row">
+              <div className="w-[30%]">
+                <p className=" text-[13px] font-bold ">Email :</p>
+              </div>
+              <p className="w-[70%] text-[13px]  font-light pb-5">
+                {userInfo.email}
+              </p>
+            </div>
+            <div className="flex flex-row">
+              <div className="w-[30%]">
+                <p className="text-[13px] font-bold">Address :</p>
+              </div>
+              <p className="w-[70%] text-[13px]  font-light pb-5">
+                {userInfo.address ? userInfo.address : "--"}
+              </p>
+            </div>
+            <div className=" flex flex-row pb-6">
+              <div className="w-[30%]">
+                <p className=" text-[13px]  font-bold ">Phone :</p>
+              </div>
+              <p className="w-[70%] text-[13px]  font-light pb-5">
+                {userInfo.phone ? userInfo.phone : "--"}
+              </p>
+            </div>
+            <p className="text-xs font-medium pb-3 text-gray-400">
+              Basic Information
+            </p>
+            <div className=" flex flex-row">
+              <div className="w-[30%]">
+                <p className=" text-[13px]  font-bold ">Birthday :</p>
+              </div>
+              <p className="w-[70%] text-[13px]  font-light pb-5">
+                {userInfo.birthday ? userInfo.birthday : "--"}
+              </p>
+            </div>
+            <div className="flex flex-row">
+              <div className="w-[30%]">
+                <p className="text-[13px]  font-bold">Gender :</p>
+              </div>
+              <p className="w-[70%] text-[13px]  font-light pb-5">
+                {userInfo.gender ? userInfo.gender : "--"}
+              </p>
+            </div>
+            <div>
+              <button onClick={openModal}>Edit</button>
+            </div>
           </div>
-          <div className="flex flex-row">
-            <div className="w-[30%]">
-              <p className="text-[13px] font-bold">Address :</p>
-            </div>
-            <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.address ? userInfo.address : "--"}
-            </p>
-          </div>
-          <div className=" flex flex-row pb-6">
-            <div className="w-[30%]">
-              <p className=" text-[13px]  font-bold ">Phone :</p>
-            </div>
-            <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.phone ? userInfo.phone : "--"}
-            </p>
-          </div>
-          <p className="text-xs font-medium pb-3 text-gray-400">
-            Basic Information
-          </p>
-          <div className=" flex flex-row">
-            <div className="w-[30%]">
-              <p className=" text-[13px]  font-bold ">Birthday :</p>
-            </div>
-            <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.birthday ? userInfo.birthday : "--"}
-            </p>
-          </div>
-          <div className="flex flex-row">
-            <div className="w-[30%]">
-              <p className="text-[13px]  font-bold">Gender :</p>
-            </div>
-            <p className="w-[70%] text-[13px]  font-light pb-5">
-              {userInfo.gender ? userInfo.gender : "--"}
-            </p>
+          <div className="flex flex-col gap-4 pt-5">
+            <Link
+              to={"../transactions"}
+              className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
+            >
+              <p className="text-mediums font-semibold">Transactions</p>
+              <p className="text-lg font-semibold text-[#152DFF]">
+                {transactionTotal ? transactionTotal : 0}
+              </p>
+            </Link>
+            <Link
+              to={"../wallet"}
+              className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
+            >
+              <p className="text-mediums font-semibold">Wallets</p>
+              <p className="text-lg font-semibold text-[#152DFF]">
+                {walletTotal ? walletTotal : 0}
+              </p>
+            </Link>
+            <Link className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]">
+              <p className="text-mediums font-semibold">Investments</p>
+              <p className="text-lg font-semibold text-[#152DFF]">
+                {investmentsTotal ? investmentsTotal : 0}
+              </p>
+            </Link>
           </div>
         </div>
-        <div className="flex flex-col gap-4 pt-5">
-          <Link
-            to={"../transactions"}
-            className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
-          >
-            <p className="text-mediums font-semibold">Transactions</p>
-            <p className="text-lg font-semibold text-[#152DFF]">
-              {transactionTotal ? transactionTotal : 0}
-            </p>
-          </Link>
-          <Link
-            to={"../wallet"}
-            className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
-          >
-            <p className="text-mediums font-semibold">Wallets</p>
-            <p className="text-lg font-semibold text-[#152DFF]">
-              {walletTotal ? walletTotal : 0}
-            </p>
-          </Link>
-          <Link className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]">
-            <p className="text-mediums font-semibold">Investments</p>
-            <p className="text-lg font-semibold text-[#152DFF]">
-              {investmentsTotal ? investmentsTotal : 0}
-            </p>
-          </Link>
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 
