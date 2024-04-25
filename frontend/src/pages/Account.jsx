@@ -53,7 +53,6 @@ const AccountPage = () => {
         throw new Error("Failed to save account details");
       }
 
-      // Optionally handle success response here
       console.log("Account details saved successfully");
       //location.reload();
     } catch (error) {
@@ -91,10 +90,12 @@ const AccountPage = () => {
     setModalOpen(false);
   };
 
+  console.log(accountDetails);
+
   return (
     <>
       <Suspense>
-        <Await resolve={transactions}>
+        <Await resolve={accountDetails}>
           {() => (
             <EditAccountInfo
               isOpen={modalOpen}
