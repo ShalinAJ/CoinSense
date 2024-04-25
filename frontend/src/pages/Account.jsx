@@ -10,7 +10,12 @@ const AccountPage = () => {
   const [walletTotal, setWalletTotal] = useState(0);
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [AccountDetails, setAccountDetails] = useState("");
+  const [AccountDetails, setAccountDetails] = useState({
+    address: "",
+    phoneNo: "",
+    gender: "",
+    birthday: "",
+  });
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -53,34 +58,39 @@ const AccountPage = () => {
         throw new Error("Failed to save account details");
       }
 
-      // Optionally handle success response here
       console.log("Account details saved successfully");
       getAccountDetails();
-      //location.reload();
+      location.reload();
     } catch (error) {
       console.error("Error saving account details:", error.message);
     }
   };
 
   const getAccountDetails = async () => {
-    const response = await fetch("http://localhost:4000/account", {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    });
+    try {
+      const response = await fetch("http://localhost:4000/account", {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      });
 
-    if (!response.ok) {
-      return json(
-        { message: "Could not fetch transactions." },
-        { status: 500 }
-      );
-    } else {
-      const details = await response.json();
-      setAccountDetails(details[0]);
+      if (!response.ok) {
+        return json(
+          { message: "Could not fetch transactions." },
+          { status: 500 }
+        );
+      } else {
+        const details = await response.json();
+        setAccountDetails(details[0]);
+      }
+
+      console.log("Account details saved successfully");
+      getAccountDetails();
+      location.reload();
+    } catch (error) {
+      console.error("Error saving account details:", error.message);
     }
   };
-
-  getAccountDetails();
 
   const openModal = () => {
     setModalOpen(true);
@@ -93,7 +103,7 @@ const AccountPage = () => {
   return (
     <>
       <Suspense>
-        <Await resolve={transactions}>
+        <Await resolve={AccountDetails}>
           {() => (
             <EditAccountInfo
               isOpen={modalOpen}
@@ -133,7 +143,7 @@ const AccountPage = () => {
                 <p className="text-[13px] font-bold">Address :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {AccountDetails.address ?? "--"}
+                {AccountDetails.address ? AccountDetails.address : "--"}
               </p>
             </div>
             <div className=" flex flex-row pb-6">
