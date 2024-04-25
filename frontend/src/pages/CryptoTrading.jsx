@@ -1,23 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import axios from "axios";
 
 const BitcoinChart = () => {
-  const [chartData, setChartData] = useState({});
+  const chartRef = useRef();
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Bitcoin Price",
+        data: [],
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        tension: 0.1,
+      },
+    ],
+  });
 
   useEffect(() => {
-    const fetchBitcoinData = async () => {
+    const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d"
+          "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m"
         );
         const data = response.data;
-        const dates = data.map((item) =>
-          new Date(item[0]).toLocaleDateString()
+        const labels = data.map((item) =>
+          new Date(item[0]).toLocaleTimeString()
         );
         const prices = data.map((item) => parseFloat(item[4]));
+
         setChartData({
-          labels: dates,
+          labels,
           datasets: [
             {
               label: "Bitcoin Price",
@@ -33,21 +46,34 @@ const BitcoinChart = () => {
       }
     };
 
-    fetchBitcoinData();
+    fetchData();
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
-    if (chartData.labels && chartData.datasets) {
-      const ctx = document.getElementById("bitcoinChart");
-      new Chart(ctx, {
-        type: "line",
-        data: chartData,
-      });
+    if (chartRef.current) {
+      chartRef.current.destroy();
     }
+
+    const ctx = document.getElementById("bitcoinChart").getContext("2d");
+    chartRef.current = new Chart(ctx, {
+      type: "line",
+      data: chartData,
+      options: {
+        animation: false,
+      },
+    });
+
+    return () => {
+      chartRef.current.destroy();
+    };
   }, [chartData]);
 
   return (
-    <div className="w-[90%] px-20">
+    <div className="w-[90%]">
       <h2>Bitcoin Price Chart</h2>
       <canvas id="bitcoinChart" />
     </div>
