@@ -134,8 +134,10 @@ const AccountPage = () => {
               <div className="w-[30%]">
                 <p className="text-[13px] font-bold">Address :</p>
               </div>
-              <p className="w-[70%] text-[13px]  font-light pb-5">
-                {accountDetails.address ? accountDetails.address : "--"}
+              <p className="w-[70%] text-[13px] font-light pb-5">
+                {accountDetails && accountDetails.address
+                  ? accountDetails.address
+                  : "--"}
               </p>
             </div>
             <div className=" flex flex-row pb-6">
@@ -143,18 +145,19 @@ const AccountPage = () => {
                 <p className=" text-[13px]  font-bold ">Phone :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {accountDetails.phoneNo ? accountDetails.phoneNo : "--"}
+                {accountDetails && accountDetails.phoneNo
+                  ? accountDetails.phoneNo
+                  : "--"}
               </p>
             </div>
-            <p className="text-xs font-medium pb-3 text-gray-400">
-              Basic Information
-            </p>
-            <div className=" flex flex-row">
+            <div className="flex flex-row">
               <div className="w-[30%]">
                 <p className=" text-[13px]  font-bold ">Birthday :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {accountDetails.birthday ? accountDetails.birthday : "--"}
+                {accountDetails && accountDetails.birthday
+                  ? accountDetails.birthday
+                  : "--"}
               </p>
             </div>
             <div className="flex flex-row">
@@ -162,7 +165,9 @@ const AccountPage = () => {
                 <p className="text-[13px]  font-bold">Gender :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {accountDetails.gender ? accountDetails.gender : "--"}
+                {accountDetails && accountDetails.gender
+                  ? accountDetails.gender
+                  : "--"}
               </p>
             </div>
             <div>
