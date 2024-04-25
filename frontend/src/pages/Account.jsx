@@ -10,11 +10,11 @@ const AccountPage = () => {
   const [walletTotal, setWalletTotal] = useState(0);
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [AccountDetails, setAccountDetails] = useState({
+  const [accountDetails, setAccountDetails] = useState({
     address: "",
     phoneNo: "",
-    gender: "",
     birthday: "",
+    gender: "",
   });
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const AccountPage = () => {
 
       console.log("Account details saved successfully");
       getAccountDetails();
-      location.reload();
+      //location.reload();
     } catch (error) {
       console.error("Error saving account details:", error.message);
     }
@@ -83,12 +83,8 @@ const AccountPage = () => {
         const details = await response.json();
         setAccountDetails(details[0]);
       }
-
-      console.log("Account details saved successfully");
-      getAccountDetails();
-      location.reload();
     } catch (error) {
-      console.error("Error saving account details:", error.message);
+      console.error("Error getting account details:", error.message);
     }
   };
 
@@ -100,10 +96,12 @@ const AccountPage = () => {
     setModalOpen(false);
   };
 
+  console.log(accountDetails);
+
   return (
     <>
       <Suspense>
-        <Await resolve={AccountDetails}>
+        <Await resolve={accountDetails}>
           {() => (
             <EditAccountInfo
               isOpen={modalOpen}
@@ -143,7 +141,7 @@ const AccountPage = () => {
                 <p className="text-[13px] font-bold">Address :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {AccountDetails.address ? AccountDetails.address : "--"}
+                {accountDetails.address ? accountDetails.address ?? "--" : "--"}
               </p>
             </div>
             <div className=" flex flex-row pb-6">
@@ -151,7 +149,7 @@ const AccountPage = () => {
                 <p className=" text-[13px]  font-bold ">Phone :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {AccountDetails.phoneNo ?? "--"}
+                {accountDetails.phoneNo ? accountDetails.phoneNo ?? "--" : "--"}
               </p>
             </div>
             <p className="text-xs font-medium pb-3 text-gray-400">
@@ -162,7 +160,7 @@ const AccountPage = () => {
                 <p className=" text-[13px]  font-bold ">Birthday :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {AccountDetails.birthday ?? "--"}
+                {accountDetails.birthday ? accountDetails.birthday : "--"}
               </p>
             </div>
             <div className="flex flex-row">
@@ -170,7 +168,7 @@ const AccountPage = () => {
                 <p className="text-[13px]  font-bold">Gender :</p>
               </div>
               <p className="w-[70%] text-[13px]  font-light pb-5">
-                {AccountDetails.gender ?? "--"}
+                {accountDetails.gender ? accountDetails.gender : "--"}
               </p>
             </div>
             <div>
