@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-import InvestmentChart from "../charts/InvestmentChart";
 import { useEffect, useState } from "react";
 import UserInvestmentsWidget from "../components/UserInvestmentsWidget";
 import UserMarketOptions from "../components/UserMarketOptions";
@@ -9,6 +8,21 @@ const InvestmentsPage = () => {
   const { transactions } = useLoaderData();
   const [recentInvestments, setRecentInvestments] = useState([]);
   const [investmentTotal, setInvestmentTotal] = useState(0);
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Bitcoin Price",
+        data: [],
+        fill: true,
+        borderColor: "#152dff26",
+        backgroundColor: "#152DFF",
+        tension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 0,
+      },
+    ],
+  });
 
   useEffect(() => {
     async function recentInvestmentChecker() {
@@ -47,7 +61,10 @@ const InvestmentsPage = () => {
         </div>
       </div>
       <div>
-        <CryptoChart className="bg-black" />
+        <div className="pr-3 pb-10">
+          <h2>Bitcoin Price Chart</h2>
+          <CryptoChart chartData={chartData} setChartData={setChartData} />
+        </div>
       </div>
     </div>
   );
