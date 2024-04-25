@@ -6,6 +6,7 @@ const cors = require("cors");
 const userRoutes = require("./routes/user.jsx");
 const transacitonRoutes = require("./routes/transactionRoute.jsx");
 const walletRoutes = require("./routes/walletRoute.jsx");
+const accountRoutes = require("./routes/accountRoute.jsx");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use((req, res, next) => {
 app.use(userRoutes);
 app.use(transacitonRoutes);
 app.use(walletRoutes);
+app.use(accountRoutes);
 
 // Conncet to database
 mongoose

@@ -16,6 +16,10 @@ const accountSchema = new Schema(
     gender: {
       type: String,
     },
+    user_id: {
+      type: String,
+      require: true,
+    },
   },
   { timestamps: true }
 );
