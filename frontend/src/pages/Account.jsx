@@ -10,12 +10,7 @@ const AccountPage = () => {
   const [walletTotal, setWalletTotal] = useState(0);
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [accountDetails, setAccountDetails] = useState({
-    address: "",
-    phoneNo: "",
-    birthday: "",
-    gender: "",
-  });
+  const [accountDetails, setAccountDetails] = useState({});
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -81,7 +76,7 @@ const AccountPage = () => {
         );
       } else {
         const details = await response.json();
-        setAccountDetails(details);
+        setAccountDetails(details[0]);
       }
     };
 
