@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
@@ -6,7 +6,7 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
     <>
       <div className="p-5 rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[23rem]">
         <div className="h-[30%] text-center pt-3">
-          <p className="text-sm font-medium text-gray-400">Total Investment</p>
+          <p className="text-sm font-medium text-gray-400">Total Invested</p>
           <p className="text-[24px] font-bold pb-5">
             {new Intl.NumberFormat("en-US", {
               style: "currency",
@@ -32,7 +32,32 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
                       year: "numeric",
                     })}
                   </p>
-                  <p className="w-[30%] text-right">PM</p>
+                  <div className={"w-[30%] flex flex-row justify-end text-xs"}>
+                    <p
+                      className={`${
+                        ((investment.amount - investment.amount) /
+                          investment.amount) *
+                          100 >=
+                        0
+                          ? "bg-[#bcffde] text-[#02B15A]"
+                          : "bg-[#ff00001f] text-[#ff0000]"
+                      } text-right px-[6px] py-[6px] rounded-lg`}
+                    >
+                      {(
+                        ((investment.amount - investment.amount) /
+                          investment.amount) *
+                        100
+                      ).toFixed(2) >= 0 && "+"}
+                      {parseFloat(
+                        (
+                          ((investment.amount - investment.amount) /
+                            investment.amount) *
+                          100
+                        ).toFixed(2)
+                      )}
+                      %
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
