@@ -39,6 +39,9 @@ export const useRegister = () => {
       });
       const json2 = await accountResponse.json();
       console.log(json2);
+      if (accountResponse.ok) {
+        localStorage.setItem("account", JSON.stringify(json2));
+      }
 
       setIsLoading(false);
     }

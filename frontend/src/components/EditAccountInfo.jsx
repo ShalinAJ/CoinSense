@@ -1,10 +1,33 @@
+import { useState } from "react";
 import { Form } from "react-router-dom";
 
-const EditAccountInfo = ({ isOpen, onClose, walletCards }) => {
+const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
+  const [formData, setFormData] = useState({
+    address: "",
+    phone: "",
+    birthday: "",
+    gender: "",
+  });
+
   if (!isOpen) return null;
+
+  const handleChange = (identifier, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [identifier]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("submt clicked");
+    onHandleSubmit(formData);
+  };
+
   const closeModal = () => {
     onClose();
   };
+
   return (
     <>
       <div
@@ -24,18 +47,37 @@ const EditAccountInfo = ({ isOpen, onClose, walletCards }) => {
               </button>
             </div>
 
-            <Form method="post" className="flex flex-col">
+            <Form
+              method="post"
+              className="flex flex-col"
+              onSubmit={handleSubmit}
+            >
               <div className="flex flex-col mb-2 mt-8">
                 <label htmlFor="">Address</label>
-                <input id="name" type="text" name="address"></input>
+                <input
+                  id="name"
+                  type="text"
+                  name="address"
+                  onChange={(e) => handleChange("address", e.target.value)}
+                />
               </div>
               <div className="flex flex-col my-3">
                 <label htmlFor="">Phone </label>
-                <input id="phoneNum" type="text" name="phoneNum"></input>
+                <input
+                  id="phoneNum"
+                  type="text"
+                  name="phoneNum"
+                  onChange={(e) => handleChange("phone", e.target.value)}
+                />
               </div>
               <div className="flex flex-col my-2">
                 <label htmlFor="">Birthday</label>
-                <input id="Birthday" type="date" name="Birthday"></input>
+                <input
+                  id="Birthday"
+                  type="date"
+                  name="Birthday"
+                  onChange={(e) => handleChange("birthday", e.target.value)}
+                />
               </div>
               <div className="my-2">
                 <label htmlFor="">Gender : </label>
@@ -43,13 +85,17 @@ const EditAccountInfo = ({ isOpen, onClose, walletCards }) => {
                   name="status"
                   id="status"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
+                  onChange={(e) => handleChange("gender", e.target.value)}
                 >
                   <option value=""></option>
-                  <option value="Income">Male</option>
-                  <option value="Expense">Female</option>
-                  <option value="Investment">Other</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
                 </select>
               </div>
+              <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker">
+                save
+              </button>
             </Form>
           </div>
         </div>

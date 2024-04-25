@@ -19,7 +19,7 @@ const updateAccountDetails = async (req, res) => {
       .status(400)
       .json({ error: "NO such a contact (contact ID is invalid)" });
   }
-  res.status(200).json(transaciton);
+  res.status(200).json(details);
 
   // try {
   //   const user_id = req.user._id;

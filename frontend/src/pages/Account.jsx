@@ -33,6 +33,31 @@ const AccountPage = () => {
     dataTotalHandler();
   }, [transactions]);
 
+  const handleSubmit = async (formData) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const id = userInfo._id;
+    console.log(id);
+    try {
+      const response = await fetch("http://localhost:4000/account/" + id, {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save account details");
+      }
+
+      // Optionally handle success response here
+      console.log("Account details saved successfully");
+    } catch (error) {
+      console.error("Error saving account details:", error.message);
+    }
+  };
+
   const openModal = () => {
     setModalOpen(true);
   };
@@ -45,7 +70,13 @@ const AccountPage = () => {
     <>
       <Suspense>
         <Await resolve={transactions}>
-          {() => <EditAccountInfo isOpen={modalOpen} onClose={closeModal} />}
+          {() => (
+            <EditAccountInfo
+              isOpen={modalOpen}
+              onClose={closeModal}
+              onHandleSubmit={handleSubmit}
+            />
+          )}
         </Await>
       </Suspense>
       <div className="w-[80%]">
