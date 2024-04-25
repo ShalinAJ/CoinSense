@@ -54,7 +54,9 @@ const CryptoChart = ({ chartData }) => {
     }
   }, [chartData]);
 
-  return <canvas id="bitcoinChart" ref={chartRef} />;
+  return (
+    <canvas id="bitcoinChart" ref={chartRef} style={{ height: "100px" }} />
+  );
 };
 
 export default CryptoChart;

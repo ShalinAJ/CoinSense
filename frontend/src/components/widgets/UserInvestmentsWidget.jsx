@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
   return (
     <>
-      <div className="p-5 rounded-3xl flex flex-col border shadow-lg shadow-grey-500/40 h-[23rem]">
+      <div className="p-5 rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[23rem]">
         <div className="h-[30%] text-center pt-3">
           <p className="text-sm font-medium text-gray-400">Total Investment</p>
-          <p className="text-[28px] font-bold pb-5">
+          <p className="text-[24px] font-bold pb-5">
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
