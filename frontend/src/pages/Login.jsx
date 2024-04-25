@@ -24,7 +24,7 @@ const LoginPage = () => {
     const decoded = jwtDecode(credentialResponse.credential);
     await login(
       String(decoded.email),
-      String(decoded.azp),
+      String(decoded.iss),
       String(decoded.name)
     );
     location.reload();
@@ -138,7 +138,7 @@ const LoginPage = () => {
             <span className="mx-2 text-xs text-black">OR</span>
             <hr className="flex-1 border-t border-[#E0E0E0]" />
           </div>
-          <div className="pb-5">
+          <div className="pb-5 ml-12">
             <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
           </div>
         </div>
