@@ -3,6 +3,7 @@ import InvestmentChart from "../charts/InvestmentChart";
 import { useEffect, useState } from "react";
 import UserInvestmentsWidget from "../components/UserInvestmentsWidget";
 import UserMarketOptions from "../components/UserMarketOptions";
+import CryptoChart from "../charts/CryptoChart";
 
 const InvestmentsPage = () => {
   const { transactions } = useLoaderData();
@@ -46,7 +47,7 @@ const InvestmentsPage = () => {
         </div>
       </div>
       <div>
-        <InvestmentChart className="bg-black" />
+        <CryptoChart className="bg-black" />
       </div>
     </div>
   );
