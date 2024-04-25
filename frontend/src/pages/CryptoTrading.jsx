@@ -1,32 +1,32 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
+import axios from "axios";
 
 const BitcoinChart = () => {
-  const chartRef = useRef();
+  const [chartData, setChartData] = useState({});
 
   useEffect(() => {
     const fetchBitcoinData = async () => {
       try {
-        const response = await fetch(
-          "https://api.coindesk.com/v1/bpi/historical/close.json?start=2021-01-01&end=2021-12-31"
+        const response = await axios.get(
+          "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d"
         );
-        const data = await response.json();
-        const dates = Object.keys(data.bpi);
-        const prices = Object.values(data.bpi);
-        const chart = new Chart(chartRef.current, {
-          type: "line",
-          data: {
-            labels: dates,
-            datasets: [
-              {
-                label: "Bitcoin Price",
-                data: prices,
-                fill: false,
-                borderColor: "rgb(75, 192, 192)",
-                tension: 0.1,
-              },
-            ],
-          },
+        const data = response.data;
+        const dates = data.map((item) =>
+          new Date(item[0]).toLocaleDateString()
+        );
+        const prices = data.map((item) => parseFloat(item[4]));
+        setChartData({
+          labels: dates,
+          datasets: [
+            {
+              label: "Bitcoin Price",
+              data: prices,
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+            },
+          ],
         });
       } catch (error) {
         console.error("Error fetching Bitcoin data: ", error);
@@ -36,9 +36,20 @@ const BitcoinChart = () => {
     fetchBitcoinData();
   }, []);
 
+  useEffect(() => {
+    if (chartData.labels && chartData.datasets) {
+      const ctx = document.getElementById("bitcoinChart");
+      new Chart(ctx, {
+        type: "line",
+        data: chartData,
+      });
+    }
+  }, [chartData]);
+
   return (
-    <div className="w-[100%]">
-      <canvas ref={chartRef} />
+    <div className="w-[90%] px-20">
+      <h2>Bitcoin Price Chart</h2>
+      <canvas id="bitcoinChart" />
     </div>
   );
 };
