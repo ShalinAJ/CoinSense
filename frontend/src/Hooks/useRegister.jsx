@@ -26,7 +26,20 @@ export const useRegister = () => {
       localStorage.setItem("user", JSON.stringify(json));
 
       // update the auth context
-      dispatch({ type: "LOGIN", payload: json });
+      await dispatch({ type: "LOGIN", payload: json });
+
+      // create a account details
+      const user = JSON.parse(localStorage.getItem("user"));
+      const accountResponse = await fetch("http://localhost:4000/account/new", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      const json2 = await accountResponse.json();
+      console.log(json2);
+
       setIsLoading(false);
     }
   };
