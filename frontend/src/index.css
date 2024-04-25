@@ -76,6 +76,10 @@ button:focus-visible {
   box-shadow: 0px 0px 16px -10px #152dff;
 }
 
+.apexcharts-candlestick-series path {
+  fill: transparent;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

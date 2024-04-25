@@ -7,3 +7,15 @@
   height: 100%;
   max-width: 1990px;
 }
+
+/* Red color for negative candlesticks */
+.apexcharts-candlestick-series
+  path.apexcharts-candlestick-wick.apexcharts-candlestick-negative {
+  stroke: #ff0000 !important;
+}
+
+/* Green color for positive candlesticks */
+.apexcharts-candlestick-series
+  path.apexcharts-candlestick-wick.apexcharts-candlestick-positive {
+  stroke: #00ff00 !important;
+}
