@@ -1,9 +1,10 @@
 import { useLoaderData } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import UserInvestmentsWidget from "../components/UserInvestmentsWidget";
-import UserMarketOptions from "../components/UserMarketOptions";
+import UserInvestmentsWidget from "../components/widgets/UserInvestmentsWidget";
+import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import CryptoChart from "../charts/CryptoChart";
 import axios from "axios";
+import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 
 const InvestmentsPage = () => {
   const { transactions } = useLoaderData();
@@ -100,9 +101,13 @@ const InvestmentsPage = () => {
           <UserMarketOptions />
         </div>
       </div>
-      <div>
-        <div className="pr-3 pb-10">
-          <h2>Bitcoin Price Chart</h2>
+      <HorizontalMarketBar />
+      <div className="px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+        <div>
+          <div className="flex flex-row gap-3 pb-5 pl-1">
+            <p className="text-base font-semibold">BTC/USD</p>
+            <p className="text-base font-semibold text-[#02B15A]">+1.48%</p>
+          </div>
           <CryptoChart chartData={chartData} />
         </div>
       </div>

@@ -2,7 +2,7 @@ import React from "react";
 
 const UserMarketOptions = () => {
   return (
-    <div className="p-5 rounded-3xl flex flex-col border shadow-lg shadow-grey-500/40 h-[23rem]">
+    <div className="p-5 rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[23rem]">
       <div className="pt-3 px-2">
         <p className="text-xl font-semibold">Markets</p>
         <p className="text-xs text-gray-400 py-1">
