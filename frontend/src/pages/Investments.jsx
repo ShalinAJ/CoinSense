@@ -1,14 +1,68 @@
 import { useLoaderData } from "react-router-dom";
-import InvestmentChart from "../charts/InvestmentChart";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInvestmentsWidget from "../components/UserInvestmentsWidget";
 import UserMarketOptions from "../components/UserMarketOptions";
 import CryptoChart from "../charts/CryptoChart";
+import axios from "axios";
 
 const InvestmentsPage = () => {
   const { transactions } = useLoaderData();
   const [recentInvestments, setRecentInvestments] = useState([]);
   const [investmentTotal, setInvestmentTotal] = useState(0);
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "Bitcoin Price",
+        data: [],
+        fill: true,
+        borderColor: "#152dff26",
+        backgroundColor: "#152DFF",
+        tension: 0.1,
+        pointRadius: 0,
+        pointHoverRadius: 0,
+      },
+    ],
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d"
+        );
+        const data = response.data;
+        const labels = data.map((item) =>
+          new Date(item[0]).toLocaleDateString()
+        );
+        const prices = data.map((item) => parseFloat(item[4]));
+
+        setChartData({
+          labels,
+          datasets: [
+            {
+              label: "Bitcoin Price",
+              data: prices,
+              fill: true,
+              borderColor: "#152dffa1",
+              backgroundColor: "transparent",
+              tension: 0.1,
+              pointRadius: 0,
+              pointHoverRadius: 0,
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Error fetching Bitcoin data: ", error);
+      }
+    };
+
+    fetchData();
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     async function recentInvestmentChecker() {
@@ -47,7 +101,10 @@ const InvestmentsPage = () => {
         </div>
       </div>
       <div>
-        <CryptoChart className="bg-black" />
+        <div className="pr-3 pb-10">
+          <h2>Bitcoin Price Chart</h2>
+          <CryptoChart chartData={chartData} />
+        </div>
       </div>
     </div>
   );
