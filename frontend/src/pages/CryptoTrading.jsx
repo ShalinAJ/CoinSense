@@ -22,6 +22,14 @@ const BitcoinChart = () => {
     ],
   });
 
+  const [currentPrice, setCurrentPrice] = useState(0);
+  const [priceChange, setPriceChange] = useState(0);
+  const [priceChangePercent, setPriceChangePercent] = useState(0);
+  const [high24h, setHigh24h] = useState(0);
+  const [low24h, setLow24h] = useState(0);
+  const [volume24hBTC, setVolume24hBTC] = useState(0);
+  const [volume24hUSDT, setVolume24hUSDT] = useState(0);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,6 +41,37 @@ const BitcoinChart = () => {
           new Date(item[0]).toLocaleTimeString()
         );
         const prices = data.map((item) => parseFloat(item[4]));
+        const latestData = data[data.length - 1];
+
+        const currentPrice = parseFloat(latestData[4]);
+        const priceChange = currentPrice - parseFloat(latestData[1]);
+        const priceChangePercent = (priceChange / currentPrice) * 100;
+        const high24h = parseFloat(latestData[2]);
+        const low24h = parseFloat(latestData[3]);
+
+        let volume24hBTC = 0;
+        let volume24hUSDT = 0;
+        for (let i = 0; i < data.length; i++) {
+          volume24hBTC += parseFloat(data[i][5]);
+          volume24hUSDT += parseFloat(data[i][7]);
+        }
+
+        volume24hUSDT = volume24hUSDT.toFixed(2);
+        volume24hBTC = volume24hBTC.toFixed(2);
+
+        setCurrentPrice(currentPrice.toFixed(2));
+        setPriceChange(priceChange.toFixed(2));
+        setPriceChangePercent(priceChangePercent.toFixed(2));
+        setHigh24h(high24h.toFixed(2));
+        setLow24h(low24h.toFixed(2));
+        setVolume24hBTC(volume24hBTC);
+        setVolume24hUSDT(volume24hUSDT);
+
+        const currentTime = new Date().toLocaleTimeString();
+        if (!labels.includes(currentTime)) {
+          labels.push(currentTime);
+          prices.push(currentPrice);
+        }
 
         setChartData({
           labels,
@@ -95,33 +134,35 @@ const BitcoinChart = () => {
             </div>
           </div>
           <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-          <div className="w-[58%] flex flex-row items-center text-xs font-semibold gap-5 justify-between">
-            <p className="">$58,000.00</p>
-            <p className="bg-green-200 text-green-600 rounded-full px-2 py-1">
-              +$1.23
+          <div className="w-[65%] flex flex-row items-center text-xs font-semibold gap-5 justify-between">
+            <p className="">${currentPrice}</p>
+            <p className={priceChange >= 0 ? "text-green-600" : "text-red-600"}>
+              ${priceChange}
             </p>
-            <p className="bg-green-200 text-green-600 rounded-full px-2 py-1">
-              1.2%
+            <p
+              className={
+                priceChangePercent >= 0 ? "text-green-600" : "text-red-600"
+              }
+            >
+              {priceChangePercent}%
             </p>
             <div className="flex flex-col items-center gap-[2.8px]">
               <p>24h High</p>
-              <p className="font-normal">$2,000.00</p>
+              <p className="font-normal">${high24h}</p>
             </div>
             <div className="flex flex-col items-center gap-[2.8px]r">
               <p>24h low</p>
-              <p className="font-normal">$1,200.00</p>
+              <p className="font-normal">${low24h}</p>
             </div>
             <div className="flex flex-col items-center gap-[2.8px]">
               <p>24h Volume(BTC)</p>
-              <p className="font-normal">$2,000.00</p>
+              <p className="font-normal">{volume24hBTC}</p>
             </div>
             <div className="flex flex-col items-center gap-[2.8px]">
               <p>24h Volume(USDT)</p>
-              <p className="font-normal">$2,000.00</p>
+              <p className="font-normal">${volume24hUSDT}</p>
             </div>
           </div>
-          <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-          <div className="w-[7%]"></div>
         </div>
         <div className="my-8" style={{ height: "395px" }}>
           <CryptoChart chartData={chartData} />
