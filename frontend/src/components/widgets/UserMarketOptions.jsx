@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const UserMarketOptions = () => {
   return (
@@ -9,7 +10,10 @@ const UserMarketOptions = () => {
           Choose a market to make your investment
         </p>
         <div className="flex flex-col">
-          <button className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center mt-3 mb-2">
+          <Link
+            to={"../investment/crypto-trading"}
+            className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center mt-3 mb-2"
+          >
             <p className="text-sm pl-4">Crypto Currency</p>
             <p className="text-xs pr-4">
               Amount traded:{" "}
@@ -18,8 +22,8 @@ const UserMarketOptions = () => {
                 currency: "USD",
               }).format(0)}
             </p>
-          </button>
-          <button className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2">
+          </Link>
+          <Link className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2">
             <p className="text-sm pl-4">Stock Market</p>
             <p className="text-xs pr-4">
               Amount traded:{" "}
@@ -28,8 +32,8 @@ const UserMarketOptions = () => {
                 currency: "USD",
               }).format(0)}
             </p>
-          </button>
-          <button className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2">
+          </Link>
+          <Link className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2">
             <p className="text-sm pl-4">Forex Trading</p>
             <p className="text-xs"></p>
             <p className="text-xs pr-4">
@@ -39,7 +43,7 @@ const UserMarketOptions = () => {
                 currency: "USD",
               }).format(0)}
             </p>
-          </button>
+          </Link>
           <p className="text-xs font-light text-gray-700 mt-5">
             - Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
             saepe nulla amet

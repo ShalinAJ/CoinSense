@@ -37,7 +37,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     //errorElement: <ErrorPage />, Disabled for now
     children: [
-      { element: <HomePage /> },
+      { index: true, element: user ? <HomePage /> : <LoginPage /> },
       {
         path: "/login",
         element: user ? <Navigate to="/dashboard" /> : <LoginPage />,
@@ -77,7 +77,7 @@ const router = createBrowserRouter([
                 action: newTransactionAction,
               },
               {
-                path: "crypto",
+                path: "crypto-trading",
                 element: <CryptoTradingPage />,
                 loader: transactionsLoader,
                 action: newTransactionAction,
