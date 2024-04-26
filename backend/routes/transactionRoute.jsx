@@ -9,6 +9,7 @@ const {
   getInvestments,
   deleteTransaction,
   updateTransaction,
+  deleteAllTransactions,
 } = require("../controllers/transactionController.jsx");
 
 const router = express.Router();
@@ -30,6 +31,9 @@ router.get("/transactions", getTransactions);
 
 // post a new transaction
 router.post("/transaction/new", createTransaction);
+
+// delete all the transactions
+router.delete("/transactions/:id", deleteAllTransactions);
 
 // delete a transaction
 router.delete("/:id", deleteTransaction);

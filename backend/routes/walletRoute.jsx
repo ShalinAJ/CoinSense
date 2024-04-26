@@ -6,6 +6,7 @@ const {
   getWallets,
   deleteWallet,
   updateWallet,
+  deleteAllWallets,
 } = require("../controllers/walletController.jsx");
 
 const router = express.Router();
@@ -21,6 +22,9 @@ router.post("/wallet/new", createWallet);
 
 // DELETE a wallet
 router.delete("/wallet/:id", deleteWallet);
+
+// DELETE all the wallets
+router.delete("/wallets/:id", deleteAllWallets);
 
 // UPDATE a wallet
 router.patch("/wallet/:id", updateWallet);

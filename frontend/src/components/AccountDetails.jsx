@@ -14,6 +14,7 @@ const AccountDetails = ({
   const [walletTotal, setWalletTotal] = useState(0);
   const { transactions, wallets } = useLoaderData();
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
+  const { ...accountInfo } = JSON.parse(localStorage.getItem("account"));
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -46,7 +47,9 @@ const AccountDetails = ({
           className="w-[10rem] mt-[3.5rem] rounded-full box-shadow"
         />
         <p className="text-2xl font-bold pt-4">{userInfo.name ?? "Username"}</p>
-        <p className="text-xs pt-2">User since {userInfo.date ?? "--"}</p>
+        <p className="text-xs pt-2">
+          User since {accountInfo.createdAt.split("-")[0] ?? "--"}
+        </p>
       </div>
       <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
         <div className="w-[50%] flex flex-col">

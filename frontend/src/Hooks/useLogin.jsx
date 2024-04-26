@@ -9,8 +9,6 @@ export const useLogin = () => {
   const login = async (email, password, name) => {
     setIsLoading(true);
 
-    console.log(email, password, name);
-
     const response = await fetch("http://localhost:4000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

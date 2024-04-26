@@ -127,6 +127,24 @@ const deleteTransaction = async (req, res) => {
   res.status(200).json(transaction);
 };
 
+// Delete all transactions associated with one user
+const deleteAllTransactions = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ObjectId provided" });
+  }
+
+  try {
+    // Delete all transactions with the specified user_id
+    const transactions = await Transaction.deleteMany({ user_id: id });
+
+    res.status(200).json(transactions);
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting transactions" });
+  }
+};
+
 // UPDATE transaciton
 const updateTransaction = async (req, res) => {
   const { id } = req.params;
@@ -159,4 +177,5 @@ module.exports = {
   getInvestments,
   deleteTransaction,
   updateTransaction,
+  deleteAllTransactions,
 };

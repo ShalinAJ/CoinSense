@@ -85,6 +85,24 @@ const deleteWallet = async (req, res) => {
   res.status(200).json(wallet);
 };
 
+// DELETE all wallets with specified user_id
+const deleteAllWallets = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ObjectId provided" });
+  }
+
+  try {
+    // Delete all transactions with the specified user_id
+    const wallets = await Wallet.deleteMany({ user_id: id });
+
+    res.status(200).json(wallets);
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting transactions" });
+  }
+};
+
 // PATCH a wallet
 const updateWallet = async (req, res) => {
   const { id } = req.params;
@@ -106,4 +124,10 @@ const updateWallet = async (req, res) => {
   res.status(200).json(wallet);
 };
 
-module.exports = { createWallet, getWallets, deleteWallet, updateWallet };
+module.exports = {
+  createWallet,
+  getWallets,
+  deleteWallet,
+  updateWallet,
+  deleteAllWallets,
+};
