@@ -93,9 +93,11 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
                   <option value="Other">Other</option>
                 </select>
               </div>
-              <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker">
-                save
-              </button>
+              <div className="flex flex-row justify-end">
+                <button className="mt-8 py-1 px-3 w-[25%] text-sm hover:bg-coinsense-blue-darker">
+                  save
+                </button>
+              </div>
             </Form>
           </div>
         </div>

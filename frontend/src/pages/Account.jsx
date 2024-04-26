@@ -2,6 +2,7 @@ import { Suspense, useEffect, useState } from "react";
 import userImg from "../assets/user-image.png";
 import { Await, Link, json, useLoaderData } from "react-router-dom";
 import EditAccountInfo from "../components/EditAccountInfo";
+import editImg from "../assets/edit.png";
 
 const AccountPage = () => {
   const { transactions, wallets } = useLoaderData();
@@ -120,9 +121,20 @@ const AccountPage = () => {
         </div>
         <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
           <div className="w-[50%] flex flex-col">
-            <p className="text-xs font-medium pb-3 text-gray-400">
-              Contact Information
-            </p>
+            <div className="flex flex-row items-center pb-6 gap-3">
+              <p className="text-xs font-medium  text-gray-400">
+                Contact Information
+              </p>
+              <div>
+                <button
+                  onClick={openModal}
+                  className="bg-transparent p-0 m-0 border-none text-black flex flex-row items-center justify-end text-xs font-light gap-1"
+                >
+                  <img src={editImg} alt="" className="w-[14px]" />
+                </button>
+              </div>
+            </div>
+
             <div className=" flex flex-row">
               <div className="w-[30%]">
                 <p className=" text-[13px] font-bold ">Email :</p>
@@ -171,11 +183,8 @@ const AccountPage = () => {
                   : "--"}
               </p>
             </div>
-            <div>
-              <button onClick={openModal}>Edit</button>
-            </div>
           </div>
-          <div className="flex flex-col gap-4 pt-5">
+          <div className="flex flex-col gap-4">
             <Link
               to={"../transactions"}
               className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
