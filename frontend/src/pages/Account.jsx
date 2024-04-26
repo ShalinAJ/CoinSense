@@ -13,9 +13,10 @@ const AccountPage = () => {
 
   const handleDeleteAccount = async () => {
     await deleteAccount();
-    console.log("handle delete account");
-    //localStorage.clear("account");
-    //localStorage.clear("user");
+    //console.log("handle delete account");
+    localStorage.clear("account");
+    localStorage.clear("user");
+    location.reload();
   };
 
   // handle submit in EditAccountInfo
