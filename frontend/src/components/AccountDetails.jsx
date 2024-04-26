@@ -113,7 +113,12 @@ const AccountDetails = ({
             </p>
           </div>
           <div>
-            <button onClick={onDeleteAccount}>Delete Account</button>
+            <button
+              onClick={onDeleteAccount}
+              className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
+            >
+              Delete Account
+            </button>
           </div>
         </div>
         <div className="flex flex-col gap-4">
