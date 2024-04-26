@@ -7,6 +7,7 @@ const userRoutes = require("./routes/user.jsx");
 const transacitonRoutes = require("./routes/transactionRoute.jsx");
 const walletRoutes = require("./routes/walletRoute.jsx");
 const accountRoutes = require("./routes/accountRoute.jsx");
+const cryptoGeneralDataRoutes = require("./routes/cryptoGeneralDataRoute.jsx");
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(userRoutes);
 app.use(transacitonRoutes);
 app.use(walletRoutes);
 app.use(accountRoutes);
+app.use(cryptoGeneralDataRoutes);
 
 // Conncet to database
 mongoose

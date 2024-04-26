@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const HorizontalMarketBar = () => {
+  const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    const getCryptoGeneralData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/crypto/general", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+
+        const cryptoDetails = await response.json();
+        console.log(cryptoDetails);
+      } catch (error) {
+        console.error("Error fetching crypto data: ", error);
+      }
+    };
+
+    getCryptoGeneralData();
+  }, []);
   return (
     <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
       <div className="w-[30%] flex flex-col gap-4">

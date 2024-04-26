@@ -13,7 +13,6 @@ const AccountPage = () => {
 
   const handleDeleteAccount = async () => {
     await deleteAccount();
-    //console.log("handle delete account");
     localStorage.clear("account");
     localStorage.clear("user");
     location.reload();
