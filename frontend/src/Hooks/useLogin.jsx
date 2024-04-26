@@ -29,6 +29,26 @@ export const useLogin = () => {
 
       // update the authContext
       dispatch({ type: "LOGIN", payload: json });
+
+      // Get account details
+      const user = JSON.parse(localStorage.getItem("user"));
+      const accountResponse = await fetch("http://localhost:4000/account", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      if (!accountResponse.ok) {
+        setError("Could not fetch account details.");
+        setIsLoading(false);
+        return;
+      }
+
+      const accountJson = await accountResponse.json();
+
+      // Save account details to local storage
+      localStorage.setItem("account", JSON.stringify(accountJson[0]));
+
       setIsLoading(false);
     }
   };

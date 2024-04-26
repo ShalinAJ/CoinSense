@@ -35,6 +35,7 @@ const AccountPage = () => {
     }
   };
 
+  // Get all account details
   useEffect(() => {
     const getAccountDetails = async () => {
       const response = await fetch("http://localhost:4000/account", {
@@ -57,13 +58,62 @@ const AccountPage = () => {
     getAccountDetails();
   }, []);
 
-  console.log(accountDetails);
   const openModal = () => {
     setModalOpen(true);
   };
 
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  // Delete Account from DB
+  const deleteAccount = async () => {
+    const account = JSON.parse(localStorage.getItem("account"));
+    const id = account._id;
+
+    const response = await fetch("http://localhost:4000/account" + id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      return json(
+        { message: "Could not fetch transactions." },
+        { status: 500 }
+      );
+    } else {
+      const details = await response.json();
+      console.log(details);
+    }
+  };
+
+  // Delete user from DB
+  const deleteUser = async () => {
+    const account = JSON.parse(localStorage.getItem("account"));
+    const id = account._id;
+
+    const response = await fetch("http://localhost:4000/user" + id, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      return json(
+        { message: "Could not fetch transactions." },
+        { status: 500 }
+      );
+    } else {
+      const details = await response.json();
+      console.log(details);
+    }
+  };
+
+  const handleDeleteAccount = () => {
+    deleteAccount();
+    deleteUser();
+    localStorage.clear("account");
+    localStorage.clear("user");
   };
 
   console.log(accountDetails);
@@ -85,6 +135,7 @@ const AccountPage = () => {
         openModal={openModal}
         userInfo={userInfo}
         accountDetails={accountDetails}
+        onDeleteAccount={handleDeleteAccount}
       />
     </>
   );

@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const mongoose = require("mongoose");
 
 const User = require("../models/userModel.jsx");
 
@@ -34,4 +35,24 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (mongoose ID is invalid)" });
+  }
+
+  const user = await User.findOneAndDelete({ _id: id });
+
+  if (!user) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (contact ID is invalid)" });
+  }
+
+  res.status(200).json(user);
+};
+
+module.exports = { registerUser, loginUser, deleteUser };

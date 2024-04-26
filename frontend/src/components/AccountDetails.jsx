@@ -4,7 +4,12 @@ import { Link, useLoaderData } from "react-router-dom";
 import userImg from "../assets/user-image.png";
 import editImg from "../assets/edit.png";
 
-const AccountDetails = ({ openModal, userInfo, accountDetails }) => {
+const AccountDetails = ({
+  openModal,
+  userInfo,
+  accountDetails,
+  onDeleteAccount,
+}) => {
   const [transactionTotal, setTransactionTotal] = useState(0);
   const [walletTotal, setWalletTotal] = useState(0);
   const { transactions, wallets } = useLoaderData();
@@ -106,6 +111,9 @@ const AccountDetails = ({ openModal, userInfo, accountDetails }) => {
                 ? accountDetails.gender
                 : "--"}
             </p>
+          </div>
+          <div>
+            <button onClick={onDeleteAccount}>Delete Account</button>
           </div>
         </div>
         <div className="flex flex-col gap-4">
