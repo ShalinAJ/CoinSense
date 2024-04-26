@@ -20,8 +20,8 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submt clicked");
     onHandleSubmit(formData);
+    window.location.reload();
   };
 
   const closeModal = () => {
