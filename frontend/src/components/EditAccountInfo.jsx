@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 
-const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
+const EditAccountInfo = ({
+  isOpen,
+  onClose,
+  onHandleSubmit,
+  accountDetails,
+}) => {
   const [formData, setFormData] = useState({
     address: "",
     phoneNo: "",
     birthday: "",
     gender: "",
   });
+
+  useEffect(() => {
+    async function userDataHandler() {
+      setFormData({
+        address: accountDetails.address,
+        phoneNo: accountDetails.phoneNo,
+        birthday: accountDetails.birthday,
+        gender: accountDetails.gender,
+      });
+    }
+    userDataHandler();
+  }, [accountDetails]);
 
   if (!isOpen) return null;
 
@@ -58,6 +75,7 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
                   id="name"
                   type="text"
                   name="address"
+                  defaultValue={accountDetails.address}
                   onChange={(e) => handleChange("address", e.target.value)}
                 />
               </div>
@@ -67,6 +85,7 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
                   id="phoneNo"
                   type="number"
                   name="phoneNo"
+                  defaultValue={accountDetails.phoneNo}
                   onChange={(e) => handleChange("phoneNo", e.target.value)}
                 />
               </div>
@@ -76,6 +95,7 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
                   id="Birthday"
                   type="date"
                   name="Birthday"
+                  defaultValue={accountDetails.birthday}
                   onChange={(e) => handleChange("birthday", e.target.value)}
                 />
               </div>
@@ -85,6 +105,7 @@ const EditAccountInfo = ({ isOpen, onClose, onHandleSubmit }) => {
                   name="status"
                   id="status"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
+                  defaultValue={accountDetails.gender}
                   onChange={(e) => handleChange("gender", e.target.value)}
                 >
                   <option value=""></option>
