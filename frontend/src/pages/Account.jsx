@@ -59,7 +59,7 @@ const AccountPage = () => {
       }
 
       console.log("Account details saved successfully");
-      //location.reload();
+      location.reload();
     } catch (error) {
       console.error("Error saving account details:", error.message);
     }
@@ -80,12 +80,13 @@ const AccountPage = () => {
         );
       } else {
         const details = await response.json();
-        setAccountDetails(details);
+        setAccountDetails(details[0]);
       }
     };
 
     getAccountDetails();
   }, []);
+
   console.log(accountDetails);
   const openModal = () => {
     setModalOpen(true);
