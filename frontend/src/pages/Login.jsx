@@ -17,10 +17,7 @@ const LoginPage = () => {
     event.preventDefault();
 
     await login(email, password);
-    //location.reload();
   }
-
-  console.log(error);
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
@@ -52,7 +49,6 @@ const LoginPage = () => {
             </p>
           </div>
         </div>
-
         <div className=" w-[400px] px-4 py-6 border shadow-lg bg-white rounded-xl mt-20 mb-20 mr-[10rem]">
           <form onSubmit={handleSubmit}>
             <div className="flex text-center">
@@ -123,6 +119,7 @@ const LoginPage = () => {
                 Sign in
               </button>
             </p>
+            {error && "error"}
           </form>
           <div className="mt-4">
             <p className="flex content-center justify-center items-center text-xs font-medium text-black">

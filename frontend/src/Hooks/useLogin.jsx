@@ -48,6 +48,7 @@ export const useLogin = () => {
       localStorage.setItem("account", JSON.stringify(accountJson[0]));
 
       setIsLoading(false);
+      location.reload();
     }
   };
 
