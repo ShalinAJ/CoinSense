@@ -15,12 +15,12 @@ export const useLogin = () => {
       body: JSON.stringify({ email, password, name }),
     });
     const json = await response.json();
-    console.log(json);
 
-    if (!response) {
+    if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
     }
+
     if (response.ok) {
       // save the user to local storage
       localStorage.setItem("user", JSON.stringify(json));

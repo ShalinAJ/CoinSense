@@ -28,10 +28,10 @@ const userSchema = new Schema(
 userSchema.statics.register = async function (name, email, password) {
   // validation
   if (!email || !password || !name) {
-    throw error("All fields must be filled");
+    throw Error("All fields must be filled");
   }
   if (!validator.isEmail(email)) {
-    throw error("Email is not valid");
+    throw Error("Email is not valid");
   }
   // if (!validator.isStrongPassword(password)) {
   //   throw error ("Password is not strong enough")
@@ -39,7 +39,7 @@ userSchema.statics.register = async function (name, email, password) {
 
   const exists = await this.findOne({ email });
   if (exists) {
-    throw error("Email already in use");
+    throw Error("Email already in use");
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -53,16 +53,17 @@ userSchema.statics.register = async function (name, email, password) {
 // static login method
 userSchema.statics.login = async function (email, password) {
   if (!email || !password) {
-    throw error("All fields must be filled");
+    throw Error("All fields must be filled");
   }
 
   const user = await this.findOne({ email });
+
   if (!user) {
-    throw error("Incorrect Email");
+    throw Error("Incorrect Email");
   }
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
-    throw error("Incorrect Password");
+    throw Error("Incorrect Password");
   }
   return user;
 };

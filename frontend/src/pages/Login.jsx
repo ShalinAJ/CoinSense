@@ -11,14 +11,16 @@ import { jwtDecode } from "jwt-decode";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useLogin();
+  const { login, error, isLoading } = useLogin();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     await login(email, password);
-    location.reload();
+    //location.reload();
   }
+
+  console.log(error);
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
