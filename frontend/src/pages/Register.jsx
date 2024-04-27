@@ -18,9 +18,7 @@ const RegisterPage = () => {
     event.preventDefault();
 
     await register(name, email, password);
-    //location.reload();
   }
-  console.log(error);
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
@@ -29,7 +27,6 @@ const RegisterPage = () => {
       String(decoded.email),
       String(decoded.iss)
     );
-    location.reload();
   };
 
   const handleError = () => {

@@ -26,7 +26,6 @@ const LoginPage = () => {
       String(decoded.iss),
       String(decoded.name)
     );
-    location.reload();
   };
 
   const handleError = () => {
