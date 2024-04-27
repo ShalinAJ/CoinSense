@@ -25,7 +25,7 @@ const RegisterPage = () => {
     await register(
       String(decoded.name),
       String(decoded.email),
-      String(decoded.iss)
+      String(decoded.sub)
     );
   };
 
