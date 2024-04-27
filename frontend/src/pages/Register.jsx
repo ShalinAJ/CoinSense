@@ -92,6 +92,9 @@ const RegisterPage = () => {
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                <div className="text-[11px] text-red-500 pt-1 pl-1">
+                  {error && error === "Email already in use" && error}
+                </div>
               </div>
             </div>
 
@@ -115,6 +118,9 @@ const RegisterPage = () => {
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <div className="text-[11px] text-red-500 pt-1 pl-1">
+                  {error === "All fields must be filled" && error}
+                </div>
               </div>
             </div>
 
@@ -123,7 +129,6 @@ const RegisterPage = () => {
                 Sign up
               </button>
             </p>
-            {error && "error"}
           </form>
           <div className="mt-4">
             <p className="flex content-center justify-center items-center text-xs font-medium text-black">
