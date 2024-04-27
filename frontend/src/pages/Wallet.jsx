@@ -1,6 +1,6 @@
 import { Suspense, useState } from "react";
 import AddWalletModal from "../components/AddWalletModal";
-import { Await, defer, json, useLoaderData } from "react-router-dom";
+import { Await, defer, json, Link, useLoaderData } from "react-router-dom";
 import WalletsList from "../components/WalletsList";
 
 const WalletPage = () => {
@@ -26,12 +26,20 @@ const WalletPage = () => {
               Detailed view of your wallets
             </p>
           </div>
-          <button
-            onClick={openModal}
-            className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
-          >
-            Add Wallet
-          </button>
+          <div className="flex flex-row gap-3">
+            <Link
+              to={"/dashboard/investment/trading-wallet"}
+              className="text-xs text-coinsense-blue px-8 border py-1 rounded-lg border-coinsense-blue bg-transparent"
+            >
+              Trading Wallet
+            </Link>
+            <button
+              onClick={openModal}
+              className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
+            >
+              Add Wallet
+            </button>
+          </div>
         </div>
         <div className=" px-[28px] py-6">
           <Suspense

@@ -28,6 +28,7 @@ import AllInvestmentsPage from "./pages/AllInvestments";
 import InvestmentRootLayout from "./pages/InvestmentRoot";
 import ErrorPage from "./pages/Error";
 import CryptoTradingPage from "./pages/CryptoTrading";
+import TradingWalletPage from "./pages/TradingWallet";
 
 var user = JSON.parse(localStorage.getItem("user"));
 
@@ -81,6 +82,11 @@ const router = createBrowserRouter([
                 element: <CryptoTradingPage />,
                 loader: transactionsLoader,
                 action: newTransactionAction,
+              },
+              {
+                path: "trading-wallet",
+                element: <TradingWalletPage />,
+                loader: transactionsLoader,
               },
             ],
           },
