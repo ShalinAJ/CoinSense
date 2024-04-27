@@ -115,7 +115,7 @@ const LoginPage = () => {
               </div>
             </div>
 
-            <div className="text-right flex justify-end mt-3 mb-5">
+            <div className="text-right flex justify-end my-5">
               <a className="text-xs p-0 text-[#152DFF] font-medium" href="">
                 Forgot Password
               </a>
