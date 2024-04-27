@@ -36,7 +36,7 @@ const createAccountDetails = async (req, res) => {
       gender,
       user_id,
     });
-    console.log(`new ${account}`);
+
     res.status(200).json(account);
   } catch (error) {
     res.status(400).json({ error: error.message });

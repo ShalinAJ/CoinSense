@@ -38,6 +38,8 @@ const AccountDetails = ({
     dataTotalHandler();
   }, [transactions]);
 
+  console.log(accountDetails);
+
   return (
     <div className="w-[80%]">
       <div className="flex flex-col items-center">
@@ -46,6 +48,13 @@ const AccountDetails = ({
           alt=""
           className="w-[10rem] mt-[3.5rem] rounded-full box-shadow"
         />
+
+        {/* profile photo upload input */}
+        <form action="/profile" method="POST" enctype="multipart/form-data">
+          <input type="file" name="avatar" />
+          <button type="submit">Upload</button>
+        </form>
+
         <p className="text-2xl font-bold pt-4">{userInfo.name ?? "Username"}</p>
         <p className="text-xs pt-2">
           User since {accountInfo.createdAt.split("-")[0] ?? "--"}

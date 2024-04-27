@@ -10,8 +10,8 @@ const accountSchema = new Schema(
     phoneNo: {
       type: Number,
     },
-    birthDay: {
-      type: Date,
+    birthday: {
+      type: String,
     },
     gender: {
       type: String,
@@ -19,6 +19,9 @@ const accountSchema = new Schema(
     user_id: {
       type: String,
       require: true,
+    },
+    profilePhoto: {
+      type: String, // Assuming you will store the filename of the profile photo
     },
   },
   { timestamps: true }

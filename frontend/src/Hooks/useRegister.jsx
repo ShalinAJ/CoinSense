@@ -30,6 +30,7 @@ export const useRegister = () => {
 
       // create a account details
       const user = JSON.parse(localStorage.getItem("user"));
+
       const accountResponse = await fetch("http://localhost:4000/account/new", {
         method: "POST",
         headers: {

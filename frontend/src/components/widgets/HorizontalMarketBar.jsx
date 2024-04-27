@@ -34,15 +34,11 @@ const HorizontalMarketBar = () => {
       <div className="w-[30%] flex flex-col gap-4">
         <div className="flex flex-row items-center justify-between">
           <img
-            src={cryptoData[0].image ? cryptoData[0].image : "--"}
+            src={cryptoData[0].image}
             alt=""
             className="w-7 h-7 rounded-full"
           />
-          <p className="text-sm font-medium">
-            {cryptoData[0] && cryptoData[0].current_price
-              ? cryptoData[0].current_price
-              : "--"}
-          </p>
+          <p className="text-sm font-medium">{cryptoData[0].current_price}</p>
           <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
         </div>
         <div className="flex flex-row items-center justify-between">
