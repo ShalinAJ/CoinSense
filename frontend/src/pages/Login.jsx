@@ -24,7 +24,7 @@ const LoginPage = () => {
     const decoded = jwtDecode(credentialResponse.credential);
     await login(
       String(decoded.email),
-      String(decoded.iss),
+      String(decoded.sub),
       String(decoded.name)
     );
     setGoogleError("Unable to login with google.");
