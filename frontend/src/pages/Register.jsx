@@ -13,6 +13,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const { register, error, isLoading } = useRegister();
+  const [googleError, setGoogleError] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -27,10 +28,12 @@ const RegisterPage = () => {
       String(decoded.email),
       String(decoded.iss)
     );
+    setGoogleError("Account already exists.");
   };
 
-  const handleError = () => {
-    console.log("Google login failed");
+  const handleError = (error) => {
+    console.error("Google login failed:", error);
+    setGoogleError("Google login failed. Please try again later.");
   };
 
   return (
@@ -93,7 +96,9 @@ const RegisterPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <div className="text-[11px] text-red-500 pt-1 pl-1">
-                  {error && error === "Email already in use" && error}
+                  {googleError === "" &&
+                    error === "Email already in use" &&
+                    error}
                 </div>
               </div>
             </div>
@@ -146,10 +151,10 @@ const RegisterPage = () => {
             <span className="mx-2 text-xs text-black">OR</span>
             <hr className="flex-1 border-t border-[#E0E0E0]" />
           </div>
-          <div className="pb-5 ml-12">
+          <div className="flex flex-col justify-center items-center pb-4">
             <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
-            <div className="text-[11px] text-red-500 pt-1 pl-1">
-              {error === "Account already exists yet" && error}
+            <div className="text-[11px] text-red-500 pt-1 text-center">
+              {googleError}
             </div>
           </div>
         </div>
