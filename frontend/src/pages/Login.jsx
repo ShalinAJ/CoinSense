@@ -12,6 +12,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login, error, isLoading } = useLogin();
+  const [googleError, setGoogleError] = useState("");
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -26,6 +27,7 @@ const LoginPage = () => {
       String(decoded.iss),
       String(decoded.name)
     );
+    setGoogleError("Unable to login with google.");
   };
 
   const handleError = () => {
@@ -108,7 +110,9 @@ const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
                 <div className="text-[11px] text-red-500 pt-1 pl-1">
-                  {(error && error === "Incorrect Password" && error) ||
+                  {(googleError === "" &&
+                    error === "Incorrect Password" &&
+                    error) ||
                     (error === "All fields must be filled" && error)}
                 </div>
               </div>
@@ -142,8 +146,11 @@ const LoginPage = () => {
             <span className="mx-2 text-xs text-black">OR</span>
             <hr className="flex-1 border-t border-[#E0E0E0]" />
           </div>
-          <div className="pb-5 ml-12">
+          <div className="flex flex-col justify-center items-center pb-4">
             <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+            <div className="text-[11px] text-red-500 pt-1 text-center">
+              {googleError}
+            </div>
           </div>
         </div>
       </div>
