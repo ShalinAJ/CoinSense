@@ -148,6 +148,7 @@ const RegisterPage = () => {
           </div>
           <div className="pb-5 ml-12">
             <GoogleLogin onSuccess={handleSuccess} onError={handleError} />
+            {error === "Account not registered yet" && error}
           </div>
         </div>
       </div>
