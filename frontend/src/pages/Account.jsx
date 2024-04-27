@@ -83,6 +83,7 @@ const AccountPage = () => {
         <Await resolve={accountDetails}>
           {() => (
             <EditAccountInfo
+              accountDetails={accountDetails}
               isOpen={modalOpen}
               onClose={closeModal}
               onHandleSubmit={handleSubmit}

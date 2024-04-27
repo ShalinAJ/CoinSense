@@ -140,7 +140,10 @@ const DashboardPage = () => {
               </NavLink>
             </div>
             <div className="basis-1/3">
-              <NavLink className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
+              <NavLink
+                to={"/dashboard/investment/user-investments"}
+                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker"
+              >
                 <img src={totalInvestmentImg} alt="" className="w-12" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Investments</p>

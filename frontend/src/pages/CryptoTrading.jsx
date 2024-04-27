@@ -185,7 +185,7 @@ const BitcoinChart = () => {
             <form action="">
               <div className="flex flex-col pb-5">
                 <label htmlFor="">Price (USDT)</label>
-                <input type="text" />
+                <input type="text" value={currentPrice} />
               </div>
               <div className="flex flex-col pb-5">
                 <label htmlFor="">Amount (BTC)</label>
