@@ -8,9 +8,9 @@ export const useRegister = () => {
 
   const register = async (name, email, password) => {
     setIsLoading(true);
-    setError(null);
 
     console.log(name, email, password);
+
     const response = await fetch("http://localhost:4000/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -18,7 +18,7 @@ export const useRegister = () => {
     });
     const json = await response.json();
 
-    if (!response) {
+    if (!response.ok) {
       setIsLoading(false);
       setError(json.error);
     }
@@ -46,6 +46,7 @@ export const useRegister = () => {
       }
 
       setIsLoading(false);
+      location.reload();
     }
   };
   return { register, isLoading, error };

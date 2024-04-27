@@ -12,14 +12,15 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const { register } = useRegister();
+  const { register, error, isLoading } = useRegister();
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     await register(name, email, password);
-    location.reload();
+    //location.reload();
   }
+  console.log(error);
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
@@ -125,6 +126,7 @@ const RegisterPage = () => {
                 Sign up
               </button>
             </p>
+            {error && "error"}
           </form>
           <div className="mt-4">
             <p className="flex content-center justify-center items-center text-xs font-medium text-black">
