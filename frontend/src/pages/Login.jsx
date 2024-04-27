@@ -82,6 +82,9 @@ const LoginPage = () => {
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
+                <div className="text-[11px] text-red-500 pt-1 pl-1">
+                  {error && error === "Incorrect Email" && error}
+                </div>
               </div>
             </div>
 
@@ -105,10 +108,14 @@ const LoginPage = () => {
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <div className="text-[11px] text-red-500 pt-1 pl-1">
+                  {(error && error === "Incorrect Password" && error) ||
+                    (error === "All fields must be filled" && error)}
+                </div>
               </div>
             </div>
 
-            <div className="text-right flex justify-end my-5">
+            <div className="text-right flex justify-end mt-3 mb-5">
               <a className="text-xs p-0 text-[#152DFF] font-medium" href="">
                 Forgot Password
               </a>
@@ -119,7 +126,6 @@ const LoginPage = () => {
                 Sign in
               </button>
             </p>
-            {error && "error"}
           </form>
           <div className="mt-4">
             <p className="flex content-center justify-center items-center text-xs font-medium text-black">
