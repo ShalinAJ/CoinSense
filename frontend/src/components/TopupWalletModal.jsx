@@ -64,7 +64,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
                     ></div>
                     <p className="text-[10px] mt-8 py-1">
                       {selectedCard &&
-                        `Top up will be done with card XXXX XXXX XXXX ${selectedCard.slice(
+                        `Top up will be done from card XXXX XXXX XXXX ${selectedCard.slice(
                           12,
                           16
                         )}`}

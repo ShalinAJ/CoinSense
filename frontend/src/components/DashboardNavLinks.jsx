@@ -13,6 +13,7 @@ const DashboardNavLinks = ({ title, image, activeImage, link }) => {
           return classes.active;
         } else {
           setImgColor("white");
+          return classes.navLink;
         }
       }}
       end

@@ -1,3 +1,7 @@
+.navLink {
+  font-size: 15px;
+}
+
 a {
   font-size: 15px;
   display: flex;
@@ -12,16 +16,9 @@ li {
 }
 
 a.active {
+  font-size: 15px;
   color: #fff;
   background: #152dff;
 
   border-radius: 8px;
-}
-
-svg path {
-  fill: black;
-}
-
-svg path:selected {
-  fill: white;
 }

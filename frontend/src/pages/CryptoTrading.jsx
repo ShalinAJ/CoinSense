@@ -4,6 +4,7 @@ import CryptoChart from "../charts/CryptoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
+import TradingArea from "../components/trading/TradingArea";
 
 const BitcoinChart = () => {
   const [chartData, setChartData] = useState({
@@ -124,7 +125,7 @@ const BitcoinChart = () => {
             <select
               name=""
               id=""
-              value="Bitcoin"
+              defaultValue="Bitcoin"
               className="w-[60%] py-1 px-2 cursor-pointer text-sm bg-transparent border-2 text-gray-500 border-gray-300 rounded-2xl"
             >
               <option value="">Bitcoin</option>
@@ -168,54 +169,8 @@ const BitcoinChart = () => {
           <CryptoChart chartData={chartData} />
         </div>
         <hr />
-        <div className="py-10 flex flex-row justify-between">
-          <div className="w-[48.5%] h-[23rem]">
-            <p className="text-lg font-semibold  pb-3 pl-1">Make Trade</p>
-            <div className="flex flex-row justify-between pb-7 text-xs">
-              <div className="flex flex-row gap-3">
-                <button className="rounded-full">Buy</button>
-                <button className="rounded-full">Sell</button>
-              </div>
-              <div className="flex flex-row gap-3">
-                <button className="rounded-full">Market</button>
-                <button className="rounded-full">Limit</button>
-              </div>
-            </div>
-
-            <form action="">
-              <div className="flex flex-col pb-5">
-                <label htmlFor="">Price (USDT)</label>
-                <input type="text" value={currentPrice} />
-              </div>
-              <div className="flex flex-col pb-5">
-                <label htmlFor="">Amount (BTC)</label>
-                <input type="text" />
-              </div>
-              <div className="flex flex-row justify-between pb-5">
-                <div>
-                  <label htmlFor="" className="mr-3">
-                    Payment Card
-                  </label>
-                  <select name="" id="">
-                    <option value="">Card 1</option>
-                  </select>
-                </div>
-                <div>Details</div>
-              </div>
-              <div className="flex flex-row justify-end">
-                <button className="mt-8 py-1 px-3 w-[18%] text-sm items-end hover:bg-coinsense-blue-darker">
-                  Submit
-                </button>
-              </div>
-            </form>
-          </div>
-          <div className="w-[48.5%] h-[23rem] border rounded-3xl p-3">
-            <div className="text-xs flex flex-row gap-3">
-              <button className="rounded-full">Open Orders</button>
-              <button className="rounded-full">Order History</button>
-            </div>
-            <div></div>
-          </div>
+        <div>
+          <TradingArea currentPrice={currentPrice} />
         </div>
         <div>
           <HorizontalMarketBar />
