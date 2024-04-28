@@ -30,17 +30,40 @@ const BitcoinChart = () => {
   const [low24h, setLow24h] = useState(0);
   const [volume24hBTC, setVolume24hBTC] = useState(0);
   const [volume24hUSDT, setVolume24hUSDT] = useState(0);
+  const [tradingInterval, setTradingInterval] = useState("1m");
+
+  function tradingIntervalHandler(event) {
+    setTradingInterval(event.target.value);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m"
+          `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${tradingInterval}`
         );
+
+        let dates = [];
+
+        if (tradingInterval === "1d") {
+          dates = response.data.map((item) =>
+            new Date(item[0]).toLocaleDateString()
+          );
+        } else if (tradingInterval === "4h") {
+          dates = response.data.map((item) =>
+            new Date(item[0]).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          );
+        } else {
+          dates = response.data.map((item) =>
+            new Date(item[0]).toLocaleTimeString()
+          );
+        }
+
         const data = response.data;
-        const labels = data.map((item) =>
-          new Date(item[0]).toLocaleTimeString()
-        );
+        const labels = dates;
         const prices = data.map((item) => parseFloat(item[4]));
         const latestData = data[data.length - 1];
 
@@ -84,7 +107,7 @@ const BitcoinChart = () => {
               borderColor: "#152dffa1",
               backgroundColor: "transparent",
               tension: 0.1,
-              pointRadius: 0,
+              pointRadius: 1,
               pointHoverRadius: 0,
             },
           ],
@@ -99,7 +122,7 @@ const BitcoinChart = () => {
     const interval = setInterval(fetchData, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [tradingInterval]);
 
   return (
     <div className="w-[80%] h-[max-content] bg-white">
@@ -165,7 +188,24 @@ const BitcoinChart = () => {
             </div>
           </div>
         </div>
-        <div className="my-8" style={{ height: "395px" }}>
+        <div className="flex flex-row items-center justify-end gap-2 mt-5">
+          <label htmlFor="">Interval </label>
+          <select
+            name="trading-interval"
+            id="trading-interval"
+            onChange={tradingIntervalHandler}
+            defaultValue={tradingInterval}
+            className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+          >
+            <option value="1s">1s</option>
+            <option value="1m">1m</option>
+            <option value="15m">15m</option>
+            <option value="4h">4h</option>
+            <option value="1d">1d</option>
+          </select>
+        </div>
+
+        <div className="mb-8 mt-3" style={{ height: "395px" }}>
           <CryptoChart chartData={chartData} />
         </div>
         <hr />
