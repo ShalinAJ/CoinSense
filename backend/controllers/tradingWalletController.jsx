@@ -23,28 +23,6 @@ const createTradingWallet = async (req, res) => {
   }
 };
 
-const updateTradingWallet = async (req, res) => {
-  const { id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    res
-      .status(400)
-      .json({ error: "NO such a contact (mongoose ID is invalid)" });
-  }
-
-  const tradingWallet = await TradingWallet.findOneAndUpdate(
-    { _id: id },
-    { ...req.body }
-  );
-
-  if (!tradingWallet) {
-    return res
-      .status(400)
-      .json({ error: "NO such a contact (contact ID is invalid)" });
-  }
-  res.status(200).json(tradingWallet);
-};
-
 const getTradingWallet = async (req, res) => {
   try {
     const user_id = req.user._id;
@@ -57,4 +35,4 @@ const getTradingWallet = async (req, res) => {
   }
 };
 
-module.exports = { createTradingWallet, updateTradingWallet, getTradingWallet };
+module.exports = { createTradingWallet, getTradingWallet };
