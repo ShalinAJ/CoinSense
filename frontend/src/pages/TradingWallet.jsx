@@ -16,9 +16,10 @@ const TradingWalletPage = ({}) => {
   const { topups, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
-  const [tradingWallet, setTradingWallet] = useState({});
-  const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
+  const [topupdata, setTopupData] = useState();
   const navigate = useNavigate();
+
+  console.log(topups);
 
   useEffect(() => {
     async function walletCountHandler() {
@@ -31,56 +32,23 @@ const TradingWalletPage = ({}) => {
       setWalletList(cardArray);
     }
 
-    // get trading wallet details
-    async function loadTradingWalletDetails() {
-      try {
-        const response = await fetch("http://localhost:4000/tradingwallet", {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-        const details = await response.json();
-        setTradingWallet(details);
-      } catch (error) {
-        console.error("Error saving account details:", error.message);
-      }
+    async function topupDetails() {
+      const topupDataList = await topups;
+      setTopupData(topupDataList);
     }
 
-    loadTradingWalletDetails();
+    topupDetails();
     walletCountHandler();
   }, [wallets]);
 
   let totalAmount = 0;
   let entries = 0;
 
-  // get totalAmount and no of entries
-  if (Array.isArray(tradingWallet)) {
-    tradingWallet.forEach((item) => {
+  if (Array.isArray(topupdata)) {
+    topupdata.forEach((item) => {
       totalAmount += item.amount;
       entries++;
     });
-
-    console.log("Total amount:", totalAmount);
-  } else {
-    console.log("tradingWallet is not an array or does not exist.");
-  }
-
-  // send submit data to DB
-  async function formSubmitHandler(data) {
-    try {
-      const response = await fetch("http://localhost:4000/tradingwallet/new", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      const details = await response.json();
-      location.reload();
-    } catch (error) {
-      console.error("Error creating trading transaction:", error.message);
-    }
   }
 
   const openModal = () => {
@@ -104,7 +72,6 @@ const TradingWalletPage = ({}) => {
               walletCards={walletList}
               isOpen={modalOpen}
               onClose={closeModal}
-              onFormSubmit={formSubmitHandler}
             />
           )}
         </Await>
@@ -159,8 +126,8 @@ const TradingWalletPage = ({}) => {
           <Suspense
             fallback={<p className="text-sm font-medium">Loading...</p>}
           >
-            <Await resolve={tradingWallet}>
-              {(tradingWallet) => <TopupsTable tradingWallet={tradingWallet} />}
+            <Await resolve={topupdata}>
+              {(topupdata) => <TopupsTable tradingWallet={topupdata} />}
             </Await>
           </Suspense>
         </div>
@@ -180,11 +147,10 @@ export async function action({ request }) {
 
   const topupData = {
     amount: amount,
-    date: date,
-    card: data.get("card"),
+    cardName: data.get("cardName"),
   };
 
-  const response = await fetch("url", {
+  const response = await fetch("http://localhost:4000/tradingwallet/new", {
     method: "POST",
 
     headers: {
@@ -204,7 +170,7 @@ export async function action({ request }) {
 
 async function loadTopups() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch("url", {
+  const response = await fetch("http://localhost:4000/tradingwallet", {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },

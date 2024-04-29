@@ -3,7 +3,6 @@ import { Form } from "react-router-dom";
 
 const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
   const [selectedCard, setSelectedCard] = useState("");
-  const [amount, setAmount] = useState();
 
   if (!isOpen) return null;
 
@@ -13,13 +12,6 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
 
   function cardSelecterHandler(event) {
     setSelectedCard(event.target.value);
-  }
-
-  async function formSubmitHandler(e) {
-    e.preventDefault();
-    console.log("form submitclicked");
-    const details = { cardName: selectedCard, amount: +amount };
-    onFormSubmit(details);
   }
 
   return (
@@ -41,21 +33,12 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
               </button>
             </div>
 
-            <Form
-              method="post"
-              className="flex flex-col"
-              onSubmit={formSubmitHandler}
-            >
+            <Form method="post" className="flex flex-col">
               <div className="flex flex-col my-4">
                 <label htmlFor="">
                   Amount ($)<seciton className="text-red-600">*</seciton>
                 </label>
-                <input
-                  id="amount"
-                  type="float"
-                  name="amount"
-                  onChange={(e) => setAmount(e.target.value)}
-                ></input>
+                <input id="amount" type="float" name="amount"></input>
               </div>
               <div className="my-1">
                 <label htmlFor="">
@@ -63,8 +46,8 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
                   <seciton className="text-red-600">*</seciton> :{" "}
                 </label>
                 <select
-                  name="card"
-                  id="card"
+                  name="cardName"
+                  id="cardName"
                   className="rounded-m p-1 mt-2 ml-3 text-center rounded-md text-sm font-medium"
                   onChange={cardSelecterHandler}
                   value={selectedCard}
