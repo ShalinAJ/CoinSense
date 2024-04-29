@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const HorizontalMarketBar = () => {
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [cryptoData, setCryptoData] = useState([]);
+  const [currentPrice, setCurrentPrice] = useState([]);
+  const [tradingInterval, setTradingInterval] = useState("1m");
+  const [btcPrice, setBtcPrice] = useState(0);
+  const [ethPrice, setEthPrice] = useState(0);
+  const [tusdPrice, setTusdPrice] = useState(0);
 
   useEffect(() => {
     const getCryptoGeneralData = async () => {
@@ -19,16 +25,101 @@ const HorizontalMarketBar = () => {
         console.error("Error fetching crypto data: ", error);
       }
     };
-
     getCryptoGeneralData();
-  }, []);
+
+    const fetchData = async (crypto) => {
+      try {
+        const response = await axios.get(
+          `https://api.binance.com/api/v3/klines?symbol=${crypto}&interval=${tradingInterval}`
+        );
+
+        let dates = [];
+        if (tradingInterval === "1d") {
+          dates = response.data.map((item) =>
+            new Date(item[0]).toLocaleDateString()
+          );
+        } else if (tradingInterval === "4h") {
+          dates = response.data.map((item) =>
+            new Date(item[0]).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          );
+        } else {
+          dates = response.data.map((item) =>
+            new Date(item[0]).toLocaleTimeString()
+          );
+        }
+
+        const data = response.data;
+        const labels = dates;
+        const prices = data.map((item) => parseFloat(item[4]));
+        const latestData = data[data.length - 1];
+
+        const currentPrice = parseFloat(latestData[4]);
+
+        let volume24hBTC = 0;
+        let volume24hUSDT = 0;
+        for (let i = 0; i < data.length; i++) {
+          volume24hBTC += parseFloat(data[i][5]);
+          volume24hUSDT += parseFloat(data[i][7]);
+        }
+
+        volume24hUSDT = volume24hUSDT.toFixed(2);
+        volume24hBTC = volume24hBTC.toFixed(2);
+
+        setCurrentPrice(currentPrice.toFixed(2));
+
+        const currentTime = new Date().toLocaleTimeString();
+        if (!labels.includes(currentTime)) {
+          labels.push(currentTime);
+          prices.push(currentPrice);
+        }
+
+        return currentPrice.toFixed(2); // Return the current price
+      } catch (error) {
+        console.error("Error fetching Bitcoin data: ", error);
+        return 0; // Return 0 in case of an error
+      }
+    };
+
+    // Fetch data for BTC and SOL and set the state variables accordingly
+    const fetchDataAndUpdateState = async () => {
+      const btcPrice = await fetchData("BTCUSDT");
+      const ethPrice = await fetchData("ETHUSDT");
+      const tusdPrice = await fetchData("TUSDUSDT");
+      setBtcPrice(btcPrice);
+      setEthPrice(ethPrice);
+      setTusdPrice(tusdPrice);
+    };
+
+    fetchDataAndUpdateState(); // Fetch data initially
+
+    // Set intervals to fetch data periodically
+    const btcInterval = setInterval(() => {
+      fetchDataAndUpdateState(); // Fetch data for BTC and update state
+    }, 1000);
+
+    const ethInterval = setInterval(() => {
+      fetchDataAndUpdateState(); // Fetch data for SOL and update state
+    }, 1000);
+    const tusdInterval = setInterval(() => {
+      fetchDataAndUpdateState(); // Fetch data for SOL and update state
+    }, 1000);
+
+    // Cleanup function
+    return () => {
+      clearInterval(btcInterval);
+      clearInterval(ethInterval);
+      clearInterval(tusdInterval);
+    };
+  }, [tradingInterval]);
 
   if (cryptoData.length === 0) {
     // Data is still loading, return a loading indicator or null
     return <div>Loading...</div>;
   }
 
-  //console.log(cryptoData);
   return (
     <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
       <div className="w-[30%] flex flex-col gap-4">
@@ -38,7 +129,7 @@ const HorizontalMarketBar = () => {
             alt=""
             className="w-7 h-7 rounded-full"
           />
-          <p className="text-sm font-medium">{cryptoData[0].current_price}</p>
+          <p className="text-sm font-medium">{btcPrice}</p>
           <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
         </div>
         <div className="flex flex-row items-center justify-between">
@@ -47,16 +138,16 @@ const HorizontalMarketBar = () => {
             alt=""
             className="w-7 h-7 rounded-full"
           />
-          <p className="text-sm font-medium">$60,000.00</p>
+          <p className="text-sm font-medium">{ethPrice}</p>
           <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
         </div>
         <div className="flex flex-row items-center justify-between">
           <img
-            src="https://en.wikipedia.org/wiki/File:Bitcoin.svg"
+            src={cryptoData[2].image}
             alt=""
             className="w-7 h-7 rounded-full"
           />
-          <p className="text-sm font-medium">$60,000.00</p>
+          <p className="text-sm font-medium">{tusdPrice}</p>
           <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
         </div>
       </div>
