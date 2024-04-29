@@ -3,8 +3,16 @@ import { useState } from "react";
 import styles from "./TransactionTable.module.css";
 
 const TopupsTable = ({ tradingWallet }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   return (
     <div>
+      <hr />
+      <p className="pl-5 pt-5 pb-1 text-xs text-gray-400 font-normal">
+        Top-up History
+      </p>
       <table className="w-[100%]">
         <tbody>
           <tr className="text-sm leading-[45px]">
@@ -13,7 +21,8 @@ const TopupsTable = ({ tradingWallet }) => {
             <th className="text-right pr-7">Amount</th>
           </tr>
 
-          {Array.isArray(tradingWallet) && tradingWallet.length > 0 ? (
+          {Array.isArray(tradingWallet) &&
+            tradingWallet.length > 0 &&
             tradingWallet.map((transaction, index) => (
               <tr key={index} className="text-sm font-medium leading-[48px]">
                 <td className="text-left pl-5">
@@ -41,17 +50,12 @@ const TopupsTable = ({ tradingWallet }) => {
                   </div>
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td className="pl-5 pt-3 text-sm font-medium">loading...</td>
-            </tr>
-          )}
+            ))}
         </tbody>
       </table>
-      {/* <ul className={`${styles.pagination} flex flex-row gap-1`}>
+      <ul className={`${styles.pagination} flex flex-row gap-1 pl-4`}>
         {Array.from({
-          length: Math.ceil(transactions.length / itemsPerPage),
+          length: Math.ceil(tradingWallet.length / itemsPerPage),
         }).map((_, index) => (
           <li
             key={index}
@@ -69,7 +73,7 @@ const TopupsTable = ({ tradingWallet }) => {
             </button>
           </li>
         ))}
-      </ul> */}
+      </ul>
     </div>
   );
 };

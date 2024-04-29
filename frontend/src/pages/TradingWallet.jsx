@@ -19,8 +19,6 @@ const TradingWalletPage = ({}) => {
   const [topupdata, setTopupData] = useState();
   const navigate = useNavigate();
 
-  console.log(topups);
-
   useEffect(() => {
     async function walletCountHandler() {
       const walletList = await wallets;
@@ -126,7 +124,7 @@ const TradingWalletPage = ({}) => {
           <Suspense
             fallback={<p className="text-sm font-medium">Loading...</p>}
           >
-            <Await resolve={topupdata}>
+            <Await resolve={topups}>
               {(topupdata) => <TopupsTable tradingWallet={topupdata} />}
             </Await>
           </Suspense>
