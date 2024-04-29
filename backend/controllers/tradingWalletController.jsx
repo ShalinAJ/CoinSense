@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const TradingWallet = require("../models/tradingWallet.jsx");
+const tradingWallet = require("../models/tradingWallet.jsx");
 
 const createTradingWallet = async (req, res) => {
   const cardName = "";
@@ -44,4 +45,16 @@ const updateTradingWallet = async (req, res) => {
   res.status(200).json(tradingWallet);
 };
 
-module.exports = { createTradingWallet, updateTradingWallet };
+const getTradingWallet = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const tradingWallet = await TradingWallet.find({ user_id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(tradingWallet);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { createTradingWallet, updateTradingWallet, getTradingWallet };

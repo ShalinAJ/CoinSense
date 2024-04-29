@@ -16,6 +16,8 @@ const TradingWalletPage = ({}) => {
   const { topups, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
+  const [tradingWallet, setTradingWallet] = useState({});
+  const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,8 +31,38 @@ const TradingWalletPage = ({}) => {
       setWalletList(cardArray);
     }
 
+    // get trading wallet details
+    async function loadTradingWalletDetails() {
+      try {
+        const response = await fetch("http://localhost:4000/tradingwallet", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+        const details = await response.json();
+        console.log(details);
+        setTradingWallet(details);
+      } catch (error) {
+        console.error("Error saving account details:", error.message);
+      }
+    }
+
+    loadTradingWalletDetails();
     walletCountHandler();
   }, [wallets]);
+
+  let totalAmount = 0; // Initialize a variable to store the total amount
+
+  if (Array.isArray(tradingWallet)) {
+    tradingWallet.forEach((item) => {
+      totalAmount += item.amount; // Accumulate the amount
+      console.log(item); // Log the item details
+    });
+
+    console.log("Total amount:", totalAmount); // Log the total amount
+  } else {
+    console.log("tradingWallet is not an array or does not exist.");
+  }
 
   const openModal = () => {
     setModalOpen(true);
@@ -76,7 +108,7 @@ const TradingWalletPage = ({}) => {
           <div className="flex flex-row justify-between">
             <div className="flex flex-row text-sm font-medium gap-3 items-center w-[30%] ml-2">
               <p className="font-normal">Trading wallet balance :</p>
-              <p className="font-semibold">$1,200.00</p>
+              <p className="font-semibold">${totalAmount ?? "--"}</p>
             </div>
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
             <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[40%]">
@@ -95,7 +127,7 @@ const TradingWalletPage = ({}) => {
           </div>
         </div>
         <div>
-          <TopupsTable />
+          <TopupsTable tradingWallet={tradingWallet} />
         </div>
       </div>
     </>

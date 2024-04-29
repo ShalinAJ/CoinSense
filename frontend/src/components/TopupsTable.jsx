@@ -2,7 +2,7 @@ import deleteImg from "../assets/delete.png";
 import { useState } from "react";
 import styles from "./TransactionTable.module.css";
 
-const TopupsTable = () => {
+const TopupsTable = ({ tradingWallet }) => {
   return (
     <div>
       <table className="w-[100%]">
@@ -13,40 +13,35 @@ const TopupsTable = () => {
             <th className="text-right pr-7">Amount</th>
           </tr>
 
-          <tr className="text-sm font-medium leading-[48px]">
-            <td className="text-left pl-5">
-              2024/01/01
-              {/* {new Date(transaction.date).toLocaleString("en-US", {
-                  weekday: "short",
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })} */}
-            </td>
-            <td className="flex flex-row justify-center">
-              Card 1{" "}
-              <p className="pl-2 text-[10px] text-gray-500 font-light">
-                7865
-                {/* {transaction.card
-                  ? "Card " + transaction.card.slice(12, 16)
-                  : undefined} */}
-              </p>
-            </td>
-            <td className="text-right pr-5">
-              <div className="">
-                $1,235.99
-                {/* {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(transaction.amount)}
+          {Array.isArray(tradingWallet) && tradingWallet.length > 0 ? (
+            tradingWallet.map((transaction, index) => (
+              <tr key={index} className="text-sm font-medium leading-[48px]">
+                <td className="text-left pl-5">
+                  {transaction.createdAt.split("T")[0]}{" "}
+                  {/* Extract date part from createdAt */}
+                </td>
+                <td className="flex flex-row justify-center">
+                  {transaction.cardName}{" "}
                   <p className="pl-2 text-[10px] text-gray-500 font-light">
-                    {transaction.card
-                      ? "Card " + transaction.card.slice(12, 16)
-                      : undefined} 
-                  </p>*/}
-              </div>
-            </td>
-          </tr>
+                    12
+                    {/* Displaying user_id or any other relevant card information */}
+                  </p>
+                </td>
+                <td className="text-right pr-5">
+                  <div className="">
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(transaction.amount)}
+                  </div>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="3">Trading transactions loading...</td>
+            </tr>
+          )}
         </tbody>
       </table>
       {/* <ul className={`${styles.pagination} flex flex-row gap-1`}>
