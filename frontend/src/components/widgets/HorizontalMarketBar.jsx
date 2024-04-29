@@ -4,8 +4,6 @@ import axios from "axios";
 const HorizontalMarketBar = () => {
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [cryptoData, setCryptoData] = useState([]);
-  const [currentPrice, setCurrentPrice] = useState([]);
-  const [tradingInterval, setTradingInterval] = useState("1m");
   const [btcPrice, setBtcPrice] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
   const [tusdPrice, setTusdPrice] = useState(0);
@@ -30,52 +28,12 @@ const HorizontalMarketBar = () => {
     const fetchData = async (crypto) => {
       try {
         const response = await axios.get(
-          `https://api.binance.com/api/v3/klines?symbol=${crypto}&interval=${tradingInterval}`
+          `https://api.binance.com/api/v3/klines?symbol=${crypto}&interval=1m`
         );
 
-        let dates = [];
-        if (tradingInterval === "1d") {
-          dates = response.data.map((item) =>
-            new Date(item[0]).toLocaleDateString()
-          );
-        } else if (tradingInterval === "4h") {
-          dates = response.data.map((item) =>
-            new Date(item[0]).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
-          );
-        } else {
-          dates = response.data.map((item) =>
-            new Date(item[0]).toLocaleTimeString()
-          );
-        }
-
         const data = response.data;
-        const labels = dates;
-        const prices = data.map((item) => parseFloat(item[4]));
         const latestData = data[data.length - 1];
-
         const currentPrice = parseFloat(latestData[4]);
-
-        let volume24hBTC = 0;
-        let volume24hUSDT = 0;
-        for (let i = 0; i < data.length; i++) {
-          volume24hBTC += parseFloat(data[i][5]);
-          volume24hUSDT += parseFloat(data[i][7]);
-        }
-
-        volume24hUSDT = volume24hUSDT.toFixed(2);
-        volume24hBTC = volume24hBTC.toFixed(2);
-
-        setCurrentPrice(currentPrice.toFixed(2));
-
-        const currentTime = new Date().toLocaleTimeString();
-        if (!labels.includes(currentTime)) {
-          labels.push(currentTime);
-          prices.push(currentPrice);
-        }
-
         return currentPrice.toFixed(2); // Return the current price
       } catch (error) {
         console.error("Error fetching Bitcoin data: ", error);
@@ -113,7 +71,7 @@ const HorizontalMarketBar = () => {
       clearInterval(ethInterval);
       clearInterval(tusdInterval);
     };
-  }, [tradingInterval]);
+  }, []);
 
   if (cryptoData.length === 0) {
     // Data is still loading, return a loading indicator or null

@@ -1,4 +1,3 @@
-import deleteImg from "../assets/delete.png";
 import { useState } from "react";
 import styles from "./TransactionTable.module.css";
 
@@ -7,6 +6,12 @@ const TopupsTable = ({ tradingWallet }) => {
   const [itemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = (
+    tradingWallet ? tradingWallet : pageTransactionFilter
+  ).slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div>
       <hr />
@@ -23,14 +28,15 @@ const TopupsTable = ({ tradingWallet }) => {
 
           {Array.isArray(tradingWallet) &&
             tradingWallet.length > 0 &&
-            tradingWallet.map((transaction, index) => (
+            currentItems.map((transaction, index) => (
               <tr key={index} className="text-sm font-medium leading-[48px]">
-                <td className="text-left pl-5">
+                <td className="text-left pl-5 w-[32%]">
                   {new Date(transaction.createdAt).toLocaleString("en-US", {
                     weekday: "short",
-                    day: "numeric",
                     month: "short",
                     year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
                   })}
                 </td>
                 <td className="flex flex-row justify-center items-center">
