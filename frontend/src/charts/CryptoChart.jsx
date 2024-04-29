@@ -12,6 +12,7 @@ const CryptoChart = ({ chartData }) => {
       if (chartInstance) {
         chartInstance.destroy();
       }
+
       const newChartInstance = new Chart(ctx, {
         type: "line",
         data: chartData,

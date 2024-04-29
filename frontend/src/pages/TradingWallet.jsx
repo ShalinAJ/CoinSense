@@ -126,12 +126,19 @@ const TradingWalletPage = ({}) => {
         </div>
         <div className="border shadow-lg shadow-grey-500/40 p-5 rounded-3xl my-9">
           <div className="flex flex-row justify-between">
-            <div className="flex flex-row text-sm font-medium gap-3 items-center w-[30%] ml-2">
+            <div className="flex flex-row text-sm font-medium gap-3 items-center w-[35%] ml-2">
               <p className="font-normal">Trading wallet balance :</p>
-              <p className="font-semibold">${totalAmount ?? "--"}</p>
+              <p className="font-semibold">
+                {totalAmount
+                  ? new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(totalAmount)
+                  : "--"}
+              </p>
             </div>
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-            <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[40%]">
+            <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[35%]">
               <p className="font-normal">total top-ups :</p>
               <p className="bg-coinsense-blue text-white px-2 rounded-lg">
                 {entries}
@@ -149,7 +156,13 @@ const TradingWalletPage = ({}) => {
           </div>
         </div>
         <div>
-          <TopupsTable tradingWallet={tradingWallet} />
+          <Suspense
+            fallback={<p className="text-sm font-medium">Loading...</p>}
+          >
+            <Await resolve={tradingWallet}>
+              {(tradingWallet) => <TopupsTable tradingWallet={tradingWallet} />}
+            </Await>
+          </Suspense>
         </div>
       </div>
     </>

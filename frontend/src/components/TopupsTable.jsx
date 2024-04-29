@@ -8,7 +8,7 @@ const TopupsTable = ({ tradingWallet }) => {
       <table className="w-[100%]">
         <tbody>
           <tr className="text-sm leading-[45px]">
-            <th className="text-left pl-10">Date</th>
+            <th className="text-left pl-5">Date</th>
             <th className="text-center">Card used for top-up</th>
             <th className="text-right pr-7">Amount</th>
           </tr>
@@ -17,14 +17,19 @@ const TopupsTable = ({ tradingWallet }) => {
             tradingWallet.map((transaction, index) => (
               <tr key={index} className="text-sm font-medium leading-[48px]">
                 <td className="text-left pl-5">
-                  {transaction.createdAt.split("T")[0]}{" "}
-                  {/* Extract date part from createdAt */}
+                  {new Date(transaction.createdAt).toLocaleString("en-US", {
+                    weekday: "short",
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })}
                 </td>
-                <td className="flex flex-row justify-center">
-                  {transaction.cardName}{" "}
-                  <p className="pl-2 text-[10px] text-gray-500 font-light">
-                    12
-                    {/* Displaying user_id or any other relevant card information */}
+                <td className="flex flex-row justify-center items-center">
+                  <p className="pl-2 text-[10px] text-black font-light">
+                    XXXX XXXX XXXX{" "}
+                    {transaction.cardName
+                      ? transaction.cardName.slice(12, 16)
+                      : undefined}
                   </p>
                 </td>
                 <td className="text-right pr-5">
@@ -39,7 +44,7 @@ const TopupsTable = ({ tradingWallet }) => {
             ))
           ) : (
             <tr>
-              <td colSpan="3">Trading transactions loading...</td>
+              <td className="pl-5 pt-3 text-sm font-medium">loading...</td>
             </tr>
           )}
         </tbody>
