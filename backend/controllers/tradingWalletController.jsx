@@ -1,16 +1,16 @@
 const mongoose = require("mongoose");
 
 const TradingWallet = require("../models/tradingWallet.jsx");
-const tradingWallet = require("../models/tradingWallet.jsx");
 
 const createTradingWallet = async (req, res) => {
-  const cardName = "";
-  const amount = 0;
-  console.log("im here");
+  const { cardName, amount } = req.body;
+
+  if (!cardName || !amount) {
+    throw Error("All fields must be filled");
+  }
 
   try {
     const user_id = req.user._id;
-    console.log(user_id);
     const tradingWallet = await TradingWallet.create({
       cardName,
       amount,

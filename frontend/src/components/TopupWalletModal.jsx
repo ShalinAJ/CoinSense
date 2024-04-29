@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Form } from "react-router-dom";
 
-const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
+const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
   const [selectedCard, setSelectedCard] = useState("");
+  const [amount, setAmount] = useState();
 
   if (!isOpen) return null;
 
@@ -12,6 +13,13 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
 
   function cardSelecterHandler(event) {
     setSelectedCard(event.target.value);
+  }
+
+  async function formSubmitHandler(e) {
+    e.preventDefault();
+    console.log("form submitclicked");
+    const details = { cardName: selectedCard, amount: +amount };
+    onFormSubmit(details);
   }
 
   return (
@@ -33,10 +41,19 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
               </button>
             </div>
 
-            <Form method="post" className="flex flex-col">
+            <Form
+              method="post"
+              className="flex flex-col"
+              onSubmit={formSubmitHandler}
+            >
               <div className="flex flex-col my-4">
                 <label htmlFor="">Amount ($)</label>
-                <input id="amount" type="float" name="amount"></input>
+                <input
+                  id="amount"
+                  type="float"
+                  name="amount"
+                  onChange={(e) => setAmount(e.target.value)}
+                ></input>
               </div>
               <div className="my-1">
                 <label htmlFor="">Card used for top up : </label>

@@ -40,7 +40,6 @@ const TradingWalletPage = ({}) => {
           },
         });
         const details = await response.json();
-        console.log(details);
         setTradingWallet(details);
       } catch (error) {
         console.error("Error saving account details:", error.message);
@@ -51,17 +50,36 @@ const TradingWalletPage = ({}) => {
     walletCountHandler();
   }, [wallets]);
 
-  let totalAmount = 0; // Initialize a variable to store the total amount
+  let totalAmount = 0;
+  let entries = 0;
 
+  // get totalAmount and no of entries
   if (Array.isArray(tradingWallet)) {
     tradingWallet.forEach((item) => {
-      totalAmount += item.amount; // Accumulate the amount
-      console.log(item); // Log the item details
+      totalAmount += item.amount;
+      entries++;
     });
 
-    console.log("Total amount:", totalAmount); // Log the total amount
+    console.log("Total amount:", totalAmount);
   } else {
     console.log("tradingWallet is not an array or does not exist.");
+  }
+
+  async function formSubmitHandler(data) {
+    try {
+      const response = await fetch("http://localhost:4000/tradingwallet/new", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const details = await response.json();
+      location.reload();
+    } catch (error) {
+      console.error("Error creating trading transaction:", error.message);
+    }
   }
 
   const openModal = () => {
@@ -85,6 +103,7 @@ const TradingWalletPage = ({}) => {
               walletCards={walletList}
               isOpen={modalOpen}
               onClose={closeModal}
+              onFormSubmit={formSubmitHandler}
             />
           )}
         </Await>
@@ -113,7 +132,9 @@ const TradingWalletPage = ({}) => {
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
             <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[40%]">
               <p className="font-normal">total top-ups :</p>
-              <p className="bg-coinsense-blue text-white px-2 rounded-lg">2</p>
+              <p className="bg-coinsense-blue text-white px-2 rounded-lg">
+                {entries}
+              </p>
             </div>
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
             <div className="w-[30%] flex flex-row justify-end">
