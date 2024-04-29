@@ -47,7 +47,9 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
               onSubmit={formSubmitHandler}
             >
               <div className="flex flex-col my-4">
-                <label htmlFor="">Amount ($)</label>
+                <label htmlFor="">
+                  Amount ($)<seciton className="text-red-600">*</seciton>
+                </label>
                 <input
                   id="amount"
                   type="float"
@@ -56,7 +58,10 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
                 ></input>
               </div>
               <div className="my-1">
-                <label htmlFor="">Card used for top up : </label>
+                <label htmlFor="">
+                  Card used for top up
+                  <seciton className="text-red-600">*</seciton> :{" "}
+                </label>
                 <select
                   name="card"
                   id="card"

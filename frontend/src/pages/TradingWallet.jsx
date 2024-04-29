@@ -65,6 +65,7 @@ const TradingWalletPage = ({}) => {
     console.log("tradingWallet is not an array or does not exist.");
   }
 
+  // send submit data to DB
   async function formSubmitHandler(data) {
     try {
       const response = await fetch("http://localhost:4000/tradingwallet/new", {
