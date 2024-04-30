@@ -38,7 +38,29 @@ const AccountDetails = ({
     dataTotalHandler();
   }, [transactions]);
 
-  console.log(accountDetails);
+  const handleUpload = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("avatar", event.target.avatar.files[0]);
+
+    try {
+      // Make your upload request here using fetch or axios
+      // Example using fetch:
+      const response = await fetch("/profile", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        // Handle success
+        console.log("Upload successful");
+      } else {
+        // Handle error
+        console.error("Upload failed");
+      }
+    } catch (error) {
+      console.error("Error uploading file", error);
+    }
+  };
 
   return (
     <div className="w-[80%]">
@@ -50,7 +72,7 @@ const AccountDetails = ({
         />
 
         {/* profile photo upload input */}
-        <form action="/profile" method="POST" enctype="multipart/form-data">
+        <form onSubmit={handleUpload} encType="multipart/form-data">
           <input type="file" name="avatar" />
           <button type="submit">Upload</button>
         </form>
