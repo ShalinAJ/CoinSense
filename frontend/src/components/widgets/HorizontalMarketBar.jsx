@@ -7,6 +7,7 @@ const HorizontalMarketBar = () => {
   const [btcPrice, setBtcPrice] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
   const [tusdPrice, setTusdPrice] = useState(0);
+  const [priceChange, setPriceChange] = useState(0);
 
   useEffect(() => {
     const getCryptoGeneralData = async () => {
@@ -34,6 +35,8 @@ const HorizontalMarketBar = () => {
         const data = response.data;
         const latestData = data[data.length - 1];
         const currentPrice = parseFloat(latestData[4]);
+        const priceChange = currentPrice - parseFloat(latestData[1]);
+        const priceChangePercent = (priceChange / currentPrice) * 100;
         return currentPrice.toFixed(2); // Return the current price
       } catch (error) {
         console.error("Error fetching Bitcoin data: ", error);
@@ -49,6 +52,7 @@ const HorizontalMarketBar = () => {
       setBtcPrice(btcPrice);
       setEthPrice(ethPrice);
       setTusdPrice(tusdPrice);
+      setPriceChange(priceChangePercent.toFixed(2));
     };
 
     fetchDataAndUpdateState(); // Fetch data initially
@@ -78,6 +82,8 @@ const HorizontalMarketBar = () => {
     return <div>Loading...</div>;
   }
 
+  console.log(priceChange);
+
   return (
     <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
       <div className="w-[30%] flex flex-col gap-4">
@@ -88,7 +94,9 @@ const HorizontalMarketBar = () => {
             className="w-7 h-7 rounded-full"
           />
           <p className="text-sm font-medium">{btcPrice}</p>
-          <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
+          <p className={priceChange >= 0 ? "text-green-600" : "text-red-600"}>
+            {priceChange}%
+          </p>
         </div>
         <div className="flex flex-row items-center justify-between">
           <img
