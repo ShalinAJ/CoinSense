@@ -52,7 +52,10 @@ const TradingArea = ({ currentPrice }) => {
             </NavLink>
           </div>
         </div>
-        <TradingForm currentPrice={currentPrice} />
+        <TradingForm
+          currentPrice={currentPrice}
+          tradeAmountType={tradeAmountType}
+        />
       </div>
       <div className="w-[48.5%]">
         <div className="border rounded-3xl p-3 h-[23rem]">
