@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 
 const TradingForm = ({ currentPrice, tradeAmountType }) => {
   const [totalAmount, setTotalAmount] = useState(0);
-  const [inputTotal, setInputTotal] = useState();
+  const [inputTotal, setInputTotal] = useState(0);
   const [total, setTotal] = useState();
   const [tradeType, setTradeType] = useState();
   const [disableInput, setDisableInput] = useState(false);
