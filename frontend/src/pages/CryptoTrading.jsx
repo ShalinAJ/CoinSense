@@ -208,7 +208,9 @@ const BitcoinChart = () => {
         <div>
           <TradingArea currentPrice={currentPrice} />
         </div>
-        <div></div>
+        <div>
+          <HorizontalMarketBar />
+        </div>
       </div>
     </div>
   );

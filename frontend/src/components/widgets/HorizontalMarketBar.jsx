@@ -52,26 +52,11 @@ const HorizontalMarketBar = () => {
       setTusdPrice(tusdPrice);
     };
 
-    fetchDataAndUpdateState(); // Fetch data initially
+    fetchDataAndUpdateState();
 
-    // Set intervals to fetch data periodically
-    const btcInterval = setInterval(() => {
-      fetchDataAndUpdateState(); // Fetch data for BTC and update state
-    }, 1000);
+    const interval = setInterval(fetchDataAndUpdateState, 5000);
 
-    const ethInterval = setInterval(() => {
-      fetchDataAndUpdateState(); // Fetch data for SOL and update state
-    }, 1000);
-    const tusdInterval = setInterval(() => {
-      fetchDataAndUpdateState(); // Fetch data for SOL and update state
-    }, 1000);
-
-    // Cleanup function
-    return () => {
-      clearInterval(btcInterval);
-      clearInterval(ethInterval);
-      clearInterval(tusdInterval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   if (cryptoData.length === 0) {
