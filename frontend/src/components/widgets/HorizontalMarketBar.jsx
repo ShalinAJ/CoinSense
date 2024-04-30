@@ -34,6 +34,7 @@ const HorizontalMarketBar = () => {
         const data = response.data;
         const latestData = data[data.length - 1];
         const currentPrice = parseFloat(latestData[4]);
+
         return currentPrice.toFixed(2); // Return the current price
       } catch (error) {
         console.error("Error fetching Bitcoin data: ", error);

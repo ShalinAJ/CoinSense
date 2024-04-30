@@ -32,10 +32,6 @@ const BitcoinChart = () => {
   const [volume24hUSDT, setVolume24hUSDT] = useState(0);
   const [tradingInterval, setTradingInterval] = useState("1m");
 
-  function tradingIntervalHandler(event) {
-    setTradingInterval(event.target.value);
-  }
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -51,10 +47,7 @@ const BitcoinChart = () => {
           );
         } else if (tradingInterval === "4h") {
           dates = response.data.map((item) =>
-            new Date(item[0]).toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })
+            new Date(item[0]).toLocaleDateString()
           );
         } else {
           dates = response.data.map((item) =>
@@ -193,28 +186,29 @@ const BitcoinChart = () => {
           <select
             name="trading-interval"
             id="trading-interval"
-            onChange={tradingIntervalHandler}
+            onChange={() => {
+              setTradingInterval(event.target.value);
+            }}
             defaultValue={tradingInterval}
             className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
           >
             <option value="1s">1s</option>
             <option value="1m">1m</option>
-            <option value="15m">15m</option>
+            <option value="5m">5m</option>
+            <option value="1h">1h</option>
             <option value="4h">4h</option>
             <option value="1d">1d</option>
           </select>
         </div>
 
-        <div className="mb-8 mt-3" style={{ height: "395px" }}>
+        <div className="mb-8 mt-3" style={{ height: "auto" }}>
           <CryptoChart chartData={chartData} />
         </div>
         <hr />
         <div>
           <TradingArea currentPrice={currentPrice} />
         </div>
-        <div>
-          <HorizontalMarketBar />
-        </div>
+        <div></div>
       </div>
     </div>
   );
