@@ -21,6 +21,7 @@ const HorizontalMarketBar = () => {
         });
 
         const cryptoDetails = await response.json();
+        console.log(cryptoDetails);
         setCryptoData(cryptoDetails);
       } catch (error) {
         console.error("Error fetching crypto data: ", error);
@@ -90,8 +91,6 @@ const HorizontalMarketBar = () => {
     // Data is still loading, return a loading indicator or null
     return <div>Loading...</div>;
   }
-
-  //console.log(priceChange);
 
   return (
     <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">

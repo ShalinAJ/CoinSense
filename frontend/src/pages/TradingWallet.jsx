@@ -25,6 +25,8 @@ const TradingWalletPage = ({}) => {
       const cards = walletList.map((wallet) => ({
         number: wallet.number,
         nickname: wallet.nickname,
+        _id: wallet._id,
+        cardbalance: wallet.cardbalance,
       }));
       const cardArray = ["", ...cards];
       setWalletList(cardArray);
@@ -139,8 +141,10 @@ export default TradingWalletPage;
 export async function action({ request }) {
   const data = await request.formData();
   const user = JSON.parse(localStorage.getItem("user"));
+  const cardId = data.get("cardId");
+  const cardbalance = data.get("cardbalance");
 
-  const date = new Date().toISOString();
+  //const date = new Date().toISOString();
   const amount = parseFloat(data.get("amount"));
 
   const topupData = {
@@ -160,6 +164,23 @@ export async function action({ request }) {
 
   if (!response.ok) {
     throw json({ message: "Could not save." }, { status: 500 });
+  }
+
+  const walletData = {
+    cardbalance: cardbalance - amount,
+  };
+
+  const walletResponse = await fetch("http://localhost:4000/wallet/" + cardId, {
+    method: "PATCH",
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(walletData),
+  });
+
+  if (!walletResponse.ok) {
+    throw new Error("Wallet value Could not be updated.");
   }
 
   window.location.reload();
