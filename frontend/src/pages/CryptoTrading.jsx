@@ -32,7 +32,10 @@ const BitcoinChart = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [generalData, setGeneralData] = useState();
   const [loading, setLoading] = useState(true);
-  const [selectToken, setSelectToken] = useState("BTC");
+  const [selectToken, setSelectToken] = useState([
+    "BTC",
+    "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
+  ]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,7 +54,7 @@ const BitcoinChart = () => {
       }
       try {
         const response = await axios.get(
-          `https://api.binance.com/api/v3/klines?symbol=${selectToken.toUpperCase()}USDT&interval=${tradingInterval}`
+          `https://api.binance.com/api/v3/klines?symbol=${selectToken[0].toUpperCase()}USDT&interval=${tradingInterval}`
         );
 
         let dates = [];
@@ -136,8 +139,8 @@ const BitcoinChart = () => {
     return () => clearInterval(interval);
   }, [tradingInterval, selectToken]);
 
-  const tokenHandler = (status) => {
-    setSelectToken(status.symbol);
+  const tokenHandler = (token) => {
+    setSelectToken([token.symbol, token.image]);
   };
 
   const openModal = () => {
@@ -183,7 +186,10 @@ const BitcoinChart = () => {
                 onClick={openModal}
                 className="w-full flex flex-row justify-between items-center text-sm font-semibold bg-transparent text-black border-1 border-gray-300"
               >
-                <p>{selectToken.toUpperCase()}</p>
+                <p className="flex flex-row gap-3">
+                  <img src={selectToken[1]} alt="" className="w-5" />
+                  {selectToken[0].toUpperCase()}
+                </p>
                 <img src={downArrow} alt="" className="w-5" />
               </button>
               <div className="w-[40%] flex flex-row justify-center">
