@@ -16,6 +16,8 @@ const AccountDetails = ({
   const [investmentsTotal, setInvestmentsTotal] = useState(0);
   const { ...accountInfo } = JSON.parse(localStorage.getItem("account"));
   const [selectedFile, setSelectedFile] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -40,40 +42,68 @@ const AccountDetails = ({
   }, [transactions]);
 
   const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    reader.onload = () => {
+      //console.log(reader.result);
+      setSelectedFile(reader.result);
+    };
+    reader.onerror = (error) => {
+      console.log("Error ", error);
+    };
   };
 
-  const handleUpload = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("avatar", selectedFile);
+  async function getImg() {
+    const response = await fetch("http://localhost:4000/image/account", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
-    try {
-      // Make your upload request here using fetch or axios
-      // Example using fetch:
-      const response = await fetch("/profile", {
-        method: "POST",
-        body: formData,
-      });
-      if (response.ok) {
-        // Handle success
-        console.log("Upload successful");
-      } else {
-        // Handle error
-        console.error("Upload failed");
-      }
-    } catch (error) {
-      console.error("Error uploading file", error);
+    if (!response.ok) {
+      return json({ message: "Could not fetch photo." }, { status: 500 });
+    } else {
+      const photo = await response.json();
+      console.log(photo[0].accountImg);
+      setProfilePhoto(photo[0].accountImg);
     }
-  };
+  }
+
+  useEffect(() => {
+    const handleUpload = async () => {
+      if (selectedFile) {
+        const response = await fetch(
+          "http://localhost:4000/image/account/new",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${user.token}`,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ accountImg: selectedFile }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Could not upload."); // Fixed error handling
+        } else {
+          console.log("ok");
+        }
+      } else {
+        console.log("no selected file");
+      }
+    };
+    handleUpload();
+    getImg();
+  }, [selectedFile]);
 
   return (
     <div className="w-[80%]">
       <div className="flex flex-col items-center">
-        <form onSubmit={handleUpload} encType="multipart/form-data">
+        <form>
           <label htmlFor="avatar" className="relative">
             <img
-              src={userImg}
+              src={profilePhoto ? profilePhoto : userImg}
               alt=""
               className="w-[10rem] mt-[3.5rem] rounded-full box-shadow cursor-pointer"
             />
@@ -81,6 +111,7 @@ const AccountDetails = ({
               Upload Image
             </div>
             <input
+              accept="image/*"
               type="file"
               id="avatar"
               name="avatar"

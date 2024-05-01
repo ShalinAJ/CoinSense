@@ -20,9 +20,6 @@ const accountSchema = new Schema(
       type: String,
       require: true,
     },
-    profilePhoto: {
-      type: String, // Assuming you will store the filename of the profile photo
-    },
   },
   { timestamps: true }
 );
