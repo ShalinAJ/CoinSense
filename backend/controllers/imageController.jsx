@@ -46,4 +46,29 @@ const replaceAccountImage = async (req, res) => {
   res.status(200).json(image);
 };
 
-module.exports = { createAccountImage, getAccountImage, replaceAccountImage };
+const deleteAccountImage = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (mongoose ID is invalid)" });
+  }
+
+  const account = await Image.findOneAndDelete({ user_id: id });
+
+  if (!account) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (contact ID is invalid)" });
+  }
+
+  res.status(200).json(account);
+};
+
+module.exports = {
+  createAccountImage,
+  getAccountImage,
+  replaceAccountImage,
+  deleteAccountImage,
+};

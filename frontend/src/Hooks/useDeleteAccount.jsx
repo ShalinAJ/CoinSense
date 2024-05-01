@@ -99,10 +99,36 @@ export const useDeleteAccount = () => {
       console.log(details);
     };
 
+    // Delete Profile Photo
+    const deleteProfilePhoto = async () => {
+      const account = JSON.parse(localStorage.getItem("account"));
+      const id = account.user_id;
+
+      const response = await fetch(
+        "http://localhost:4000/image/account/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        setError("Could not delete account.");
+        setIsLoading(false);
+        return;
+      }
+
+      const details = await response.json();
+      console.log(details);
+    };
+
     deleteAccount();
     deleteUser();
     deleteWallets();
     deleteTransactions();
+    deleteProfilePhoto();
 
     setIsLoading(false);
   };
