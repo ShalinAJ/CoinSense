@@ -27,12 +27,7 @@ const BitcoinChart = () => {
 
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [currentPrice, setCurrentPrice] = useState(0);
-  const [priceChange, setPriceChange] = useState(0);
-  const [priceChangePercent, setPriceChangePercent] = useState(0);
-  const [high24h, setHigh24h] = useState(0);
-  const [low24h, setLow24h] = useState(0);
-  const [volume24hBTC, setVolume24hBTC] = useState(0);
-  const [volume24hUSDT, setVolume24hUSDT] = useState(0);
+  const [tokenDataSet, setTokenDataSet] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tradingInterval, setTradingInterval] = useState("1m");
   const [modalOpen, setModalOpen] = useState(false);
   const [generalData, setGeneralData] = useState();
@@ -96,13 +91,16 @@ const BitcoinChart = () => {
         volume24hUSDT = volume24hUSDT.toFixed(2);
         volume24hBTC = volume24hBTC.toFixed(2);
 
+        setTokenDataSet([
+          currentPrice.toFixed(2),
+          priceChange.toFixed(2),
+          priceChangePercent.toFixed(2),
+          high24h.toFixed(2),
+          low24h.toFixed(2),
+          volume24hBTC,
+          volume24hUSDT,
+        ]);
         setCurrentPrice(currentPrice.toFixed(2));
-        setPriceChange(priceChange.toFixed(2));
-        setPriceChangePercent(priceChangePercent.toFixed(2));
-        setHigh24h(high24h.toFixed(2));
-        setLow24h(low24h.toFixed(2));
-        setVolume24hBTC(volume24hBTC);
-        setVolume24hUSDT(volume24hUSDT);
 
         const currentTime = new Date().toLocaleTimeString();
         if (!labels.includes(currentTime)) {
@@ -198,22 +196,24 @@ const BitcoinChart = () => {
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
-                }).format(currentPrice)}
+                }).format(tokenDataSet[0])}
               </p>
               <p
-                className={priceChange >= 0 ? "text-green-600" : "text-red-600"}
+                className={
+                  tokenDataSet[1] >= 0 ? "text-green-600" : "text-red-600"
+                }
               >
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
-                }).format(priceChange)}
+                }).format(tokenDataSet[1])}
               </p>
               <p
                 className={
-                  priceChangePercent >= 0 ? "text-green-600" : "text-red-600"
+                  tokenDataSet[2] >= 0 ? "text-green-600" : "text-red-600"
                 }
               >
-                {priceChangePercent}%
+                {tokenDataSet[2]}%
               </p>
 
               <div className="flex flex-col items-center gap-[2.8px]">
@@ -222,7 +222,7 @@ const BitcoinChart = () => {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(high24h)}
+                  }).format(tokenDataSet[3])}
                 </p>
               </div>
               <div className="flex flex-col  items-center gap-[2.8px]">
@@ -231,7 +231,7 @@ const BitcoinChart = () => {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(low24h)}
+                  }).format(tokenDataSet[4])}
                 </p>
               </div>
               <div className="flex flex-col text-[11px] items-center gap-[2.8px]">
@@ -240,7 +240,7 @@ const BitcoinChart = () => {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(volume24hBTC)}
+                  }).format(tokenDataSet[5])}
                 </p>
               </div>
               <div className="flex flex-col text-[11px] items-center gap-[2.8px]">
@@ -249,7 +249,7 @@ const BitcoinChart = () => {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(volume24hUSDT)}
+                  }).format(tokenDataSet[6])}
                 </p>
               </div>
             </div>

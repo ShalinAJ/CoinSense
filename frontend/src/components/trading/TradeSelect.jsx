@@ -13,7 +13,7 @@ const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="mt-[90px] w-[40%] z-50 rounded-xl">
+      <dialog open className="mt-[90px] w-[30%] z-50 rounded-xl">
         <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
           <div className="w-[100%] leading-6">
             <div className="flex flex-wrap justify-between items-center pt-2">
@@ -25,7 +25,7 @@ const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
                 &#10006;
               </button>
             </div>
-            <ul className="max-h-[9rem]">
+            <ul className="max-h-[9rem] flex flex-col gap-3 my-5">
               {cryptoData.map((tokenData) => (
                 <button
                   key={tokenData._id}
@@ -33,8 +33,9 @@ const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
                     tokenHandler(tokenData);
                     closeModal();
                   }}
+                  className="bg-transparent text-black border-1 border-gray-300"
                 >
-                  <div className="flex flex-row gap-3">
+                  <div className="flex flex-row justify-center gap-3">
                     <img src={tokenData.image} alt="" className="w-6" />
                     <p>{tokenData.id}</p>
                   </div>
