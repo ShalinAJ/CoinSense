@@ -1,10 +1,12 @@
-import { Link } from "react-router-dom";
+import { Await, Link } from "react-router-dom";
 import tempLine from "../assets/temp-line.png";
 import CryptoChart from "../charts/CryptoChart";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 import TradingArea from "../components/trading/TradingArea";
+import TradeSelect from "../components/trading/TradeSelect";
+import downArrow from "../assets/down-arrow.png";
 
 const BitcoinChart = () => {
   const [chartData, setChartData] = useState({
@@ -23,6 +25,7 @@ const BitcoinChart = () => {
     ],
   });
 
+  const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [currentPrice, setCurrentPrice] = useState(0);
   const [priceChange, setPriceChange] = useState(0);
   const [priceChangePercent, setPriceChangePercent] = useState(0);
@@ -31,12 +34,29 @@ const BitcoinChart = () => {
   const [volume24hBTC, setVolume24hBTC] = useState(0);
   const [volume24hUSDT, setVolume24hUSDT] = useState(0);
   const [tradingInterval, setTradingInterval] = useState("1m");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [generalData, setGeneralData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [selectToken, setSelectToken] = useState("BTC");
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const response = await fetch("http://localhost:4000/crypto/general", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+
+        const cryptoDetails = await response.json();
+
+        setGeneralData(cryptoDetails);
+      } catch (error) {
+        console.error("Error fetching crypto data: ", error);
+      }
+      try {
         const response = await axios.get(
-          `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=${tradingInterval}`
+          `https://api.binance.com/api/v3/klines?symbol=${selectToken.toUpperCase()}USDT&interval=${tradingInterval}`
         );
 
         let dates = [];
@@ -105,6 +125,7 @@ const BitcoinChart = () => {
             },
           ],
         });
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching Bitcoin data: ", error);
       }
@@ -112,107 +133,160 @@ const BitcoinChart = () => {
 
     fetchData();
 
-    const interval = setInterval(fetchData, 1000);
+    const interval = setInterval(fetchData, 3000);
 
     return () => clearInterval(interval);
-  }, [tradingInterval]);
+  }, [tradingInterval, selectToken]);
+
+  const tokenHandler = (status) => {
+    setSelectToken(status.symbol);
+  };
+
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   return (
-    <div className="w-[80%] h-[max-content] bg-white">
-      <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
-        <div>
-          <h2 className="text-2xl font-bold">Crypto Trading</h2>
-          <p className="text-sm pt-2 font-light">
-            Trade and view realtime data of Crypto Currencies
-          </p>
-        </div>
-        <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
-          <p className="text-xs font-semibold pl-6">
-            Crypto invested: $12,000.00
-          </p>
-          <Link className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full">
-            View more
-          </Link>
-        </div>
-      </div>
-      <div className="px-[28px] ">
-        <div className="flex flex-row gap-4 border shadow-lg shadow-grey-500/40 p-5 justify-stretch rounded-3xl">
-          <div className="w-[35%] flex flex-row items-center gap-4">
-            <select
-              name=""
-              id=""
-              defaultValue="Bitcoin"
-              className="w-[60%] py-1 px-2 cursor-pointer text-sm bg-transparent border-2 text-gray-500 border-gray-300 rounded-2xl"
-            >
-              <option value="">Bitcoin</option>
-            </select>
-            <div className="w-[40%] flex flex-row justify-center">
-              <img src={tempLine} alt="" className="w-[80%] h-5" />
-            </div>
-          </div>
-          <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-          <div className="w-[65%] flex flex-row items-center text-xs font-semibold gap-5 justify-between">
-            <p className="">${currentPrice}</p>
-            <p className={priceChange >= 0 ? "text-green-600" : "text-red-600"}>
-              ${priceChange}
-            </p>
-            <p
-              className={
-                priceChangePercent >= 0 ? "text-green-600" : "text-red-600"
-              }
-            >
-              {priceChangePercent}%
-            </p>
-            <div className="flex flex-col items-center gap-[2.8px]">
-              <p>24h High</p>
-              <p className="font-normal">${high24h}</p>
-            </div>
-            <div className="flex flex-col items-center gap-[2.8px]r">
-              <p>24h low</p>
-              <p className="font-normal">${low24h}</p>
-            </div>
-            <div className="flex flex-col items-center gap-[2.8px]">
-              <p>24h Volume(BTC)</p>
-              <p className="font-normal">{volume24hBTC}</p>
-            </div>
-            <div className="flex flex-col items-center gap-[2.8px]">
-              <p>24h Volume(USDT)</p>
-              <p className="font-normal">${volume24hUSDT}</p>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-row items-center justify-end gap-2 mt-5">
-          <label htmlFor="">Interval </label>
-          <select
-            name="trading-interval"
-            id="trading-interval"
-            onChange={() => {
-              setTradingInterval(event.target.value);
-            }}
-            defaultValue={tradingInterval}
-            className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
-          >
-            <option value="1s">1s</option>
-            <option value="1m">1m</option>
-            <option value="5m">5m</option>
-            <option value="1h">1h</option>
-            <option value="4h">4h</option>
-            <option value="1d">1d</option>
-          </select>
-        </div>
+    <>
+      {!loading && (
+        <TradeSelect
+          isOpen={modalOpen}
+          onClose={closeModal}
+          cryptoData={generalData}
+          tokenHandler={tokenHandler}
+        />
+      )}
 
-        <div className="mb-8 mt-3" style={{ height: "auto" }}>
-          <CryptoChart chartData={chartData} />
+      <div className="w-[80%] h-[max-content] bg-white">
+        <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
+          <div>
+            <h2 className="text-2xl font-bold">Crypto Trading</h2>
+            <p className="text-sm pt-2 font-light">
+              Trade and view realtime data of Crypto Currencies
+            </p>
+          </div>
+          <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
+            <p className="text-xs font-semibold pl-6">
+              Crypto invested: $12,000.00
+            </p>
+            <Link className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full">
+              View more
+            </Link>
+          </div>
         </div>
-        <hr />
-        <div>
-          <TradingArea currentPrice={currentPrice} />
-        </div>
-        <div>
-          <HorizontalMarketBar />
+        <div className="px-[28px] ">
+          <div className="flex flex-row gap-4 border shadow-lg shadow-grey-500/40 p-5 justify-stretch rounded-3xl">
+            <div className="w-[35%] flex flex-row items-center gap-4">
+              <button
+                onClick={openModal}
+                className="w-full flex flex-row justify-between items-center text-sm font-semibold bg-transparent text-black border-1 border-gray-300"
+              >
+                <p>{selectToken.toUpperCase()}</p>
+                <img src={downArrow} alt="" className="w-5" />
+              </button>
+              <div className="w-[40%] flex flex-row justify-center">
+                <img src={tempLine} alt="" className="w-[80%] h-5" />
+              </div>
+            </div>
+            <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
+            <div className="w-[65%] flex flex-row items-center text-xs font-semibold gap-5 justify-between">
+              <p className="">
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(currentPrice)}
+              </p>
+              <p
+                className={priceChange >= 0 ? "text-green-600" : "text-red-600"}
+              >
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(priceChange)}
+              </p>
+              <p
+                className={
+                  priceChangePercent >= 0 ? "text-green-600" : "text-red-600"
+                }
+              >
+                {priceChangePercent}%
+              </p>
+
+              <div className="flex flex-col items-center gap-[2.8px]">
+                <p className="text-[10px]">24h High</p>
+                <p className="font-normal">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(high24h)}
+                </p>
+              </div>
+              <div className="flex flex-col  items-center gap-[2.8px]">
+                <p className="text-[10px]">24h low</p>
+                <p className="font-normal">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(low24h)}
+                </p>
+              </div>
+              <div className="flex flex-col text-[11px] items-center gap-[2.8px]">
+                <p className="text-[10px]">24h Volume(BTC)</p>
+                <p className="font-normal">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(volume24hBTC)}
+                </p>
+              </div>
+              <div className="flex flex-col text-[11px] items-center gap-[2.8px]">
+                <p className="text-[10px]">24h Volume(USDT)</p>
+                <p className="font-normal">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(volume24hUSDT)}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-row items-center justify-end gap-2 mt-5">
+            <label htmlFor="">Interval </label>
+            <select
+              name="trading-interval"
+              id="trading-interval"
+              onChange={() => {
+                setTradingInterval(event.target.value);
+              }}
+              defaultValue={tradingInterval}
+              className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+            >
+              <option value="1s">1s</option>
+              <option value="1m">1m</option>
+              <option value="5m">5m</option>
+              <option value="1h">1h</option>
+              <option value="4h">4h</option>
+              <option value="1d">1d</option>
+            </select>
+          </div>
+
+          <div className="mb-8 mt-3" style={{ height: "auto" }}>
+            <CryptoChart chartData={chartData} />
+          </div>
+          <hr />
+          <div>
+            <TradingArea currentPrice={currentPrice} />
+          </div>
+          <div>
+            <HorizontalMarketBar />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -94,9 +94,10 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
                     ></div>
                     <p className="text-[10px] mt-8 py-1">
                       {selectedCard.cardNumber &&
-                        `Top up will be done from card ${
-                          selectedCard.cardNumber
-                        } ${selectedCard.cardNumber.slice(12, 16)}`}
+                        `Top up will be done from card ${selectedCard.cardNumber.slice(
+                          12,
+                          16
+                        )}`}
                     </p>
                   </div>
                 ) : (

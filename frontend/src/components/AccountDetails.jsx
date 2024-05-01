@@ -111,9 +111,9 @@ const AccountDetails = ({
             <img
               src={profilePhoto ? profilePhoto : userImg}
               alt=""
-              className="w-[10rem] mt-[3.5rem] rounded-full box-shadow cursor-pointer"
+              className="w-[10rem] h-[10rem] mt-[3.5rem] rounded-full box-shadow cursor-pointer"
             />
-            <div className=" w-[10rem] mt-[3.5rem] absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer">
+            <div className=" w-[10rem] h-[10rem] mt-[3.5rem] absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer">
               Upload Image
             </div>
             <input
