@@ -45,6 +45,24 @@ export const useRegister = () => {
         localStorage.setItem("account", JSON.stringify(json2));
       }
 
+      // upload image file with null accountImg when account created
+      const imageResponse = await fetch(
+        "http://localhost:4000/image/account/new/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (!imageResponse.ok) {
+        throw new Error("Could not upload.");
+      } else {
+        console.log("account File created successfully");
+      }
+
       setIsLoading(false);
       location.reload();
     }

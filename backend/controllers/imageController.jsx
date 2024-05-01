@@ -1,7 +1,9 @@
+const mongoose = require("mongoose");
+
 const Image = require("../models/imageModel.jsx");
 
 const createAccountImage = async (req, res) => {
-  const { accountImg } = req.body;
+  const accountImg = null;
   const user_id = req.user._id;
 
   try {
@@ -24,4 +26,24 @@ const getAccountImage = async (req, res) => {
   }
 };
 
-module.exports = { createAccountImage, getAccountImage };
+const replaceAccountImage = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (mongoose ID is invalid)" });
+  }
+
+  const image = await Image.findOneAndUpdate({ user_id: id }, { ...req.body });
+
+  if (!image) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (contact ID is invalid)" });
+  }
+
+  res.status(200).json(image);
+};
+
+module.exports = { createAccountImage, getAccountImage, replaceAccountImage };

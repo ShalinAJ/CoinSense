@@ -75,8 +75,6 @@ const AccountPage = () => {
     setModalOpen(false);
   };
 
-  console.log(accountDetails);
-
   return (
     <>
       <Suspense>

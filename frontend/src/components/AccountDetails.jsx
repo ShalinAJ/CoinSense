@@ -18,6 +18,7 @@ const AccountDetails = ({
   const [selectedFile, setSelectedFile] = useState(null);
   const [profilePhoto, setProfilePhoto] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
+  const user_id = JSON.parse(localStorage.getItem("account")).user_id;
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -45,7 +46,6 @@ const AccountDetails = ({
     var reader = new FileReader();
     reader.readAsDataURL(event.target.files[0]);
     reader.onload = () => {
-      //console.log(reader.result);
       setSelectedFile(reader.result);
     };
     reader.onerror = (error) => {
@@ -53,6 +53,7 @@ const AccountDetails = ({
     };
   };
 
+  // get image from DB
   async function getImg() {
     const response = await fetch("http://localhost:4000/image/account", {
       headers: {
@@ -64,18 +65,22 @@ const AccountDetails = ({
       return json({ message: "Could not fetch photo." }, { status: 500 });
     } else {
       const photo = await response.json();
-      console.log(photo[0].accountImg);
       setProfilePhoto(photo[0].accountImg);
     }
   }
 
   useEffect(() => {
+    getImg();
+  }, []);
+
+  // send photo to DB
+  useEffect(() => {
     const handleUpload = async () => {
       if (selectedFile) {
         const response = await fetch(
-          "http://localhost:4000/image/account/new",
+          `http://localhost:4000/image/account/${user_id}`,
           {
-            method: "POST",
+            method: "PATCH",
             headers: {
               Authorization: `Bearer ${user.token}`,
               "Content-Type": "application/json",
@@ -85,16 +90,17 @@ const AccountDetails = ({
         );
 
         if (!response.ok) {
-          throw new Error("Could not upload."); // Fixed error handling
+          throw new Error("Could not upload.");
         } else {
-          console.log("ok");
+          console.log("File uploaded successfully");
+          location.reload();
         }
       } else {
-        console.log("no selected file");
+        console.log("No file selected");
       }
     };
+
     handleUpload();
-    getImg();
   }, [selectedFile]);
 
   return (
