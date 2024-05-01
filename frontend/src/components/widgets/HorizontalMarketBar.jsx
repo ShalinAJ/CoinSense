@@ -21,7 +21,6 @@ const HorizontalMarketBar = () => {
         });
 
         const cryptoDetails = await response.json();
-        console.log(cryptoDetails);
         setCryptoData(cryptoDetails);
       } catch (error) {
         console.error("Error fetching crypto data: ", error);
