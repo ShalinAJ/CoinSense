@@ -11,8 +11,12 @@ const cryptoGeneralDataRoutes = require("./routes/cryptoGeneralDataRoute.jsx");
 const tradingWalletRoutes = require("./routes/tradingWalletRoute.jsx");
 const imageRoutes = require("./routes/imageRoute.jsx");
 const orderHistoryRoutes = require("./routes/orderHistoryRoute.jsx");
+const bodyParser = require("body-parser");
 
 const app = express();
+
+// Parse JSON bodies with a larger limit
+app.use(bodyParser.json({ limit: "10mb" })); // Adjust the limit as per your requirements
 
 app.use(express.json());
 
