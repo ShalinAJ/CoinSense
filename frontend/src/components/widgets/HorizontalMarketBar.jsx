@@ -31,14 +31,12 @@ const HorizontalMarketBar = () => {
     const fetchData = async (crypto) => {
       try {
         const response = await axios.get(
-          `https://api.binance.com/api/v3/klines?symbol=${crypto}&interval=1m`
+          `https://api.binance.com/api/v3/ticker/24hr?symbol=${crypto}`
         );
 
         const data = response.data;
-        const latestData = data[data.length - 1];
-        const currentPrice = parseFloat(latestData[4]);
-        const priceChange = currentPrice - parseFloat(latestData[1]);
-        const priceChangePercent = (priceChange / currentPrice) * 100;
+        const currentPrice = parseFloat(data.lastPrice);
+        const priceChangePercent = parseFloat(data.priceChangePercent);
         if (crypto == "BTCUSDT") {
           setBtcPriceChange(priceChangePercent.toFixed(2));
         } else if (crypto == "ETHUSDT") {
@@ -81,7 +79,7 @@ const HorizontalMarketBar = () => {
 
   return (
     <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-      <div className="w-[30%] flex flex-col gap-4">
+      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
         {cryptoData[0] && (
           <div className="flex flex-row items-center justify-between">
             <img
@@ -89,7 +87,7 @@ const HorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p className="text-sm font-medium">{btcPrice}</p>
+            <p>{btcPrice}</p>
             <p
               className={
                 btcPriceChange >= 0 ? "text-green-600" : "text-red-600"
@@ -106,7 +104,7 @@ const HorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p className="text-sm font-medium">{ethPrice}</p>
+            <p>{ethPrice}</p>
             <p
               className={
                 ethPriceChange >= 0 ? "text-green-600" : "text-red-600"
@@ -123,7 +121,7 @@ const HorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p className="text-sm font-medium">{tusdPrice}</p>
+            <p>{tusdPrice}</p>
             <p
               className={
                 tusdPriceChange >= 0 ? "text-green-600" : "text-red-600"

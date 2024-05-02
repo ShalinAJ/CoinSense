@@ -59,6 +59,10 @@ const BitcoinChart = () => {
           `https://api.binance.com/api/v3/klines?symbol=${selectToken[0].toUpperCase()}USDT&interval=${tradingInterval}`
         );
 
+        const dataBarResponse = await axios.get(
+          `https://api.binance.com/api/v3/ticker/24hr?symbol=${selectToken[0].toUpperCase()}USDT`
+        );
+
         let dates = [];
 
         if (tradingInterval === "1d") {
@@ -76,25 +80,21 @@ const BitcoinChart = () => {
         }
 
         const data = response.data;
+        const barData = dataBarResponse.data;
         const labels = dates;
         const prices = data.map((item) => parseFloat(item[4]));
-        const latestData = data[data.length - 1];
 
-        const currentPrice = parseFloat(latestData[4]);
-        const priceChange = currentPrice - parseFloat(latestData[1]);
-        const priceChangePercent = (priceChange / currentPrice) * 100;
-        const high24h = parseFloat(latestData[2]);
-        const low24h = parseFloat(latestData[3]);
+        const currentPrice = parseFloat(barData.lastPrice);
+        const priceChange = parseFloat(barData.priceChange);
+        const priceChangePercent = parseFloat(barData.priceChangePercent);
+        const high24h = parseFloat(barData.highPrice);
+        const low24h = parseFloat(barData.lowPrice);
 
-        let volume24hBTC = 0;
-        let volume24hUSDT = 0;
-        for (let i = 0; i < data.length; i++) {
-          volume24hBTC += parseFloat(data[i][5]);
-          volume24hUSDT += parseFloat(data[i][7]);
-        }
+        let volume24hBTC = parseFloat(barData.volume);
+        let volume24hUSDT = parseFloat(barData.quoteVolume);
 
-        volume24hUSDT = volume24hUSDT.toFixed(2);
         volume24hBTC = volume24hBTC.toFixed(2);
+        volume24hUSDT = volume24hUSDT.toFixed(2);
 
         setTokenDataSet([
           currentPrice.toFixed(2),
@@ -213,23 +213,29 @@ const BitcoinChart = () => {
                   currency: "USD",
                 }).format(tokenDataSet[0])}
               </p>
-              <p
-                className={
-                  tokenDataSet[1] >= 0 ? "text-green-600" : "text-red-600"
-                }
-              >
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                }).format(tokenDataSet[1])}
-              </p>
-              <p
-                className={
-                  tokenDataSet[2] >= 0 ? "text-green-600" : "text-red-600"
-                }
-              >
-                {tokenDataSet[2]}%
-              </p>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-[10px]">24h Change</p>
+                <div className="flex flex-row gap-2">
+                  {" "}
+                  <p
+                    className={
+                      tokenDataSet[1] >= 0 ? "text-green-600" : "text-red-600"
+                    }
+                  >
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(tokenDataSet[1])}
+                  </p>
+                  <p
+                    className={
+                      tokenDataSet[2] >= 0 ? "text-green-600" : "text-red-600"
+                    }
+                  >
+                    {tokenDataSet[2]}%
+                  </p>
+                </div>
+              </div>
 
               <div className="flex flex-col items-center gap-[2.8px]">
                 <p className="text-[10px]">24h High</p>
