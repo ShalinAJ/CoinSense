@@ -46,14 +46,7 @@ const TradingForm = ({ currentPrice, tradeAmountType }) => {
         />
       </div>
       <div className="flex flex-row justify-between pb-5">
-        <div>
-          <label htmlFor="" className="mr-3">
-            Payment Card
-          </label>
-          <select name="" id="">
-            <option value="">Card 1</option>
-          </select>
-        </div>
+        <div>Trading wallet info</div>
         <div className="flex flex-row items-center text-xs font-semibold gap-2">
           <p>{totalAmount} BTC</p>
           <p>=</p>

@@ -10,15 +10,17 @@ const AccountDetails = ({
   accountDetails,
   onDeleteAccount,
 }) => {
-  const [transactionTotal, setTransactionTotal] = useState(0);
-  const [walletTotal, setWalletTotal] = useState(0);
-  const { transactions, wallets } = useLoaderData();
-  const [investmentsTotal, setInvestmentsTotal] = useState(0);
-  const { ...accountInfo } = JSON.parse(localStorage.getItem("account"));
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [profilePhoto, setProfilePhoto] = useState("");
   const user = JSON.parse(localStorage.getItem("user"));
   const user_id = JSON.parse(localStorage.getItem("account")).user_id;
+  const { ...accountInfo } = JSON.parse(localStorage.getItem("account"));
+  const { transactions, wallets } = useLoaderData();
+
+  const [transactionTotal, setTransactionTotal] = useState(0);
+  const [walletTotal, setWalletTotal] = useState(0);
+  const [investmentsTotal, setInvestmentsTotal] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [profilePhoto, setProfilePhoto] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   useEffect(() => {
     async function dataTotalHandler() {
@@ -200,12 +202,36 @@ const AccountDetails = ({
             </p>
           </div>
           <div>
-            <button
-              onClick={onDeleteAccount}
-              className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
-            >
-              Delete Account
-            </button>
+            {confirmDelete === false ? (
+              <button
+                onClick={() => {
+                  setConfirmDelete(true);
+                }}
+                className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
+              >
+                Delete Account
+              </button>
+            ) : (
+              <div className="flex flex-row gap-5">
+                <p className="text-black font-medium border-none text-xs mt-5">
+                  Confirm to delete account :
+                </p>
+                <button
+                  onClick={onDeleteAccount}
+                  className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => {
+                    setConfirmDelete(false);
+                  }}
+                  className="bg-transparent text-black font-medium border-none text-xs p-0 mt-5"
+                >
+                  No
+                </button>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-4">

@@ -1,14 +1,16 @@
-import { Await, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import tempLine from "../assets/temp-line.png";
 import CryptoChart from "../charts/CryptoChart";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 import TradingArea from "../components/trading/TradingArea";
 import TradeSelect from "../components/trading/TradeSelect";
 import downArrow from "../assets/down-arrow.png";
+import backArrow from "../assets/back-arrow.png";
 
 const BitcoinChart = () => {
+  const navigate = useNavigate();
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -151,6 +153,10 @@ const BitcoinChart = () => {
     setModalOpen(false);
   };
 
+  const prevPage = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       {!loading && (
@@ -165,6 +171,9 @@ const BitcoinChart = () => {
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
           <div>
+            <Link onClick={prevPage} className="p-0 m-0 w-4">
+              <img src={backArrow} alt="" />
+            </Link>
             <h2 className="text-2xl font-bold">Crypto Trading</h2>
             <p className="text-sm pt-2 font-light">
               Trade and view realtime data of Crypto Currencies
