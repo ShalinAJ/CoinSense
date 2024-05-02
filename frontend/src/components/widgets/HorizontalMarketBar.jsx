@@ -7,6 +7,9 @@ const HorizontalMarketBar = () => {
   const [btcPrice, setBtcPrice] = useState(0);
   const [ethPrice, setEthPrice] = useState(0);
   const [tusdPrice, setTusdPrice] = useState(0);
+  const [btcPriceChange, setBtcPriceChange] = useState(0);
+  const [ethPriceChange, setEthPriceChange] = useState(0);
+  const [tusdPriceChange, setTusdPriceChange] = useState(0);
 
   useEffect(() => {
     const getCryptoGeneralData = async () => {
@@ -34,7 +37,15 @@ const HorizontalMarketBar = () => {
         const data = response.data;
         const latestData = data[data.length - 1];
         const currentPrice = parseFloat(latestData[4]);
-
+        const priceChange = currentPrice - parseFloat(latestData[1]);
+        const priceChangePercent = (priceChange / currentPrice) * 100;
+        if (crypto == "BTCUSDT") {
+          setBtcPriceChange(priceChangePercent.toFixed(2));
+        } else if (crypto == "ETHUSDT") {
+          setEthPriceChange(priceChangePercent.toFixed(2));
+        } else if (crypto == "TUSDUSDT") {
+          setTusdPriceChange(priceChangePercent.toFixed(2));
+        }
         return currentPrice.toFixed(2); // Return the current price
       } catch (error) {
         console.error("Error fetching Bitcoin data: ", error);
@@ -50,19 +61,37 @@ const HorizontalMarketBar = () => {
       setBtcPrice(btcPrice);
       setEthPrice(ethPrice);
       setTusdPrice(tusdPrice);
+      setPriceChange(priceChangePercent.toFixed(2));
     };
 
-    fetchDataAndUpdateState();
+    fetchDataAndUpdateState(); // Fetch data initially
 
-    const interval = setInterval(fetchDataAndUpdateState, 5000);
+    // Set intervals to fetch data periodically
+    const btcInterval = setInterval(() => {
+      fetchDataAndUpdateState(); // Fetch data for BTC and update state
+    }, 1000);
 
-    return () => clearInterval(interval);
+    const ethInterval = setInterval(() => {
+      fetchDataAndUpdateState(); // Fetch data for SOL and update state
+    }, 1000);
+    const tusdInterval = setInterval(() => {
+      fetchDataAndUpdateState(); // Fetch data for SOL and update state
+    }, 1000);
+
+    // Cleanup function
+    return () => {
+      clearInterval(btcInterval);
+      clearInterval(ethInterval);
+      clearInterval(tusdInterval);
+    };
   }, []);
 
   if (cryptoData.length === 0) {
     // Data is still loading, return a loading indicator or null
     return <div>Loading...</div>;
   }
+
+  //console.log(priceChange);
 
   return (
     <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
@@ -74,7 +103,11 @@ const HorizontalMarketBar = () => {
             className="w-7 h-7 rounded-full"
           />
           <p className="text-sm font-medium">{btcPrice}</p>
-          <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
+          <p
+            className={btcPriceChange >= 0 ? "text-green-600" : "text-red-600"}
+          >
+            {btcPriceChange}%
+          </p>
         </div>
         <div className="flex flex-row items-center justify-between">
           <img
@@ -83,7 +116,11 @@ const HorizontalMarketBar = () => {
             className="w-7 h-7 rounded-full"
           />
           <p className="text-sm font-medium">{ethPrice}</p>
-          <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
+          <p
+            className={ethPriceChange >= 0 ? "text-green-600" : "text-red-600"}
+          >
+            {ethPriceChange}%
+          </p>
         </div>
         <div className="flex flex-row items-center justify-between">
           <img
@@ -92,7 +129,11 @@ const HorizontalMarketBar = () => {
             className="w-7 h-7 rounded-full"
           />
           <p className="text-sm font-medium">{tusdPrice}</p>
-          <p className="text-sm font-medium text-[#02B15A]">+1.48%</p>
+          <p
+            className={tusdPriceChange >= 0 ? "text-green-600" : "text-red-600"}
+          >
+            {tusdPriceChange}%
+          </p>
         </div>
       </div>
       <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
