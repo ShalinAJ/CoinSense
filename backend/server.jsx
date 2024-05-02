@@ -10,12 +10,9 @@ const accountRoutes = require("./routes/accountRoute.jsx");
 const cryptoGeneralDataRoutes = require("./routes/cryptoGeneralDataRoute.jsx");
 const tradingWalletRoutes = require("./routes/tradingWalletRoute.jsx");
 const imageRoutes = require("./routes/imageRoute.jsx");
-const bodyParser = require("body-parser");
+const orderHistoryRoutes = require("./routes/orderHistoryRoute.jsx");
 
 const app = express();
-
-// Parse JSON bodies with a larger limit
-app.use(bodyParser.json({ limit: "10mb" })); // Adjust the limit as per your requirements
 
 app.use(express.json());
 
@@ -35,6 +32,7 @@ app.use(accountRoutes);
 app.use(cryptoGeneralDataRoutes);
 app.use(tradingWalletRoutes);
 app.use(imageRoutes);
+app.use(orderHistoryRoutes);
 
 // Conncet to database
 mongoose

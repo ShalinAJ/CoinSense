@@ -43,7 +43,7 @@ const HorizontalMarketBar = () => {
           setBtcPriceChange(priceChangePercent.toFixed(2));
         } else if (crypto == "ETHUSDT") {
           setEthPriceChange(priceChangePercent.toFixed(2));
-        } else if (crypto == "TUSDUSDT") {
+        } else if (crypto == "BNBUSDT") {
           setTusdPriceChange(priceChangePercent.toFixed(2));
         }
         return currentPrice.toFixed(2); // Return the current price
@@ -57,7 +57,7 @@ const HorizontalMarketBar = () => {
     const fetchDataAndUpdateState = async () => {
       const btcPrice = await fetchData("BTCUSDT");
       const ethPrice = await fetchData("ETHUSDT");
-      const tusdPrice = await fetchData("TUSDUSDT");
+      const tusdPrice = await fetchData("BNBUSDT");
       setBtcPrice(btcPrice);
       setEthPrice(ethPrice);
       setTusdPrice(tusdPrice);
