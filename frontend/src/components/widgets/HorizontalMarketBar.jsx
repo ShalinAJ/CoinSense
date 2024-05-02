@@ -65,7 +65,7 @@ const HorizontalMarketBar = () => {
 
     const interval = setInterval(() => {
       fetchDataAndUpdateState();
-    }, 5000);
+    }, 3000);
 
     // Cleanup function
     return () => {

@@ -213,7 +213,7 @@ const BitcoinChart = () => {
                   currency: "USD",
                 }).format(tokenDataSet[0])}
               </p>
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col text-[11px] justify-center items-center">
                 <p className="text-[10px]">24h Change</p>
                 <div className="flex flex-row gap-2">
                   {" "}
