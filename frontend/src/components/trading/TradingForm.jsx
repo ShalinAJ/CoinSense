@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 
-const TradingForm = ({ currentPrice, tradeAmountType }) => {
+const TradingForm = ({ currentPrice, tradeAmountType, transactionType }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [inputTotal, setInputTotal] = useState(0);
   const [total, setTotal] = useState();
   const [tradeType, setTradeType] = useState();
   const [disableInput, setDisableInput] = useState(false);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
     if (tradeAmountType === "market") {
@@ -22,8 +23,35 @@ const TradingForm = ({ currentPrice, tradeAmountType }) => {
     }
   }, [tradeAmountType, currentPrice]);
 
+  const handleSubmit = async (e) => {
+    console.log("here");
+    if (tradeAmountType == "market") {
+      if (transactionType == "buy") {
+        const response = await fetch("http://localhost:4000/orderhistory/new", {
+          method: "POST",
+
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: "buy",
+            transactionType: "buy",
+            priceType: tradeAmountType,
+            price: currentPrice,
+            amount: totalAmount,
+          }),
+        });
+
+        if (!response.ok) {
+          throw json({ message: "Could not save." }, { status: 500 });
+        }
+      }
+    }
+  };
+
   return (
-    <Form action="">
+    <Form onSubmit={handleSubmit}>
       <div className="flex flex-col pb-5">
         <label htmlFor="">Price (USDT)</label>
 

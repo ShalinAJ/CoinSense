@@ -55,6 +55,7 @@ const TradingArea = ({ currentPrice }) => {
         <TradingForm
           currentPrice={currentPrice}
           tradeAmountType={tradeAmountType}
+          transactionType={tradeType}
         />
       </div>
       <div className="w-[48.5%]">
