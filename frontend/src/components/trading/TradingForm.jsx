@@ -8,6 +8,7 @@ const TradingForm = ({ currentPrice, tradeAmountType, transactionType }) => {
   const [tradeType, setTradeType] = useState();
   const [disableInput, setDisableInput] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
+  const user_id = JSON.parse(localStorage.getItem("account")).user_id;
 
   useEffect(() => {
     if (tradeAmountType === "market") {
@@ -24,30 +25,35 @@ const TradingForm = ({ currentPrice, tradeAmountType, transactionType }) => {
   }, [tradeAmountType, currentPrice]);
 
   const handleSubmit = async (e) => {
-    console.log("here");
+    let url = "";
     if (tradeAmountType == "market") {
-      if (transactionType == "buy") {
-        const response = await fetch("http://localhost:4000/orderhistory/new", {
-          method: "POST",
-
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: "buy",
-            transactionType: "buy",
-            priceType: tradeAmountType,
-            price: currentPrice,
-            amount: totalAmount,
-          }),
-        });
-
-        if (!response.ok) {
-          throw json({ message: "Could not save." }, { status: 500 });
-        }
-      }
+      url = "orderhistory";
+    } else if (tradeAmountType == "limit") {
+      url = "openorders";
     }
+
+    const response = await fetch(`http://localhost:4000/${url}/new`, {
+      method: "POST",
+
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: "bitcoin",
+        transactionType,
+        priceType: tradeAmountType,
+        price: currentPrice,
+        amount: totalAmount,
+        user_id,
+      }),
+    });
+
+    if (!response.ok) {
+      throw json({ message: "Could not save." }, { status: 500 });
+    }
+
+    window.location.reload();
   };
 
   return (
