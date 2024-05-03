@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import tempLine from "../assets/temp-line.png";
 import CryptoChart from "../charts/CryptoChart";
 import { useEffect, useState } from "react";
@@ -27,6 +27,7 @@ const BitcoinChart = () => {
     ],
   });
 
+  const { topups } = useLoaderData();
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [currentPrice, setCurrentPrice] = useState(0);
   const [tokenDataSet, setTokenDataSet] = useState([0, 0, 0, 0, 0, 0, 0]);
@@ -300,7 +301,7 @@ const BitcoinChart = () => {
           </div>
           <hr />
           <div>
-            <TradingArea currentPrice={currentPrice} />
+            <TradingArea currentPrice={currentPrice} topups={topups} />
           </div>
           <div>
             <HorizontalMarketBar />

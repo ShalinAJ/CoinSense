@@ -5,7 +5,7 @@ import classes from "./TradingArea.module.css";
 import TradingOrderHistory from "./TradingOrderHistory";
 import TradingOpenOrders from "./TradingOpenOrders";
 
-const TradingArea = ({ currentPrice }) => {
+const TradingArea = ({ currentPrice, topups }) => {
   const [orderHistory, setOrderHistory] = useState("open-orders");
   const [tradeType, setTradeType] = useState("buy");
   const [tradeAmountType, setTradeAmountType] = useState("market");
@@ -56,6 +56,7 @@ const TradingArea = ({ currentPrice }) => {
           currentPrice={currentPrice}
           tradeAmountType={tradeAmountType}
           transactionType={tradeType}
+          topups={topups}
         />
       </div>
       <div className="w-[48.5%]">

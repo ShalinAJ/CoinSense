@@ -145,6 +145,26 @@ async function loadWallets() {
   }
 }
 
+async function loadTopups() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/tradingwallet", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch top-ups." }, { status: 500 });
+  } else {
+    const topups = await response.json();
+    return topups;
+  }
+}
+
 export function loader() {
-  return defer({ transactions: loadTransactions(), wallets: loadWallets() });
+  return defer({
+    topups: loadTopups(),
+    transactions: loadTransactions(),
+    wallets: loadWallets(),
+  });
 }
