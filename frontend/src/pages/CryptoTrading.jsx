@@ -1,13 +1,12 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
-import tempLine from "../assets/temp-line.png";
 import CryptoChart from "../charts/CryptoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 import TradingArea from "../components/trading/TradingArea";
 import TradeSelect from "../components/trading/TradeSelect";
-import downArrow from "../assets/down-arrow.png";
 import backArrow from "../assets/back-arrow.png";
+import TradeLiveDataBar from "../components/trading/TradeLiveDataBar";
 
 const BitcoinChart = () => {
   const navigate = useNavigate();
@@ -27,12 +26,13 @@ const BitcoinChart = () => {
     ],
   });
 
-  const { topups } = useLoaderData();
+  const { topups, orderHistory } = useLoaderData();
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [currentPrice, setCurrentPrice] = useState(0);
+  const [investedTotal, setInvestedTotal] = useState(0);
   const [tokenDataSet, setTokenDataSet] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tradingInterval, setTradingInterval] = useState("1m");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const [generalData, setGeneralData] = useState();
   const [loading, setLoading] = useState(true);
   const [selectToken, setSelectToken] = useState([
@@ -41,6 +41,17 @@ const BitcoinChart = () => {
   ]);
 
   useEffect(() => {
+    async function orderHistoryDataHandler() {
+      const orderHistoryData = await orderHistory;
+      const totalAmount = orderHistoryData.reduce((accumulator, order) => {
+        return accumulator + order.price * order.amount;
+      }, 0);
+
+      setInvestedTotal(totalAmount);
+    }
+
+    orderHistoryDataHandler();
+
     const fetchData = async () => {
       try {
         const response = await fetch("http://localhost:4000/crypto/general", {
@@ -146,14 +157,6 @@ const BitcoinChart = () => {
     setSelectToken([token.symbol, token.image]);
   };
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
   const prevPage = () => {
     navigate(-1);
   };
@@ -163,12 +166,11 @@ const BitcoinChart = () => {
       {!loading && (
         <TradeSelect
           isOpen={modalOpen}
-          onClose={closeModal}
+          onClose={() => setModalOpen(false)}
           cryptoData={generalData}
           tokenHandler={tokenHandler}
         />
       )}
-
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
           <div>
@@ -181,101 +183,26 @@ const BitcoinChart = () => {
             </p>
           </div>
           <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
-            <p className="text-xs font-semibold pl-6">
-              Crypto invested: $12,000.00
-            </p>
+            <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
+              <p>Crypto invested :</p>
+              <p>
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(investedTotal)}
+              </p>
+            </div>
             <Link className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full">
               View more
             </Link>
           </div>
         </div>
         <div className="px-[28px] ">
-          <div className="flex flex-row gap-4 border shadow-lg shadow-grey-500/40 p-5 justify-stretch rounded-3xl">
-            <div className="w-[35%] flex flex-row items-center gap-4">
-              <button
-                onClick={openModal}
-                className="w-full flex flex-row justify-between items-center text-sm font-semibold bg-transparent text-black border-1 border-gray-300"
-              >
-                <p className="flex flex-row gap-3">
-                  <img src={selectToken[1]} alt="" className="w-5" />
-                  {selectToken[0].toUpperCase()}
-                </p>
-                <img src={downArrow} alt="" className="w-5" />
-              </button>
-              <div className="w-[40%] flex flex-row justify-center">
-                <img src={tempLine} alt="" className="w-[80%] h-5" />
-              </div>
-            </div>
-            <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-            <div className="w-[65%] flex flex-row items-center text-xs font-semibold gap-5 justify-between">
-              <p className="">
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                }).format(tokenDataSet[0])}
-              </p>
-              <div className="flex flex-col text-[11px] justify-center items-center">
-                <p className="text-[10px]">24h Change</p>
-                <div className="flex flex-row gap-2">
-                  {" "}
-                  <p
-                    className={
-                      tokenDataSet[1] >= 0 ? "text-green-600" : "text-red-600"
-                    }
-                  >
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(tokenDataSet[1])}
-                  </p>
-                  <p
-                    className={
-                      tokenDataSet[2] >= 0 ? "text-green-600" : "text-red-600"
-                    }
-                  >
-                    {tokenDataSet[2]}%
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex flex-col items-center gap-[2.8px]">
-                <p className="text-[10px]">24h High</p>
-                <p className="font-normal">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(tokenDataSet[3])}
-                </p>
-              </div>
-              <div className="flex flex-col  items-center gap-[2.8px]">
-                <p className="text-[10px]">24h low</p>
-                <p className="font-normal">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(tokenDataSet[4])}
-                </p>
-              </div>
-              <div className="flex flex-col text-[11px] items-center gap-[2.8px]">
-                <p className="text-[10px]">24h Volume(BTC)</p>
-                <p className="font-normal">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(tokenDataSet[5])}
-                </p>
-              </div>
-              <div className="flex flex-col text-[11px] items-center gap-[2.8px]">
-                <p className="text-[10px]">24h Volume(USDT)</p>
-                <p className="font-normal">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(tokenDataSet[6])}
-                </p>
-              </div>
-            </div>
-          </div>
+          <TradeLiveDataBar
+            selectToken={selectToken}
+            tokenDataSet={tokenDataSet}
+            onOpen={() => setModalOpen(true)}
+          />
           <div className="flex flex-row items-center justify-end gap-2 mt-5">
             <label htmlFor="">Interval </label>
             <select
@@ -301,7 +228,11 @@ const BitcoinChart = () => {
           </div>
           <hr />
           <div>
-            <TradingArea currentPrice={currentPrice} topups={topups} />
+            <TradingArea
+              currentPrice={currentPrice}
+              topups={topups}
+              orderHistoryData={orderHistory}
+            />
           </div>
           <div>
             <HorizontalMarketBar />

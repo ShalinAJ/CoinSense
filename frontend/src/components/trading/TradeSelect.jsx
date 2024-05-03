@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-
 const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
-  if (!isOpen) return null;
+  if (!isOpen || !cryptoData) return null;
 
   const closeModal = () => {
     onClose();

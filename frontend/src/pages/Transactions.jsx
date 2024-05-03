@@ -161,8 +161,25 @@ async function loadTopups() {
   }
 }
 
+async function loadOrderHistory() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/orderhistory", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch order history." }, { status: 500 });
+  } else {
+    const orderHistory = await response.json();
+    return orderHistory;
+  }
+}
+
 export function loader() {
   return defer({
+    orderHistory: loadOrderHistory(),
     topups: loadTopups(),
     transactions: loadTransactions(),
     wallets: loadWallets(),

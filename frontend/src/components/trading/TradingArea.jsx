@@ -5,7 +5,7 @@ import classes from "./TradingArea.module.css";
 import TradingOrderHistory from "./TradingOrderHistory";
 import TradingOpenOrders from "./TradingOpenOrders";
 
-const TradingArea = ({ currentPrice, topups }) => {
+const TradingArea = ({ currentPrice, topups, orderHistoryData }) => {
   const [orderHistory, setOrderHistory] = useState("open-orders");
   const [tradeType, setTradeType] = useState("buy");
   const [tradeAmountType, setTradeAmountType] = useState("market");
@@ -80,7 +80,9 @@ const TradingArea = ({ currentPrice, topups }) => {
             </NavLink>
           </div>
           <div>
-            {orderHistory === "order-history" && <TradingOrderHistory />}
+            {orderHistory === "order-history" && (
+              <TradingOrderHistory orderHistoryData={orderHistoryData} />
+            )}
             {orderHistory === "open-orders" && <TradingOpenOrders />}
           </div>
         </div>

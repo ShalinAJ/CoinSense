@@ -1,28 +1,16 @@
 import React, { useEffect, useState } from "react";
 
-const TradingOrderHistory = () => {
+const TradingOrderHistory = ({ orderHistoryData }) => {
   const [orderHistory, setOrderHistory] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const user = JSON.parse(localStorage.getItem("user"));
-      const response = await fetch("http://localhost:4000/orderhistory", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
-      if (!response.ok) {
-        console.error("Could not fetch transactions.");
-        return;
-      }
-
-      const data = await response.json();
+    async function fetchOrderHistoryData() {
+      const data = await orderHistoryData;
       setOrderHistory(data);
-    };
+    }
 
-    fetchData();
-  }, []);
+    fetchOrderHistoryData();
+  }, [orderHistoryData]);
 
   return (
     <div className="px-1 my-3">
