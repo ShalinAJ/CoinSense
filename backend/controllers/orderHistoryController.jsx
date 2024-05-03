@@ -27,4 +27,17 @@ const createOrderHistory = async (req, res) => {
   }
 };
 
-module.exports = { createOrderHistory };
+// get all the orders
+const getOrderHistorys = async (req, res) => {
+  try {
+    const user_id = req.user._id;
+    const orderHistorys = await OrderHistory.find({ user_id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json(orderHistorys);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { createOrderHistory, getOrderHistorys };
