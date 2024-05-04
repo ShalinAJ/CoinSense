@@ -12,10 +12,6 @@ const orderHistorySchema = new Schema(
       type: String,
       required: true,
     },
-    priceType: {
-      type: String,
-      required: true,
-    },
     price: {
       type: Number,
       required: true,
