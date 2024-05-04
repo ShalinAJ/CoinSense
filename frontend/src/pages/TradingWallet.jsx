@@ -46,7 +46,11 @@ const TradingWalletPage = ({}) => {
 
   if (Array.isArray(topupdata)) {
     topupdata.forEach((item) => {
-      totalAmount += item.amount;
+      if (item.cardName == "buy") {
+        totalAmount -= item.amount;
+      } else {
+        totalAmount += item.amount;
+      }
       entries++;
     });
   }

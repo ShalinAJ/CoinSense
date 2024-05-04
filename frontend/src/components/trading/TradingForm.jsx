@@ -6,6 +6,7 @@ const TradingForm = ({
   tradeAmountType,
   transactionType,
   topups,
+  selectToken,
 }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [inputTotal, setInputTotal] = useState(0);
@@ -52,10 +53,13 @@ const TradingForm = ({
 
   const handleSubmit = async (e) => {
     let url = "";
+    let price = 0;
     if (tradeAmountType == "market") {
       url = "orderhistory";
+      price = currentPrice;
     } else if (tradeAmountType == "limit") {
-      url = "openorders";
+      url = "openorder";
+      price = inputTotal;
     }
 
     const response = await fetch(`http://localhost:4000/${url}/new`, {
@@ -66,16 +70,35 @@ const TradingForm = ({
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "bitcoin",
+        name: selectToken,
         transactionType,
-        priceType: tradeAmountType,
-        price: currentPrice,
+        price,
         amount: totalAmount,
         user_id,
       }),
     });
 
     if (!response.ok) {
+      throw json({ message: "Could not save." }, { status: 500 });
+    }
+
+    const tradingWalletResponse = await fetch(
+      "http://localhost:4000/tradingwallet/new",
+      {
+        method: "POST",
+
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: price * totalAmount,
+          cardName: transactionType,
+        }),
+      }
+    );
+
+    if (!tradingWalletResponse.ok) {
       throw json({ message: "Could not save." }, { status: 500 });
     }
 
@@ -96,8 +119,9 @@ const TradingForm = ({
           }}
         />
       </div>
+
       <div className="flex flex-col pb-5">
-        <label htmlFor="">Amount (BTC)</label>
+        <label htmlFor="">Amount ({selectToken.toUpperCase()})</label>
         <input
           type="float"
           onChange={(event) => {
@@ -116,7 +140,9 @@ const TradingForm = ({
           </p>
         </div>
         <div className="flex flex-row items-center text-xs font-semibold gap-2">
-          <p>{totalAmount} BTC</p>
+          <p>
+            {totalAmount} {selectToken.toUpperCase()}
+          </p>
           <p>=</p>
           <p>
             {new Intl.NumberFormat("en-US", {

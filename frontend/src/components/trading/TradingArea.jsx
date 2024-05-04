@@ -5,7 +5,13 @@ import classes from "./TradingArea.module.css";
 import TradingOrderHistory from "./TradingOrderHistory";
 import TradingOpenOrders from "./TradingOpenOrders";
 
-const TradingArea = ({ currentPrice, topups, orderHistoryData }) => {
+const TradingArea = ({
+  currentPrice,
+  topups,
+  orderHistoryData,
+  openOrdersData,
+  selectToken,
+}) => {
   const [orderHistory, setOrderHistory] = useState("open-orders");
   const [tradeType, setTradeType] = useState("buy");
   const [tradeAmountType, setTradeAmountType] = useState("market");
@@ -57,6 +63,7 @@ const TradingArea = ({ currentPrice, topups, orderHistoryData }) => {
           tradeAmountType={tradeAmountType}
           transactionType={tradeType}
           topups={topups}
+          selectToken={selectToken}
         />
       </div>
       <div className="w-[48.5%]">
@@ -83,7 +90,9 @@ const TradingArea = ({ currentPrice, topups, orderHistoryData }) => {
             {orderHistory === "order-history" && (
               <TradingOrderHistory orderHistoryData={orderHistoryData} />
             )}
-            {orderHistory === "open-orders" && <TradingOpenOrders />}
+            {orderHistory === "open-orders" && (
+              <TradingOpenOrders openOrdersData={openOrdersData} />
+            )}
           </div>
         </div>
       </div>

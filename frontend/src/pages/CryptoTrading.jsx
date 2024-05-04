@@ -27,6 +27,7 @@ const BitcoinChart = () => {
   });
 
   const { topups, orderHistory } = useLoaderData();
+  const { openOrders } = useLoaderData();
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [currentPrice, setCurrentPrice] = useState(0);
   const [investedTotal, setInvestedTotal] = useState(0);
@@ -51,6 +52,12 @@ const BitcoinChart = () => {
     }
 
     orderHistoryDataHandler();
+
+    async function openOrdersDataHandler() {
+      const openOrdersData = await openOrders;
+    }
+
+    openOrdersDataHandler();
 
     const fetchData = async () => {
       try {
@@ -235,6 +242,8 @@ const BitcoinChart = () => {
               currentPrice={currentPrice}
               topups={topups}
               orderHistoryData={orderHistory}
+              openOrdersData={openOrders}
+              selectToken={selectToken[0].toUpperCase()}
             />
           </div>
           <div>
