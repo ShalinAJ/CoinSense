@@ -10,6 +10,7 @@ const TradingArea = ({
   topups,
   orderHistoryData,
   openOrdersData,
+  selectToken,
 }) => {
   const [orderHistory, setOrderHistory] = useState("open-orders");
   const [tradeType, setTradeType] = useState("buy");
@@ -62,6 +63,7 @@ const TradingArea = ({
           tradeAmountType={tradeAmountType}
           transactionType={tradeType}
           topups={topups}
+          selectToken={selectToken}
         />
       </div>
       <div className="w-[48.5%]">

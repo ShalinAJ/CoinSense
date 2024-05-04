@@ -240,6 +240,7 @@ const BitcoinChart = () => {
               topups={topups}
               orderHistoryData={orderHistory}
               openOrdersData={openOrders}
+              selectToken={selectToken[0]}
             />
           </div>
           <div>
