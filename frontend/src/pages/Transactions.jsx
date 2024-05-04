@@ -177,9 +177,26 @@ async function loadOrderHistory() {
   }
 }
 
+async function loadOpenOrders() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/openorder", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch open orders." }, { status: 500 });
+  } else {
+    const openOrders = await response.json();
+    return openOrders;
+  }
+}
+
 export function loader() {
   return defer({
     orderHistory: loadOrderHistory(),
+    openOrders: loadOpenOrders(),
     topups: loadTopups(),
     transactions: loadTransactions(),
     wallets: loadWallets(),

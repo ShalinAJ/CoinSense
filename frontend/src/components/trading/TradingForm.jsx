@@ -55,7 +55,7 @@ const TradingForm = ({
     if (tradeAmountType == "market") {
       url = "orderhistory";
     } else if (tradeAmountType == "limit") {
-      url = "openorders";
+      url = "openorder";
     }
 
     const response = await fetch(`http://localhost:4000/${url}/new`, {
@@ -68,7 +68,6 @@ const TradingForm = ({
       body: JSON.stringify({
         name: "bitcoin",
         transactionType,
-        priceType: tradeAmountType,
         price: currentPrice,
         amount: totalAmount,
         user_id,
