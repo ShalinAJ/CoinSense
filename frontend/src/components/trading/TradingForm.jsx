@@ -82,6 +82,26 @@ const TradingForm = ({
       throw json({ message: "Could not save." }, { status: 500 });
     }
 
+    const tradingWalletResponse = await fetch(
+      "http://localhost:4000/tradingwallet/new",
+      {
+        method: "POST",
+
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          amount: price * totalAmount,
+          cardName: transactionType,
+        }),
+      }
+    );
+
+    if (!tradingWalletResponse.ok) {
+      throw json({ message: "Could not save." }, { status: 500 });
+    }
+
     window.location.reload();
   };
 
