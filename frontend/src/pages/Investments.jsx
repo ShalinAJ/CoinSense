@@ -7,7 +7,7 @@ import axios from "axios";
 import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 
 const InvestmentsPage = () => {
-  const { transactions } = useLoaderData();
+  const { orderHistory } = useLoaderData();
   const [recentInvestments, setRecentInvestments] = useState([]);
   const [investmentTotal, setInvestmentTotal] = useState(0);
   const [chartData, setChartData] = useState({
@@ -68,21 +68,21 @@ const InvestmentsPage = () => {
   useEffect(() => {
     async function recentInvestmentChecker() {
       try {
-        const transactionData = await transactions;
-        if (Array.isArray(transactionData)) {
-          const investments = transactionData.filter(
-            (transaction) => transaction.status === "Investment"
+        const orderData = await orderHistory;
+        if (Array.isArray(orderData)) {
+          const total = orderData.reduce(
+            (acc, curr) => acc + curr.amount * curr.price,
+            0
           );
-          const total = investments.reduce((acc, curr) => acc + curr.amount, 0);
           setInvestmentTotal(total);
-          setRecentInvestments(investments);
+          setRecentInvestments(orderData);
         }
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
     }
     recentInvestmentChecker();
-  }, [transactions]);
+  }, [orderHistory]);
 
   return (
     <div className="w-[80%] h-[max-content] bg-white px-[28px] pt-[45px]">

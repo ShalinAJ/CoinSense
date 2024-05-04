@@ -1,53 +1,36 @@
 import React, { Suspense, useEffect, useState } from "react";
 import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
-import TransactionsTable from "../components/TransactionsTable.jsx";
-import AddTransactionModal from "../components/AddTransactionModal.jsx";
 import backArrow from "../assets/back-arrow.png";
+import InvestmentsTable from "../components/InvestmentsTable.jsx";
 
 const AllInvestmentsPage = () => {
-  const { transactions: transactionPromise, wallets } = useLoaderData();
-  const [modalOpen, setModalOpen] = useState(false);
-  const [walletList, setWalletList] = useState();
-  const [investmentCount, setInvestmentCount] = useState(0);
-  const [investmentTotal, setInvestmentTotal] = useState(0);
+  const { orderHistory } = useLoaderData();
+  const [tradeType, setTradeType] = useState("crypto");
+  const [tradeData, setTradeData] = useState([]);
+  const [tradeTotal, setTradeTotal] = useState(0);
+  const [tradeCount, setTradeCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
-    async function walletCountHandler() {
-      const walletList = await wallets;
-      const cards = walletList.map((wallet) => ({
-        number: wallet.number,
-        nickname: wallet.nickname,
-      }));
-      const cardArray = ["", ...cards];
-      setWalletList(cardArray);
+    async function orderHistoryhandler() {
+      const orders = await orderHistory;
+
+      if (tradeType === "crypto") {
+        const cryptoOrders = orders.filter((order) => order.name === "bitcoin");
+        const count = cryptoOrders.length;
+        const total = cryptoOrders.reduce(
+          (acc, curr) => acc + curr.amount * curr.price,
+          0
+        );
+        setTradeData(cryptoOrders);
+        setTradeCount(count);
+        setTradeTotal(total);
+      }
+      console.log(tradeData);
     }
 
-    walletCountHandler();
-  }, [wallets]);
-
-  useEffect(() => {
-    transactionPromise.then((transactions) => {
-      const investmentTransactions = transactions.filter(
-        (transaction) => transaction.status === "Investment"
-      );
-      const count = investmentTransactions.length;
-      const total = investmentTransactions.reduce(
-        (acc, curr) => acc + curr.amount,
-        0
-      );
-      setInvestmentCount(count);
-      setInvestmentTotal(total);
-    });
-  }, [transactionPromise]);
-
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+    orderHistoryhandler();
+  }, [orderHistory]);
 
   const prevPage = () => {
     navigate(-1);
@@ -55,18 +38,6 @@ const AllInvestmentsPage = () => {
 
   return (
     <>
-      <Suspense>
-        <Await resolve={transactionPromise}>
-          {() => (
-            <AddTransactionModal
-              walletCards={walletList}
-              isOpen={modalOpen}
-              onClose={closeModal}
-            />
-          )}
-        </Await>
-      </Suspense>
-
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[29px]">
           <div>
@@ -80,7 +51,7 @@ const AllInvestmentsPage = () => {
           </div>
           <div className="bg-[#bcffde] text-[#02B15A] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
             <p className="text-black pr-2">Investment count: </p>
-            <p className="font-semibold">{investmentCount}</p>
+            <p className="font-semibold">{tradeCount}</p>
           </div>
         </div>
         <div className="flex justify-center mt-1 mb-3">
@@ -90,14 +61,34 @@ const AllInvestmentsPage = () => {
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
-              }).format(investmentTotal)}
+              }).format(tradeTotal)}
             </p>
-            <button
-              onClick={openModal}
-              className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
-            >
-              Add Transaction
-            </button>
+            <div className="flex flex-row gap-2">
+              <button
+                onClick={() => {
+                  setTradeType("crypto");
+                }}
+                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
+              >
+                Crypto
+              </button>
+              <button
+                onClick={() => {
+                  setTradeType("stock");
+                }}
+                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
+              >
+                Stock
+              </button>
+              <button
+                onClick={() => {
+                  setTradeType("forex");
+                }}
+                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
+              >
+                Forex
+              </button>
+            </div>
           </div>
         </div>
         <hr className="mx-6" />
@@ -105,11 +96,11 @@ const AllInvestmentsPage = () => {
           <Suspense
             fallback={<p className="text-sm font-medium">Loading...</p>}
           >
-            <Await resolve={transactionPromise}>
-              {(loadedTransactions) => (
-                <TransactionsTable
-                  transactions={loadedTransactions}
-                  transactionStatus={"Investment"}
+            <Await resolve={orderHistory}>
+              {(investedTradeData) => (
+                <InvestmentsTable
+                  tradeData={investedTradeData}
+                  tradeType={tradeType}
                 />
               )}
             </Await>

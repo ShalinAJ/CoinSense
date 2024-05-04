@@ -23,13 +23,14 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
                   key={index}
                   className="flex flex-row justify-between text-[13.5px] font-medium py-3"
                 >
-                  <p className="w-[30%] text-left">{investment.transaction}</p>
+                  <p className="w-[30%] text-left">{investment.name}</p>
                   <p className="w-[40%] text-center">
-                    {new Date(investment.date).toLocaleString("en-US", {
+                    {new Date(investment.createdAt).toLocaleString("en-US", {
                       weekday: "short",
-                      day: "numeric",
                       month: "short",
                       year: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
                     })}
                   </p>
                   <div className={"w-[30%] flex flex-row justify-end text-xs"}>

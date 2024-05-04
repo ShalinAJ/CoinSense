@@ -32,7 +32,7 @@ const BitcoinChart = () => {
   const [investedTotal, setInvestedTotal] = useState(0);
   const [tokenDataSet, setTokenDataSet] = useState([0, 0, 0, 0, 0, 0, 0]);
   const [tradingInterval, setTradingInterval] = useState("1m");
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [generalData, setGeneralData] = useState();
   const [loading, setLoading] = useState(true);
   const [selectToken, setSelectToken] = useState([
@@ -192,7 +192,10 @@ const BitcoinChart = () => {
                 }).format(investedTotal)}
               </p>
             </div>
-            <Link className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full">
+            <Link
+              to={"../user-investments"}
+              className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full"
+            >
               View more
             </Link>
           </div>
