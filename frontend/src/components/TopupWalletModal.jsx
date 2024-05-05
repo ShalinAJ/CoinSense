@@ -1,8 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 
-const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
+const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
   const [selectedCard, setSelectedCard] = useState({});
+  const [amount, setAmount] = useState(0);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    if (selectedCard.cardbalance <= 0 || amount > selectedCard.cardbalance) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+  }, [selectedCard, amount]);
 
   if (!isOpen) return null;
 
@@ -20,7 +30,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
       cardbalance: cardbalance,
     });
   }
-
+  console.log(error);
   return (
     <>
       <div
@@ -33,7 +43,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
             <div className="flex flex-wrap justify-between items-center pt-2">
               <h2 className="font-semibold">Top up trading wallet</h2>
               <button
-                className="bg-white border-none pr-0 text-black"
+                className="bg-white border-none pr-0 text-black hover:text-red-500"
                 onClick={closeModal}
               >
                 &#10006;
@@ -42,15 +52,23 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
 
             <Form method="post" className="flex flex-col">
               <div className="flex flex-col my-4">
-                <label htmlFor="">
-                  Amount ($)<seciton className="text-red-600">*</seciton>
+                <label htmlFor="" className="flex flex-row">
+                  Amount ($)<section className="text-red-600">*</section>
                 </label>
-                <input id="amount" type="float" name="amount"></input>
+                <input
+                  id="amount"
+                  type="float"
+                  name="amount"
+                  value={amount}
+                  onChange={(event) =>
+                    setAmount(parseFloat(event.target.value))
+                  }
+                ></input>
               </div>
-              <div className="my-1">
-                <label htmlFor="">
+              <div className="my-1 flex flex-row items-center">
+                <label htmlFor="" className="flex flex-row">
                   Card used for top up
-                  <seciton className="text-red-600">*</seciton> :{" "}
+                  <section className="text-red-600">*</section> :{" "}
                 </label>
                 <select
                   name="cardName"
@@ -61,7 +79,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
                 >
                   {walletCards.map((card) => (
                     <option
-                      key={card}
+                      key={card._id}
                       value={card.number}
                       data-id={card._id}
                       data-cardbalance={card.cardbalance}
@@ -70,7 +88,6 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
                     </option>
                   ))}
                 </select>
-                {/* Add a hidden input field for cardId */}
                 <input
                   type="hidden"
                   name="cardId"
@@ -84,26 +101,46 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards, onFormSubmit }) => {
                   value={selectedCard.cardbalance}
                 />
               </div>
-              <div className="flex justify-between items-end ">
-                {selectedCard.cardNumber ? (
-                  <div className="flex flex-row items-center">
-                    <div
-                      className={`${
-                        selectedCard.cardNumber && "bg-blue-400"
-                      } text-green w-[8px] h-[8px] mt-8 mr-2 rounded-full`}
-                    ></div>
-                    <p className="text-[10px] mt-8 py-1">
-                      {selectedCard.cardNumber &&
-                        `Top up will be done from card ${selectedCard.cardNumber.slice(
-                          12,
-                          16
-                        )}`}
-                    </p>
-                  </div>
-                ) : (
-                  <p></p>
-                )}
-                <button className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker">
+              <div className="flex justify-between">
+                <div>
+                  {!error && selectedCard.cardNumber && (
+                    <div className="flex flex-row items-center">
+                      <div
+                        className={`${
+                          selectedCard.cardNumber && "bg-blue-400"
+                        } text-green w-[8px] h-[8px] mt-8 mr-2 rounded-full`}
+                      ></div>
+                      <p className="text-[10px] mt-8 py-1">
+                        {selectedCard.cardNumber &&
+                          `Top up will be done from card ${selectedCard.cardNumber.slice(
+                            12,
+                            16
+                          )}`}
+                      </p>
+                    </div>
+                  )}
+                  {error && (
+                    <div className="flex flex-row items-center">
+                      <div
+                        className={`${
+                          selectedCard.cardNumber && "bg-red-500"
+                        } text-green w-[8px] h-[8px] mt-8 mr-2 rounded-full`}
+                      ></div>
+                      <p className="text-[10px] mt-8 py-1 text-red-500">
+                        {selectedCard.cardNumber &&
+                          `Insufficient balance in card ${selectedCard.cardNumber.slice(
+                            12,
+                            16
+                          )}`}
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <button
+                  className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker"
+                  disabled={error}
+                >
                   Top up
                 </button>
               </div>

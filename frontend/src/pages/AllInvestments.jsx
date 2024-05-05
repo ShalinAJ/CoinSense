@@ -1,11 +1,12 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import backArrow from "../assets/back-arrow.png";
 import InvestmentsTable from "../components/InvestmentsTable.jsx";
+import classes from "./AllInvestments.module.css";
 
 const AllInvestmentsPage = () => {
   const { orderHistory } = useLoaderData();
-  const [tradeType, setTradeType] = useState("crypto");
+  const [tradeType, setTradeType] = useState("All");
   const [tradeData, setTradeData] = useState([]);
   const [tradeTotal, setTradeTotal] = useState(0);
   const [tradeCount, setTradeCount] = useState(0);
@@ -15,22 +16,32 @@ const AllInvestmentsPage = () => {
     async function orderHistoryhandler() {
       const orders = await orderHistory;
 
-      if (tradeType === "crypto") {
-        const cryptoOrders = orders.filter((order) => order.name === "bitcoin");
-        const count = cryptoOrders.length;
-        const total = cryptoOrders.reduce(
-          (acc, curr) => acc + curr.amount * curr.price,
-          0
-        );
-        setTradeData(cryptoOrders);
-        setTradeCount(count);
-        setTradeTotal(total);
+      let filteredOrders;
+      let total = 0;
+      let count = 0;
+
+      if (tradeType === "All") {
+        filteredOrders = orders;
+      } else if (tradeType === "Crypto") {
+        filteredOrders = orders.filter((order) => order.status === "Crypto");
+      } else if (tradeType === "Stock") {
+        filteredOrders = orders.filter((order) => order.status === "Stock");
+      } else if (tradeType === "Forex") {
+        filteredOrders = orders.filter((order) => order.status === "Forex");
       }
-      console.log(tradeData);
+
+      count = filteredOrders.length;
+      total = filteredOrders.reduce(
+        (acc, curr) => acc + curr.amount * curr.price,
+        0
+      );
+      setTradeData(filteredOrders);
+      setTradeCount(count);
+      setTradeTotal(total);
     }
 
     orderHistoryhandler();
-  }, [orderHistory]);
+  }, [orderHistory, tradeType]);
 
   const prevPage = () => {
     navigate(-1);
@@ -55,7 +66,7 @@ const AllInvestmentsPage = () => {
           </div>
         </div>
         <div className="flex justify-center mt-1 mb-3">
-          <div className="flex flex-col justify-center items-center my-10 ">
+          <div className="flex flex-col justify-center items-center mt-10 mb-8 ">
             <p className="text-sm font-medium text-gray-400">Total Invested</p>
             <p className="text-[28px] font-bold pb-1">
               {new Intl.NumberFormat("en-US", {
@@ -64,30 +75,46 @@ const AllInvestmentsPage = () => {
               }).format(tradeTotal)}
             </p>
             <div className="flex flex-row gap-2">
-              <button
+              <NavLink
+                className={`${classes.navLink} ${
+                  tradeType === "All" ? classes.active : ""
+                }`}
                 onClick={() => {
-                  setTradeType("crypto");
+                  setTradeType("All");
                 }}
-                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
+              >
+                All
+              </NavLink>
+              <NavLink
+                className={`${classes.navLink} ${
+                  tradeType === "Crypto" ? classes.active : ""
+                }`}
+                onClick={() => {
+                  setTradeType("Crypto");
+                }}
               >
                 Crypto
-              </button>
-              <button
+              </NavLink>
+              <NavLink
+                className={`${classes.navLink} ${
+                  tradeType === "Stock" ? classes.active : ""
+                }`}
                 onClick={() => {
-                  setTradeType("stock");
+                  setTradeType("Stock");
                 }}
-                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
               >
                 Stock
-              </button>
-              <button
+              </NavLink>
+              <NavLink
+                className={`${classes.navLink} ${
+                  tradeType === "Forex" ? classes.active : ""
+                }`}
                 onClick={() => {
-                  setTradeType("forex");
+                  setTradeType("Forex");
                 }}
-                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
               >
                 Forex
-              </button>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -96,14 +123,7 @@ const AllInvestmentsPage = () => {
           <Suspense
             fallback={<p className="text-sm font-medium">Loading...</p>}
           >
-            <Await resolve={orderHistory}>
-              {(investedTradeData) => (
-                <InvestmentsTable
-                  tradeData={investedTradeData}
-                  tradeType={tradeType}
-                />
-              )}
-            </Await>
+            <InvestmentsTable tradeData={tradeData} tradeType={tradeType} />
           </Suspense>
         </div>
       </div>

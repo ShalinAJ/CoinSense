@@ -78,7 +78,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
             <div className="flex flex-wrap justify-between items-center pt-2">
               <h2 className="font-semibold">Edit Wallet</h2>
               <button
-                className="bg-white border-none pr-0 text-black"
+                className="bg-white border-none pr-0 text-black hover:text-red-500"
                 onClick={closeModal}
               >
                 &#10006;

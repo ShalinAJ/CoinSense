@@ -8,6 +8,7 @@ import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 
 const InvestmentsPage = () => {
   const { orderHistory } = useLoaderData();
+  const [tradeData, setTradeData] = useState([0, 0, 0]);
   const [recentInvestments, setRecentInvestments] = useState([]);
   const [investmentTotal, setInvestmentTotal] = useState(0);
   const [chartData, setChartData] = useState({
@@ -74,6 +75,36 @@ const InvestmentsPage = () => {
             (acc, curr) => acc + curr.amount * curr.price,
             0
           );
+          const cryptoInvested = orderData.filter(
+            (order) => order.status === "Crypto"
+          );
+          const cryptoInvestedTotal = cryptoInvested.reduce(
+            (acc, curr) => acc + curr.amount * curr.price,
+            0
+          );
+
+          const stockInvested = orderData.filter(
+            (order) => order.status === "Stock"
+          );
+          const stockInvestedTotal = stockInvested.reduce(
+            (acc, curr) => acc + curr.amount * curr.price,
+            0
+          );
+
+          const forexInvested = orderData.filter(
+            (order) => order.status === "Forex"
+          );
+          const forexInvestedTotal = forexInvested.reduce(
+            (acc, curr) => acc + curr.amount * curr.price,
+            0
+          );
+
+          setTradeData([
+            cryptoInvestedTotal,
+            stockInvestedTotal,
+            forexInvestedTotal,
+          ]);
+
           setInvestmentTotal(total);
           setRecentInvestments(orderData);
         }
@@ -98,7 +129,7 @@ const InvestmentsPage = () => {
           />
         </div>
         <div className="w-[48.5%]">
-          <UserMarketOptions />
+          <UserMarketOptions tradeData={tradeData} />
         </div>
       </div>
       <HorizontalMarketBar />
