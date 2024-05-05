@@ -44,9 +44,27 @@ const BitcoinChart = () => {
   useEffect(() => {
     async function orderHistoryDataHandler() {
       const orderHistoryData = await orderHistory;
-      const totalAmount = orderHistoryData.reduce((accumulator, order) => {
-        return accumulator + order.price * order.amount;
-      }, 0);
+      //setOrderHistoryDetails(orderHistoryData);
+      let totalAmount = 0;
+      // const totalAmount = orderHistoryData.reduce((accumulator, order) => {
+      //   if (order.transactionType == "buy") {
+      //     total += accumulator + order.price * order.amount;
+      //     console.log(total);
+      //   } else {
+      //     total -= accumulator - order.price * order.amount;
+      //   }
+      //   console.log(total);
+      // }, 0);
+
+      if (Array.isArray(orderHistoryData)) {
+        orderHistoryData.forEach((item) => {
+          if (item.transactionType == "buy") {
+            totalAmount -= item.amount * item.price;
+          } else {
+            totalAmount += item.amount * item.price;
+          }
+        });
+      }
 
       setInvestedTotal(totalAmount);
     }
@@ -196,7 +214,7 @@ const BitcoinChart = () => {
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
-                }).format(investedTotal)}
+                }).format(Math.abs(investedTotal))}
               </p>
             </div>
             <Link
@@ -244,6 +262,7 @@ const BitcoinChart = () => {
               orderHistoryData={orderHistory}
               openOrdersData={openOrders}
               selectToken={selectToken[0].toUpperCase()}
+              investedTotal={investedTotal}
             />
           </div>
           <div>

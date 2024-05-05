@@ -20,6 +20,17 @@ const TradingWalletPage = ({}) => {
   const [topupdata, setTopupData] = useState();
   const navigate = useNavigate();
 
+  const [orderHistoryData, setOrderHistoryData] = useState(null);
+
+  useEffect(() => {
+    async function fetchOrderHistoryData() {
+      const data = await orderHistory;
+      setOrderHistoryData(data);
+    }
+
+    fetchOrderHistoryData();
+  }, [orderHistory]);
+
   useEffect(() => {
     async function walletCountHandler() {
       const walletList = await wallets;
@@ -47,12 +58,18 @@ const TradingWalletPage = ({}) => {
 
   if (Array.isArray(topupdata)) {
     topupdata.forEach((item) => {
-      if (item.cardName == "buy") {
-        totalAmount -= item.amount;
-      } else {
-        totalAmount += item.amount;
-      }
+      totalAmount += item.amount;
       entries++;
+    });
+  }
+
+  if (Array.isArray(orderHistoryData)) {
+    orderHistoryData.forEach((item) => {
+      if (item.transactionType == "buy") {
+        totalAmount -= item.amount * item.price;
+      } else {
+        totalAmount += item.amount * item.price;
+      }
     });
   }
 

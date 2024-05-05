@@ -7,6 +7,8 @@ const TradingForm = ({
   transactionType,
   topups,
   selectToken,
+  investedTotal,
+  orderHistoryData,
 }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [inputTotal, setInputTotal] = useState(0);
@@ -17,6 +19,16 @@ const TradingForm = ({
   const [submitError, setSubmitError] = useState(false);
   const user = JSON.parse(localStorage.getItem("user"));
   const user_id = JSON.parse(localStorage.getItem("account")).user_id;
+  const [orderHistory, setOrderHistory] = useState(null);
+
+  useEffect(() => {
+    async function fetchOrderHistoryData() {
+      const data = await orderHistoryData;
+      setOrderHistory(data);
+    }
+
+    fetchOrderHistoryData();
+  }, [orderHistoryData]);
 
   useEffect(() => {
     async function topupDataHandler() {
@@ -44,12 +56,14 @@ const TradingForm = ({
   }, [tradeAmountType, currentPrice]);
 
   useEffect(() => {
-    if (total > tradeWalletData) {
-      setSubmitError(true);
-    } else {
-      setSubmitError(false);
+    if (transactionType == "buy") {
+      if (total > tradeWalletData) {
+        setSubmitError(true);
+        return;
+      }
     }
-  }, [total]);
+    setSubmitError(false);
+  }, [total, transactionType]);
 
   const handleSubmit = async (e) => {
     let url = "";
@@ -60,6 +74,23 @@ const TradingForm = ({
     } else if (tradeAmountType == "limit") {
       url = "openorder";
       price = inputTotal;
+    }
+
+    // check if user have sufficient  cryto to sell
+    if (transactionType == "sell") {
+      let sellTotal = 0;
+      orderHistory.forEach((order) => {
+        if (order.transactionType == "buy") {
+          if (selectToken == order.name) {
+            sellTotal += order.price * order.amount;
+          }
+        }
+      });
+      if (price * totalAmount > sellTotal) {
+        setSubmitError(true);
+        console.log("don't hv funds");
+        throw json({ message: "You don't have enough funds" });
+      }
     }
 
     const response = await fetch(`http://localhost:4000/${url}/new`, {
@@ -80,26 +111,6 @@ const TradingForm = ({
     });
 
     if (!response.ok) {
-      throw json({ message: "Could not save." }, { status: 500 });
-    }
-
-    const tradingWalletResponse = await fetch(
-      "http://localhost:4000/tradingwallet/new",
-      {
-        method: "POST",
-
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          amount: price * totalAmount,
-          cardName: transactionType,
-        }),
-      }
-    );
-
-    if (!tradingWalletResponse.ok) {
       throw json({ message: "Could not save." }, { status: 500 });
     }
 
@@ -137,7 +148,7 @@ const TradingForm = ({
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
-            }).format(tradeWalletData)}
+            }).format(investedTotal + tradeWalletData)}
           </p>
         </div>
         <div className="flex flex-row items-center text-xs font-semibold gap-2">
