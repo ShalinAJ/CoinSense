@@ -74,19 +74,31 @@ const router = createBrowserRouter([
               },
               {
                 path: "user-investments",
-                element: <AllInvestmentsPage />,
+                element: user ? (
+                  <AllInvestmentsPage />
+                ) : (
+                  <Navigate to="/login" />
+                ),
                 loader: transactionsLoader,
                 action: newTransactionAction,
               },
               {
                 path: "crypto-trading",
-                element: <CryptoTradingPage />,
+                element: user ? (
+                  <CryptoTradingPage />
+                ) : (
+                  <Navigate to="/login" />
+                ),
                 loader: transactionsLoader,
                 action: newTransactionAction,
               },
               {
                 path: "trading-wallet",
-                element: <TradingWalletPage />,
+                element: user ? (
+                  <TradingWalletPage />
+                ) : (
+                  <Navigate to="/login" />
+                ),
                 loader: transactionsLoader,
                 action: newTopupAction,
               },
@@ -94,13 +106,13 @@ const router = createBrowserRouter([
           },
           {
             path: "income",
-            element: <IncomePage />,
+            element: user ? <IncomePage /> : <Navigate to="/login" />,
             loader: transactionsLoader,
             action: newTransactionAction,
           },
           {
             path: "expense",
-            element: <ExpensePage />,
+            element: user ? <ExpensePage /> : <Navigate to="/login" />,
             loader: transactionsLoader,
             action: newTransactionAction,
           },
