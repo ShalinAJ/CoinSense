@@ -77,9 +77,7 @@ const TransactionsTable = ({ transactions, transactionStatus }) => {
                     (transaction.status === "Income" &&
                       "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
                     (transaction.status === "Expense" &&
-                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
-                    (transaction.status === "Investment" &&
-                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl")
+                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
                   }
                 >
                   {transaction.status}

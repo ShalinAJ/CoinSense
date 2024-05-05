@@ -30,7 +30,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
             <div className="flex flex-wrap justify-between items-center pt-2">
               <h2 className="font-semibold">Add Transaction</h2>
               <button
-                className="bg-white border-none pr-0 text-black"
+                className="bg-white border-none pr-0 text-black hover:text-red-500"
                 onClick={closeModal}
               >
                 &#10006;
@@ -61,7 +61,6 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                   <option value=""></option>
                   <option value="Income">Income</option>
                   <option value="Expense">Expense</option>
-                  <option value="Investment">Investment</option>
                 </select>
               </div>
               <div className="my-1">
@@ -86,8 +85,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                     <div
                       className={`${
                         (selectedStatus === "Income" && "bg-green-400") ||
-                        (selectedStatus === "Expense" && "bg-red-400") ||
-                        (selectedStatus === "Investment" && "bg-blue-400")
+                        (selectedStatus === "Expense" && "bg-red-400")
                       } text-green w-[8px] h-[8px] mt-8 mr-2 rounded-full`}
                     ></div>
                     <p className="text-[10px] mt-8 py-1">
@@ -98,11 +96,6 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                         )}`) ||
                         (selectedStatus === "Expense" &&
                           `Transaction will be debited from card XXXX XXXX XXXX  ${selectedCard.slice(
-                            12,
-                            16
-                          )}`) ||
-                        (selectedStatus === "Investment" &&
-                          `Transaction will be debited from card XXXX XXXX XXXX ${selectedCard.slice(
                             12,
                             16
                           )}`)}

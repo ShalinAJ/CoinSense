@@ -66,7 +66,7 @@ const AllInvestmentsPage = () => {
           </div>
         </div>
         <div className="flex justify-center mt-1 mb-3">
-          <div className="flex flex-col justify-center items-center my-10 ">
+          <div className="flex flex-col justify-center items-center mt-10 mb-8 ">
             <p className="text-sm font-medium text-gray-400">Total Invested</p>
             <p className="text-[28px] font-bold pb-1">
               {new Intl.NumberFormat("en-US", {
