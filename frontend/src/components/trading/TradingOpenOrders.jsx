@@ -123,7 +123,7 @@ const TradingOpenOrders = ({ openOrdersData }) => {
                     {new Intl.NumberFormat("en-US", {
                       style: "currency",
                       currency: "USD",
-                    }).format(order.price * price.amount)}
+                    }).format(order.price * order.amount)}
                   </td>
                   <td className="text-center">
                     {new Intl.NumberFormat("en-US", {
