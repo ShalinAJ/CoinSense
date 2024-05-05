@@ -20,7 +20,6 @@ import WalletPage, {
 } from "./pages/Wallet";
 import AccountPage from "./pages/Account";
 import { action as logoutAction } from "./pages/Logout";
-import { elements } from "chart.js";
 import IncomePage from "./pages/Income";
 import ExpensePage from "./pages/Expense";
 import InvestmentsPage from "./pages/Investments";
@@ -30,7 +29,6 @@ import ErrorPage from "./pages/Error";
 import CryptoTradingPage from "./pages/CryptoTrading";
 import TradingWalletPage, {
   action as newTopupAction,
-  loader as topupsLoader,
 } from "./pages/TradingWallet";
 
 var user = JSON.parse(localStorage.getItem("user"));
@@ -89,7 +87,7 @@ const router = createBrowserRouter([
               {
                 path: "trading-wallet",
                 element: <TradingWalletPage />,
-                loader: topupsLoader,
+                loader: transactionsLoader,
                 action: newTopupAction,
               },
             ],

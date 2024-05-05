@@ -2,84 +2,56 @@ import { useState } from "react";
 import styles from "./TransactionTable.module.css";
 
 const TopupsTable = ({ tradingWallet }) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = (
-    tradingWallet ? tradingWallet : pageTransactionFilter
-  ).slice(indexOfFirstItem, indexOfLastItem);
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
-
   return (
-    <div>
+    <div className="px-4 my-3">
+      <p className=" pb-3 text-xs text-gray-400 font-normal">Top-up History</p>
       <hr />
-      <p className="pl-5 pt-5 pb-1 text-xs text-gray-400 font-normal">
-        Top-up History
-      </p>
-      <table className="w-[100%]">
-        <tbody>
-          <tr className="text-sm leading-[45px]">
-            <th className="text-left pl-5">Date</th>
-            <th className="text-center">Card used for top-up</th>
-            <th className="text-right pr-7">Amount</th>
-          </tr>
+      <div className="overflow-y-auto max-h-[18rem]">
+        <table className="w-[100%]">
+          <tbody>
+            <tr className="text-xs leading-[25px]">
+              <th className="text-left font-normal">Date</th>
+              <th className="text-center font-normal">Card used for top-up</th>
+              <th className="text-right font-normal pr-3">Amount</th>
+            </tr>
 
-          {Array.isArray(tradingWallet) &&
-            tradingWallet.length > 0 &&
-            currentItems.map((transaction, index) => (
-              <tr key={index} className="text-sm font-medium leading-[48px]">
-                <td className="text-left pl-5 w-[32%]">
-                  {new Date(transaction.createdAt).toLocaleString("en-US", {
-                    weekday: "short",
-                    month: "short",
-                    year: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}
-                </td>
-                <td className="flex flex-row justify-center items-center">
-                  <p className="pl-2 text-[10px] text-black font-light">
-                    XXXX XXXX XXXX{" "}
-                    {transaction.cardName
-                      ? transaction.cardName.slice(12, 16)
-                      : undefined}
-                  </p>
-                </td>
-                <td className="text-right pr-5">
-                  <div className="">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(transaction.amount)}
-                  </div>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      <ul className={`${styles.pagination} flex flex-row gap-1 pl-4`}>
-        {Array.from({
-          length: Math.ceil(tradingWallet.length / itemsPerPage),
-        }).map((_, index) => (
-          <li
-            key={index}
-            className={`${styles.pageItem} ${
-              currentPage === index + 1 ? styles.active : ""
-            }`}
-          >
-            <button
-              onClick={() => paginate(index + 1)}
-              className={`${styles.pageLink} ${
-                currentPage === index + 1 ? styles.active : ""
-              }`}
-            >
-              {index + 1}
-            </button>
-          </li>
-        ))}
-      </ul>
+            {Array.isArray(tradingWallet) &&
+              tradingWallet.length > 0 &&
+              tradingWallet.map((transaction, index) => (
+                <tr
+                  key={index}
+                  className="text-xs font-semibold leading-[35px]"
+                >
+                  <td className="text-left w-[32%] ">
+                    {new Date(transaction.createdAt).toLocaleString("en-US", {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </td>
+                  <td className="flex flex-row justify-center items-center">
+                    <p className="pl-2 text-[10px] text-black font-light">
+                      XXXX XXXX XXXX{" "}
+                      {transaction.cardName
+                        ? transaction.cardName.slice(12, 16)
+                        : undefined}
+                    </p>
+                  </td>
+                  <td className="text-right pr-3">
+                    <div className="">
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(transaction.amount)}
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

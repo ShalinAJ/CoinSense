@@ -11,9 +11,10 @@ import backArrow from "../assets/back-arrow.png";
 import infoImg from "../assets/info.png";
 import TopupsTable from "../components/TopupsTable";
 import TopupWalletModal from "../components/TopupWalletModal";
+import TradingOrderHistory from "../components/trading/TradingOrderHistory";
 
 const TradingWalletPage = ({}) => {
-  const { topups, wallets } = useLoaderData();
+  const { topups, wallets, orderHistory } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
   const [topupdata, setTopupData] = useState();
@@ -126,14 +127,28 @@ const TradingWalletPage = ({}) => {
             </div>
           </div>
         </div>
-        <div>
-          <Suspense
-            fallback={<p className="text-sm font-medium">Loading...</p>}
-          >
-            <Await resolve={topups}>
-              {(topupdata) => <TopupsTable tradingWallet={topupdata} />}
-            </Await>
-          </Suspense>
+        <div className="flex flex-row justify-between gap-5">
+          <div className="w-[50%] border rounded-3xl h-[23rem]">
+            <Suspense
+              fallback={<p className="text-sm font-medium p-5">Loading...</p>}
+            >
+              <Await resolve={topups}>
+                {(topupdata) => <TopupsTable tradingWallet={topupdata} />}
+              </Await>
+            </Suspense>
+          </div>
+          <div className="w-[50%] border rounded-3xl p-3 h-[23rem]">
+            <Suspense
+              fallback={<p className="text-sm font-medium p-2">Loading...</p>}
+            >
+              <p className="text-xs text-gray-400 font-normal">Order History</p>
+              <Await resolve={orderHistory}>
+                {(orderHistory) => (
+                  <TradingOrderHistory orderHistoryData={orderHistory} />
+                )}
+              </Await>
+            </Suspense>
+          </div>
         </div>
       </div>
     </>
@@ -191,22 +206,6 @@ export async function action({ request }) {
   return null;
 }
 
-async function loadTopups() {
-  const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch("http://localhost:4000/tradingwallet", {
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-    },
-  });
-
-  if (!response.ok) {
-    return json({ message: "Could not fetch top-ups." }, { status: 500 });
-  } else {
-    const topups = await response.json();
-    return topups;
-  }
-}
-
 async function loadWallets() {
   const user = JSON.parse(localStorage.getItem("user"));
   const response = await fetch("http://localhost:4000/wallets", {
@@ -224,5 +223,5 @@ async function loadWallets() {
 }
 
 export function loader() {
-  return defer({ topups: loadTopups(), wallets: loadWallets() });
+  return defer({ wallets: loadWallets() });
 }
