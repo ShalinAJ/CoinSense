@@ -78,7 +78,20 @@ const TradingOpenOrders = ({ openOrdersData }) => {
           if (item.transactionType == "buy" && !item.processed) {
             try {
               const currentPrice = await getCurrentPrice(item.name);
-              if (item.price <= currentPrice) {
+              if (item.price >= currentPrice && item.price < item.prevPrice) {
+                await buyCtypto(
+                  item.name,
+                  item.transactionType,
+                  item.price,
+                  item.amount,
+                  item._id,
+                  item.processed
+                );
+                item.processed = true;
+              } else if (
+                item.price < currentPrice &&
+                item.price > item.prevPrice
+              ) {
                 await buyCtypto(
                   item.name,
                   item.transactionType,

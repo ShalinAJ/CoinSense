@@ -106,6 +106,7 @@ const TradingForm = ({
         price,
         amount: totalAmount,
         status: "Crypto",
+        prevPrice: +currentPrice,
         user_id,
       }),
     });

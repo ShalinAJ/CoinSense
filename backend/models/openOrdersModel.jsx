@@ -20,6 +20,10 @@ const openOrdersSchema = new Schema(
       type: Number,
       required: true,
     },
+    prevPrice: {
+      type: Number,
+      required: true,
+    },
     user_id: {
       type: String,
       require: true,
