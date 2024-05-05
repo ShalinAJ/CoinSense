@@ -28,66 +28,76 @@ const TradingOpenOrders = ({ openOrdersData }) => {
     transactionType,
     price,
     totalAmount,
-    _id
+    _id,
+    processed
   ) {
     const user = JSON.parse(localStorage.getItem("user"));
     const user_id = JSON.parse(localStorage.getItem("account")).user_id;
 
-    const response = await fetch(`http://localhost:4000/orderhistory/new`, {
-      method: "POST",
+    if (!processed) {
+      const response = await fetch(`http://localhost:4000/orderhistory/new`, {
+        method: "POST",
 
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: selectToken,
-        transactionType,
-        price,
-        amount: totalAmount,
-        status: "Crypto",
-        user_id,
-      }),
-    });
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: selectToken,
+          transactionType,
+          price,
+          amount: totalAmount,
+          status: "Crypto",
+          user_id,
+        }),
+      });
 
-    if (!response.ok) {
-      throw json({ message: "Could not save." }, { status: 500 });
-    }
+      if (!response.ok) {
+        throw json({ message: "Could not save." }, { status: 500 });
+      }
 
-    const openOrder = await fetch("http://localhost:4000/openorder/" + _id, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+      const openOrder = await fetch("http://localhost:4000/openorder/" + _id, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
-    if (!openOrder.ok) {
-      throw json({ message: "Could not delete." }, { status: 500 });
+      if (!openOrder.ok) {
+        throw json({ message: "Could not delete." }, { status: 500 });
+      }
+    } else {
+      console.log("processed");
     }
   }
 
-  if (Array.isArray(openOrders)) {
-    openOrders.forEach(async (item) => {
-      // Need to make the callback function async
-      if (item.transactionType == "buy") {
-        try {
-          const currentPrice = await getCurrentPrice(item.name); // Fetch current price
-          if (item.price <= currentPrice) {
-            console.log(item.name);
-            await buyCtypto(
-              item.name,
-              item.transactionType,
-              item.price,
-              item.amount,
-              item._id
-            ); // Wait for the buyCtypto function to complete
+  useEffect(() => {
+    async function processOpenOrders(openOrders) {
+      if (Array.isArray(openOrders)) {
+        for (const item of openOrders) {
+          if (item.transactionType == "buy" && !item.processed) {
+            try {
+              const currentPrice = await getCurrentPrice(item.name);
+              if (item.price <= currentPrice) {
+                await buyCtypto(
+                  item.name,
+                  item.transactionType,
+                  item.price,
+                  item.amount,
+                  item._id,
+                  item.processed
+                );
+                item.processed = true;
+              }
+            } catch (error) {
+              console.error("Error:", error);
+            }
           }
-        } catch (error) {
-          console.error("Error:", error);
         }
       }
-    });
-  }
+    }
+    processOpenOrders(openOrders);
+  }, []);
 
   return (
     <div className="px-1 my-3">
@@ -98,6 +108,7 @@ const TradingOpenOrders = ({ openOrdersData }) => {
             <tr className="text-xs leading-[25px]">
               <th className="text-left font-normal">Token</th>
               <th className="text-center font-normal">Amount</th>
+              <th className="text-center font-normal">Limit</th>
               <th className="text-right font-normal pr-3">Type</th>
             </tr>
 
@@ -108,6 +119,12 @@ const TradingOpenOrders = ({ openOrdersData }) => {
                   className="text-xs font-semibold leading-[35px]"
                 >
                   <td>{order.name}</td>
+                  <td className="text-center">
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(order.price * price.amount)}
+                  </td>
                   <td className="text-center">
                     {new Intl.NumberFormat("en-US", {
                       style: "currency",
