@@ -4,9 +4,9 @@ const OrderHistory = require("../models/orderHistoryModel.jsx");
 
 // create a orderHistory entry
 const createOrderHistory = async (req, res) => {
-  const { name, transactionType, price, amount } = req.body;
+  const { name, transactionType, price, amount, status } = req.body;
 
-  if (!name || !transactionType || !price || !amount) {
+  if (!name || !transactionType || !price || !amount || !status) {
     return res.status(400).json({ error: "Please fill all the fields" });
   }
 
@@ -17,6 +17,7 @@ const createOrderHistory = async (req, res) => {
       transactionType,
       price,
       amount,
+      status,
       user_id,
     });
 

@@ -20,6 +20,10 @@ const orderHistorySchema = new Schema(
       type: Number,
       required: true,
     },
+    status: {
+      type: String,
+      required: true,
+    },
     user_id: {
       type: String,
       require: true,

@@ -74,6 +74,7 @@ const TradingForm = ({
         transactionType,
         price,
         amount: totalAmount,
+        status: "Crypto",
         user_id,
       }),
     });
