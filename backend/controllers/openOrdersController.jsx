@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const OpenOrders = require("../models/openOrdersModel.jsx");
 
 // create a orderHistory entry
@@ -37,4 +39,25 @@ const getOpenOrders = async (req, res) => {
   }
 };
 
-module.exports = { createOpenOrder, getOpenOrders };
+// Delete a open order when limit is reached
+const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (mongoose ID is invalid)" });
+  }
+
+  const order = await OpenOrders.findOneAndDelete({ _id: id });
+
+  if (!order) {
+    return res
+      .status(400)
+      .json({ error: "NO such a contact (contact ID is invalid)" });
+  }
+
+  res.status(200).json(order);
+};
+
+module.exports = { createOpenOrder, getOpenOrders, deleteOrder };
