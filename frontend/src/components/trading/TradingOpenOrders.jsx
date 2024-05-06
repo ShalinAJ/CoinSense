@@ -71,7 +71,6 @@ const TradingOpenOrders = ({ openOrdersData }) => {
     }
   }
 
-  console.log(openOrders);
   useEffect(() => {
     async function processOpenOrders(openOrders) {
       if (Array.isArray(openOrders)) {
