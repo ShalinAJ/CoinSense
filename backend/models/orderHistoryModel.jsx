@@ -24,6 +24,10 @@ const orderHistorySchema = new Schema(
       type: String,
       required: true,
     },
+    prevPrice: {
+      type: Number,
+      required: true,
+    },
     user_id: {
       type: String,
       require: true,
