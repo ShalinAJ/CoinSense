@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { json } from "react-router-dom";
 
-const TradingOpenOrders = ({ openOrdersData }) => {
+const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
   const [openOrders, setOpenOrders] = useState(null);
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const TradingOpenOrders = ({ openOrdersData }) => {
     return currentPrice;
   }
 
-  async function buyCtypto(
+  async function buyCrypto(
     selectToken,
     transactionType,
     price,
@@ -80,8 +81,8 @@ const TradingOpenOrders = ({ openOrdersData }) => {
           if (item.transactionType == "buy" && !item.processed) {
             try {
               const currentPrice = await getCurrentPrice(item.name);
-              if (item.price >= 601 && item.price < item.prevPrice) {
-                await buyCtypto(
+              if (item.price >= currentPrice && item.price < item.prevPrice) {
+                await buyCrypto(
                   item.name,
                   item.transactionType,
                   item.price,
@@ -91,8 +92,11 @@ const TradingOpenOrders = ({ openOrdersData }) => {
                   item.prevPrice
                 );
                 item.processed = true;
-              } else if (item.price < 601 && item.price > item.prevPrice) {
-                await buyCtypto(
+              } else if (
+                item.price < currentPrice &&
+                item.price > item.prevPrice
+              ) {
+                await buyCrypto(
                   item.name,
                   item.transactionType,
                   item.price,
@@ -111,7 +115,7 @@ const TradingOpenOrders = ({ openOrdersData }) => {
       }
     }
     processOpenOrders(openOrders);
-  }, [openOrders]);
+  }, [currentPriceData]);
 
   return (
     <div className="px-1 my-3">
