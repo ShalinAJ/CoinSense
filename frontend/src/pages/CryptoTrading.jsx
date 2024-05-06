@@ -2,11 +2,11 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import CryptoChart from "../charts/CryptoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 import TradingArea from "../components/trading/TradingArea";
 import TradeSelect from "../components/trading/TradeSelect";
 import backArrow from "../assets/back-arrow.png";
 import TradeLiveDataBar from "../components/trading/TradeLiveDataBar";
+import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
 
 const BitcoinChart = () => {
   const navigate = useNavigate();
@@ -266,7 +266,7 @@ const BitcoinChart = () => {
             />
           </div>
           <div>
-            <HorizontalMarketBar />
+            <CryptoTradingHorizontalMarketBar />
           </div>
         </div>
       </div>
