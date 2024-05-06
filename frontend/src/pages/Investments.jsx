@@ -71,17 +71,18 @@ const InvestmentsPage = () => {
       try {
         const orderData = await orderHistory;
         if (Array.isArray(orderData)) {
-          const total = orderData.reduce(
-            (acc, curr) => acc + curr.amount * curr.price,
-            0
-          );
           const cryptoInvested = orderData.filter(
             (order) => order.status === "Crypto"
           );
-          const cryptoInvestedTotal = cryptoInvested.reduce(
-            (acc, curr) => acc + curr.amount * curr.price,
-            0
-          );
+
+          const cryptoInvestedTotal = cryptoInvested.reduce((acc, item) => {
+            if (item.transactionType === "buy") {
+              return acc + item.amount * item.price;
+            } else if (item.transactionType === "sell") {
+              return acc - item.amount * item.price;
+            }
+            return acc;
+          }, 0);
 
           const stockInvested = orderData.filter(
             (order) => order.status === "Stock"
@@ -105,7 +106,9 @@ const InvestmentsPage = () => {
             forexInvestedTotal,
           ]);
 
-          setInvestmentTotal(total);
+          setInvestmentTotal(
+            cryptoInvestedTotal + stockInvestedTotal + forexInvested
+          );
           setRecentInvestments(orderData);
         }
       } catch (error) {
