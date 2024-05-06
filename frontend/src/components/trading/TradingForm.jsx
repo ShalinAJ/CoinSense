@@ -84,9 +84,13 @@ const TradingForm = ({
           if (selectToken == order.name) {
             sellTotal += order.price * order.amount;
           }
+        } else if (order.transactionType == "sell") {
+          if (selectToken == order.name) {
+            sellTotal -= order.price * order.amount;
+          }
         }
       });
-      if (price * totalAmount > sellTotal) {
+      if (price * totalAmount >= sellTotal) {
         setSubmitError(true);
         console.log("don't hv funds");
         throw json({ message: "You don't have enough funds" });
@@ -115,7 +119,7 @@ const TradingForm = ({
       throw json({ message: "Could not save." }, { status: 500 });
     }
 
-    window.location.reload();
+    //window.location.reload();
   };
 
   return (
