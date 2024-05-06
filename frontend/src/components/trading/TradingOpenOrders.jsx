@@ -78,7 +78,8 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
     async function processOpenOrders(openOrders) {
       if (Array.isArray(openOrders)) {
         for (const item of openOrders) {
-          if (item.transactionType == "buy" && !item.processed) {
+          console.log(item);
+          if (!item.processed) {
             try {
               const currentPrice = await getCurrentPrice(item.name);
               if (item.price >= currentPrice && item.price < item.prevPrice) {
