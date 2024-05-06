@@ -169,15 +169,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.btcusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.btcusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.btcusdt.priceChange >= 0
+                parseFloat(coinDetails.btcusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.btcusdt.priceChange}%
+              {parseFloat(coinDetails.btcusdt.priceChange)}%
             </p>
           </div>
         )}
@@ -188,15 +193,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.ethusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.ethusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.ethusdt.priceChange >= 0
+                parseFloat(coinDetails.ethusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.ethusdt.priceChange}%
+              {parseFloat(coinDetails.ethusdt.priceChange)}%
             </p>
           </div>
         )}
@@ -207,21 +217,26 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.bnbusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.bnbusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.bnbusdt.priceChange >= 0
+                parseFloat(coinDetails.bnbusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.bnbusdt.priceChange}%
+              {parseFloat(coinDetails.bnbusdt.priceChange)}%
             </p>
           </div>
         )}
       </div>
       <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-      <div className="w-[30%] flex flex-col gap-4">
+      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
         {cryptoData[3] && (
           <div className="flex flex-row items-center justify-between">
             <img
@@ -229,15 +244,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.solusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.solusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.solusdt.priceChange >= 0
+                parseFloat(coinDetails.solusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.solusdt.priceChange}%
+              {parseFloat(coinDetails.solusdt.priceChange)}%
             </p>
           </div>
         )}
@@ -248,15 +268,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.usdcusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.usdcusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.usdcusdt.priceChange >= 0
+                parseFloat(coinDetails.usdcusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.usdcusdt.priceChange}%
+              {parseFloat(coinDetails.usdcusdt.priceChange)}%
             </p>
           </div>
         )}
@@ -267,21 +292,26 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.xrpusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.xrpusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.xrpusdt.priceChange >= 0
+                parseFloat(coinDetails.xrpusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.xrpusdt.priceChange}%
+              {parseFloat(coinDetails.xrpusdt.priceChange)}%
             </p>
           </div>
         )}
       </div>
       <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-      <div className="w-[30%] flex flex-col gap-4">
+      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
         {cryptoData[6] && (
           <div className="flex flex-row items-center justify-between">
             <img
@@ -289,15 +319,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.dogeusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.dogeusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.dogeusdt.priceChange >= 0
+                parseFloat(coinDetails.dogeusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.dogeusdt.priceChange}%
+              {parseFloat(coinDetails.dogeusdt.priceChange)}%
             </p>
           </div>
         )}
@@ -308,15 +343,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.adausdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.adausdt.price))}
+            </p>
             <p
               className={
-                coinDetails.adausdt.priceChange >= 0
+                parseFloat(coinDetails.adausdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.adausdt.priceChange}%
+              {parseFloat(coinDetails.adausdt.priceChange)}%
             </p>
           </div>
         )}
@@ -327,15 +367,20 @@ const CryptoTradingHorizontalMarketBar = () => {
               alt=""
               className="w-7 h-7 rounded-full"
             />
-            <p>{coinDetails.shibusdt.price}</p>
+            <p>
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(parseFloat(coinDetails.shibusdt.price))}
+            </p>
             <p
               className={
-                coinDetails.shibusdt.priceChange >= 0
+                parseFloat(coinDetails.shibusdt.priceChange) >= 0
                   ? "text-green-600"
                   : "text-red-600"
               }
             >
-              {coinDetails.shibusdt.priceChange}%
+              {parseFloat(coinDetails.shibusdt.priceChange)}%
             </p>
           </div>
         )}

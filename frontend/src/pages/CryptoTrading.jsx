@@ -44,17 +44,8 @@ const BitcoinChart = () => {
   useEffect(() => {
     async function orderHistoryDataHandler() {
       const orderHistoryData = await orderHistory;
-      //setOrderHistoryDetails(orderHistoryData);
+
       let totalAmount = 0;
-      // const totalAmount = orderHistoryData.reduce((accumulator, order) => {
-      //   if (order.transactionType == "buy") {
-      //     total += accumulator + order.price * order.amount;
-      //     console.log(total);
-      //   } else {
-      //     total -= accumulator - order.price * order.amount;
-      //   }
-      //   console.log(total);
-      // }, 0);
 
       if (Array.isArray(orderHistoryData)) {
         orderHistoryData.forEach((item) => {
