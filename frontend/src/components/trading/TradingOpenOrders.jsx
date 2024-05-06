@@ -29,7 +29,8 @@ const TradingOpenOrders = ({ openOrdersData }) => {
     price,
     totalAmount,
     _id,
-    processed
+    processed,
+    prevPrice
   ) {
     const user = JSON.parse(localStorage.getItem("user"));
     const user_id = JSON.parse(localStorage.getItem("account")).user_id;
@@ -48,6 +49,7 @@ const TradingOpenOrders = ({ openOrdersData }) => {
           price,
           amount: totalAmount,
           status: "Crypto",
+          prevPrice,
           user_id,
         }),
       });
@@ -78,27 +80,26 @@ const TradingOpenOrders = ({ openOrdersData }) => {
           if (item.transactionType == "buy" && !item.processed) {
             try {
               const currentPrice = await getCurrentPrice(item.name);
-              if (item.price >= currentPrice && item.price < item.prevPrice) {
+              if (item.price >= 601 && item.price < item.prevPrice) {
                 await buyCtypto(
                   item.name,
                   item.transactionType,
                   item.price,
                   item.amount,
                   item._id,
-                  item.processed
+                  item.processed,
+                  item.prevPrice
                 );
                 item.processed = true;
-              } else if (
-                item.price < currentPrice &&
-                item.price > item.prevPrice
-              ) {
+              } else if (item.price < 601 && item.price > item.prevPrice) {
                 await buyCtypto(
                   item.name,
                   item.transactionType,
                   item.price,
                   item.amount,
                   item._id,
-                  item.processed
+                  item.processed,
+                  item.prevPrice
                 );
                 item.processed = true;
               }
@@ -110,7 +111,7 @@ const TradingOpenOrders = ({ openOrdersData }) => {
       }
     }
     processOpenOrders(openOrders);
-  }, []);
+  }, [openOrders]);
 
   return (
     <div className="px-1 my-3">

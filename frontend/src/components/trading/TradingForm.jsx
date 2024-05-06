@@ -119,7 +119,7 @@ const TradingForm = ({
       throw json({ message: "Could not save." }, { status: 500 });
     }
 
-    //window.location.reload();
+    window.location.reload();
   };
 
   return (
