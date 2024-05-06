@@ -94,7 +94,10 @@ const TradingArea = ({
               <TradingOrderHistory orderHistoryData={orderHistoryData} />
             )}
             {orderHistory === "open-orders" && (
-              <TradingOpenOrders openOrdersData={openOrdersData} />
+              <TradingOpenOrders
+                openOrdersData={openOrdersData}
+                currentPriceData={currentPrice}
+              />
             )}
           </div>
         </div>
