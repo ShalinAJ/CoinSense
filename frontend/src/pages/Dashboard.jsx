@@ -5,9 +5,13 @@ import InflowOutflowChart from "../charts/InflowOutflowChart";
 import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
 import { json, NavLink, useLoaderData } from "react-router-dom";
 import { useEffect, useState } from "react";
+import UserMarketOptions from "../components/widgets/UserMarketOptions";
+import WalletWidget from "../components/widgets/WalletWidget";
+import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
 
 const DashboardPage = () => {
-  const { transactions } = useLoaderData();
+  const { transactions, orderHistory } = useLoaderData();
+  const [tradeData, setTradeData] = useState([0, 0, 0]);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalInvestment, setTotalInvestment] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
@@ -70,6 +74,53 @@ const DashboardPage = () => {
 
     transactionInfo();
   }, []);
+
+  useEffect(() => {
+    async function recentInvestmentChecker() {
+      try {
+        const orderData = await orderHistory;
+        if (Array.isArray(orderData)) {
+          const cryptoInvested = orderData.filter(
+            (order) => order.status === "Crypto"
+          );
+
+          const cryptoInvestedTotal = cryptoInvested.reduce((acc, item) => {
+            if (item.transactionType === "buy") {
+              return acc + item.amount * item.price;
+            } else if (item.transactionType === "sell") {
+              return acc - item.amount * item.price;
+            }
+            return acc;
+          }, 0);
+
+          const stockInvested = orderData.filter(
+            (order) => order.status === "Stock"
+          );
+          const stockInvestedTotal = stockInvested.reduce(
+            (acc, curr) => acc + curr.amount * curr.price,
+            0
+          );
+
+          const forexInvested = orderData.filter(
+            (order) => order.status === "Forex"
+          );
+          const forexInvestedTotal = forexInvested.reduce(
+            (acc, curr) => acc + curr.amount * curr.price,
+            0
+          );
+
+          setTradeData([
+            cryptoInvestedTotal,
+            stockInvestedTotal,
+            forexInvestedTotal,
+          ]);
+        }
+      } catch (error) {
+        console.error("Error fetching transactions:", error);
+      }
+    }
+    recentInvestmentChecker();
+  }, [orderHistory]);
 
   useEffect(() => {
     async function transactionYear() {
@@ -153,11 +204,17 @@ const DashboardPage = () => {
             </div>
           </div>
           <div className="w-[100%] h-[100%]">
-            <div className="border-[2px] border-[#152dff61] rounded-xl p-4">
+            <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mb-10">
               <div className="flex flex-row justify-between items-center">
-                <h2 className="p-3 text-base font-medium">
-                  Financial Inflow Outflow
-                </h2>
+                <div className="p-3 mb-1">
+                  <p className="text-xl font-semibold">
+                    Financial Inflow Outflow
+                  </p>
+                  <p className="text-xs text-gray-400 py-1">
+                    Visualizes the money coming in (inflow) and going out
+                    (outflow) of your account over the year.
+                  </p>
+                </div>
                 <select
                   name="years1"
                   id="years1"
@@ -174,11 +231,24 @@ const DashboardPage = () => {
               </div>
               <InflowOutflowChart selectedYear={selectedYearIO} />
             </div>
-            <div className="border-[2px] border-[#152dff61] rounded-xl p-4 mt-10 mb-10">
+            <div className="flex flex-row justify-between">
+              <div className="w-[48.5%]">
+                <UserMarketOptions tradeData={tradeData} />
+              </div>
+              <div className="w-[48.5%] h-[23rem] flex flex-col gap-5">
+                <WalletWidget />
+                <TradingWalletWidget />
+              </div>
+            </div>
+            <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mt-10 mb-10">
               <div className="flex flex-row justify-between items-center">
-                <h2 className="p-3 mb-5 text-base font-medium">
-                  Balance Evolution
-                </h2>
+                <div className="p-3 mb-1">
+                  <p className="text-xl font-semibold">Balance Evolution</p>
+                  <p className="text-xs text-gray-400 py-1">
+                    A representation of how the balance of an account or
+                    portfolio has changed over time.
+                  </p>
+                </div>
                 <select
                   name="years2"
                   id="years2"

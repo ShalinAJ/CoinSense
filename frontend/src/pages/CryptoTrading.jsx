@@ -59,9 +59,9 @@ const BitcoinChart = () => {
       if (Array.isArray(orderHistoryData)) {
         orderHistoryData.forEach((item) => {
           if (item.transactionType == "buy") {
-            totalAmount -= item.amount * item.price;
-          } else {
             totalAmount += item.amount * item.price;
+          } else {
+            totalAmount -= item.amount * item.price;
           }
         });
       }
