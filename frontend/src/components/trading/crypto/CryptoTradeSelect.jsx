@@ -11,7 +11,7 @@ const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="mt-[90px] w-[30%] z-50 rounded-xl">
+      <dialog open className="fixed mt-[90px] w-[30%] z-50 rounded-xl ">
         <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
           <div className="w-[100%] leading-6">
             <div className="flex flex-wrap justify-between items-center pt-2">
@@ -23,7 +23,7 @@ const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
                 &#10006;
               </button>
             </div>
-            <ul className="max-h-[9rem] flex flex-col gap-3 my-5">
+            <ul className="overflow-y-auto max-h-[25rem] flex flex-col gap-3 my-5">
               {cryptoData.map((tokenData) => (
                 <button
                   key={tokenData._id}

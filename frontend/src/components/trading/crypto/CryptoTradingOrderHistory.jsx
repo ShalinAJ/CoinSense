@@ -21,7 +21,7 @@ const TradingOrderHistory = ({ orderHistoryData }) => {
             <tr className="text-xs leading-[25px]">
               <th className="text-left font-normal">Token</th>
               <th className="text-center font-normal">Amount</th>
-              <th className="text-right font-normal pr-3">Type</th>
+              <th className="text-right font-normal pr-4">Type</th>
             </tr>
 
             {orderHistory &&
@@ -37,7 +37,17 @@ const TradingOrderHistory = ({ orderHistoryData }) => {
                       currency: "USD",
                     }).format(order.amount * order.price)}
                   </td>
-                  <td className="text-right pr-3">{order.transactionType}</td>
+                  <td className="text-right flex flex-row justify-end pr-3">
+                    <p
+                      className={`${
+                        order.transactionType === "buy"
+                          ? "bg-[#bcffde] text-[#02B15A]  "
+                          : " bg-[#ff00001f] text-[#ff0000] } "
+                      } px-2 my-1 rounded-xl`}
+                    >
+                      {order.transactionType}
+                    </p>
+                  </td>
                 </tr>
               ))}
           </tbody>

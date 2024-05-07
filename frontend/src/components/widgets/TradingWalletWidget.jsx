@@ -40,7 +40,7 @@ const TradingWalletWidget = () => {
             }).format(topupData)}
           </p>{" "}
           <Link
-            to={"/dashboard/wallet"}
+            to={"/dashboard/investment/trading-wallet"}
             className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
           >
             Top up

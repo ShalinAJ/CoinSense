@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { json } from "react-router-dom";
+import deleteImg from "../../../assets/delete.png";
 
 const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
   const [openOrders, setOpenOrders] = useState(null);
@@ -128,7 +129,7 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
               <th className="text-left font-normal">Token</th>
               <th className="text-center font-normal">Amount</th>
               <th className="text-center font-normal">Limit</th>
-              <th className="text-right font-normal pr-3">Type</th>
+              <th className="text-right font-normal pr-6">Type</th>
             </tr>
 
             {openOrders &&
@@ -137,20 +138,35 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
                   key={index}
                   className="text-xs font-semibold leading-[35px]"
                 >
-                  <td>{order.name}</td>
-                  <td className="text-center">
+                  <td className="w-[25%]">{order.name}</td>
+                  <td className="text-center w-[25%]">
                     {new Intl.NumberFormat("en-US", {
                       style: "currency",
                       currency: "USD",
                     }).format(order.price * order.amount)}
                   </td>
-                  <td className="text-center">
+                  <td className="text-center w-[25%]">
                     {new Intl.NumberFormat("en-US", {
                       style: "currency",
                       currency: "USD",
                     }).format(order.price)}
                   </td>
-                  <td className="text-right pr-3">{order.transactionType}</td>
+                  <td className="w-[25%]">
+                    <div className="flex flex-row justify-end items-center">
+                      <p
+                        className={`${
+                          order.transactionType === "buy"
+                            ? "bg-[#bcffde] text-[#02B15A]  "
+                            : " bg-[#ff00001f] text-[#ff0000] } "
+                        } px-2 my-1 rounded-xl`}
+                      >
+                        {order.transactionType}
+                      </p>
+                      <button className="bg-transparent border-0 p-0 ml-1">
+                        <img src={deleteImg} alt="" className="w-[15px]" />
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))}
           </tbody>
