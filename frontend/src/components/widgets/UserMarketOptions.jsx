@@ -22,7 +22,10 @@ const UserMarketOptions = ({ tradeData }) => {
               }).format(tradeData[0])}
             </p>
           </Link>
-          <Link className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2 hover:bg-coinsense-blue hover:text-white duration-300">
+          <Link
+            to={"../investment/stock-trading"}
+            className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2 hover:bg-coinsense-blue hover:text-white duration-300"
+          >
             <p className="text-sm pl-4">Stock Market</p>
             <p className="text-xs pr-4">
               Amount traded:{" "}

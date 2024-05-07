@@ -8,7 +8,7 @@ import backArrow from "../assets/back-arrow.png";
 import TradeLiveDataBar from "../components/trading/TradeLiveDataBar";
 import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
 
-const CryptoTradingPage = () => {
+const StockTradingPage = () => {
   const navigate = useNavigate();
   const [chartData, setChartData] = useState({
     labels: [],
@@ -193,7 +193,7 @@ const CryptoTradingPage = () => {
             <Link onClick={prevPage} className="p-0 m-0 w-4">
               <img src={backArrow} alt="" />
             </Link>
-            <h2 className="text-2xl font-bold">Crypto Trading</h2>
+            <h2 className="text-2xl font-bold">Stock Trading</h2>
             <p className="text-sm pt-2 font-light">
               Trade and view realtime data of Crypto Currencies
             </p>
@@ -265,4 +265,4 @@ const CryptoTradingPage = () => {
   );
 };
 
-export default CryptoTradingPage;
+export default StockTradingPage;

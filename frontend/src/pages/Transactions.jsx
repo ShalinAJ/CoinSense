@@ -72,6 +72,7 @@ const TransactionsPage = () => {
               )}
             </Await>
           </Suspense>
+          {console.log(transactions)}
         </div>
       </div>
     </>

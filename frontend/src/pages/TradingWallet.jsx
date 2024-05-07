@@ -19,7 +19,7 @@ const TradingWalletPage = ({}) => {
   const [walletList, setWalletList] = useState();
   const [topupdata, setTopupData] = useState();
   const navigate = useNavigate();
-
+  const [cocollogLogo, setCocollogLogo] = useState("");
   const [orderHistoryData, setOrderHistoryData] = useState(null);
 
   useEffect(() => {
@@ -32,6 +32,48 @@ const TradingWalletPage = ({}) => {
   }, [orderHistory]);
 
   useEffect(() => {
+    async function fetchCocollogLogo() {
+      try {
+        const response = await fetch(
+          `https://query2.finance.yahoo.com/v7/finance/quote?symbols=AAPL`
+        );
+        const logoDetails = await response.json();
+
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const logoUrl = logoDetails.quoteResponse.result[0].logo;
+        console.log(logoUrl);
+        setCocollogLogo(logoUrl);
+      } catch (error) {
+        console.error("Error fetching logo:", error);
+      }
+    }
+
+    fetchCocollogLogo();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const logoResponse = await fetch(
+          `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${selectToken}`
+        );
+        const logoDetails = await logoResponse.json();
+
+        if (!logoResponse.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        const logoUrl = logoDetails.quoteResponse.result[0].logo;
+
+        // Process logoUrl, then update state
+      } catch (error) {
+        console.error("Error fetching logo:", error);
+      }
+    };
+
     async function walletCountHandler() {
       const walletList = await wallets;
       const cards = walletList.map((wallet) => ({

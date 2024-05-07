@@ -30,6 +30,7 @@ import CryptoTradingPage from "./pages/CryptoTrading";
 import TradingWalletPage, {
   action as newTopupAction,
 } from "./pages/TradingWallet";
+import StockTradingPage from "./pages/StockTrading";
 
 var user = JSON.parse(localStorage.getItem("user"));
 
@@ -89,6 +90,12 @@ const router = createBrowserRouter([
                 ) : (
                   <Navigate to="/login" />
                 ),
+                loader: transactionsLoader,
+                action: newTransactionAction,
+              },
+              {
+                path: "stock-trading",
+                element: user ? <StockTradingPage /> : <Navigate to="/login" />,
                 loader: transactionsLoader,
                 action: newTransactionAction,
               },
