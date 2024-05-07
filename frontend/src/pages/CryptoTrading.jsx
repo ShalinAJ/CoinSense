@@ -2,10 +2,10 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import CryptoChart from "../charts/CryptoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TradingArea from "../components/trading/TradingArea";
-import TradeSelect from "../components/trading/TradeSelect";
+import TradingArea from "../components/trading/crypto/CryptoTradingArea";
+import TradeSelect from "../components/trading/crypto/CryptoTradeSelect";
 import backArrow from "../assets/back-arrow.png";
-import TradeLiveDataBar from "../components/trading/TradeLiveDataBar";
+import TradeLiveDataBar from "../components/trading/crypto/CryptoTradeLiveDataBar";
 import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
 
 const CryptoTradingPage = () => {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import downArrow from "../../assets/down-arrow.png";
-import tempLine from "../../assets/temp-line.png";
+import downArrow from "../../../assets/down-arrow.png";
+import tempLine from "../../../assets/temp-line.png";
 
 const TradeLiveDataBar = ({ selectToken, tokenDataSet, onOpen }) => {
   const openModal = () => {

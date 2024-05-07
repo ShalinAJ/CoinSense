@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import TradingForm from "./TradingForm";
-import classes from "./TradingArea.module.css";
-import TradingOrderHistory from "./TradingOrderHistory";
-import TradingOpenOrders from "./TradingOpenOrders";
+import TradingForm from "./CryptoTradingForm";
+import classes from "./CryptoTradingArea.module.css";
+import TradingOrderHistory from "./CryptoTradingOrderHistory";
+import TradingOpenOrders from "./CryptoTradingOpenOrders";
 
 const TradingArea = ({
   currentPrice,

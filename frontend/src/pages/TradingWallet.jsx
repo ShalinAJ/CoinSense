@@ -11,7 +11,7 @@ import backArrow from "../assets/back-arrow.png";
 import infoImg from "../assets/info.png";
 import TopupsTable from "../components/TopupsTable";
 import TopupWalletModal from "../components/TopupWalletModal";
-import TradingOrderHistory from "../components/trading/TradingOrderHistory";
+import TradingOrderHistory from "../components/trading/crypto/CryptoTradingOrderHistory";
 
 const TradingWalletPage = ({}) => {
   const { topups, wallets, orderHistory } = useLoaderData();
