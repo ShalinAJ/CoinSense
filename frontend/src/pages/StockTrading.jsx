@@ -13,6 +13,7 @@ const StockTradingPage = () => {
 
   const { topups, orderHistory } = useLoaderData();
   const { openOrders } = useLoaderData();
+  const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
   const [currentPrice, setCurrentPrice] = useState(0);
   const [investedTotal, setInvestedTotal] = useState(0);
   const [tokenDataSet, setTokenDataSet] = useState({
@@ -30,11 +31,23 @@ const StockTradingPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [selectToken, setSelectToken] = useState("AAPL");
+  const [chartData, setChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "AAPL Price",
+        data: [],
+        backgroundColor: "rgba(21, 45, 255, 0.1)",
+        borderColor: "rgba(21, 45, 255, 0.6)",
+        borderWidth: 2,
+        pointRadius: 2,
+      },
+    ],
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const user = JSON.parse(localStorage.getItem("user"));
         const response = await axios.get(`http://localhost:4000/stock-data`, {
           params: {
             symbol: selectToken,
@@ -42,17 +55,13 @@ const StockTradingPage = () => {
             interval: tradingInterval,
           },
           headers: {
-            Authorization: `Bearer ${user.token}`,
+            Authorization: `Bearer ${userInfo.token}`,
           },
         });
-        console.log(response);
-        if (!response.data.chart || response.data.chart.result.length === 0) {
-          throw new Error("No data available for the selected symbol");
-        }
 
-        const result = response.data.chart.result[0];
+        const data = response.data.chart.result[0];
 
-        const stockInfo = result.meta;
+        const stockInfo = data.meta;
         const currentPrice = stockInfo.regularMarketPrice || 0;
         const previousClose = stockInfo.chartPreviousClose || 0;
         const change = currentPrice - previousClose;
@@ -70,12 +79,33 @@ const StockTradingPage = () => {
           dayLow: stockInfo.regularMarketDayLow || 0,
         });
 
+        const labels = data.timestamp.map((timestamp) =>
+          new Date(timestamp * 1000).toLocaleDateString()
+        );
+        const prices = data.indicators.quote[0].close;
+
+        setChartData({
+          labels: labels.slice(0, 250), // Data points for 1y interval
+          datasets: [
+            {
+              label: "AAPL Price",
+              data: prices.map((price) => (price ? price.toFixed(2) : null)),
+              backgroundColor: "rgba(21, 45, 255, 0.1)",
+              borderColor: "rgba(21, 45, 255, 0.6)",
+              borderWidth: 2,
+              pointRadius: 2,
+            },
+          ],
+        });
+
         setLoading(false);
       } catch (error) {
         console.error("Error fetching stock data: ", error);
         setLoading(false);
       }
     };
+
+    fetchData();
 
     const intervalId = setInterval(fetchData, 2000);
 
@@ -149,11 +179,8 @@ const StockTradingPage = () => {
               </select>
             </div>
 
-            <div className="mb-8 mt-3" style={{ height: "auto" }}>
-              <StockChart
-                apiUrl={`http://localhost:4000/stock-data`}
-                interval={tradingInterval}
-              />
+            <div className="mb-8 mt-3" style={{ height: "400px" }}>
+              <StockChart chartData={chartData} />
             </div>
             <hr />
             <div>
