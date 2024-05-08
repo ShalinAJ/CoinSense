@@ -38,6 +38,27 @@ const StockTradingPage = () => {
   const [loading, setLoading] = useState(true);
   const [selectToken, setSelectToken] = useState("AAPL");
 
+  async function getStockData() {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const response = await fetch("http://localhost:4000/stock-data", {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    if (!response.ok) {
+      return json(
+        { message: "Could not fetch transactions." },
+        { status: 500 }
+      );
+    } else {
+      const transactions = await response.json();
+      console.log(transactions);
+    }
+  }
+
+  getStockData();
+
   useEffect(() => {
     async function orderHistoryDataHandler() {
       const orderHistoryData = await orderHistory;
