@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const axios = require("axios");
 
 const userRoutes = require("./routes/user.jsx");
 const transacitonRoutes = require("./routes/transactionRoute.jsx");
@@ -27,6 +28,20 @@ app.use(cors());
 app.use((req, res, next) => {
   console.log(`Server js ${req.path}, ${req.method}`);
   next();
+});
+
+app.use("/stock-data", async (req, res) => {
+  const { symbol, interval } = req.query;
+  try {
+    const response = await axios.get(
+      "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=5m"
+    );
+    console.log(response.data);
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching stock data: ", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // Routes
