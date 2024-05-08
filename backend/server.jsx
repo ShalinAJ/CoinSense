@@ -30,13 +30,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/stock-data", async (req, res) => {
-  const { symbol, interval } = req.query;
+app.get("/stock-data", async (req, res) => {
+  const { symbol, range, interval } = req.query;
+  const url = `https://query1.finance.yahoo.com/v8/finance/chart/${symbol}?range=${range}&interval=${interval}`;
+
   try {
-    const response = await axios.get(
-      "https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=5m"
-    );
-    console.log(response.data);
+    const response = await axios.get(url);
     res.json(response.data);
   } catch (error) {
     console.error("Error fetching stock data: ", error.message);
