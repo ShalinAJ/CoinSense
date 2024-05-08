@@ -258,7 +258,10 @@ const CryptoTradingPage = () => {
             />
           </div>
           <div>
-            <CryptoInfoPanel />
+            <CryptoInfoPanel
+              generalData={generalData}
+              selectToken={selectToken[0]}
+            />
           </div>
           <div>
             <CryptoTradingHorizontalMarketBar />

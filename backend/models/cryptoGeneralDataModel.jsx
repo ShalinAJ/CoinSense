@@ -102,6 +102,9 @@ const cryptoGeneralDataSchema = new Schema({
   white_Paper: {
     type: String,
   },
+  doninance_index: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("cryptoGeneralData", cryptoGeneralDataSchema);
