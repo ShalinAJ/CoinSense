@@ -7,6 +7,7 @@ import TradeSelect from "../components/trading/crypto/CryptoTradeSelect";
 import backArrow from "../assets/back-arrow.png";
 import TradeLiveDataBar from "../components/trading/crypto/CryptoTradeLiveDataBar";
 import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
+import CryptoInfoPanel from "../components/trading/crypto/CryptoInfoPanel";
 
 const CryptoTradingPage = () => {
   const navigate = useNavigate();
@@ -255,6 +256,9 @@ const CryptoTradingPage = () => {
               selectToken={selectToken[0].toUpperCase()}
               investedTotal={investedTotal}
             />
+          </div>
+          <div>
+            <CryptoInfoPanel />
           </div>
           <div>
             <CryptoTradingHorizontalMarketBar />
