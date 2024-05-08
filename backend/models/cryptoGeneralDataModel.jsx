@@ -75,6 +75,33 @@ const cryptoGeneralDataSchema = new Schema({
   atl_date: {
     type: Date,
   },
+  block_explorer: {
+    type: String,
+  },
+  historical_high: {
+    type: String,
+  },
+  historical_high_date: {
+    type: String,
+  },
+  historical_low: {
+    type: String,
+  },
+  historical_low_date: {
+    type: String,
+  },
+  intro: {
+    type: String,
+  },
+  issue_date: {
+    type: String,
+  },
+  official_website: {
+    type: String,
+  },
+  white_Paper: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("cryptoGeneralData", cryptoGeneralDataSchema);
