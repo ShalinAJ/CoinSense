@@ -68,7 +68,7 @@ const StockTradingPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://query1.finance.yahoo.com/v8/finance/chart/AAPL?interval=5m`
+          `/stock-data?symbol=${selectToken}&interval=${tradingInterval}`
         );
 
         const data = response.data.chart.result[0];
