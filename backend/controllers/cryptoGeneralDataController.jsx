@@ -1,5 +1,3 @@
-const mongoose = require("mongoose");
-
 const CryptoGeneralData = require("../models/cryptoGeneralDataModel.jsx");
 
 const getCryptoGeneralData = async (req, res) => {

@@ -13,6 +13,7 @@ const tradingWalletRoutes = require("./routes/tradingWalletRoute.jsx");
 const imageRoutes = require("./routes/imageRoute.jsx");
 const orderHistoryRoutes = require("./routes/orderHistoryRoute.jsx");
 const openOrderRoutes = require("./routes/openOrderRoute.jsx");
+const stockMarketGeneralDataRoutes = require("./routes/stockMarketGeneralDataRoute.jsx");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -54,6 +55,7 @@ app.use(tradingWalletRoutes);
 app.use(imageRoutes);
 app.use(orderHistoryRoutes);
 app.use(openOrderRoutes);
+app.use(stockMarketGeneralDataRoutes);
 
 // Conncet to database
 mongoose
@@ -66,5 +68,3 @@ mongoose
   .catch((error) => {
     console.log(error);
   });
-//
-// test
