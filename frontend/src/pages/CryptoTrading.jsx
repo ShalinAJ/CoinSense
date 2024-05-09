@@ -89,6 +89,7 @@ const CryptoTradingPage = () => {
       } catch (error) {
         console.error("Error fetching crypto data: ", error);
       }
+
       try {
         const response = await axios.get(
           `https://api.binance.com/api/v3/klines?symbol=${selectToken[0].toUpperCase()}USDT&interval=${tradingInterval}`

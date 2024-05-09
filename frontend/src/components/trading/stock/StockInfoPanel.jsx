@@ -1,18 +1,20 @@
 import React from "react";
 
 const StockInfoPanel = ({ generalData, selectToken }) => {
-  let coinData;
+  let stockData;
 
   if (generalData && selectToken) {
-    coinData = generalData.filter(
-      (data) => data.symbol.toUpperCase() == selectToken.toUpperCase()
+    stockData = generalData.filter(
+      (data) => data.ticker.toUpperCase() == selectToken.toUpperCase()
     )[0];
   } else {
     console.log("Error");
+    return null;
   }
 
-  if (!coinData) {
+  if (!stockData) {
     console.log("Error");
+    return null;
   }
 
   return (
@@ -20,45 +22,33 @@ const StockInfoPanel = ({ generalData, selectToken }) => {
       <div className="h-[25rem] max-h-[24rem] overflow-y-auto ">
         <div className="flex flex-row items-center gap-2 pb-10 pr-7 pl-7">
           {" "}
-          <img src="" alt="selected stock image" className="w-5 h-5" />
+          <img
+            src={stockData.logo}
+            alt="selected stock image"
+            className="w-5 h-5"
+          />
           <div className="flex flex-row items-baseline gap-2">
-            <p className="text-lg font-medium">Apple</p>
+            <p className="text-lg font-medium">{stockData.name}</p>
           </div>
         </div>
         <div className="flex flex-col pb-10 pr-7 pl-7">
-          <p className="text-xs leading-5">
-            Apple, Inc. engages in the design, manufacture, and sale of
-            smartphones, personal computers, tablets, wearables and accessories,
-            and other varieties of related services. It operates through the
-            following geographical segments: Americas, Europe, Greater China,
-            Japan, and Rest of Asia Pacific. The Americas segment includes North
-            and South America. The Europe segment consists of European
-            countries, as well as India, the Middle East, and Africa. The
-            Greater China segment comprises China, Hong Kong, and Taiwan. The
-            Rest of Asia Pacific segment includes Australia and Asian countries.
-            Its products and services include iPhone, Mac, iPad, AirPods, Apple
-            TV, Apple Watch, Beats products, AppleCare, iCloud, digital content
-            stores, streaming, and licensing services. The company was founded
-            by Steven Paul Jobs, Ronald Gerald Wayne, and Stephen G. Wozniak in
-            April 1976 and is headquartered in Cupertino, CA. The listed name
-            for AAPL is Apple Inc. Common Stock.
-          </p>
+          <p className="text-xs leading-5">{stockData.intro}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-8 text-[12px] font-semibold">
             <div>
               <p className="text-gray-400 pb-2">CEO</p>
-              <p>Timothy Donald Cook</p>
+              <p>{stockData.ceo}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">Employees</p>
-              <p>161,000</p>
+              <p>{stockData.employees}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">Headquarters</p>
-              <p>Cupertino, California</p>
+              <p>{stockData.headquarters}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">Founded</p>
-              <p>1976</p>
+              <p>{stockData.founded}</p>
             </div>
           </div>
         </div>
@@ -76,7 +66,7 @@ const StockInfoPanel = ({ generalData, selectToken }) => {
           <div className="grid grid-cols-4 gap-4 mt-4 w-[100%] text-[12px] font-semibold">
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Market cap</p>
-              <p>2.80T</p>
+              <p>{stockData.marketCapitalization}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Price-Earnings ratio</p>
@@ -88,15 +78,15 @@ const StockInfoPanel = ({ generalData, selectToken }) => {
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Average volume</p>
-              <p>73.83M</p>
+              <p>{stockData.regularMarketVolume * 2}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">High today</p>
-              <p>$183.05</p>
+              <p>${stockData.regularMarketDayHigh}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Low today</p>
-              <p>$181.46</p>
+              <p>${stockData.regularMarketDayLow}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Open price</p>
@@ -108,11 +98,11 @@ const StockInfoPanel = ({ generalData, selectToken }) => {
             </div>
             <div>
               <p className="text-gray-400 pb-2">52 Week high</p>
-              <p>$199.62</p>
+              <p>${stockData.fiftyTwoWeekHigh}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">52 Week low</p>
-              <p>$164.08</p>
+              <p>${stockData.fiftyTwoWeekLow}</p>
             </div>
           </div>
         </div>

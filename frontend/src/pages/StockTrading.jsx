@@ -6,8 +6,8 @@ import TradingArea from "../components/trading/TradingArea";
 import TradeSelect from "../components/trading/TradeSelect";
 import backArrow from "../assets/back-arrow.png";
 import StockTradeLiveDataBar from "../components/trading/stock/StockTradeLiveDataBar";
-import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
 import StockInfoPanel from "../components/trading/stock/StockInfoPanel";
+import StockTradingHorizontalMarketBar from "../components/widgets/StockTradingHorizontalMarketBar";
 
 const StockTradingPage = () => {
   const navigate = useNavigate();
@@ -161,6 +161,26 @@ const StockTradingPage = () => {
     navigate(-1);
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/stocks/general", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
+
+        const stocksDetails = await response.json();
+
+        setGeneralData(stocksDetails);
+      } catch (error) {
+        console.error("Error fetching crypto data: ", error);
+      }
+    };
+
+    fetchData();
+  }, [selectToken]);
+
   return (
     <>
       {!loading && (
@@ -242,11 +262,11 @@ const StockTradingPage = () => {
             <div>
               <StockInfoPanel
                 generalData={generalData}
-                selectToken={selectToken[0]}
+                selectToken={selectToken}
               />
             </div>
             <div>
-              <CryptoTradingHorizontalMarketBar />
+              <StockTradingHorizontalMarketBar generalData={generalData} />
             </div>
           </div>
         </div>
