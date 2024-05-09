@@ -26,7 +26,7 @@ const StockTradeLiveDataBar = ({ selectToken, tokenDataSet, onOpen }) => {
           className="w-full flex flex-row justify-between items-center text-sm font-semibold bg-transparent text-black border-1 border-gray-300"
         >
           <p className="flex flex-row gap-3">
-            <img src={selectToken[1]} alt="" className="w-5" />
+            {/* <img src={selectToken[1]} alt="" className="w-5" /> */}
             {selectToken[0].toUpperCase()}
           </p>
           <img src={downArrow} alt="" className="w-5" />

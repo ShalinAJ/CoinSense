@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
+import axios from "axios";
 
-const StockChart = ({ chartData, interval }) => {
+const StockChart = ({ chartData }) => {
   const chartRef = useRef();
   const [chartInstance, setChartInstance] = useState(null);
 
