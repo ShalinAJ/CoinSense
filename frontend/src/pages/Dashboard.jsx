@@ -233,7 +233,14 @@ const DashboardPage = () => {
             </div>
             <div className="flex flex-row justify-between">
               <div className="w-[48.5%]">
-                <UserMarketOptions tradeData={tradeData} />
+                <UserMarketOptions
+                  tradeData={tradeData}
+                  url={[
+                    "/dashboard/investment/crypto-trading",
+                    "/dashboard/investment/stock-trading",
+                    "/dashboard/investment/forex-trading",
+                  ]}
+                />
               </div>
               <div className="w-[48.5%] h-[23rem] flex flex-col gap-5">
                 <WalletWidget />

@@ -71,24 +71,6 @@ const StockTradeLiveDataBar = ({ selectToken, tokenDataSet, onOpen }) => {
             }).format(volume)}
           </p>
         </div>
-        <div className="flex flex-col  items-center gap-[2.8px]">
-          <p className="text-[10px]">Avg. daily volume</p>
-          <p className="font-normal">
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(avgVolume)}
-          </p>
-        </div>
-        <div className="flex flex-col text-[11px] items-center gap-[2.8px] pr-3">
-          <p className="text-[10px]">Open</p>
-          <p className="font-normal">
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "USD",
-            }).format(open)}
-          </p>
-        </div>
         <div className="flex flex-col text-[11px] items-center gap-[2.8px] pr-3">
           <p className="text-[10px]">Day High</p>
           <p className="font-normal">

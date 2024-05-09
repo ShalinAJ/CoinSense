@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { json } from "react-router-dom";
-import deleteImg from "../../../assets/delete.png";
+import deleteImg from "../../assets/delete.png";
 
 const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
   const [openOrders, setOpenOrders] = useState(null);

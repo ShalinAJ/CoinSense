@@ -132,7 +132,14 @@ const InvestmentsPage = () => {
           />
         </div>
         <div className="w-[48.5%]">
-          <UserMarketOptions tradeData={tradeData} />
+          <UserMarketOptions
+            tradeData={tradeData}
+            url={[
+              "../investment/crypto-trading",
+              "../investment/stock-trading",
+              "../investment/forex-trading",
+            ]}
+          />
         </div>
       </div>
       <HorizontalMarketBar />

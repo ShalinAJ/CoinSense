@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const UserMarketOptions = ({ tradeData }) => {
+const UserMarketOptions = ({ tradeData, url }) => {
   return (
     <div className="p-5 rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[23rem]">
       <div className="pt-3 px-2">
@@ -10,7 +10,7 @@ const UserMarketOptions = ({ tradeData }) => {
         </p>
         <div className="flex flex-col">
           <Link
-            to={"../investment/crypto-trading"}
+            to={url[0]}
             className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center mt-3 mb-2 hover:bg-coinsense-blue hover:text-white duration-300"
           >
             <p className="text-sm pl-4">Crypto Currency</p>
@@ -23,7 +23,7 @@ const UserMarketOptions = ({ tradeData }) => {
             </p>
           </Link>
           <Link
-            to={"../investment/stock-trading"}
+            to={url[1]}
             className="text-black rounded-full p-4 box-shadow bg-transparent border-[1px] border-[#152DFF] flex flex-row justify-between items-center my-2 hover:bg-coinsense-blue hover:text-white duration-300"
           >
             <p className="text-sm pl-4">Stock Market</p>

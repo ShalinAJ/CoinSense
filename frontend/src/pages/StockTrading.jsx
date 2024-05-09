@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import StockChart from "../charts/StockChart";
 import axios from "axios";
-import TradingArea from "../components/trading/crypto/CryptoTradingArea";
-import TradeSelect from "../components/trading/crypto/CryptoTradeSelect";
+import TradingArea from "../components/trading/TradingArea";
+import TradeSelect from "../components/trading/TradeSelect";
 import backArrow from "../assets/back-arrow.png";
 import StockTradeLiveDataBar from "../components/trading/stock/StockTradeLiveDataBar";
 import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
+import StockInfoPanel from "../components/trading/stock/StockInfoPanel";
 
 const StockTradingPage = () => {
   const navigate = useNavigate();
@@ -14,8 +15,8 @@ const StockTradingPage = () => {
   const { topups, orderHistory } = useLoaderData();
   const { openOrders } = useLoaderData();
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
-  const [currentPrice, setCurrentPrice] = useState(0);
   const [investedTotal, setInvestedTotal] = useState(0);
+  const [generalData, setGeneralData] = useState();
   const [tokenDataSet, setTokenDataSet] = useState({
     price: 0,
     change: 0,
@@ -46,7 +47,47 @@ const StockTradingPage = () => {
   });
 
   useEffect(() => {
+    async function orderHistoryDataHandler() {
+      const orderHistoryData = await orderHistory;
+
+      let totalAmount = 0;
+
+      if (Array.isArray(orderHistoryData)) {
+        let filteredOrders = orderHistoryData.filter(
+          (order) => order.status === "Stock"
+        );
+
+        if (Array.isArray(filteredOrders)) {
+          filteredOrders.forEach((item) => {
+            if (item.transactionType == "buy") {
+              totalAmount += item.amount * item.price;
+            } else {
+              totalAmount -= item.amount * item.price;
+            }
+          });
+        }
+
+        setInvestedTotal(totalAmount);
+      }
+    }
+
+    orderHistoryDataHandler();
+
     const fetchData = async () => {
+      //Generla data for stocks
+      // try {
+      //   const response = await fetch("URL", {
+      //     headers: {
+      //       Authorization: `Bearer ${userInfo.token}`,
+      //     },
+      //   });
+
+      //   const stockDetails = await response.json();
+
+      //   setGeneralData(stockDetails);
+      // } catch (error) {
+      //   console.error("Error fetching crypto data: ", error);
+      // }
       try {
         const response = await axios.get(`http://localhost:4000/stock-data`, {
           params: {
@@ -107,7 +148,7 @@ const StockTradingPage = () => {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 2000);
+    const intervalId = setInterval(fetchData, 1000);
 
     return () => clearInterval(intervalId);
   }, [selectToken, tradingInterval]);
@@ -122,6 +163,14 @@ const StockTradingPage = () => {
 
   return (
     <>
+      {!loading && (
+        <TradeSelect
+          isOpen={modalOpen}
+          onClose={() => setModalOpen(false)}
+          cryptoData={generalData}
+          tokenHandler={tokenHandler}
+        />
+      )}
       {!loading && (
         <div className="w-[80%] h-[max-content] bg-white">
           <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
@@ -169,13 +218,11 @@ const StockTradingPage = () => {
                 defaultValue={tradingInterval}
                 className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
               >
+                <option value="1h">4H</option>
                 <option value="1d">1D</option>
                 <option value="1wk">1W</option>
                 <option value="1mo">1M</option>
                 <option value="3mo">3M</option>
-                <option value="6mo">6M</option>
-                <option value="1y">1Y</option>
-                <option value="5y">5Y</option>
               </select>
             </div>
 
@@ -185,12 +232,17 @@ const StockTradingPage = () => {
             <hr />
             <div>
               <TradingArea
-                currentPrice={currentPrice}
                 topups={topups}
                 orderHistoryData={orderHistory}
                 openOrdersData={openOrders}
                 selectToken={selectToken.toUpperCase()}
                 investedTotal={investedTotal}
+              />
+            </div>
+            <div>
+              <StockInfoPanel
+                generalData={generalData}
+                selectToken={selectToken[0]}
               />
             </div>
             <div>

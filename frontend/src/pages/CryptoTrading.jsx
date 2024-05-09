@@ -2,8 +2,8 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import CryptoChart from "../charts/CryptoChart";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import TradingArea from "../components/trading/crypto/CryptoTradingArea";
-import TradeSelect from "../components/trading/crypto/CryptoTradeSelect";
+import TradingArea from "../components/trading/TradingArea";
+import TradeSelect from "../components/trading/TradeSelect";
 import backArrow from "../assets/back-arrow.png";
 import TradeLiveDataBar from "../components/trading/crypto/CryptoTradeLiveDataBar";
 import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
@@ -49,16 +49,22 @@ const CryptoTradingPage = () => {
       let totalAmount = 0;
 
       if (Array.isArray(orderHistoryData)) {
-        orderHistoryData.forEach((item) => {
-          if (item.transactionType == "buy") {
-            totalAmount += item.amount * item.price;
-          } else {
-            totalAmount -= item.amount * item.price;
-          }
-        });
-      }
+        let filteredOrders = orderHistoryData.filter(
+          (order) => order.status === "Crypto"
+        );
 
-      setInvestedTotal(totalAmount);
+        if (Array.isArray(filteredOrders)) {
+          filteredOrders.forEach((item) => {
+            if (item.transactionType == "buy") {
+              totalAmount += item.amount * item.price;
+            } else {
+              totalAmount -= item.amount * item.price;
+            }
+          });
+        }
+
+        setInvestedTotal(totalAmount);
+      }
     }
 
     orderHistoryDataHandler();

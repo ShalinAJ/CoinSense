@@ -27,7 +27,7 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
               className="w-5 h-5"
             />
             <div className="flex flex-row items-baseline gap-2">
-              <p className="text-lg font-semibold">{coinData.id}</p>
+              <p className="text-lg font-medium">{coinData.id}</p>
               <p className="text-xs text-gray-400">{coinData.symbol}</p>
             </div>
           </div>
@@ -95,7 +95,7 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
           </div>
           <div className="flex flex-col gap-2 mt-7">
             <p className="text-sm font-semibold">Intro</p>
-            <p className="text-xs leading-6">{coinData.intro}</p>
+            <p className="text-xs leading-5">{coinData.intro}</p>
           </div>
         </div>
       </div>
