@@ -266,7 +266,10 @@ const StockTradingPage = () => {
               />
             </div>
             <div>
-              <StockTradingHorizontalMarketBar generalData={generalData} />
+              <StockTradingHorizontalMarketBar
+                generalData={generalData}
+                tradingInterval={tradingInterval}
+              />
             </div>
           </div>
         </div>
