@@ -24,16 +24,16 @@ const TradingArea = ({
         <div className="flex flex-row justify-between pb-7 text-xs">
           <div className="flex flex-row gap-3">
             <NavLink
-              className={`${classes.navLink} ${
-                tradeType === "buy" ? classes.active : ""
+              className={`${classes.buy} ${
+                tradeType === "buy" ? classes.buy_active : ""
               }`}
               onClick={() => setTradeType("buy")}
             >
               Buy
             </NavLink>
             <NavLink
-              className={`${classes.navLink} ${
-                tradeType === "sell" ? classes.active : ""
+              className={`${classes.sell} ${
+                tradeType === "sell" ? classes.sell_active : ""
               }`}
               onClick={() => setTradeType("sell")}
             >

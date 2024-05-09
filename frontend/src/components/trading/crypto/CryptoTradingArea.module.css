@@ -16,6 +16,31 @@ li {
   padding: 8px 0 8px 0;
 }
 
+.buy {
+  color: #02b15a;
+  background-color: none;
+  padding: 5px 15px 5px 15px;
+  border-radius: 150px;
+  border: solid 1px #02b15a;
+}
+
+.sell {
+  color: #ff0000;
+  background-color: none;
+  padding: 5px 15px 5px 15px;
+  border-radius: 150px;
+  border: solid 1px #ff0000;
+}
+
+.buy_active {
+  color: #02b15a;
+  background: #bcffde;
+}
+
+.sell_active {
+  color: #ff0000;
+  background: #ff00001f;
+}
 a.active {
   color: #fff;
   background: #152dff;
