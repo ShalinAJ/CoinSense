@@ -122,6 +122,19 @@ const TradingForm = ({
     window.location.reload();
   };
 
+  let tradingWalletRemaining = tradeWalletData;
+
+  if (Array.isArray(orderHistory)) {
+    orderHistory.forEach((item) => {
+      if (item.transactionType == "buy") {
+        tradingWalletRemaining -= item.amount * item.price;
+      }
+      if (item.transactionType == "sell") {
+        tradingWalletRemaining += item.amount * item.price;
+      }
+    });
+  }
+
   return (
     <Form onSubmit={handleSubmit}>
       <div className="flex flex-col pb-5">
@@ -153,7 +166,7 @@ const TradingForm = ({
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
-            }).format(tradeWalletData - investedTotal)}
+            }).format(tradingWalletRemaining)}
           </p>
         </div>
         <div className="flex flex-row items-center text-xs font-semibold gap-2">
