@@ -153,7 +153,7 @@ const TradingForm = ({
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "USD",
-            }).format(investedTotal + tradeWalletData)}
+            }).format(tradeWalletData - investedTotal)}
           </p>
         </div>
         <div className="flex flex-row items-center text-xs font-semibold gap-2">

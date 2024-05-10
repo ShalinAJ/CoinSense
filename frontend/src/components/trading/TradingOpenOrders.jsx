@@ -79,7 +79,6 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
     async function processOpenOrders(openOrders) {
       if (Array.isArray(openOrders)) {
         for (const item of openOrders) {
-          console.log(item);
           if (!item.processed) {
             try {
               const currentPrice = await getCurrentPrice(item.name);
@@ -118,6 +117,22 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
     }
     processOpenOrders(openOrders);
   }, [currentPriceData]);
+
+  const deleteBtnHandler = async (_id) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const openOrder = await fetch("http://localhost:4000/openorder/" + _id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
+
+    if (!openOrder.ok) {
+      throw json({ message: "Could not delete." }, { status: 500 });
+    } else {
+      location.reload();
+    }
+  };
 
   return (
     <div className="px-1 my-3">
@@ -162,7 +177,10 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
                       >
                         {order.transactionType}
                       </p>
-                      <button className="bg-transparent border-0 p-0 ml-1">
+                      <button
+                        onClick={() => deleteBtnHandler(order._id)}
+                        className="bg-transparent border-0 p-0 ml-1"
+                      >
                         <img src={deleteImg} alt="" className="w-[15px]" />
                       </button>
                     </div>
