@@ -27,6 +27,8 @@ const StockTradingPage = () => {
     previousClose: 0,
     dayHigh: 0,
     dayLow: 0,
+    fiftyTwoWeekHigh: 0,
+    fiftyTwoWeekLow: 0,
   });
   const [tradingInterval, setTradingInterval] = useState("1d");
   const [modalOpen, setModalOpen] = useState(false);
@@ -118,6 +120,8 @@ const StockTradingPage = () => {
           previousClose: previousClose.toFixed(2),
           dayHigh: stockInfo.regularMarketDayHigh || 0,
           dayLow: stockInfo.regularMarketDayLow || 0,
+          fiftyTwoWeekHigh: stockInfo.fiftyTwoWeekHigh || 0,
+          fiftyTwoWeekLow: stockInfo.fiftyTwoWeekLow || 0,
         });
 
         const labels = data.timestamp.map((timestamp) =>
@@ -264,6 +268,7 @@ const StockTradingPage = () => {
               <StockInfoPanel
                 generalData={generalData}
                 selectToken={selectToken}
+                tokenDataSet={tokenDataSet}
               />
             </div>
             <div>
