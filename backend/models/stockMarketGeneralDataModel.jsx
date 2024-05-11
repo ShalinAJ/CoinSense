@@ -42,6 +42,21 @@ const stockMarketGeneralDataSchema = new Schema({
   weburl: {
     type: String,
   },
+  intro: {
+    type: String,
+  },
+  ceo: {
+    type: String,
+  },
+  founded: {
+    type: String,
+  },
+  employees: {
+    type: String,
+  },
+  headquarters: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model(

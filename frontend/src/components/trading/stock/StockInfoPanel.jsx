@@ -1,9 +1,9 @@
 import React from "react";
 
-const StockInfoPanel = ({ generalData, selectToken }) => {
+const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
   let stockData;
 
-  if (generalData && selectToken) {
+  if (generalData && selectToken && tokenDataSet) {
     stockData = generalData.filter(
       (data) => data.ticker.toUpperCase() == selectToken.toUpperCase()
     )[0];
@@ -12,7 +12,7 @@ const StockInfoPanel = ({ generalData, selectToken }) => {
     return null;
   }
 
-  if (!stockData) {
+  if (!stockData || !tokenDataSet) {
     console.log("Error");
     return null;
   }
@@ -68,41 +68,34 @@ const StockInfoPanel = ({ generalData, selectToken }) => {
               <p className="text-gray-400 pb-2">Market cap</p>
               <p>{stockData.marketCapitalization}</p>
             </div>
+
             <div className="pb-6">
-              <p className="text-gray-400 pb-2">Price-Earnings ratio</p>
-              <p>28.36</p>
+              <p className="text-gray-400 pb-2">Change</p>
+              <p>{tokenDataSet.change}</p>
             </div>
             <div className="pb-6">
-              <p className="text-gray-400 pb-2">Dividend yield</p>
-              <p>0.53%</p>
-            </div>
-            <div className="pb-6">
-              <p className="text-gray-400 pb-2">Average volume</p>
-              <p>{stockData.regularMarketVolume * 2}</p>
+              <p className="text-gray-400 pb-2">Change Precentage</p>
+              <p>{tokenDataSet.changePercentage}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">High today</p>
-              <p>${stockData.regularMarketDayHigh}</p>
+              <p>${tokenDataSet.dayHigh}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Low today</p>
-              <p>${stockData.regularMarketDayLow}</p>
-            </div>
-            <div className="pb-6">
-              <p className="text-gray-400 pb-2">Open price</p>
-              <p>$182.88</p>
+              <p>${tokenDataSet.dayLow}</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Volume</p>
-              <p>45.06M</p>
+              <p>{tokenDataSet.volume}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">52 Week high</p>
-              <p>${stockData.fiftyTwoWeekHigh}</p>
+              <p>${tokenDataSet.fiftyTwoWeekHigh}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">52 Week low</p>
-              <p>${stockData.fiftyTwoWeekLow}</p>
+              <p>${tokenDataSet.fiftyTwoWeekLow}</p>
             </div>
           </div>
         </div>
