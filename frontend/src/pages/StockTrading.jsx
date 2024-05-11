@@ -33,7 +33,10 @@ const StockTradingPage = () => {
   const [tradingInterval, setTradingInterval] = useState("1d");
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [selectToken, setSelectToken] = useState("AAPL");
+  const [selectToken, setSelectToken] = useState([
+    "AAPL",
+    "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png",
+  ]);
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -92,7 +95,7 @@ const StockTradingPage = () => {
       try {
         const response = await axios.get(`http://localhost:4000/stock-data`, {
           params: {
-            symbol: selectToken,
+            symbol: selectToken[0],
             range: "1y",
             interval: tradingInterval,
           },
@@ -129,7 +132,7 @@ const StockTradingPage = () => {
         const prices = data.indicators.quote[0].close;
 
         setChartData({
-          labels: labels.slice(0, 250), // Data points for 1y interval
+          labels: labels.slice(0, 250),
           datasets: [
             {
               label: "AAPL Price",
@@ -157,7 +160,11 @@ const StockTradingPage = () => {
   }, [selectToken, tradingInterval]);
 
   const tokenHandler = (token) => {
-    setSelectToken(token.symbol);
+    if (!token.symbol) {
+      setSelectToken([token.ticker, token.logo]);
+    } else {
+      setSelectToken(token.symbol);
+    }
   };
 
   const prevPage = () => {
@@ -227,7 +234,7 @@ const StockTradingPage = () => {
           </div>
           <div className="px-[28px] ">
             <StockTradeLiveDataBar
-              selectToken={generalData}
+              selectToken={selectToken}
               tokenDataSet={tokenDataSet}
               onOpen={() => setModalOpen(true)}
             />
@@ -255,12 +262,12 @@ const StockTradingPage = () => {
             </div>
             <hr />
             <div>
-              {console.log(selectToken)}
               <TradingArea
+                currentPrice={tokenDataSet.price}
                 topups={topups}
                 orderHistoryData={orderHistory}
                 openOrdersData={openOrders}
-                selectToken={selectToken}
+                selectToken={selectToken[0]}
                 investedTotal={investedTotal}
                 orderType={"Stock"}
               />

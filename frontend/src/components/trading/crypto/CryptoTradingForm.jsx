@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 
-const TradingForm = ({
+const CryptoTradingForm = ({
   currentPrice,
   tradeAmountType,
   transactionType,
@@ -53,7 +53,7 @@ const TradingForm = ({
       setTradeType();
       setDisableInput(false);
     }
-  }, [tradeAmountType, currentPrice]);
+  }, [tradeAmountType, currentPrice, totalAmount, inputTotal]);
 
   useEffect(() => {
     if (transactionType == "buy") {
@@ -197,4 +197,4 @@ const TradingForm = ({
   );
 };
 
-export default TradingForm;
+export default CryptoTradingForm;

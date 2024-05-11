@@ -10,7 +10,7 @@ const TradeSelect = ({
   const closeModal = () => {
     onClose();
   };
-
+  console.log(cryptoData);
   return (
     <>
       <div

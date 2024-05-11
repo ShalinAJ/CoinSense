@@ -4,16 +4,13 @@ const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
   let stockData;
 
   if (generalData && selectToken && tokenDataSet) {
-    stockData = generalData.filter(
-      (data) => data.ticker.toUpperCase() == selectToken.toUpperCase()
-    )[0];
+    stockData = generalData.filter((data) => data.ticker == selectToken)[0];
   } else {
     console.log("Error");
     return null;
   }
 
   if (!stockData || !tokenDataSet) {
-    console.log("Error");
     return null;
   }
 

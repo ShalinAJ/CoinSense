@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import TradingForm from "./TradingForm";
 import classes from "./TradingArea.module.css";
 import TradingOrderHistory from "./TradingOrderHistory";
 import TradingOpenOrders from "./TradingOpenOrders";
+import CryptoTradingForm from "./crypto/CryptoTradingForm";
+import StockTradingForm from "./stock/StockTradingForm";
 
 const TradingArea = ({
   currentPrice,
@@ -60,15 +61,33 @@ const TradingArea = ({
             </NavLink>
           </div>
         </div>
-        <TradingForm
-          currentPrice={currentPrice}
-          tradeAmountType={tradeAmountType}
-          transactionType={tradeType}
-          topups={topups}
-          selectToken={selectToken}
-          investedTotal={investedTotal}
-          orderHistoryData={orderHistoryData}
-        />
+        {orderType === "Crypto" && (
+          <>
+            <CryptoTradingForm
+              currentPrice={currentPrice}
+              tradeAmountType={tradeAmountType}
+              transactionType={tradeType}
+              topups={topups}
+              selectToken={selectToken}
+              investedTotal={investedTotal}
+              orderHistoryData={orderHistoryData}
+            />
+          </>
+        )}
+
+        {orderType === "Stock" && (
+          <>
+            <StockTradingForm
+              currentPrice={currentPrice}
+              tradeAmountType={tradeAmountType}
+              transactionType={tradeType}
+              topups={topups}
+              selectToken={selectToken}
+              investedTotal={investedTotal}
+              orderHistoryData={orderHistoryData}
+            />
+          </>
+        )}
       </div>
       <div className="w-[48.5%]">
         <div className="border rounded-3xl p-3 h-[23rem]">
