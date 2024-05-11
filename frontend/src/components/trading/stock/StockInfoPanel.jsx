@@ -3,6 +3,7 @@ import React from "react";
 const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
   let stockData;
 
+
   if (generalData && selectToken && tokenDataSet) {
     stockData = generalData.filter((data) => data.ticker == selectToken)[0];
   } else {

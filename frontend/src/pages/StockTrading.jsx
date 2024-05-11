@@ -275,7 +275,7 @@ const StockTradingPage = () => {
             <div>
               <StockInfoPanel
                 generalData={generalData}
-                selectToken={selectToken}
+                selectToken={selectToken[0]}
                 tokenDataSet={tokenDataSet}
               />
             </div>
