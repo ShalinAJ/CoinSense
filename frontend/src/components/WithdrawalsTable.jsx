@@ -1,20 +1,22 @@
 import React from "react";
 
-const TopupsTable = ({ tradingWallet }) => {
+const WithdrawalsTable = ({ tradingWallet }) => {
   return (
     <div className="overflow-y-auto max-h-[18rem]">
       <table className="w-[100%]">
         <tbody>
           <tr className="text-xs leading-[25px]">
             <th className="text-left font-normal">Date</th>
-            <th className="text-center font-normal">Card used for top-up</th>
+            <th className="text-center font-normal">
+              Card used for Withdrawal
+            </th>
             <th className="text-right font-normal pr-3">Amount</th>
           </tr>
 
           {Array.isArray(tradingWallet) &&
             tradingWallet.length > 0 &&
             tradingWallet
-              .filter((transaction) => transaction.status === "topup")
+              .filter((transaction) => transaction.status === "withdraw")
               .map((transaction, index) => (
                 <tr
                   key={index}
@@ -53,4 +55,4 @@ const TopupsTable = ({ tradingWallet }) => {
   );
 };
 
-export default TopupsTable;
+export default WithdrawalsTable;

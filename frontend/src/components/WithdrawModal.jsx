@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Form } from "react-router-dom";
 
-const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
+const WithdrawModal = ({ isOpen, onClose, totalAmount, walletCards }) => {
   const [selectedCard, setSelectedCard] = useState({});
   const [amount, setAmount] = useState(0);
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (selectedCard.cardbalance <= 0 || amount > selectedCard.cardbalance) {
+    if (totalAmount <= 0 || amount > totalAmount) {
       setError(true);
     } else {
       setError(false);
@@ -40,7 +40,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
         <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
           <div className="w-[100%] leading-6">
             <div className="flex flex-wrap justify-between items-center pt-2">
-              <h2 className="font-semibold">Top up trading wallet</h2>
+              <h2 className="font-semibold">Withdraw from trading wallet</h2>
               <button
                 className="bg-white border-none pr-0 text-black hover:text-red-500"
                 onClick={closeModal}
@@ -66,7 +66,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
               </div>
               <div className="my-1 flex flex-row items-center">
                 <label htmlFor="" className="flex flex-row">
-                  Card used for top up
+                  Card used for withdrawal
                   <section className="text-red-600">*</section> :{" "}
                 </label>
                 <select
@@ -99,7 +99,12 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
                   id="cardbalance"
                   value={selectedCard.cardbalance}
                 />
-                <input type="hidden" name="status" id="status" value="topup" />
+                <input
+                  type="hidden"
+                  name="status"
+                  id="status"
+                  value="withdraw"
+                />
               </div>
               <div className="flex justify-between">
                 <div>
@@ -112,7 +117,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
                       ></div>
                       <p className="text-[10px] mt-8 py-1">
                         {selectedCard.cardNumber &&
-                          `Top up will be done from card ${selectedCard.cardNumber.slice(
+                          `Withdrawal will be done to card ${selectedCard.cardNumber.slice(
                             12,
                             16
                           )}`}
@@ -128,10 +133,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
                       ></div>
                       <p className="text-[10px] mt-8 py-1 text-red-500">
                         {selectedCard.cardNumber &&
-                          `Insufficient balance in card ${selectedCard.cardNumber.slice(
-                            12,
-                            16
-                          )}`}
+                          `Insufficient balance in trading wallet`}
                       </p>
                     </div>
                   )}
@@ -152,4 +154,4 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
   );
 };
 
-export default TopupWalletModal;
+export default WithdrawModal;

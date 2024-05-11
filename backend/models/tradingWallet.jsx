@@ -12,6 +12,10 @@ const tradingWalletSchema = new Schema(
       type: Number,
       require: true,
     },
+    status: {
+      type: String,
+      require: true,
+    },
     user_id: {
       type: String,
       require: true,

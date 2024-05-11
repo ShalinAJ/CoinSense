@@ -9,18 +9,19 @@ import {
 } from "react-router-dom";
 import backArrow from "../assets/back-arrow.png";
 import infoImg from "../assets/info.png";
-import TopupsTable from "../components/TopupsTable";
+import Topups from "../components/Topups";
 import TopupWalletModal from "../components/TopupWalletModal";
 import TradingOrderHistory from "../components/trading/TradingOrderHistory";
+import WithdrawModal from "../components/WithdrawModal";
 
 const TradingWalletPage = ({}) => {
   const { topups, wallets, orderHistory } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
   const [topupdata, setTopupData] = useState();
-  const navigate = useNavigate();
-  const [cocollogLogo, setCocollogLogo] = useState("");
+  const [modalType, setModalType] = useState();
   const [orderHistoryData, setOrderHistoryData] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchOrderHistoryData() {
@@ -32,48 +33,6 @@ const TradingWalletPage = ({}) => {
   }, [orderHistory]);
 
   useEffect(() => {
-    async function fetchCocollogLogo() {
-      try {
-        const response = await fetch(
-          `https://query2.finance.yahoo.com/v7/finance/quote?symbols=AAPL`
-        );
-        const logoDetails = await response.json();
-
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const logoUrl = logoDetails.quoteResponse.result[0].logo;
-        console.log(logoUrl);
-        setCocollogLogo(logoUrl);
-      } catch (error) {
-        console.error("Error fetching logo:", error);
-      }
-    }
-
-    fetchCocollogLogo();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const logoResponse = await fetch(
-          `https://query2.finance.yahoo.com/v7/finance/quote?symbols=${selectToken}`
-        );
-        const logoDetails = await logoResponse.json();
-
-        if (!logoResponse.ok) {
-          throw new Error("Network response was not ok");
-        }
-
-        const logoUrl = logoDetails.quoteResponse.result[0].logo;
-
-        // Process logoUrl, then update state
-      } catch (error) {
-        console.error("Error fetching logo:", error);
-      }
-    };
-
     async function walletCountHandler() {
       const walletList = await wallets;
       const cards = walletList.map((wallet) => ({
@@ -100,8 +59,13 @@ const TradingWalletPage = ({}) => {
 
   if (Array.isArray(topupdata)) {
     topupdata.forEach((item) => {
-      totalAmount += item.amount;
-      entries++;
+      if (item.status === "topup") {
+        totalAmount += item.amount;
+        entries++;
+      } else if (item.status === "withdraw") {
+        totalAmount -= item.amount;
+        entries++;
+      }
     });
   }
 
@@ -115,9 +79,15 @@ const TradingWalletPage = ({}) => {
     });
   }
 
-  const openModal = () => {
+  function topupHandler() {
+    setModalType("top-up");
     setModalOpen(true);
-  };
+  }
+
+  function withdrawHandler() {
+    setModalType("withdraw");
+    setModalOpen(true);
+  }
 
   const closeModal = () => {
     setModalOpen(false);
@@ -129,17 +99,39 @@ const TradingWalletPage = ({}) => {
 
   return (
     <>
-      <Suspense>
-        <Await>
-          {() => (
-            <TopupWalletModal
-              walletCards={walletList}
-              isOpen={modalOpen}
-              onClose={closeModal}
-            />
-          )}
-        </Await>
-      </Suspense>
+      {modalType === "top-up" && (
+        <>
+          <Suspense>
+            <Await>
+              {() => (
+                <TopupWalletModal
+                  walletCards={walletList}
+                  isOpen={modalOpen}
+                  onClose={closeModal}
+                />
+              )}
+            </Await>
+          </Suspense>
+        </>
+      )}
+
+      {modalType === "withdraw" && (
+        <>
+          <Suspense>
+            <Await>
+              {() => (
+                <WithdrawModal
+                  totalAmount={totalAmount}
+                  walletCards={walletList}
+                  isOpen={modalOpen}
+                  onClose={closeModal}
+                />
+              )}
+            </Await>
+          </Suspense>
+        </>
+      )}
+
       <div className="w-[80%] h-[max-content] px-[28px] bg-white">
         <div className="flex items-start justify-between  pt-[29px]">
           <div>
@@ -160,28 +152,32 @@ const TradingWalletPage = ({}) => {
             <div className="flex flex-row text-sm font-medium gap-3 items-center w-[35%] ml-2">
               <p className="font-normal">Trading wallet balance :</p>
               <p className="font-semibold">
-                {totalAmount
-                  ? new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(totalAmount)
-                  : "--"}
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(totalAmount)}
               </p>
             </div>
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-            <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[35%]">
+            <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[30%]">
               <p className="font-normal">total top-ups :</p>
               <p className="bg-coinsense-blue text-white px-2 rounded-lg">
                 {entries}
               </p>
             </div>
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-            <div className="w-[30%] flex flex-row justify-end">
+            <div className="w-[35%] flex flex-row justify-end gap-1">
               <button
-                onClick={openModal}
-                className="bg-[#152DFF] text-white text-xs px-[5rem] mr-2 hover:bg-coinsense-blue-darker"
+                onClick={withdrawHandler}
+                className="border-[#152DFF] bg-transparent text-coinsense-blue text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker hover:text-white"
               >
-                Top-up trading wallet
+                Withdraw
+              </button>
+              <button
+                onClick={topupHandler}
+                className="bg-[#152DFF] text-white text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker"
+              >
+                Top up
               </button>
             </div>
           </div>
@@ -192,7 +188,7 @@ const TradingWalletPage = ({}) => {
               fallback={<p className="text-sm font-medium p-5">Loading...</p>}
             >
               <Await resolve={topups}>
-                {(topupdata) => <TopupsTable tradingWallet={topupdata} />}
+                {(topupdata) => <Topups tradingWallet={topupdata} />}
               </Await>
             </Suspense>
           </div>
@@ -221,13 +217,13 @@ export async function action({ request }) {
   const user = JSON.parse(localStorage.getItem("user"));
   const cardId = data.get("cardId");
   const cardbalance = data.get("cardbalance");
-
-  //const date = new Date().toISOString();
   const amount = parseFloat(data.get("amount"));
+  const status = data.get("status");
 
   const topupData = {
     amount: amount,
     cardName: data.get("cardName"),
+    status: status,
   };
 
   const response = await fetch("http://localhost:4000/tradingwallet/new", {
@@ -244,17 +240,18 @@ export async function action({ request }) {
     throw json({ message: "Could not save." }, { status: 500 });
   }
 
-  const walletData = {
-    cardbalance: cardbalance - amount,
-  };
-
   const walletResponse = await fetch("http://localhost:4000/wallet/" + cardId, {
     method: "PATCH",
     headers: {
       Authorization: `Bearer ${user.token}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(walletData),
+    body: JSON.stringify({
+      cardbalance:
+        status === "topup"
+          ? parseFloat(cardbalance) - amount
+          : parseFloat(cardbalance) + amount,
+    }),
   });
 
   if (!walletResponse.ok) {

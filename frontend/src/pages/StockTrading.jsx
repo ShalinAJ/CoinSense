@@ -171,26 +171,6 @@ const StockTradingPage = () => {
     navigate(-1);
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:4000/stocks/general", {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
-
-        const stocksDetails = await response.json();
-
-        setGeneralData(stocksDetails);
-      } catch (error) {
-        console.error("Error fetching crypto data: ", error);
-      }
-    };
-
-    fetchData();
-  }, [selectToken]);
-
   return (
     <>
       {!loading && (

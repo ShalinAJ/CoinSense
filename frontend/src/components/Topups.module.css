@@ -1,0 +1,22 @@
+.tradingWallet {
+  color: #152dff;
+  background-color: none;
+  padding: 5px 15px 5px 15px;
+  border-radius: 150px;
+  border: solid 1px #152dff;
+}
+
+a {
+  font-size: 11px;
+  color: #152dff;
+  background-color: none;
+}
+
+li {
+  padding: 8px 0 8px 0;
+}
+
+a.active {
+  color: #fff;
+  background: #152dff;
+}
