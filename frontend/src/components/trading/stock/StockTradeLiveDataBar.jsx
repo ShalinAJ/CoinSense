@@ -7,17 +7,8 @@ const StockTradeLiveDataBar = ({ selectToken, tokenDataSet, onOpen }) => {
     onOpen();
   };
 
-  const {
-    price,
-    change,
-    changePercentage,
-    volume,
-    avgVolume,
-    open,
-    dayHigh,
-    dayLow,
-  } = tokenDataSet;
-
+  const { price, change, changePercentage, volume, dayHigh, dayLow } =
+    tokenDataSet;
   return (
     <div className="flex flex-row gap-4 border shadow-lg shadow-grey-500/40 p-5 justify-stretch rounded-3xl">
       <div className="w-[35%] flex flex-row items-center gap-4">
@@ -25,10 +16,10 @@ const StockTradeLiveDataBar = ({ selectToken, tokenDataSet, onOpen }) => {
           onClick={openModal}
           className="w-full flex flex-row justify-between items-center text-sm font-semibold bg-transparent text-black border-1 border-gray-300"
         >
-          <p className="flex flex-row gap-3">
-            {/* <img src={selectToken[1]} alt="" className="w-5" /> */}
-            {selectToken[0].toUpperCase()}
-          </p>
+          <div className="flex flex-row justify-center gap-3">
+            <img src={selectToken[0].logo} alt="" className="w-5" />
+            <p>{selectToken[0].ticker}</p>
+          </div>
           <img src={downArrow} alt="" className="w-5" />
         </button>
         <div className="w-[40%] flex flex-row justify-center">

@@ -159,7 +159,7 @@ const StockTradingPage = () => {
   const prevPage = () => {
     navigate(-1);
   };
-  console.log(generalData);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -223,7 +223,7 @@ const StockTradingPage = () => {
           </div>
           <div className="px-[28px] ">
             <StockTradeLiveDataBar
-              selectToken={[selectToken, tokenDataSet.price]}
+              selectToken={generalData}
               tokenDataSet={tokenDataSet}
               onOpen={() => setModalOpen(true)}
             />
@@ -251,11 +251,12 @@ const StockTradingPage = () => {
             </div>
             <hr />
             <div>
+              {console.log(selectToken)}
               <TradingArea
                 topups={topups}
                 orderHistoryData={orderHistory}
                 openOrdersData={openOrders}
-                selectToken={selectToken.toUpperCase()}
+                selectToken={selectToken}
                 investedTotal={investedTotal}
                 orderType={"Stock"}
               />

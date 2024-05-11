@@ -151,7 +151,7 @@ const TradingForm = ({
       </div>
 
       <div className="flex flex-col pb-5">
-        <label htmlFor="">Amount ({selectToken.toUpperCase()})</label>
+        <label htmlFor="">Amount ({selectToken})</label>
         <input
           type="float"
           onChange={(event) => {
@@ -171,7 +171,7 @@ const TradingForm = ({
         </div>
         <div className="flex flex-row items-center text-xs font-semibold gap-2">
           <p>
-            {totalAmount} {selectToken.toUpperCase()}
+            {totalAmount} {selectToken}
           </p>
           <p>=</p>
           <p>
