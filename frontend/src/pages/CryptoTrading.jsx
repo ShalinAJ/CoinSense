@@ -193,6 +193,7 @@ const CryptoTradingPage = () => {
           onClose={() => setModalOpen(false)}
           cryptoData={generalData}
           tokenHandler={tokenHandler}
+          orderType="Crypto"
         />
       )}
       <div className="w-[80%] h-[max-content] bg-white">
