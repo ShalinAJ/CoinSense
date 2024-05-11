@@ -1,4 +1,10 @@
-const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
+const TradeSelect = ({
+  isOpen,
+  onClose,
+  cryptoData,
+  tokenHandler,
+  orderType,
+}) => {
   if (!isOpen || !cryptoData) return null;
 
   const closeModal = () => {
@@ -34,8 +40,17 @@ const TradeSelect = ({ isOpen, onClose, cryptoData, tokenHandler }) => {
                   className="bg-transparent text-black border-1 border-gray-300"
                 >
                   <div className="flex flex-row justify-center gap-3">
-                    <img src={tokenData.image} alt="" className="w-6" />
-                    <p>{tokenData.id}</p>
+                    {orderType === "Stock" ? (
+                      <>
+                        <img src={tokenData.logo} alt="" className="w-6" />
+                        <p>{tokenData.name}</p>
+                      </>
+                    ) : (
+                      <>
+                        <img src={tokenData.image} alt="" className="w-6" />
+                        <p>{tokenData.id}</p>
+                      </>
+                    )}
                   </div>
                 </button>
               ))}

@@ -76,20 +76,19 @@ const StockTradingPage = () => {
     orderHistoryDataHandler();
 
     const fetchData = async () => {
-      //Generla data for stocks
-      // try {
-      //   const response = await fetch("URL", {
-      //     headers: {
-      //       Authorization: `Bearer ${userInfo.token}`,
-      //     },
-      //   });
+      try {
+        const response = await fetch("http://localhost:4000/stocks/general/", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
 
-      //   const stockDetails = await response.json();
+        const stockDetails = await response.json();
 
-      //   setGeneralData(stockDetails);
-      // } catch (error) {
-      //   console.error("Error fetching crypto data: ", error);
-      // }
+        setGeneralData(stockDetails);
+      } catch (error) {
+        console.error("Error fetching crypto data: ", error);
+      }
       try {
         const response = await axios.get(`http://localhost:4000/stock-data`, {
           params: {
@@ -164,7 +163,7 @@ const StockTradingPage = () => {
   const prevPage = () => {
     navigate(-1);
   };
-
+  console.log(generalData);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -193,6 +192,7 @@ const StockTradingPage = () => {
           onClose={() => setModalOpen(false)}
           cryptoData={generalData}
           tokenHandler={tokenHandler}
+          orderType={"Stock"}
         />
       )}
       {!loading && (
