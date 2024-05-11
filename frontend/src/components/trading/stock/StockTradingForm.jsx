@@ -108,7 +108,7 @@ const StockTradingForm = ({
         transactionType,
         price,
         amount: totalAmount,
-        status: "Crypto",
+        status: "Stock",
         prevPrice: +currentPrice,
         user_id,
       }),
