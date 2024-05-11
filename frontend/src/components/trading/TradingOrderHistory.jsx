@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 
-const TradingOrderHistory = ({ orderHistoryData }) => {
+const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
   const [orderHistory, setOrderHistory] = useState(null);
 
   useEffect(() => {
     async function fetchOrderHistoryData() {
       const data = await orderHistoryData;
-      setOrderHistory(data);
+      if (Array.isArray(data)) {
+        const filteredOrders = data.filter(
+          (order) => order.status === orderType
+        );
+        setOrderHistory(filteredOrders);
+      }
     }
 
     fetchOrderHistoryData();
-  }, [orderHistoryData]);
+  }, [orderHistoryData, orderType]);
 
   return (
     <div className="px-1 my-3">

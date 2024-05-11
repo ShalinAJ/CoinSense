@@ -257,6 +257,7 @@ const StockTradingPage = () => {
                 openOrdersData={openOrders}
                 selectToken={selectToken.toUpperCase()}
                 investedTotal={investedTotal}
+                orderType={"Stock"}
               />
             </div>
             <div>

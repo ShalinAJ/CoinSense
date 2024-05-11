@@ -3,17 +3,22 @@ import axios from "axios";
 import { json } from "react-router-dom";
 import deleteImg from "../../assets/delete.png";
 
-const TradingOpenOrders = ({ openOrdersData, currentPriceData }) => {
+const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
   const [openOrders, setOpenOrders] = useState(null);
 
   useEffect(() => {
-    async function fetchOpenOrdersData() {
+    async function fetchOrderHistoryData() {
       const data = await openOrdersData;
-      setOpenOrders(data);
+      if (Array.isArray(data)) {
+        const filteredOrders = data.filter(
+          (order) => order.status === orderType
+        );
+        setOpenOrders(filteredOrders);
+      }
     }
 
-    fetchOpenOrdersData();
-  }, [openOrdersData]);
+    fetchOrderHistoryData();
+  }, [openOrdersData, orderType]);
 
   async function getCurrentPrice(selectToken) {
     const dataBarResponse = await axios.get(

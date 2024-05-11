@@ -12,6 +12,7 @@ const TradingArea = ({
   openOrdersData,
   selectToken,
   investedTotal,
+  orderType,
 }) => {
   const [orderHistory, setOrderHistory] = useState("open-orders");
   const [tradeType, setTradeType] = useState("buy");
@@ -91,12 +92,16 @@ const TradingArea = ({
           </div>
           <div>
             {orderHistory === "order-history" && (
-              <TradingOrderHistory orderHistoryData={orderHistoryData} />
+              <TradingOrderHistory
+                orderHistoryData={orderHistoryData}
+                orderType={orderType}
+              />
             )}
             {orderHistory === "open-orders" && (
               <TradingOpenOrders
                 openOrdersData={openOrdersData}
                 currentPriceData={currentPrice}
+                orderType={orderType}
               />
             )}
           </div>

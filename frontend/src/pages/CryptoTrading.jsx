@@ -262,6 +262,7 @@ const CryptoTradingPage = () => {
               openOrdersData={openOrders}
               selectToken={selectToken[0].toUpperCase()}
               investedTotal={investedTotal}
+              orderType={"Crypto"}
             />
           </div>
           <div>
