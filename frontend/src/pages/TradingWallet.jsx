@@ -222,13 +222,40 @@ export async function action({ request }) {
   const status = data.get("status");
   const date = new Date(data.get("date")).toISOString();
 
-  const topupData = {
+  // add trading wallet transaction to wallet details
+  const tradingDetailsData = {
     amount: amount,
     cardName: data.get("cardName"),
     status: status,
   };
 
+  const tradingWalletDetailsResponse = await fetch(
+    "http://localhost:4000/tradingwalletdetails/new",
+    {
+      method: "POST",
+
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(tradingWalletDetailsResponse),
+    }
+  );
+
+  if (!tradingWalletDetailsResponse.ok) {
+    throw json({ message: "Could not save." }, { status: 500 });
+  }
+
   // update trading wallet
+  const topupData = {
+    amount:
+      status === "topup"
+        ? parseFloat(cardbalance) - amount
+        : parseFloat(cardbalance) + amount,
+    cardName: data.get("cardName"),
+    status: status,
+  };
+
   const response = await fetch(
     "http://localhost:4000/tradingwallet/" + account.user_id,
     {
