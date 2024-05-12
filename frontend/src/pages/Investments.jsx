@@ -4,10 +4,7 @@ import UserInvestmentsWidget from "../components/widgets/UserInvestmentsWidget";
 import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import CryptoChart from "../charts/CryptoChart";
 import axios from "axios";
-<<<<<<< HEAD
 import StockChart from "../charts/StockChart";
-=======
->>>>>>> 54c275f726477063089f2adca76898a52a7b9ba0
 
 const InvestmentsPage = () => {
   const { orderHistory, userInfo, selectToken, tradingInterval } =
