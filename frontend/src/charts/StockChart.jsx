@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
 import axios from "axios";
 
-const StockChart = ({ chartData }) => {
+const StockChart = ({ chartData, size }) => {
   const chartRef = useRef();
   const [chartInstance, setChartInstance] = useState(null);
 
@@ -55,7 +55,7 @@ const StockChart = ({ chartData }) => {
     }
   }, [chartData]);
 
-  return <canvas id="stockChart" ref={chartRef} style={{ height: "100px" }} />;
+  return <canvas id="stockChart" ref={chartRef} style={{ height: size }} />;
 };
 
 export default StockChart;

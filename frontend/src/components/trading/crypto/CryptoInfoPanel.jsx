@@ -24,7 +24,7 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
             <img
               src={coinData.image}
               alt="selected crypto image"
-              className="w-5 h-5"
+              className="w-5 h-5 rounded-md"
             />
             <div className="flex flex-row items-baseline gap-2">
               <p className="text-lg font-medium">{coinData.id}</p>

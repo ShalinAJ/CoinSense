@@ -4,14 +4,30 @@ import UserInvestmentsWidget from "../components/widgets/UserInvestmentsWidget";
 import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import CryptoChart from "../charts/CryptoChart";
 import axios from "axios";
-import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
+import StockChart from "../charts/StockChart";
 
 const InvestmentsPage = () => {
-  const { orderHistory } = useLoaderData();
-  const [tradeData, setTradeData] = useState([0, 0, 0]);
+  const { orderHistory, userInfo, selectToken, tradingInterval } =
+    useLoaderData();
+  const [tradeData, setTradeData] = useState([0, 0]);
   const [recentInvestments, setRecentInvestments] = useState([]);
   const [investmentTotal, setInvestmentTotal] = useState(0);
-  const [chartData, setChartData] = useState({
+  const [stockDataSet, setStockDataSet] = useState(0);
+  const [cryptoDataSet, setCryptoDataSet] = useState(0);
+  const [stockChartData, setStockChartData] = useState({
+    labels: [],
+    datasets: [
+      {
+        label: "AAPL Price",
+        data: [],
+        backgroundColor: "rgba(21, 45, 255, 0.1)",
+        borderColor: "rgba(21, 45, 255, 0.6)",
+        borderWidth: 2,
+        pointRadius: 2,
+      },
+    ],
+  });
+  const [cryptoChartData, setCryptoChartData] = useState({
     labels: [],
     datasets: [
       {
@@ -28,18 +44,27 @@ const InvestmentsPage = () => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCryptoData = async () => {
       try {
         const response = await axios.get(
-          "https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1d"
+          `https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1M`
         );
         const data = response.data;
-        const labels = data.map((item) =>
-          new Date(item[0]).toLocaleDateString()
-        );
-        const prices = data.map((item) => parseFloat(item[4]));
+        const labels = data
+          .map((item) => {
+            const date = new Date(item[0]);
+            return `${date.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "numeric",
+            })}`;
+          })
+          .slice(-8);
+        const prices = data.map((item) => parseFloat(item[4])).slice(-8);
+        const currentPrice = parseFloat(data.lastPrice);
+        setCryptoDataSet(currentPrice);
+        setCryptoDataSet(data[81][4]);
 
-        setChartData({
+        setCryptoChartData({
           labels,
           datasets: [
             {
@@ -49,8 +74,8 @@ const InvestmentsPage = () => {
               borderColor: "#152dffa1",
               backgroundColor: "transparent",
               tension: 0.1,
-              pointRadius: 0,
-              pointHoverRadius: 0,
+              pointRadius: 3,
+              pointHoverRadius: 3,
             },
           ],
         });
@@ -59,12 +84,64 @@ const InvestmentsPage = () => {
       }
     };
 
-    fetchData();
+    const fetchStockData = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const response = await axios.get(`http://localhost:4000/stock-data`, {
+          params: {
+            symbol: "AAPL",
+            range: "max",
+            interval: "1wk",
+          },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
-    const interval = setInterval(fetchData, 1000);
+        const data = response.data.chart.result[0];
+
+        const stockInfo = data.meta;
+        const currentPrice = stockInfo.regularMarketPrice || 0;
+
+        setStockDataSet(currentPrice.toFixed(2));
+
+        const labels = data.timestamp.slice(-8).map((timestamp) => {
+          const date = new Date(timestamp * 1000);
+          return `${date.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "numeric",
+          })}`;
+        });
+        const prices = data.indicators.quote[0].close.slice(-8);
+
+        setStockChartData({
+          labels,
+          datasets: [
+            {
+              label: "AAPL Price",
+              data: prices.map((price) => (price ? price.toFixed(2) : null)),
+              backgroundColor: "rgba(21, 45, 255, 0.1)",
+              borderColor: "rgba(21, 45, 255, 0.6)",
+              tension: 0.1,
+              pointRadius: 3,
+              pointHoverRadius: 3,
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Error fetching Bitcoin data: ", error);
+      }
+    };
+    fetchCryptoData();
+    fetchStockData();
+
+    const interval = setInterval(() => {
+      fetchStockData();
+      fetchCryptoData();
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [userInfo]);
 
   useEffect(() => {
     async function recentInvestmentChecker() {
@@ -92,23 +169,9 @@ const InvestmentsPage = () => {
             0
           );
 
-          const forexInvested = orderData.filter(
-            (order) => order.status === "Forex"
-          );
-          const forexInvestedTotal = forexInvested.reduce(
-            (acc, curr) => acc + curr.amount * curr.price,
-            0
-          );
+          setTradeData([cryptoInvestedTotal, stockInvestedTotal]);
 
-          setTradeData([
-            cryptoInvestedTotal,
-            stockInvestedTotal,
-            forexInvestedTotal,
-          ]);
-
-          setInvestmentTotal(
-            cryptoInvestedTotal + stockInvestedTotal + forexInvested
-          );
+          setInvestmentTotal(cryptoInvestedTotal + stockInvestedTotal);
           setRecentInvestments(orderData);
         }
       } catch (error) {
@@ -137,18 +200,64 @@ const InvestmentsPage = () => {
             url={[
               "../investment/crypto-trading",
               "../investment/stock-trading",
-              "../investment/forex-trading",
             ]}
           />
         </div>
       </div>
-      <div className="px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-        <div>
-          <div className="flex flex-row gap-3 pb-5 pl-1">
-            <p className="text-base font-semibold">BTC/USD</p>
-            <p className="text-base font-semibold text-[#02B15A]">+1.48%</p>
+      <div className="flex flex-row justify-between gap-10">
+        <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+          <div>
+            <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
+              <div className="flex flex-row gap-3">
+                <img
+                  src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+                  alt=""
+                  className="w-6 rounded-md"
+                />
+                <p className="text-base font-semibold">Bitcoin (BTC)</p>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold">
+                  Price per stock :{" "}
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(cryptoDataSet)}
+                </p>
+              </div>
+            </div>
+            <div>
+              <CryptoChart chartData={cryptoChartData} size={"200px"} />
+            </div>
           </div>
-          <CryptoChart chartData={chartData} />
+        </div>
+        <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+          <div>
+            <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
+              <div className="flex flex-row gap-3">
+                <img
+                  src="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png"
+                  alt=""
+                  className="w-6 rounded-md"
+                />
+                <p className="text-base font-semibold">Apple Inc (AAPL)</p>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold">
+                  Price per stock :{" "}
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(stockDataSet)}
+                </p>
+              </div>
+            </div>
+            <div>
+              <StockChart chartData={stockChartData} size={"200px"} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
