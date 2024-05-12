@@ -5,6 +5,7 @@ import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import CryptoChart from "../charts/CryptoChart";
 import axios from "axios";
 import StockChart from "../charts/StockChart";
+import DataLineWidget from "../components/widgets/DataLineWidget";
 
 const InvestmentsPage = () => {
   const { orderHistory, userInfo, selectToken, tradingInterval } =
@@ -204,6 +205,9 @@ const InvestmentsPage = () => {
           />
         </div>
       </div>
+      <div className="mb-10 flex flex-col gap-5">
+        <DataLineWidget />
+      </div>
       <div className="flex flex-row justify-between gap-10">
         <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
           <div>
@@ -219,7 +223,7 @@ const InvestmentsPage = () => {
 
               <div>
                 <p className="text-xs font-semibold">
-                  Price per stock :{" "}
+                  Price per token :{" "}
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",

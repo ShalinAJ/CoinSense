@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const UserMarketOptions = ({ tradeData, url }) => {
   return (
-    <div className=" h-[23rem] flex flex-col gap-4 justify-between">
+    <div className=" h-[23rem] flex flex-col gap-5 justify-between">
       <div className="p-5 rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[80%]">
         <div className="pt-3 px-2">
           <p className="text-xl font-semibold">Markets</p>

@@ -1,0 +1,40 @@
+.container {
+  max-width: 100%;
+  padding: 0.7rem 0 0.5rem 0;
+  overflow: hidden;
+}
+
+.marquee {
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  animation: marquee 60s linear infinite;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.marquee p {
+  display: inline-block;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.cryptoItem {
+  display: inline-block;
+  margin-right: 5rem;
+}
+
+.textGreen {
+  color: green;
+}
+
+.textRed {
+  color: red;
+}
