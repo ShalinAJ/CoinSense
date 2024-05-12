@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
-import axios from "axios";
 
-const CryptoChart = ({ chartData }) => {
+const CryptoChart = ({ chartData, size }) => {
   const chartRef = useRef();
   const [chartInstance, setChartInstance] = useState(null);
 
@@ -55,9 +54,7 @@ const CryptoChart = ({ chartData }) => {
     }
   }, [chartData]);
 
-  return (
-    <canvas id="bitcoinChart" ref={chartRef} style={{ height: "100px" }} />
-  );
+  return <canvas id="bitcoinChart" ref={chartRef} style={{ height: size }} />;
 };
 
 export default CryptoChart;

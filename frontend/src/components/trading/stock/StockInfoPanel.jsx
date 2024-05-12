@@ -3,7 +3,6 @@ import React from "react";
 const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
   let stockData;
 
-
   if (generalData && selectToken && tokenDataSet) {
     stockData = generalData.filter((data) => data.ticker == selectToken)[0];
   } else {
@@ -23,7 +22,7 @@ const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
           <img
             src={stockData.logo}
             alt="selected stock image"
-            className="w-5 h-5"
+            className="w-5 h-5 rounded-md"
           />
           <div className="flex flex-row items-baseline gap-2">
             <p className="text-lg font-medium">{stockData.name}</p>

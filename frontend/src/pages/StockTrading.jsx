@@ -37,6 +37,7 @@ const StockTradingPage = () => {
     "AAPL",
     "https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png",
   ]);
+
   const [chartData, setChartData] = useState({
     labels: [],
     datasets: [
@@ -238,7 +239,7 @@ const StockTradingPage = () => {
             </div>
 
             <div className="mb-8 mt-3" style={{ height: "400px" }}>
-              <StockChart chartData={chartData} />
+              <StockChart chartData={chartData} size={"100px"} />
             </div>
             <hr />
             <div>

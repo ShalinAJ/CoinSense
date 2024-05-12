@@ -36,27 +36,12 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
                   <div className={"w-[30%] flex flex-row justify-end text-xs"}>
                     <p
                       className={`${
-                        ((investment.amount - investment.amount) /
-                          investment.amount) *
-                          100 >=
-                        0
+                        investment.transactionType === "buy"
                           ? "bg-[#bcffde] text-[#02B15A]"
                           : "bg-[#ff00001f] text-[#ff0000]"
                       } text-right px-[6px] py-[6px] rounded-lg`}
                     >
-                      {(
-                        ((investment.amount - investment.amount) /
-                          investment.amount) *
-                        100
-                      ).toFixed(2) >= 0 && "+"}
-                      {parseFloat(
-                        (
-                          ((investment.amount - investment.amount) /
-                            investment.amount) *
-                          100
-                        ).toFixed(2)
-                      )}
-                      %
+                      {investment.transactionType}
                     </p>
                   </div>
                 </div>

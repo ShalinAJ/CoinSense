@@ -252,7 +252,7 @@ const CryptoTradingPage = () => {
           </div>
 
           <div className="mb-8 mt-3" style={{ height: "auto" }}>
-            <CryptoChart chartData={chartData} />
+            <CryptoChart chartData={chartData} size={"100px"} />
           </div>
           <hr />
           <div>

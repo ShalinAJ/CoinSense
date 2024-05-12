@@ -42,12 +42,20 @@ const TradeSelect = ({
                   <div className="flex flex-row justify-center gap-3">
                     {orderType === "Stock" ? (
                       <>
-                        <img src={tokenData.logo} alt="" className="w-6" />
+                        <img
+                          src={tokenData.logo}
+                          alt=""
+                          className="w-6 rounded-md"
+                        />
                         <p>{tokenData.name}</p>
                       </>
                     ) : (
                       <>
-                        <img src={tokenData.image} alt="" className="w-6" />
+                        <img
+                          src={tokenData.image}
+                          alt=""
+                          className="w-6 rounded-md"
+                        />
                         <p>{tokenData.id}</p>
                       </>
                     )}
