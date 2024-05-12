@@ -142,7 +142,6 @@ const InvestmentsPage = () => {
           />
         </div>
       </div>
-      <HorizontalMarketBar />
       <div className="px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
         <div>
           <div className="flex flex-row gap-3 pb-5 pl-1">
