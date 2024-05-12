@@ -160,8 +160,8 @@ const TradingWalletPage = ({}) => {
             </div>
             <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
             <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[30%]">
-              <p className="font-normal">total top-ups :</p>
-              <p className="bg-coinsense-blue text-white px-2 rounded-lg">
+              <p className="text-sm font-normal">total top-ups :</p>
+              <p className="bg-coinsense-blue text-sm  text-white px-2 rounded-lg">
                 {entries}
               </p>
             </div>

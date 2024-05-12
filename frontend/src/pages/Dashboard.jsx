@@ -11,9 +11,9 @@ import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
 
 const DashboardPage = () => {
   const { transactions, orderHistory } = useLoaderData();
-  const [tradeData, setTradeData] = useState([0, 0, 0]);
+  const [tradeData, setTradeData] = useState([0, 0]);
   const [totalIncome, setTotalIncome] = useState(0);
-  const [totalInvestment, setTotalInvestment] = useState(0);
+  const [networth, setNetworth] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [transactionYears, setTransactionYears] = useState([]);
   const [selectedYearBE, setSelectedYearBE] = useState(
@@ -57,14 +57,14 @@ const DashboardPage = () => {
           currency: "USD",
         }).format(totalExpense);
 
-        const totalInvestmentFormated = new Intl.NumberFormat("en-US", {
+        const networthFormated = new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
-        }).format(totalInvestment);
+        }).format(totalIncome - totalExpense);
 
         setTotalIncome(totalIncomeFormated);
         setTotalExpense(totalExpenseFormated);
-        setTotalInvestment(totalInvestmentFormated);
+        setNetworth(networthFormated);
       } catch (error) {
         console.error(error.message);
       }
@@ -101,19 +101,7 @@ const DashboardPage = () => {
             0
           );
 
-          const forexInvested = orderData.filter(
-            (order) => order.status === "Forex"
-          );
-          const forexInvestedTotal = forexInvested.reduce(
-            (acc, curr) => acc + curr.amount * curr.price,
-            0
-          );
-
-          setTradeData([
-            cryptoInvestedTotal,
-            stockInvestedTotal,
-            forexInvestedTotal,
-          ]);
+          setTradeData([cryptoInvestedTotal, stockInvestedTotal]);
         }
       } catch (error) {
         console.error("Error fetching transactions:", error);
@@ -168,6 +156,18 @@ const DashboardPage = () => {
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
             <div className="basis-1/3">
               <NavLink
+                to={"/dashboard/investment/user-investments"}
+                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker"
+              >
+                <img src={totalInvestmentImg} alt="" className="w-12" />
+                <div className="flex flex-col items-start">
+                  <p className="text-sm font-medium">Networth</p>
+                  <p className="text-lg font-semibold">{networth}</p>
+                </div>
+              </NavLink>
+            </div>
+            <div className="basis-1/3">
+              <NavLink
                 to={"/dashboard/income"}
                 className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl hover:bg-coinsense-blue-darker"
               >
@@ -187,18 +187,6 @@ const DashboardPage = () => {
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Expences</p>
                   <p className="text-lg font-semibold">{totalExpense}</p>
-                </div>
-              </NavLink>
-            </div>
-            <div className="basis-1/3">
-              <NavLink
-                to={"/dashboard/investment/user-investments"}
-                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker"
-              >
-                <img src={totalInvestmentImg} alt="" className="w-12" />
-                <div className="flex flex-col items-start">
-                  <p className="text-sm font-medium">Total Investments</p>
-                  <p className="text-lg font-semibold">{totalInvestment}</p>
                 </div>
               </NavLink>
             </div>
