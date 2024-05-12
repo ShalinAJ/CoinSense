@@ -15,6 +15,11 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
     return null; // Return null if coinData is not found
   }
 
+  const capitalized_id =
+    coinData.id.charAt(0).toUpperCase() + coinData.id.slice(1);
+
+  console.log(coinData);
+
   return (
     <div className="mb-10 py-6 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
       <div className="flex flex-row h-[25rem] max-h-[24rem] overflow-y-auto ">
@@ -27,8 +32,10 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
               className="w-5 h-5"
             />
             <div className="flex flex-row items-baseline gap-2">
-              <p className="text-lg font-medium">{coinData.id}</p>
-              <p className="text-xs text-gray-400">{coinData.symbol}</p>
+              <p className="text-lg font-medium">{capitalized_id}</p>
+              <p className="text-xs text-gray-400">
+                {coinData.symbol.toUpperCase()}
+              </p>
             </div>
           </div>
           <div className="flex flex-row justify-between">
@@ -45,23 +52,52 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
             </div>
             <div className="flex flex-col leading-9 mt-4 text-[12px] font-semibold text-right">
               <p>{coinData.market_cap_rank}</p>
-              <p>{coinData.market_cap}</p>
+              <p>
+                {coinData.market_cap.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
               <p>{coinData.doninance_index}%</p>
-              <p>{coinData.circulating_supply} BTC</p>
-              <p>{coinData.max_supply} BTC</p>
-              <p>{coinData.total_supply} BTC</p>
+              <p>
+                {coinData.circulating_supply.toLocaleString("en-US")}{" "}
+                {coinData.symbol.toUpperCase()}
+              </p>
+              <p>
+                {coinData.max_supply
+                  ? coinData.max_supply.toLocaleString("en-US") +
+                    " " +
+                    coinData.symbol.toUpperCase()
+                  : "No Max Supply"}
+              </p>
+              <p>
+                {coinData.total_supply.toLocaleString("en-US")}{" "}
+                {coinData.symbol.toUpperCase()}
+              </p>
               <p>{coinData.issue_date}</p>
               <div className="flex flex-row gap-3 items-center justify-end">
                 <p className="text-xs text-gray-400 font-normal">
                   {coinData.historical_high_date}
                 </p>
-                <p>${coinData.historical_high}</p>
+                <p>
+                  $
+                  {coinData.historical_high.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </p>
               </div>
               <div className="flex flex-row gap-3 items-center justify-end">
                 <p className="text-xs text-gray-400 font-normal">
                   {coinData.historical_low_date}
                 </p>
-                <p>${coinData.historical_low}</p>
+                <p>
+                  $
+                  {coinData.historical_low.toLocaleString("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  })}
+                </p>
               </div>
             </div>
           </div>
