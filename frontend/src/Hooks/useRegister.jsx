@@ -91,7 +91,7 @@ export const useRegister = () => {
       }
 
       setIsLoading(false);
-      //location.reload();
+      location.reload();
     }
   };
   return { register, isLoading, error };
