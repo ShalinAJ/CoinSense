@@ -4,7 +4,6 @@ import UserInvestmentsWidget from "../components/widgets/UserInvestmentsWidget";
 import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import CryptoChart from "../charts/CryptoChart";
 import axios from "axios";
-import HorizontalMarketBar from "../components/widgets/HorizontalMarketBar";
 
 const InvestmentsPage = () => {
   const { orderHistory } = useLoaderData();
