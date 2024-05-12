@@ -37,7 +37,7 @@ const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
             </div>
             <div>
               <p className="text-gray-400 pb-2">Employees</p>
-              <p>{stockData.employees}</p>
+              <p>{parseInt(stockData.employees).toLocaleString("en-US")}</p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">Headquarters</p>
@@ -58,21 +58,31 @@ const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
             className="mt-7 mb-4 text-lg
            font-medium"
           >
-            AAPL Key Statistics
+            {stockData.ticker} Key Statistics
           </p>
           <div className="grid grid-cols-4 gap-4 mt-4 w-[100%] text-[12px] font-semibold">
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Market cap</p>
-              <p>{stockData.marketCapitalization}</p>
+              <p>
+                {stockData.marketCapitalization.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
             </div>
 
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Change</p>
-              <p>{tokenDataSet.change}</p>
+              <p>
+                {parseInt(tokenDataSet.change).toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Change Precentage</p>
-              <p>{tokenDataSet.changePercentage}</p>
+              <p>{tokenDataSet.changePercentage}%</p>
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">High today</p>
@@ -84,7 +94,12 @@ const StockInfoPanel = ({ generalData, selectToken, tokenDataSet }) => {
             </div>
             <div className="pb-6">
               <p className="text-gray-400 pb-2">Volume</p>
-              <p>{tokenDataSet.volume}</p>
+              <p>
+                {tokenDataSet.volume.toLocaleString("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                })}
+              </p>
             </div>
             <div>
               <p className="text-gray-400 pb-2">52 Week high</p>
