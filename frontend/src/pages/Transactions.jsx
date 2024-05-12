@@ -147,7 +147,7 @@ async function loadWallets() {
 
 async function loadTopups() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch("http://localhost:4000/tradingwallet", {
+  const response = await fetch("http://localhost:4000/tradingwalletdetail", {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },

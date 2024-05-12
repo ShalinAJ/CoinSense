@@ -1,6 +1,7 @@
 import React from "react";
 
 const TopupsTable = ({ tradingWallet }) => {
+  console.log(tradingWallet);
   return (
     <div className="overflow-y-auto max-h-[18rem]">
       <table className="w-[100%]">

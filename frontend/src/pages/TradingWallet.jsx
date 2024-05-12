@@ -15,7 +15,8 @@ import TradingOrderHistory from "../components/trading/TradingOrderHistory";
 import WithdrawModal from "../components/WithdrawModal";
 
 const TradingWalletPage = ({}) => {
-  const { topups, wallets, orderHistory } = useLoaderData();
+  const { topups, wallets, orderHistory, tradingwalletdetails } =
+    useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
   const [topupdata, setTopupData] = useState();
@@ -238,7 +239,7 @@ export async function action({ request }) {
         Authorization: `Bearer ${user.token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(tradingWalletDetailsResponse),
+      body: JSON.stringify(tradingDetailsData),
     }
   );
 

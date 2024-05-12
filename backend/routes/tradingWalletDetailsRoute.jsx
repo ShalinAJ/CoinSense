@@ -2,8 +2,8 @@ const express = require("express");
 
 const requireAuh = require("../middleware/requireAuth.jsx");
 const {
-  createTradingWalletDetails,
   getTradingWalletDetails,
+  createTradingWalletDetails,
 } = require("../controllers/tradingWalletDetailsController.jsx");
 
 const router = express.Router();
