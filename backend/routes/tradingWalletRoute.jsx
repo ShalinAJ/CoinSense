@@ -4,6 +4,7 @@ const requireAuh = require("../middleware/requireAuth.jsx");
 const {
   createTradingWallet,
   getTradingWallet,
+  updateTradingWallet,
 } = require("../controllers/tradingWalletController.jsx");
 
 const router = express.Router();
@@ -13,5 +14,6 @@ router.use(requireAuh);
 
 router.get("/tradingwallet", getTradingWallet);
 router.post("/tradingwallet/new", createTradingWallet);
+router.patch("/tradingwallet/:id", updateTradingWallet);
 
 module.exports = router;

@@ -215,10 +215,12 @@ export default TradingWalletPage;
 export async function action({ request }) {
   const data = await request.formData();
   const user = JSON.parse(localStorage.getItem("user"));
+  const account = JSON.parse(localStorage.getItem("account"));
   const cardId = data.get("cardId");
   const cardbalance = data.get("cardbalance");
   const amount = parseFloat(data.get("amount"));
   const status = data.get("status");
+  const date = new Date(data.get("date")).toISOString();
 
   const topupData = {
     amount: amount,
@@ -226,17 +228,47 @@ export async function action({ request }) {
     status: status,
   };
 
-  const response = await fetch("http://localhost:4000/tradingwallet/new", {
-    method: "POST",
+  // update trading wallet
+  const response = await fetch(
+    "http://localhost:4000/tradingwallet/" + account.user_id,
+    {
+      method: "PATCH",
 
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(topupData),
-  });
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(topupData),
+    }
+  );
 
   if (!response.ok) {
+    throw json({ message: "Could not save." }, { status: 500 });
+  }
+
+  // add new transaction
+  const transactionData = {
+    transaction: "Trading Wallet",
+    date: date,
+    amount: amount,
+    status: status,
+    card: cardId,
+  };
+
+  const Transactionresponse = await fetch(
+    "http://localhost:4000/transaction/new",
+    {
+      method: "POST",
+
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(transactionData),
+    }
+  );
+
+  if (!Transactionresponse.ok) {
     throw json({ message: "Could not save." }, { status: 500 });
   }
 

@@ -63,8 +63,35 @@ export const useRegister = () => {
         console.log("account File created successfully");
       }
 
+      //create a new trading wallet
+      const topupData = {
+        cardName: "",
+        amount: 0,
+        status: "",
+      };
+
+      const tradingWalletResponse = await fetch(
+        "http://localhost:4000/tradingwallet/new",
+        {
+          method: "POST",
+
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(topupData),
+        }
+      );
+
+      console.log(tradingWalletResponse);
+
+      if (!tradingWalletResponse.ok) {
+        console.log("not ok");
+        throw json({ message: "Could not save." }, { status: 500 });
+      }
+
       setIsLoading(false);
-      location.reload();
+      //location.reload();
     }
   };
   return { register, isLoading, error };

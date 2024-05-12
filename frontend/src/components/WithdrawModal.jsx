@@ -143,7 +143,7 @@ const WithdrawModal = ({ isOpen, onClose, totalAmount, walletCards }) => {
                   className="mt-8 py-1 px-3 w-[25%] text-sm items-end hover:bg-coinsense-blue-darker"
                   disabled={error}
                 >
-                  Top up
+                  Withdraw
                 </button>
               </div>
             </Form>
