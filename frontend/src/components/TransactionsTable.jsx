@@ -51,7 +51,7 @@ const TransactionsTable = ({ transactions, transactionStatus }) => {
             >
               <td>{transaction.transaction}</td>
               <td>
-                {new Date(transaction.date).toLocaleString("en-US", {
+                {new Date(transaction.createdAt).toLocaleString("en-US", {
                   weekday: "short",
                   day: "numeric",
                   month: "short",
