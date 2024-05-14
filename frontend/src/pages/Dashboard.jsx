@@ -226,7 +226,7 @@ const DashboardPage = () => {
                   url={[
                     "/dashboard/investment/crypto-trading",
                     "/dashboard/investment/stock-trading",
-                    "/dashboard/investment/forex-trading",
+                    "/dashboard/investment/assets",
                   ]}
                 />
               </div>

@@ -48,7 +48,10 @@ const UserMarketOptions = ({ tradeData, url }) => {
               11
             </p>
           </div>
-          <Link className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300">
+          <Link
+            to={url[2]}
+            className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+          >
             View more
           </Link>
         </div>

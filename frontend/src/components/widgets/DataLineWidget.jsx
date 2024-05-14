@@ -62,15 +62,6 @@ const DataLineWidget = () => {
     };
 
     fetchDataAndUpdateState(); // Fetch data initially
-
-    const interval = setInterval(() => {
-      fetchDataAndUpdateState();
-    }, 3000);
-
-    // Cleanup function
-    return () => {
-      clearInterval(interval);
-    };
   }, []);
 
   return (

@@ -201,6 +201,7 @@ const InvestmentsPage = () => {
             url={[
               "../investment/crypto-trading",
               "../investment/stock-trading",
+              "../investment/assets",
             ]}
           />
         </div>
