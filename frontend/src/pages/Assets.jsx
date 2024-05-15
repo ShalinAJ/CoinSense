@@ -27,11 +27,17 @@ const AssetsPage = () => {
     fetchAssetsData();
   }, [assets]);
 
+  const filteredAssets = assetsDetails?.filter((asset) => {
+    if (assetType === "All") {
+      return true;
+    } else {
+      return asset.type === assetType;
+    }
+  });
+
   let total = 0;
-  if (Array.isArray(assetsDetails)) {
-    assetsDetails.forEach((asset) => {
-      total += asset.amount;
-    });
+  if (Array.isArray(filteredAssets)) {
+    total = filteredAssets.reduce((acc, asset) => acc + asset.amount, 0);
   }
 
   const openModal = () => {
@@ -45,14 +51,6 @@ const AssetsPage = () => {
   const prevPage = () => {
     navigate(-1);
   };
-
-  const filteredAssets = assetsDetails?.filter((asset) => {
-    if (assetType === "All") {
-      return true;
-    } else {
-      return asset.type === assetType;
-    }
-  });
 
   return (
     <>
@@ -147,7 +145,7 @@ const AssetsPage = () => {
                   Total assets :
                 </p>
                 <p className="text-sm font-semibold">
-                  {assetsDetails ? assetsDetails.length : ""}
+                  {filteredAssets ? filteredAssets.length : ""}
                 </p>
               </div>
             </div>
