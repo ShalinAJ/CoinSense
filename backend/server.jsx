@@ -15,6 +15,7 @@ const orderHistoryRoutes = require("./routes/orderHistoryRoute.jsx");
 const openOrderRoutes = require("./routes/openOrderRoute.jsx");
 const stockMarketGeneralDataRoutes = require("./routes/stockMarketGeneralDataRoute.jsx");
 const tradingWalletDetails = require("./routes/tradingWalletDetailsRoute.jsx");
+const assetRoute = require("./routes/assetRoute.jsx");
 const bodyParser = require("body-parser");
 
 const app = express();
@@ -57,6 +58,7 @@ app.use(orderHistoryRoutes);
 app.use(openOrderRoutes);
 app.use(stockMarketGeneralDataRoutes);
 app.use(tradingWalletDetails);
+app.use(assetRoute);
 
 // Conncet to database
 mongoose
