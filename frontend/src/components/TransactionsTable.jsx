@@ -77,17 +77,31 @@ const TransactionsTable = ({ transactions, transactionStatus }) => {
                     (transaction.status === "Income" &&
                       "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
                     (transaction.status === "Expense" &&
-                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
+                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
+                    (transaction.status === "withdraw" &&
+                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl mr-6") ||
+                    (transaction.status === "topup" &&
+                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl mr-6")
                   }
                 >
                   {transaction.status}
                 </p>
-                <button
-                  onClick={() => deleteHandler(transaction._id)}
-                  className="p-0 m-0 ml-2 border-none bg-transparent"
-                >
-                  <img src={deleteImg} className="w-4" />
-                </button>
+                {(transaction.status === "Income" && (
+                  <button
+                    onClick={() => deleteHandler(transaction._id)}
+                    className="p-0 m-0 ml-2 border-none bg-transparent"
+                  >
+                    <img src={deleteImg} className="w-4" />
+                  </button>
+                )) ||
+                  (transaction.status === "Expense" && (
+                    <button
+                      onClick={() => deleteHandler(transaction._id)}
+                      className="p-0 m-0 ml-2 border-none bg-transparent"
+                    >
+                      <img src={deleteImg} className="w-4" />
+                    </button>
+                  ))}
               </td>
             </tr>
           ))}

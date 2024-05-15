@@ -100,10 +100,10 @@ const AssetsPage = () => {
             </div>
             <div className="flex flex-row items-center gap-10 mt-5 mb-3">
               <div className="flex flex-row items-center gap-3">
-                <p className="text-sm font-medium text-gray-400">
+                <p className="text-xs font-medium text-gray-400">
                   Total asset Value :
                 </p>
-                <p className="text-sm font-semibold">
+                <p className="text-xs font-semibold">
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
@@ -111,23 +111,23 @@ const AssetsPage = () => {
                 </p>
               </div>
               <div className="flex flex-row items-center gap-3">
-                <p className="text-sm font-medium text-gray-400">
+                <p className="text-xs font-medium text-gray-400">
                   Total assets :
                 </p>
-                <p className="text-sm font-semibold">12</p>
+                <p className="text-xs font-semibold">12</p>
               </div>
             </div>
             <hr />
             <div className="overflow-y-auto h-[26rem] max-h-[23rem] w-[100%]">
               <table className="w-[100%]">
-                <tbody className="text-sm">
+                <tbody className="text-xs">
                   <tr className="leading-[45px]">
                     <th className="text-left pl-3 w-[25%]">Asset</th>
                     <th className="text-center pr-3 w-[25%]">Asset type</th>
                     <th className="text-center pl-3 w-[25%]">Value</th>
                     <th className="text-right pr-3 w-[25%]">Status</th>
                   </tr>
-                  <tr className="leading-[45px]">
+                  <tr className="text-xs">
                     <td className="text-left pl-3 w-[25%]">House</td>
                     <td className="text-center pr-3 w-[25%]">Tangible</td>
                     <td className="text-center pl-3 w-[25%]">$340,000.00</td>
