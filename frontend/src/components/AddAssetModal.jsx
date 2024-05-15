@@ -66,8 +66,8 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                   <div className="my-2 flex flex-col w-[49.5%]">
                     <label htmlFor="">Tangible asset category</label>
                     <select
-                      name="status"
-                      id="status"
+                      name="category"
+                      id="category"
                       className="rounded-m p-1 rounded-md text-sm font-medium"
                     >
                       <option value=""></option>
@@ -109,8 +109,8 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                   onChange={statusSelecterHandler}
                 >
                   <option value=""></option>
-                  <option value="Income">Owned</option>
-                  <option value="Expense">Sold</option>
+                  <option value="owned">Owned</option>
+                  <option value="sold">Sold</option>
                 </select>
               </div>
 
