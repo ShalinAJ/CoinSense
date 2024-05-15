@@ -26,8 +26,6 @@ const AllInvestmentsPage = () => {
         filteredOrders = orders.filter((order) => order.status === "Crypto");
       } else if (tradeType === "Stock") {
         filteredOrders = orders.filter((order) => order.status === "Stock");
-      } else if (tradeType === "Forex") {
-        filteredOrders = orders.filter((order) => order.status === "Forex");
       }
 
       count = filteredOrders.length;
@@ -104,16 +102,6 @@ const AllInvestmentsPage = () => {
                 }}
               >
                 Stock
-              </NavLink>
-              <NavLink
-                className={`${classes.navLink} ${
-                  tradeType === "Forex" ? classes.active : ""
-                }`}
-                onClick={() => {
-                  setTradeType("Forex");
-                }}
-              >
-                Forex
               </NavLink>
             </div>
           </div>

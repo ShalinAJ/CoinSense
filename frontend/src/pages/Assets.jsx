@@ -1,10 +1,13 @@
 import React, { Suspense, useState } from "react";
-import { Await, Link, useNavigate } from "react-router-dom";
+import { Await, Link, NavLink, useNavigate } from "react-router-dom";
 import AddAssetModal from "../components/AddAssetModal";
 import backArrow from "../assets/back-arrow.png";
+import classes from "./Assets.module.css";
+import infoImg from "../assets/info.png";
 
 const AssetsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [assetType, setAssetType] = useState("All");
   const navigate = useNavigate();
 
   const openModal = () => {
@@ -38,31 +41,103 @@ const AssetsPage = () => {
               Detailed view of all your assets
             </p>
           </div>
-          <div className="bg-[#bcffde] text-[#02B15A] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
-            <p className="text-black pr-2">Asset count: </p>
-            <p className="font-semibold">123</p>
+
+          <div className="mr-3">
+            <img src={infoImg} alt="" className="w-5" />
           </div>
         </div>
-        <div className="flex justify-center mt-1 mb-3">
-          <div className="flex flex-col justify-center items-center my-10 ">
-            <p className="text-sm font-medium text-gray-400">
-              Total asset Value
-            </p>
-            <p className="text-[28px] font-bold pb-1">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(123)}
-            </p>
-            <button
-              onClick={openModal}
-              className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
-            >
-              Add Asset
-            </button>
+        <div className=" mx-[28px] my-9 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+          <div className="px-5">
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row gap-2">
+                <NavLink
+                  className={`${classes.assetsLink} ${
+                    assetType === "All" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setAssetType("All");
+                  }}
+                >
+                  All
+                </NavLink>
+                <NavLink
+                  className={`${classes.assetsLink} ${
+                    assetType === "Tangible" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setAssetType("Tangible");
+                  }}
+                >
+                  Tangible
+                </NavLink>
+                <NavLink
+                  className={`${classes.assetsLink} ${
+                    assetType === "Intangible" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setAssetType("Intangible");
+                  }}
+                >
+                  Intangible
+                </NavLink>
+                <NavLink
+                  className={`${classes.assetsLink} ${
+                    assetType === "Other" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setAssetType("Other");
+                  }}
+                >
+                  Other
+                </NavLink>
+              </div>
+              <button
+                onClick={openModal}
+                className="bg-[#152DFF] text-white text-[11px] px-[3rem] hover:bg-coinsense-blue-darker"
+              >
+                Add Asset
+              </button>
+            </div>
+            <div className="flex flex-row items-center gap-10 mt-5 mb-3">
+              <div className="flex flex-row items-center gap-3">
+                <p className="text-sm font-medium text-gray-400">
+                  Total asset Value :
+                </p>
+                <p className="text-sm font-semibold">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(123)}
+                </p>
+              </div>
+              <div className="flex flex-row items-center gap-3">
+                <p className="text-sm font-medium text-gray-400">
+                  Total assets :
+                </p>
+                <p className="text-sm font-semibold">12</p>
+              </div>
+            </div>
+            <hr />
+            <div className="overflow-y-auto h-[26rem] max-h-[23rem] w-[100%]">
+              <table className="w-[100%]">
+                <tbody className="text-sm">
+                  <tr className="leading-[45px]">
+                    <th className="text-left pl-3 w-[25%]">Asset</th>
+                    <th className="text-center pr-3 w-[25%]">Asset type</th>
+                    <th className="text-center pl-3 w-[25%]">Value</th>
+                    <th className="text-right pr-3 w-[25%]">Status</th>
+                  </tr>
+                  <tr className="leading-[45px]">
+                    <td className="text-left pl-3 w-[25%]">House</td>
+                    <td className="text-center pr-3 w-[25%]">Tangible</td>
+                    <td className="text-center pl-3 w-[25%]">$340,000.00</td>
+                    <td className="text-right pr-3 w-[25%]">Owned</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <hr className="mx-6" />
       </div>
     </>
   );
