@@ -1,5 +1,11 @@
-import React, { Suspense, useState } from "react";
-import { Await, Link, NavLink, useNavigate } from "react-router-dom";
+import React, { Suspense, useEffect, useState } from "react";
+import {
+  Await,
+  Link,
+  NavLink,
+  useLoaderData,
+  useNavigate,
+} from "react-router-dom";
 import AddAssetModal from "../components/AddAssetModal";
 import backArrow from "../assets/back-arrow.png";
 import classes from "./Assets.module.css";
@@ -8,7 +14,20 @@ import infoImg from "../assets/info.png";
 const AssetsPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [assetType, setAssetType] = useState("All");
+  const [assetsDetails, setAssetsDetails] = useState();
   const navigate = useNavigate();
+  const { assets } = useLoaderData();
+
+  useEffect(() => {
+    async function fetchAssetsData() {
+      const data = await assets;
+      setAssetsDetails(data);
+    }
+
+    fetchAssetsData();
+  }, [assets]);
+
+  console.log(assetsDetails);
 
   const openModal = () => {
     setModalOpen(true);
@@ -127,12 +146,28 @@ const AssetsPage = () => {
                     <th className="text-center pl-3 w-[25%]">Value</th>
                     <th className="text-right pr-3 w-[25%]">Status</th>
                   </tr>
-                  <tr className="leading-[45px]">
-                    <td className="text-left pl-3 w-[25%]">House</td>
-                    <td className="text-center pr-3 w-[25%]">Tangible</td>
-                    <td className="text-center pl-3 w-[25%]">$340,000.00</td>
-                    <td className="text-right pr-3 w-[25%]">Owned</td>
-                  </tr>
+                  {Array.isArray(assetsDetails) && assetsDetails.length > 0 ? (
+                    assetsDetails.map((asset, index) => (
+                      <tr key={index} className="leading-[45px]">
+                        <td className="text-left pl-3 w-[25%]">{asset.name}</td>
+                        <td className="text-center pr-3 w-[25%]">
+                          {asset.type}
+                        </td>
+                        <td className="text-center pl-3 w-[25%]">
+                          ${asset.amount}
+                        </td>
+                        <td className="text-right pr-3 w-[25%]">
+                          {asset.status}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan="4" className="text-center">
+                        No assets found
+                      </td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>

@@ -220,8 +220,26 @@ async function loadOpenOrders() {
   }
 }
 
+async function loadAssets() {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const response = await fetch("http://localhost:4000/assets", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
+
+  if (!response.ok) {
+    return json({ message: "Could not fetch open orders." }, { status: 500 });
+  } else {
+    const assets = await response.json();
+    // console.log(assets);
+    return assets;
+  }
+}
+
 export function loader() {
   return defer({
+    assets: loadAssets(),
     orderHistory: loadOrderHistory(),
     openOrders: loadOpenOrders(),
     topups: loadTopups(),
