@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const User = require("../models/userModel.jsx");
 
 const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.SECRET);
 };
 
 const loginUser = async (req, res) => {
