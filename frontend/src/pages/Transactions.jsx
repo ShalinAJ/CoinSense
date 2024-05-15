@@ -87,6 +87,33 @@ export async function action({ request }) {
   const date = new Date(data.get("date")).toISOString();
   const amount = parseFloat(data.get("amount"));
 
+  // add a new asset
+  if (data.get("category")) {
+    const assetData = {
+      name: data.get("transaction"),
+      amount: data.get("amount"),
+      type: data.get("type"),
+      category: data.get("category"),
+      status: data.get("status"),
+    };
+
+    const assetResponse = await fetch("http://localhost:4000/assest/new", {
+      method: "POST",
+
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(assetData),
+    });
+
+    if (!assetResponse.ok) {
+      throw json({ message: "Could not save." }, { status: 500 });
+    }
+
+    window.location.reload();
+  }
+
   const transactionData = {
     transaction: data.get("transaction"),
     date: date,
