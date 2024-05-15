@@ -109,8 +109,8 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                   onChange={statusSelecterHandler}
                 >
                   <option value=""></option>
-                  <option value="owned">Owned</option>
-                  <option value="sold">Sold</option>
+                  <option value="Owned">Owned</option>
+                  <option value="Sold">Sold</option>
                 </select>
               </div>
 

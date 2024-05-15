@@ -159,7 +159,7 @@ const AssetsPage = () => {
                     <th className="text-left pl-3 w-[25%]">Asset</th>
                     <th className="text-center pr-3 w-[25%]">Asset type</th>
                     <th className="text-center pl-3 w-[25%]">Value</th>
-                    <th className="text-right pr-3 w-[25%]">Status</th>
+                    <th className="text-center pl-24 w-[25%]">Status</th>
                   </tr>
                   {Array.isArray(filteredAssets) &&
                   filteredAssets.length > 0 ? (
@@ -175,8 +175,17 @@ const AssetsPage = () => {
                             currency: "USD",
                           }).format(asset.amount)}
                         </td>
-                        <td className="text-right pr-3 w-[25%]">
-                          {asset.status}
+                        <td className="mt-3 text-center text-xs flex justify-end pr-9">
+                          <p
+                            className={
+                              (asset.status === "Owned" &&
+                                "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                              (asset.status === "Sold" &&
+                                "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
+                            }
+                          >
+                            {asset.status}
+                          </p>
                         </td>
                       </tr>
                     ))
