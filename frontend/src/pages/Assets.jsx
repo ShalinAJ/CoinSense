@@ -27,7 +27,12 @@ const AssetsPage = () => {
     fetchAssetsData();
   }, [assets]);
 
-  console.log(assetsDetails);
+  let total = 0;
+  if (Array.isArray(assetsDetails)) {
+    assetsDetails.forEach((asset) => {
+      total += asset.amount;
+    });
+  }
 
   const openModal = () => {
     setModalOpen(true);
@@ -126,14 +131,16 @@ const AssetsPage = () => {
                   {new Intl.NumberFormat("en-US", {
                     style: "currency",
                     currency: "USD",
-                  }).format(123)}
+                  }).format(total)}
                 </p>
               </div>
               <div className="flex flex-row items-center gap-3">
                 <p className="text-sm font-medium text-gray-400">
                   Total assets :
                 </p>
-                <p className="text-sm font-semibold">12</p>
+                <p className="text-sm font-semibold">
+                  {assetsDetails ? assetsDetails.length : ""}
+                </p>
               </div>
             </div>
             <hr />
