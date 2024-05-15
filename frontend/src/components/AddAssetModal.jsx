@@ -57,12 +57,12 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                     onChange={typeSelecterHandler}
                   >
                     <option value=""></option>
-                    <option value="tangible">Tangible</option>
-                    <option value="intangible">Intangible</option>
-                    <option value="other">Other</option>
+                    <option value="Tangible">Tangible</option>
+                    <option value="Intangible">Intangible</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
-                {selectedType === "tangible" && (
+                {selectedType === "Tangible" && (
                   <div className="my-2 flex flex-col w-[49.5%]">
                     <label htmlFor="">Tangible asset category</label>
                     <select
@@ -71,12 +71,12 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                       className="rounded-m p-1 rounded-md text-sm font-medium"
                     >
                       <option value=""></option>
-                      <option value="real-estate">Real estate</option>
-                      <option value="vehicle">Vehicle</option>
+                      <option value="Real Estate">Real estate</option>
+                      <option value="Vehicle">Vehicle</option>
                     </select>
                   </div>
                 )}
-                {selectedType === "intangible" && (
+                {selectedType === "Intangible" && (
                   <div className="my-2 flex flex-col w-[49.5%]">
                     <label htmlFor="">Intangible asset category</label>
                     <select
@@ -85,12 +85,12 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                       className="rounded-m p-1 rounded-md text-sm font-medium"
                     >
                       <option value=""></option>
-                      <option value="patent">Patent</option>
-                      <option value="tradmark">Tradmark</option>
+                      <option value="Patent">Patent</option>
+                      <option value="Tradmark">Tradmark</option>
                     </select>
                   </div>
                 )}
-                {selectedType === "other" && (
+                {selectedType === "Other" && (
                   <input
                     type="hidden"
                     name="category"

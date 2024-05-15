@@ -12,11 +12,11 @@ import classes from "./Assets.module.css";
 import infoImg from "../assets/info.png";
 
 const AssetsPage = () => {
+  const { assets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [assetType, setAssetType] = useState("All");
   const [assetsDetails, setAssetsDetails] = useState();
   const navigate = useNavigate();
-  const { assets } = useLoaderData();
 
   useEffect(() => {
     async function fetchAssetsData() {
@@ -45,6 +45,14 @@ const AssetsPage = () => {
   const prevPage = () => {
     navigate(-1);
   };
+
+  const filteredAssets = assetsDetails?.filter((asset) => {
+    if (assetType === "All") {
+      return true;
+    } else {
+      return asset.type === assetType;
+    }
+  });
 
   return (
     <>
@@ -138,9 +146,6 @@ const AssetsPage = () => {
                 <p className="text-xs font-medium text-gray-400">
                   Total assets :
                 </p>
-
-                <p className="text-xs font-semibold">12</p>
-
                 <p className="text-sm font-semibold">
                   {assetsDetails ? assetsDetails.length : ""}
                 </p>
@@ -156,22 +161,19 @@ const AssetsPage = () => {
                     <th className="text-center pl-3 w-[25%]">Value</th>
                     <th className="text-right pr-3 w-[25%]">Status</th>
                   </tr>
-                  <tr className="text-xs">
-                    <td className="text-left pl-3 w-[25%]">House</td>
-                    <td className="text-center pr-3 w-[25%]">Tangible</td>
-                    <td className="text-center pl-3 w-[25%]">$340,000.00</td>
-                    <td className="text-right pr-3 w-[25%]">Owned</td>
-                  </tr>
-
-                  {Array.isArray(assetsDetails) && assetsDetails.length > 0 ? (
-                    assetsDetails.map((asset, index) => (
+                  {Array.isArray(filteredAssets) &&
+                  filteredAssets.length > 0 ? (
+                    filteredAssets.map((asset, index) => (
                       <tr key={index} className="leading-[45px]">
                         <td className="text-left pl-3 w-[25%]">{asset.name}</td>
                         <td className="text-center pr-3 w-[25%]">
                           {asset.type}
                         </td>
                         <td className="text-center pl-3 w-[25%]">
-                          ${asset.amount}
+                          {new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          }).format(asset.amount)}
                         </td>
                         <td className="text-right pr-3 w-[25%]">
                           {asset.status}
