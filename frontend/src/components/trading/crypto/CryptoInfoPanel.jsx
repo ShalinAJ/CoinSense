@@ -18,8 +18,6 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
   const capitalized_id =
     coinData.id.charAt(0).toUpperCase() + coinData.id.slice(1);
 
-  console.log(coinData);
-
   return (
     <div className="mb-10 py-6 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
       <div className="flex flex-row h-[25rem] max-h-[24rem] overflow-y-auto ">

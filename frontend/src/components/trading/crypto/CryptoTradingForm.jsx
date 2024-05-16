@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { Form, json } from "react-router-dom";
 
 const CryptoTradingForm = ({
   currentPrice,
@@ -109,8 +109,8 @@ const CryptoTradingForm = ({
         transactionType,
         price,
         amount: totalAmount,
-        status: "Crypto",
         prevPrice: +currentPrice,
+        status: "Crypto",
         user_id,
       }),
     });
