@@ -97,7 +97,7 @@ export async function action({ request }) {
       status: data.get("status"),
     };
 
-    const assetResponse = await fetch("http://localhost:4000/assest/new", {
+    const assetResponse = await fetch("http://localhost:4000/asset/new", {
       method: "POST",
 
       headers: {
@@ -232,7 +232,6 @@ async function loadAssets() {
     return json({ message: "Could not fetch open orders." }, { status: 500 });
   } else {
     const assets = await response.json();
-    // console.log(assets);
     return assets;
   }
 }

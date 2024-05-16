@@ -14,8 +14,8 @@ const router = express.Router();
 router.use(requireAuh);
 
 router.get("/assets", getAssets);
-router.post("/assest/new", createAsset);
-router.patch("/assest/:id", updateAsset);
-router.delete("/assest/:id", deleteAsset);
+router.post("/asset/new", createAsset);
+router.patch("/asset/:id", updateAsset);
+router.delete("/asset/:id", deleteAsset);
 
 module.exports = router;

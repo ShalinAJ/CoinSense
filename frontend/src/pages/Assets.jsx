@@ -10,6 +10,9 @@ import AddAssetModal from "../components/AddAssetModal";
 import backArrow from "../assets/back-arrow.png";
 import classes from "./Assets.module.css";
 import infoImg from "../assets/info.png";
+import AssetTypeWidget from "../components/widgets/AssetTypeWidget";
+import AssetCategoryWidget from "../components/widgets/AssetCategoryWidget.jsx";
+import AssetsTable from "../components/AssetsTable.jsx";
 
 const AssetsPage = () => {
   const { assets } = useLoaderData();
@@ -150,54 +153,13 @@ const AssetsPage = () => {
               </div>
             </div>
             <hr />
-            <div className="overflow-y-auto h-[26rem] max-h-[23rem] w-[100%]">
-              <table className="w-[100%]">
-                <tbody className="text-xs">
-                  <tr className="leading-[45px]">
-                    <th className="text-left pl-3 w-[25%]">Asset</th>
-                    <th className="text-center pr-3 w-[25%]">Asset type</th>
-                    <th className="text-center pl-3 w-[25%]">Value</th>
-                    <th className="text-center pl-24 w-[25%]">Status</th>
-                  </tr>
-                  {Array.isArray(filteredAssets) &&
-                  filteredAssets.length > 0 ? (
-                    filteredAssets.map((asset, index) => (
-                      <tr key={index} className="leading-[45px]">
-                        <td className="text-left pl-3 w-[25%]">{asset.name}</td>
-                        <td className="text-center pr-3 w-[25%]">
-                          {asset.type}
-                        </td>
-                        <td className="text-center pl-3 w-[25%]">
-                          {new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          }).format(asset.amount)}
-                        </td>
-                        <td className="mt-3 text-center text-xs flex justify-end pr-9">
-                          <p
-                            className={
-                              (asset.status === "Owned" &&
-                                "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
-                              (asset.status === "Sold" &&
-                                "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
-                            }
-                          >
-                            {asset.status}
-                          </p>
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="4" className="text-center">
-                        No assets found
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+
+            <AssetsTable filteredAssets={filteredAssets} />
           </div>
+        </div>
+        <div className="px-[28px] mb-[40px] flex flex-row justify-between gap-3">
+          <AssetTypeWidget assetsDetails={assetsDetails} />
+          <AssetCategoryWidget assetsDetails={assetsDetails} />
         </div>
       </div>
     </>
