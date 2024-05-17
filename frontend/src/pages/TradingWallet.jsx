@@ -16,8 +16,7 @@ import WithdrawModal from "../components/WithdrawModal";
 import InfoModal from "../components/InfoModal";
 
 const TradingWalletPage = ({}) => {
-  const { topups, wallets, orderHistory, tradingwalletdetails } =
-    useLoaderData();
+  const { topups, wallets, orderHistory } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
   const [topupdata, setTopupData] = useState();

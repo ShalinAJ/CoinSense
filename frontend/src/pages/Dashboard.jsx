@@ -1,20 +1,25 @@
 import totalIncomeImg from "../assets/total-income.png";
 import totalExpenseImg from "../assets/total-expenses.png";
-import totalInvestmentImg from "../assets/total-investments.png";
+import totalInvestmentImg from "../assets/total-investments2.png";
 import InflowOutflowChart from "../charts/InflowOutflowChart";
 import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
-import { json, NavLink, useLoaderData } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Await, json, NavLink, useLoaderData } from "react-router-dom";
+import { Suspense, useEffect, useState } from "react";
 import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import WalletWidget from "../components/widgets/WalletWidget";
 import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
+import NetworthModal from "../components/NetworthModal";
 
 const DashboardPage = () => {
-  const { transactions, orderHistory } = useLoaderData();
+  const { transactions, orderHistory, assets, wallets, topups } =
+    useLoaderData();
+  const [modalOpen, setModalOpen] = useState(false);
   const [tradeData, setTradeData] = useState([0, 0]);
   const [totalIncome, setTotalIncome] = useState(0);
-  const [networth, setNetworth] = useState(0);
+  const [incomeExpenseDifferance, setIncomeExpenseDifferance] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
+  const [assetsDetails, setAssetsDetails] = useState();
+  const [walletDetails, setWalletDetails] = useState();
   const [transactionYears, setTransactionYears] = useState([]);
   const [selectedYearBE, setSelectedYearBE] = useState(
     `${new Date().getFullYear()}`
@@ -22,6 +27,56 @@ const DashboardPage = () => {
   const [selectedYearIO, setSelectedYearIO] = useState(
     `${new Date().getFullYear()}`
   );
+  const [topupData, setTopupData] = useState();
+
+  useEffect(() => {
+    async function fetchAssetsData() {
+      const walletData = await wallets;
+      const data = await assets;
+      setWalletDetails(walletData);
+      setAssetsDetails(data);
+    }
+
+    fetchAssetsData();
+  }, [assets, wallets]);
+
+  let totalWalletBalance = 0;
+  if (Array.isArray(walletDetails)) {
+    totalWalletBalance = walletDetails.reduce(
+      (acc, card) => acc + card.cardbalance,
+      0
+    );
+  }
+
+  let totalAssetValue = 0;
+  if (Array.isArray(assetsDetails)) {
+    totalAssetValue = assetsDetails.reduce(
+      (acc, asset) => acc + asset.amount,
+      0
+    );
+  }
+
+  useEffect(() => {
+    async function topupDataHandler() {
+      const data = await topups;
+      const dataAmount = data[0].amount;
+
+      const orderHistoryData = await orderHistory;
+      let totalAmount = 0;
+      if (Array.isArray(orderHistoryData)) {
+        orderHistoryData.forEach((item) => {
+          if (item.transactionType == "buy") {
+            totalAmount += item.amount * item.price;
+          } else {
+            totalAmount -= item.amount * item.price;
+          }
+        });
+      }
+
+      setTopupData(dataAmount + totalAmount);
+    }
+    topupDataHandler();
+  }, [topups]);
 
   useEffect(() => {
     async function transactionInfo() {
@@ -57,14 +112,9 @@ const DashboardPage = () => {
           currency: "USD",
         }).format(totalExpense);
 
-        const networthFormated = new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(totalIncome - totalExpense);
-
         setTotalIncome(totalIncomeFormated);
         setTotalExpense(totalExpenseFormated);
-        setNetworth(networthFormated);
+        setIncomeExpenseDifferance(totalIncome - totalExpense);
       } catch (error) {
         console.error(error.message);
       }
@@ -137,6 +187,9 @@ const DashboardPage = () => {
   const handleYearChangeIO = (event) => {
     setSelectedYearIO(event.target.value);
   };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   const headingText = "Here's overview of your financial portfolio.";
   const { name } = JSON.parse(localStorage.getItem("user"));
@@ -145,6 +198,29 @@ const DashboardPage = () => {
 
   return (
     <>
+      <Suspense>
+        <Await>
+          {() => (
+            <NetworthModal
+              isOpen={modalOpen}
+              onClose={closeModal}
+              IOdiferrance={[incomeExpenseDifferance]}
+              assets={totalAssetValue}
+              tradeData={tradeData}
+              topups={topupData}
+              wallets={totalWalletBalance}
+              total={
+                incomeExpenseDifferance +
+                topupData +
+                tradeData[0] +
+                tradeData[1] +
+                totalAssetValue +
+                totalWalletBalance
+              }
+            />
+          )}
+        </Await>
+      </Suspense>
       <div className="w-[80%]">
         <div className="bg-white flex flex-col items-start justify-between px-[28px] pt-[45px]">
           <div className="mr-20 mb-8">
@@ -154,14 +230,33 @@ const DashboardPage = () => {
             <p className="text-sm pt-2 font-light">{headingText} </p>
           </div>
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
-            <div className="basis-1/3">
-              <div className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker">
-                <img src={totalInvestmentImg} alt="" className="w-12" />
-                <div className="flex flex-col items-start">
-                  <p className="text-sm font-medium">Networth</p>
-                  <p className="text-lg font-semibold">{networth}</p>
+            <div className="basis-1/3 rounded-xl">
+              <button
+                onClick={() => setModalOpen(true)}
+                className="p-0 m-0 w-full border-none bg-transparent"
+              >
+                <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200">
+                  <img src={totalInvestmentImg} alt="" className="w-10 h-10" />
+                  <div className="flex flex-col items-start">
+                    <p className="text-sm font-medium">Net Worth</p>
+                    <p className="text-lg font-semibold">
+                      {totalWalletBalance
+                        ? new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
+                          }).format(
+                            incomeExpenseDifferance +
+                              topupData +
+                              tradeData[0] +
+                              tradeData[1] +
+                              totalAssetValue +
+                              totalWalletBalance
+                          )
+                        : "$0.00"}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </button>
             </div>
             <div className="basis-1/3">
               <NavLink

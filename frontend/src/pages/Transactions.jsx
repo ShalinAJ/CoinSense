@@ -87,7 +87,6 @@ export async function action({ request }) {
   const date = new Date(data.get("date")).toISOString();
   const amount = parseFloat(data.get("amount"));
 
-  // add a new asset
   if (data.get("category")) {
     const assetData = {
       name: data.get("transaction"),
