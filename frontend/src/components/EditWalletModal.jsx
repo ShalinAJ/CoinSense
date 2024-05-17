@@ -93,6 +93,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
               <div className="flex flex-col mb-2 mt-8">
                 <label htmlFor="">Name on card</label>
                 <input
+                  required
                   id="name"
                   type="text"
                   name="name"
@@ -102,6 +103,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
               <div className="flex flex-col my-3">
                 <label htmlFor="">Card number</label>
                 <input
+                  required
                   id="number"
                   type="text"
                   name="number"
@@ -112,6 +114,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
               <div className="flex flex-row items-center my-4 ">
                 <label htmlFor="">Expiry date : </label>
                 <input
+                  required
                   id="expMonth"
                   type="number"
                   name="expMonth"
@@ -121,6 +124,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
                 ></input>
                 /
                 <input
+                  required
                   id="expYear"
                   type="number"
                   name="expYear"
@@ -132,6 +136,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
               <div className="flex flex-row mb-3 mt-3 gap-5 justify-between intems-center">
                 <div className="flex flex-col w-[50%]">
                   <input
+                    required
                     id="nickname"
                     type="hidden"
                     name="nickname"
@@ -141,6 +146,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
                 </div>
                 <div className="flex flex-col  w-[50%]">
                   <input
+                    required
                     id="cardbalance"
                     type="hidden"
                     name="cardbalance"

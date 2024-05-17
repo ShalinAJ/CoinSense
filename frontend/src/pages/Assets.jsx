@@ -13,11 +13,13 @@ import infoImg from "../assets/info.png";
 import AssetTypeWidget from "../components/widgets/AssetTypeWidget";
 import AssetCategoryWidget from "../components/widgets/AssetCategoryWidget.jsx";
 import AssetsTable from "../components/AssetsTable.jsx";
+import InfoModal from "../components/InfoModal.jsx";
 
 const AssetsPage = () => {
   const { assets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [assetType, setAssetType] = useState("All");
+  const [modalType, setModalType] = useState();
   const [assetsDetails, setAssetsDetails] = useState();
   const navigate = useNavigate();
 
@@ -43,9 +45,15 @@ const AssetsPage = () => {
     total = filteredAssets.reduce((acc, asset) => acc + asset.amount, 0);
   }
 
-  const openModal = () => {
+  function infoHandler() {
+    setModalType("info");
     setModalOpen(true);
-  };
+  }
+
+  function addAssetHandler() {
+    setModalType("asset");
+    setModalOpen(true);
+  }
 
   const closeModal = () => {
     setModalOpen(false);
@@ -57,11 +65,40 @@ const AssetsPage = () => {
 
   return (
     <>
-      <Suspense>
-        <Await>
-          {() => <AddAssetModal isOpen={modalOpen} onClose={closeModal} />}
-        </Await>
-      </Suspense>
+      {modalType === "asset" && (
+        <Suspense>
+          <Await>
+            {() => <AddAssetModal isOpen={modalOpen} onClose={closeModal} />}
+          </Await>
+        </Suspense>
+      )}
+
+      {modalType === "info" && (
+        <Suspense>
+          <Await>
+            {() => (
+              <InfoModal
+                title={"Assets Management"}
+                sub={
+                  "Welcome to your Assets Management page! This page allows you to manage your assets effectively. Here's what you can do on this page:"
+                }
+                description={[
+                  "Filter and check the assets you own, including tangible, intangible, or other assets, or view all assets at once.",
+                  "View the total value of your assets, which updates dynamically when you apply filters. You can also see the total number of assets you own.",
+                  "Add new assets to your portfolio seamlessly. After adding assets, you can edit or delete them by clicking on the respective options.",
+                  "Explore visual representations of your asset data with two different charts, displaying asset type and category data using distinct colors.",
+                  "Assets marked as 'Owned' contribute to your net worth, which is displayed on the main dashboard. If an asset's status changes to 'Sold', it will be removed from your net worth.",
+                ]}
+                footer={
+                  "With these features available, you have everything you need to manage your assets efficiently and make informed investment decisions."
+                }
+                isOpen={modalOpen}
+                onClose={closeModal}
+              />
+            )}
+          </Await>
+        </Suspense>
+      )}
 
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[29px]">
@@ -76,7 +113,12 @@ const AssetsPage = () => {
           </div>
 
           <div className="mr-3">
-            <img src={infoImg} alt="" className="w-5" />
+            <button
+              className="bg-transparent border-none p-0 m-0"
+              onClick={infoHandler}
+            >
+              <img src={infoImg} alt="" className="w-5" />
+            </button>
           </div>
         </div>
         <div className=" mx-[28px] my-9 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
@@ -125,7 +167,7 @@ const AssetsPage = () => {
                 </NavLink>
               </div>
               <button
-                onClick={openModal}
+                onClick={addAssetHandler}
                 className="bg-[#152DFF] text-white text-[11px] px-[3rem] hover:bg-coinsense-blue-darker"
               >
                 Add Asset

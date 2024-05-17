@@ -13,6 +13,7 @@ import Topups from "../components/Topups";
 import TopupWalletModal from "../components/TopupWalletModal";
 import TradingOrderHistory from "../components/trading/TradingOrderHistory";
 import WithdrawModal from "../components/WithdrawModal";
+import InfoModal from "../components/InfoModal";
 
 const TradingWalletPage = ({}) => {
   const { topups, wallets, orderHistory, tradingwalletdetails } =
@@ -90,6 +91,11 @@ const TradingWalletPage = ({}) => {
     setModalOpen(true);
   }
 
+  function infoHandler() {
+    setModalType("info");
+    setModalOpen(true);
+  }
+
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -133,6 +139,35 @@ const TradingWalletPage = ({}) => {
         </>
       )}
 
+      {modalType === "info" && (
+        <>
+          <Suspense>
+            <Await>
+              {() => (
+                <InfoModal
+                  title={"Trading Wallet Dashboard"}
+                  sub={
+                    "Welcome to your Trading Wallet Dashboard! This page serves as your central hub for managing your trading activities and monitoring your wallet's status. Here's what you can find on this page:"
+                  }
+                  description={[
+                    "Keep track of your current trading wallet balance to stay informed about your available funds for trading.",
+                    "View a comprehensive history of all the top-ups made to your trading wallet. Easily track when funds were added and the corresponding amounts",
+                    "Seamlessly add funds to your trading wallet with the Top Up button. Enjoy the convenience of topping up your wallet directly from this dashboard. After top-up, the amount will be deducted from the selected card.",
+                    "Initiate withdrawals from your trading wallet back to your main wallet. Access a log of past withdrawals, including dates and withdrawn amounts. After withdrawal, the amount will be added to the selected card.",
+                    "Dive into your trading activity with a detailed history of all trades executed from your trading wallet. Gain insights into the assets traded, quantities, prices, and transaction dates.",
+                  ]}
+                  footer={
+                    "With these features at your fingertips, you have everything you need to manage your trading wallet efficiently and make informed investment decisions."
+                  }
+                  isOpen={modalOpen}
+                  onClose={closeModal}
+                />
+              )}
+            </Await>
+          </Suspense>
+        </>
+      )}
+
       <div className="w-[80%] h-[max-content] px-[28px] bg-white">
         <div className="flex items-start justify-between  pt-[29px]">
           <div>
@@ -145,7 +180,12 @@ const TradingWalletPage = ({}) => {
             </p>
           </div>
           <div className="mr-3">
-            <img src={infoImg} alt="" className="w-5" />
+            <button
+              className="bg-transparent border-none p-0 m-0"
+              onClick={infoHandler}
+            >
+              <img src={infoImg} alt="" className="w-5" />
+            </button>
           </div>
         </div>
         <div className="border shadow-lg shadow-grey-500/40 p-5 rounded-3xl my-9">
