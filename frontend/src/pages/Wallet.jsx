@@ -43,7 +43,7 @@ const WalletPage = () => {
         </div>
         <div className=" px-[28px] py-6">
           <Suspense
-            fallback={<p className="text-sm font-medium">Loading...</p>}
+            fallback={<p className="text-sm font-medium">Loading wallets...</p>}
           >
             <Await resolve={wallets}>
               {(loadedWallets) => (

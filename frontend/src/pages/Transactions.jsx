@@ -7,6 +7,7 @@ const TransactionsPage = () => {
   const { transactions, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function walletCountHandler() {
@@ -33,7 +34,7 @@ const TransactionsPage = () => {
   return (
     <>
       <Suspense>
-        <Await resolve={transactions}>
+        <Await resolve={wallets}>
           {() => (
             <AddTransactionModal
               walletCards={walletList}
@@ -52,24 +53,43 @@ const TransactionsPage = () => {
               Detailed view of your transactions
             </p>
           </div>
-          <button
-            onClick={openModal}
-            className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
-          >
-            Add Transaction
-          </button>
+          <div className="flex flex-row gap-3">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search transactions..."
+              className="text-[11px]"
+            />
+            <button
+              onClick={openModal}
+              className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
+            >
+              Add Transaction
+            </button>
+          </div>
         </div>
-        <div className=" pl-[28px] py-6">
+        <div className="pl-[28px] py-6">
           <Suspense
-            fallback={<p className="text-sm font-medium">Loading...</p>}
+            fallback={
+              <p className="text-sm font-medium">Loading transactions...</p>
+            }
           >
             <Await resolve={transactions}>
-              {(loadedTransactions) => (
-                <TransactionsTable
-                  transactions={loadedTransactions}
-                  transactionStatus={""}
-                />
-              )}
+              {(loadedTransactions) => {
+                const filteredTransactions = loadedTransactions.filter(
+                  (transaction) =>
+                    transaction.transaction
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase())
+                );
+                return (
+                  <TransactionsTable
+                    transactions={filteredTransactions}
+                    transactionStatus=""
+                  />
+                );
+              }}
             </Await>
           </Suspense>
         </div>

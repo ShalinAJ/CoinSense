@@ -16,7 +16,7 @@ const DashboardPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [tradeData, setTradeData] = useState([0, 0]);
   const [totalIncome, setTotalIncome] = useState(0);
-  const [incomeExpenseDifferance, setIncomeExpenseDifferance] = useState(0);
+  const [incomeExpenseDifference, setIncomeExpenseDifference] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   const [assetsDetails, setAssetsDetails] = useState();
   const [walletDetails, setWalletDetails] = useState();
@@ -114,7 +114,7 @@ const DashboardPage = () => {
 
         setTotalIncome(totalIncomeFormated);
         setTotalExpense(totalExpenseFormated);
-        setIncomeExpenseDifferance(totalIncome - totalExpense);
+        setIncomeExpenseDifference(totalIncome - totalExpense);
       } catch (error) {
         console.error(error.message);
       }
@@ -204,13 +204,13 @@ const DashboardPage = () => {
             <NetworthModal
               isOpen={modalOpen}
               onClose={closeModal}
-              IOdiferrance={[incomeExpenseDifferance]}
+              IOdifference={[incomeExpenseDifference]}
               assets={totalAssetValue}
               tradeData={tradeData}
               topups={topupData}
               wallets={totalWalletBalance}
               total={
-                incomeExpenseDifferance +
+                incomeExpenseDifference +
                 topupData +
                 tradeData[0] +
                 tradeData[1] +
@@ -235,7 +235,7 @@ const DashboardPage = () => {
                 onClick={() => setModalOpen(true)}
                 className="p-0 m-0 w-full border-none bg-transparent"
               >
-                <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200">
+                <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
                   <img src={totalInvestmentImg} alt="" className="w-10 h-10" />
                   <div className="flex flex-col items-start">
                     <p className="text-sm font-medium">Net Worth</p>
@@ -245,7 +245,7 @@ const DashboardPage = () => {
                             style: "currency",
                             currency: "USD",
                           }).format(
-                            incomeExpenseDifferance +
+                            incomeExpenseDifference +
                               topupData +
                               tradeData[0] +
                               tradeData[1] +
@@ -261,7 +261,7 @@ const DashboardPage = () => {
             <div className="basis-1/3">
               <NavLink
                 to={"/dashboard/income"}
-                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200"
+                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
               >
                 <img src={totalIncomeImg} alt="" className="w-10 h-10" />
                 <div className="flex flex-col items-start">
@@ -273,7 +273,7 @@ const DashboardPage = () => {
             <div className="basis-1/3">
               <NavLink
                 to={"/dashboard/expense"}
-                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200"
+                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
               >
                 <img src={totalExpenseImg} alt="" className="w-10 h-10" />
                 <div className="flex flex-col items-start">

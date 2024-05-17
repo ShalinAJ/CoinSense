@@ -3,7 +3,7 @@ import React from "react";
 const NetworthModal = ({
   isOpen,
   onClose,
-  IOdiferrance,
+  IOdifference,
   assets,
   wallets,
   topups,
@@ -42,12 +42,12 @@ const NetworthModal = ({
             current financial position. Here's what each section entails:
           </p>
           <div className="flex flex-row justify-between">
-            <p>Differance of Income and Expenses</p>
+            <p>Difference of Income and Expenses</p>
             <p>
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "USD",
-              }).format(IOdiferrance)}
+              }).format(IOdifference)}
             </p>
           </div>
           <div className="flex flex-row justify-between">
