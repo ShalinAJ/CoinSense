@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 
 const WithdrawModal = ({ isOpen, onClose, totalAmount, walletCards }) => {
   const [selectedCard, setSelectedCard] = useState({});
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState();
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -55,6 +55,7 @@ const WithdrawModal = ({ isOpen, onClose, totalAmount, walletCards }) => {
                   Amount ($)<section className="text-red-600">*</section>
                 </label>
                 <input
+                  required
                   id="amount"
                   type="float"
                   name="amount"
@@ -70,6 +71,7 @@ const WithdrawModal = ({ isOpen, onClose, totalAmount, walletCards }) => {
                   <section className="text-red-600">*</section> :{" "}
                 </label>
                 <select
+                  required
                   name="cardName"
                   id="cardName"
                   className="rounded-m p-1 mt-2 ml-3 text-center rounded-md text-sm font-medium"

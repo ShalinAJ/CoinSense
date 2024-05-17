@@ -1,6 +1,19 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLoaderData } from "react-router-dom";
 
 const UserMarketOptions = ({ tradeData, url }) => {
+  const { assets } = useLoaderData();
+  const [assetData, setAssetData] = useState(0);
+
+  useEffect(() => {
+    async function fetchAssetsData() {
+      const data = await assets;
+      setAssetData(data);
+    }
+
+    fetchAssetsData();
+  }, [assets]);
+
   return (
     <div className=" h-[23rem] flex flex-col gap-5 justify-between">
       <div className="p-5 rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[80%]">
@@ -45,7 +58,7 @@ const UserMarketOptions = ({ tradeData, url }) => {
           <div className="flex flex-row items-center gap-3">
             <p className="text-sm font-normal">total assets :</p>
             <p className="bg-coinsense-blue text-white text-sm px-2 rounded-lg">
-              11
+              {assetData ? assetData.length : 0}
             </p>
           </div>
           <Link

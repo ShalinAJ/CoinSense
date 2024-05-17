@@ -30,11 +30,12 @@ const AddWalletModal = ({ isOpen, onClose }) => {
             <Form method="post" className="flex flex-col">
               <div className="flex flex-col mb-2 mt-8">
                 <label htmlFor="">Name on card</label>
-                <input id="name" type="text" name="name"></input>
+                <input required id="name" type="text" name="name"></input>
               </div>
               <div className="flex flex-col my-3">
                 <label htmlFor="">Card number</label>
                 <input
+                  required
                   id="number"
                   type="text"
                   name="number"
@@ -44,6 +45,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
               <div className="flex flex-row items-center my-4 ">
                 <label htmlFor="">Expiry date : </label>
                 <input
+                  required
                   id="expMonth"
                   type="number"
                   name="expMonth"
@@ -52,6 +54,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                 ></input>
                 /
                 <input
+                  required
                   id="expYear"
                   type="number"
                   name="expYear"
@@ -63,6 +66,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                 <div className="flex flex-col w-[50%]">
                   <label htmlFor="">Nickname</label>
                   <input
+                    required
                     id="nickname"
                     type="text"
                     name="nickname"
@@ -72,6 +76,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                 <div className="flex flex-col  w-[50%]">
                   <label htmlFor="">Last balance :</label>
                   <input
+                    required
                     id="cardbalance"
                     type="float"
                     name="cardbalance"

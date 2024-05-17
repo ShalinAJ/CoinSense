@@ -40,17 +40,23 @@ const AddAssetModal = ({ isOpen, onClose }) => {
             <Form method="post" className="flex flex-col">
               <div className="flex flex-col mb-2 mt-8">
                 <label htmlFor="">Asset Name</label>
-                <input id="name" type="text" name="transaction"></input>
+                <input
+                  id="name"
+                  type="text"
+                  name="transaction"
+                  required
+                ></input>
               </div>
               <div className="flex flex-col my-3">
                 <label htmlFor="">Amount ($)</label>
-                <input id="amount" type="float" name="amount"></input>
+                <input id="amount" type="float" name="amount" required></input>
               </div>
 
               <div className="flex flex-row justify-between w-[100%] gap-3">
                 <div className="my-2 flex flex-col w-[49.5%]">
                   <label htmlFor="">Asset type : </label>
                   <select
+                    required
                     name="type"
                     id="type"
                     className="rounded-m p-1 rounded-md text-sm font-medium"
@@ -66,6 +72,7 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                   <div className="my-2 flex flex-col w-[49.5%]">
                     <label htmlFor="">Tangible asset category</label>
                     <select
+                      required
                       name="category"
                       id="category"
                       className="rounded-m p-1 rounded-md text-sm font-medium"
@@ -82,6 +89,7 @@ const AddAssetModal = ({ isOpen, onClose }) => {
                   <div className="my-2 flex flex-col w-[49.5%]">
                     <label htmlFor="">Intangible asset category</label>
                     <select
+                      required
                       name="category"
                       id="category"
                       className="rounded-m p-1 rounded-md text-sm font-medium"
@@ -107,6 +115,7 @@ const AddAssetModal = ({ isOpen, onClose }) => {
               <div className="my-2">
                 <label htmlFor="">Status : </label>
                 <select
+                  required
                   name="status"
                   id="status"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"

@@ -22,10 +22,11 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
       <table className="w-[100%]">
         <tbody>
           <tr className="text-left text-sm leading-[45px]">
-            <th className="w-[25%]">Transaction</th>
-            <th className="w-[25%]">Date</th>
-            <th className="w-[25%]">Amount</th>
-            <th className="w-[10%]">Trade at</th>
+            <th className="w-[20%]">Transaction</th>
+            <th className="w-[30%]">Date</th>
+            <th className="w-[20%]">Amount</th>
+            <th className="w-[20%]">Trade at</th>
+            <th className="w-[10%]">Status</th>
           </tr>
           {currentItems.map((trade) => (
             <tr key={trade._id} className="text-sm font-medium leading-[48px]">
@@ -49,6 +50,18 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
                     currency: "USD",
                   }).format(trade.price)}
                 </div>
+              </td>
+              <td className="mt-3 text-center text-xs flex">
+                <p
+                  className={
+                    (trade.transactionType === "buy" &&
+                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                    (trade.transactionType === "sell" &&
+                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
+                  }
+                >
+                  {trade.transactionType}
+                </p>
               </td>
             </tr>
           ))}
