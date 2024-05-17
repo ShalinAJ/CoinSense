@@ -88,7 +88,7 @@ const NetworthModal = ({
           </div>
           <hr />
           <div className="flex flex-row justify-between">
-            <p>Total</p>
+            <p>Net Worth</p>
             <p>
               {new Intl.NumberFormat("en-US", {
                 style: "currency",

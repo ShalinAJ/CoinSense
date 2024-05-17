@@ -261,9 +261,9 @@ const DashboardPage = () => {
             <div className="basis-1/3">
               <NavLink
                 to={"/dashboard/income"}
-                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl hover:bg-coinsense-blue-darker"
+                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200"
               >
-                <img src={totalIncomeImg} alt="" className="w-12" />
+                <img src={totalIncomeImg} alt="" className="w-10 h-10" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Income</p>
                   <p className="text-lg font-semibold">{totalIncome}</p>
@@ -273,9 +273,9 @@ const DashboardPage = () => {
             <div className="basis-1/3">
               <NavLink
                 to={"/dashboard/expense"}
-                className="flex gap-4 w-[100%] p-4 bg-coinsense-blue text-white rounded-xl	hover:bg-coinsense-blue-darker"
+                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200"
               >
-                <img src={totalExpenseImg} alt="" className="w-12" />
+                <img src={totalExpenseImg} alt="" className="w-10 h-10" />
                 <div className="flex flex-col items-start">
                   <p className="text-sm font-medium">Total Expences</p>
                   <p className="text-lg font-semibold">{totalExpense}</p>
