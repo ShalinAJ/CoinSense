@@ -40,15 +40,20 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
             <Form method="post" className="flex flex-col">
               <div className="flex flex-col mb-2 mt-8">
                 <label htmlFor="">Transaction</label>
-                <input id="name" type="text" name="transaction"></input>
+                <input
+                  id="name"
+                  type="text"
+                  name="transaction"
+                  required
+                ></input>
               </div>
               <div className="flex flex-col my-3">
                 <label htmlFor="">Amount ($)</label>
-                <input id="amount" type="float" name="amount"></input>
+                <input id="amount" type="float" name="amount" required></input>
               </div>
               <div className="flex flex-col my-2">
                 <label htmlFor="">Date</label>
-                <input id="date" type="date" name="date"></input>
+                <input id="date" type="date" name="date" required></input>
               </div>
               <div className="my-2">
                 <label htmlFor="">Status : </label>
@@ -57,6 +62,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                   id="status"
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
                   onChange={statusSelecterHandler}
+                  required
                 >
                   <option value=""></option>
                   <option value="Income">Income</option>
@@ -71,6 +77,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                   className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
                   onChange={cardSelecterHandler}
                   value={selectedCard}
+                  required
                 >
                   {walletCards.map((card) => (
                     <option key={card.number} value={card.number}>
