@@ -159,8 +159,8 @@ const CryptoTradingPage = () => {
               borderColor: "#152dffa1",
               backgroundColor: "transparent",
               tension: 0.1,
-              pointRadius: 1,
-              pointHoverRadius: 0,
+              pointRadius: 2,
+              pointHoverRadius: 2,
             },
           ],
         });

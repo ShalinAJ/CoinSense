@@ -138,7 +138,7 @@ const AccountDetails = ({
         </p>
       </div>
       <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
-        <div className="w-[50%] flex flex-col">
+        <div className="w-[60%] flex flex-col">
           <div className="flex flex-row items-center pb-6 gap-3">
             <p className="text-xs font-medium  text-gray-400">
               Contact Information
@@ -234,31 +234,59 @@ const AccountDetails = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-4">
-          <Link
-            to={"../transactions"}
-            className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
-          >
-            <p className="text-mediums font-semibold">Transactions</p>
-            <p className="text-lg font-semibold text-[#152DFF]">
-              {transactionTotal ? transactionTotal : 0}
-            </p>
-          </Link>
-          <Link
-            to={"../wallet"}
-            className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]"
-          >
-            <p className="text-mediums font-semibold">Wallets</p>
-            <p className="text-lg font-semibold text-[#152DFF]">
-              {walletTotal ? walletTotal : 0}
-            </p>
-          </Link>
-          <Link className="gap-0 p-2 px-[6rem] box-shadow rounded-full flex flex-col items-center border-[2px] border-[#152DFF]">
-            <p className="text-mediums font-semibold">Investments</p>
-            <p className="text-lg font-semibold text-[#152DFF]">
-              {investmentsTotal ? investmentsTotal : 0}
-            </p>
-          </Link>
+        <div className="flex flex-col w-[40%]">
+          <p className="text-xs font-medium pb-6 text-gray-400">Quick Links</p>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-row gap-3">
+              <Link
+                to={"../investment/assets"}
+                className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                Assets
+              </Link>
+
+              <Link
+                to={"../income"}
+                className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                Incomes
+              </Link>
+              <Link
+                to={"../expense"}
+                className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                Expenses
+              </Link>
+            </div>
+            <div className="flex flex-row gap-3">
+              <Link
+                to={"../investment/crypto-trading"}
+                className="text-coinsense-blue border-[1px] col-span-2 border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                Crypto Trading
+              </Link>
+              <Link
+                to={"../investment/stock-trading"}
+                className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                Stock Trading
+              </Link>
+            </div>
+            <div className="flex flex-row gap-3">
+              <Link
+                to={"../investment/trading-wallet"}
+                className="text-coinsense-blue border-[1px] col-span-1 border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                Trading Wallet
+              </Link>
+              <Link
+                to={"../investment/user-investments"}
+                className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+              >
+                All Investments
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>
