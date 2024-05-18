@@ -3,7 +3,7 @@ import { Link, useLoaderData } from "react-router-dom";
 
 const TradingWalletWidget = () => {
   const { topups, orderHistory } = useLoaderData();
-  const [topupData, setTopupData] = useState(0);
+  const [topupData, setTopupData] = useState();
 
   useEffect(() => {
     async function topupDataHandler() {

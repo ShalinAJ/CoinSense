@@ -5,7 +5,6 @@ const {
   createOrderHistory,
   getOrderHistorys,
   deleteOrder,
-  deleteAllOrderHistory,
 } = require("../controllers/orderHistoryController.jsx");
 
 const router = express.Router();
@@ -15,6 +14,6 @@ router.use(requireAuh);
 
 router.post("/orderhistory/new", createOrderHistory);
 router.get("/orderhistory", getOrderHistorys);
-router.delete("/orderhistory/:id", deleteAllOrderHistory);
+router.get("/orderhistory/:id", deleteOrder);
 
 module.exports = router;

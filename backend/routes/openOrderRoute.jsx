@@ -5,7 +5,6 @@ const {
   createOpenOrder,
   getOpenOrders,
   deleteOrder,
-  deleteAllOpenOrders,
 } = require("../controllers/openOrdersController.jsx");
 
 const router = express.Router();
@@ -16,6 +15,5 @@ router.use(requireAuh);
 router.post("/openorder/new", createOpenOrder);
 router.get("/openorder", getOpenOrders);
 router.delete("/openorder/:id", deleteOrder);
-router.delete("/openorders/:id", deleteAllOpenOrders);
 
 module.exports = router;

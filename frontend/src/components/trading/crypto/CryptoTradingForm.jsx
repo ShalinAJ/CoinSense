@@ -154,7 +154,6 @@ const CryptoTradingForm = ({
         <label htmlFor="">Amount ({selectToken})</label>
         <input
           type="float"
-          required
           onChange={(event) => {
             setTotalAmount(event.target.value);
           }}
