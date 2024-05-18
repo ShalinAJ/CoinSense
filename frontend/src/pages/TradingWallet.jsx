@@ -14,6 +14,8 @@ import TopupWalletModal from "../components/TopupWalletModal";
 import TradingOrderHistory from "../components/trading/TradingOrderHistory";
 import WithdrawModal from "../components/WithdrawModal";
 import InfoModal from "../components/InfoModal";
+import RightSlide from "../components/animations/RightSlide";
+import Spring from "../components/animations/Spring";
 
 const TradingWalletPage = ({}) => {
   const { topups, wallets, orderHistory } = useLoaderData();
@@ -187,64 +189,70 @@ const TradingWalletPage = ({}) => {
             </button>
           </div>
         </div>
-        <div className="border shadow-lg shadow-grey-500/40 p-5 rounded-3xl my-9">
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-row text-sm font-medium gap-3 items-center w-[35%] ml-2">
-              <p className="font-normal">Trading wallet balance :</p>
-              <p className="font-semibold">
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                }).format(totalAmount)}
-              </p>
+        <RightSlide>
+          <div className="border shadow-lg shadow-grey-500/40 p-5 rounded-3xl my-9">
+            <div className="flex flex-row justify-between">
+              <div className="flex flex-row text-sm font-medium gap-3 items-center w-[35%] ml-2">
+                <p className="font-normal">Trading wallet balance :</p>
+                <p className="font-semibold">
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(totalAmount)}
+                </p>
+              </div>
+              <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
+              <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[30%]">
+                <p className="text-sm font-normal">total top-ups :</p>
+                <p className="bg-coinsense-blue text-sm  text-white px-2 rounded-lg">
+                  {entries}
+                </p>
+              </div>
+              <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
+              <div className="w-[35%] flex flex-row justify-end gap-1">
+                <button
+                  onClick={withdrawHandler}
+                  className="border-[#152DFF] bg-transparent text-coinsense-blue text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker hover:text-white"
+                >
+                  Withdraw
+                </button>
+                <button
+                  onClick={topupHandler}
+                  className="bg-[#152DFF] text-white text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker"
+                >
+                  Top up
+                </button>
+              </div>
             </div>
-            <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-            <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[30%]">
-              <p className="text-sm font-normal">total top-ups :</p>
-              <p className="bg-coinsense-blue text-sm  text-white px-2 rounded-lg">
-                {entries}
-              </p>
-            </div>
-            <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-            <div className="w-[35%] flex flex-row justify-end gap-1">
-              <button
-                onClick={withdrawHandler}
-                className="border-[#152DFF] bg-transparent text-coinsense-blue text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker hover:text-white"
+          </div>
+        </RightSlide>
+        <Spring>
+          <div className="flex flex-row justify-between gap-5">
+            <div className="w-[50%] border rounded-3xl h-[23rem]">
+              <Suspense
+                fallback={<p className="text-sm font-medium p-5">Loading...</p>}
               >
-                Withdraw
-              </button>
-              <button
-                onClick={topupHandler}
-                className="bg-[#152DFF] text-white text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker"
+                <Await resolve={topups}>
+                  {(topupdata) => <Topups tradingWallet={topupdata} />}
+                </Await>
+              </Suspense>
+            </div>
+            <div className="w-[50%] border rounded-3xl p-3 h-[23rem]">
+              <Suspense
+                fallback={<p className="text-sm font-medium p-2">Loading...</p>}
               >
-                Top up
-              </button>
+                <p className="text-xs text-gray-400 font-normal">
+                  Order History
+                </p>
+                <Await resolve={orderHistory}>
+                  {(orderHistory) => (
+                    <TradingOrderHistory orderHistoryData={orderHistory} />
+                  )}
+                </Await>
+              </Suspense>
             </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-between gap-5">
-          <div className="w-[50%] border rounded-3xl h-[23rem]">
-            <Suspense
-              fallback={<p className="text-sm font-medium p-5">Loading...</p>}
-            >
-              <Await resolve={topups}>
-                {(topupdata) => <Topups tradingWallet={topupdata} />}
-              </Await>
-            </Suspense>
-          </div>
-          <div className="w-[50%] border rounded-3xl p-3 h-[23rem]">
-            <Suspense
-              fallback={<p className="text-sm font-medium p-2">Loading...</p>}
-            >
-              <p className="text-xs text-gray-400 font-normal">Order History</p>
-              <Await resolve={orderHistory}>
-                {(orderHistory) => (
-                  <TradingOrderHistory orderHistoryData={orderHistory} />
-                )}
-              </Await>
-            </Suspense>
-          </div>
-        </div>
+        </Spring>
       </div>
     </>
   );

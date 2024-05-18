@@ -4,6 +4,7 @@ import { Await, json } from "react-router-dom";
 import EditAccountInfo from "../components/EditAccountInfo";
 import AccountDetails from "../components/AccountDetails";
 import { useDeleteAccount } from "../Hooks/useDeleteAccount";
+import Spring from "../components/animations/Spring";
 
 const AccountPage = () => {
   const { ...userInfo } = JSON.parse(localStorage.getItem("user"));
@@ -79,14 +80,16 @@ const AccountPage = () => {
     <>
       <Suspense>
         <Await resolve={accountDetails}>
-          {() => (
-            <EditAccountInfo
-              accountDetails={accountDetails}
-              isOpen={modalOpen}
-              onClose={closeModal}
-              onHandleSubmit={handleSubmit}
-            />
-          )}
+          <Spring>
+            {() => (
+              <EditAccountInfo
+                accountDetails={accountDetails}
+                isOpen={modalOpen}
+                onClose={closeModal}
+                onHandleSubmit={handleSubmit}
+              />
+            )}
+          </Spring>
         </Await>
       </Suspense>
       <AccountDetails

@@ -16,6 +16,10 @@ const NetworthModal = ({
     onClose();
   };
 
+  if (topups == undefined) {
+    topups = 0;
+  }
+
   return (
     <>
       <div

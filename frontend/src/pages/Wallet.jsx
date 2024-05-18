@@ -2,6 +2,8 @@ import { Suspense, useState } from "react";
 import AddWalletModal from "../components/AddWalletModal";
 import { Await, defer, json, Link, useLoaderData } from "react-router-dom";
 import WalletsList from "../components/WalletsList";
+import Spring from "../components/animations/Spring";
+import RightSlide from "../components/animations/RightSlide";
 
 const WalletPage = () => {
   const { wallets, transactions } = useLoaderData();
@@ -26,35 +28,41 @@ const WalletPage = () => {
               Detailed view of your wallets
             </p>
           </div>
-          <div className="flex flex-row gap-3">
-            <Link
-              to={"/dashboard/investment/trading-wallet"}
-              className="text-xs text-coinsense-blue px-8 border py-1 rounded-lg border-coinsense-blue bg-transparent"
+          <RightSlide>
+            <div className="flex flex-row gap-3">
+              <Link
+                to={"/dashboard/investment/trading-wallet"}
+                className="text-xs text-coinsense-blue px-8 border py-1 rounded-lg border-coinsense-blue bg-transparent"
+              >
+                Trading Wallet
+              </Link>
+              <button
+                onClick={openModal}
+                className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
+              >
+                Add Wallet
+              </button>
+            </div>
+          </RightSlide>
+        </div>
+        <Spring>
+          <div className=" px-[28px] py-6">
+            <Suspense
+              fallback={
+                <p className="text-sm font-medium">Loading wallets...</p>
+              }
             >
-              Trading Wallet
-            </Link>
-            <button
-              onClick={openModal}
-              className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
-            >
-              Add Wallet
-            </button>
+              <Await resolve={wallets}>
+                {(loadedWallets) => (
+                  <WalletsList
+                    wallets={loadedWallets}
+                    transactions={transactions}
+                  />
+                )}
+              </Await>
+            </Suspense>
           </div>
-        </div>
-        <div className=" px-[28px] py-6">
-          <Suspense
-            fallback={<p className="text-sm font-medium">Loading wallets...</p>}
-          >
-            <Await resolve={wallets}>
-              {(loadedWallets) => (
-                <WalletsList
-                  wallets={loadedWallets}
-                  transactions={transactions}
-                />
-              )}
-            </Await>
-          </Suspense>
-        </div>
+        </Spring>
       </div>
     </>
   );
