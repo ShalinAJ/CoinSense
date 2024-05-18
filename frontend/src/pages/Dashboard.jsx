@@ -239,11 +239,12 @@ const DashboardPage = () => {
                 <motion.div
                   initial={{ scale: 0 }} // Start from a smaller scale
                   animate={{ scale: 1 }} // Animate to default scale
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.8 }}
                   transition={{
                     type: "spring",
-                    stiffness: 50,
+                    stiffness: 100,
+                    yoyo: Infinity,
                   }}
                 >
                   <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
