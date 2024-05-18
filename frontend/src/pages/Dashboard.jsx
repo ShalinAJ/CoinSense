@@ -9,6 +9,7 @@ import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import WalletWidget from "../components/widgets/WalletWidget";
 import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
 import NetworthModal from "../components/NetworthModal";
+import { motion } from "framer-motion";
 
 const DashboardPage = () => {
   const { transactions, orderHistory, assets, wallets, topups } =
@@ -235,27 +236,41 @@ const DashboardPage = () => {
                 onClick={() => setModalOpen(true)}
                 className="p-0 m-0 w-full border-none bg-transparent"
               >
-                <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
-                  <img src={totalInvestmentImg} alt="" className="w-10 h-10" />
-                  <div className="flex flex-col items-start">
-                    <p className="text-sm font-medium">Net Worth</p>
-                    <p className="text-lg font-semibold">
-                      {totalWalletBalance
-                        ? new Intl.NumberFormat("en-US", {
-                            style: "currency",
-                            currency: "USD",
-                          }).format(
-                            incomeExpenseDifference +
-                              topupData +
-                              tradeData[0] +
-                              tradeData[1] +
-                              totalAssetValue +
-                              totalWalletBalance
-                          )
-                        : "$0.00"}
-                    </p>
+                <motion.div
+                  initial={{ scale: 0 }} // Start from a smaller scale
+                  animate={{ scale: 1 }} // Animate to default scale
+                  transition={{
+                    type: "spring",
+                    stiffness: 100,
+                    yoyo: Infinity,
+                  }}
+                >
+                  <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
+                    <img
+                      src={totalInvestmentImg}
+                      alt=""
+                      className="w-10 h-10"
+                    />
+                    <div className="flex flex-col items-start">
+                      <p className="text-sm font-medium">Net Worth</p>
+                      <p className="text-lg font-semibold">
+                        {totalWalletBalance
+                          ? new Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: "USD",
+                            }).format(
+                              incomeExpenseDifference +
+                                topupData +
+                                tradeData[0] +
+                                tradeData[1] +
+                                totalAssetValue +
+                                totalWalletBalance
+                            )
+                          : "$0.00"}
+                      </p>
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               </button>
             </div>
             <div className="basis-1/3">
