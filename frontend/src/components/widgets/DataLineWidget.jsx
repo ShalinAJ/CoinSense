@@ -3,7 +3,17 @@ import axios from "axios";
 import styles from "./DataLineWidget.module.css"; // Import the CSS module for styling
 
 const DataLineWidget = () => {
-  const [cryptoData, setCryptoData] = useState([]);
+  const [cryptoData, setCryptoData] = useState([
+    { name: "BTCUSDT", price: "--", priceChange: "--" },
+    { name: "ETHUSDT", price: "--", priceChange: "--" },
+    { name: "BNBUSDT", price: "--", priceChange: "--" },
+    { name: "SOLUSDT", price: "--", priceChange: "--" },
+    { name: "USDCUSDT", price: "--", priceChange: "--" },
+    { name: "XRPUSDT", price: "--", priceChange: "--" },
+    { name: "DOGEUSDT", price: "--", priceChange: "--" },
+    { name: "ADAUSDT", price: "--", priceChange: "--" },
+    { name: "SHIBUSDT", price: "--", priceChange: "--" },
+  ]);
 
   useEffect(() => {
     const fetchData = async (crypto) => {

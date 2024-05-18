@@ -10,6 +10,7 @@ import WalletWidget from "../components/widgets/WalletWidget";
 import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
 import NetworthModal from "../components/NetworthModal";
 import Spring from "../components/animations/Spring";
+import RightSlide from "../components/animations/RightSlide";
 
 const DashboardPage = () => {
   const { transactions, orderHistory, assets, wallets, topups } =
@@ -265,59 +266,67 @@ const DashboardPage = () => {
                 </Spring>
               </button>
             </div>
+
             <div className="basis-1/3">
-              <NavLink
-                to={"/dashboard/income"}
-                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
-              >
-                <img src={totalIncomeImg} alt="" className="w-10 h-10" />
-                <div className="flex flex-col items-start">
-                  <p className="text-sm font-medium">Total Income</p>
-                  <p className="text-lg font-semibold">{totalIncome}</p>
-                </div>
-              </NavLink>
+              <Spring>
+                <NavLink
+                  to={"/dashboard/income"}
+                  className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
+                >
+                  <img src={totalIncomeImg} alt="" className="w-10 h-10" />
+                  <div className="flex flex-col items-start">
+                    <p className="text-sm font-medium">Total Income</p>
+                    <p className="text-lg font-semibold">{totalIncome}</p>
+                  </div>
+                </NavLink>
+              </Spring>
             </div>
             <div className="basis-1/3">
-              <NavLink
-                to={"/dashboard/expense"}
-                className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
-              >
-                <img src={totalExpenseImg} alt="" className="w-10 h-10" />
-                <div className="flex flex-col items-start">
-                  <p className="text-sm font-medium">Total Expences</p>
-                  <p className="text-lg font-semibold">{totalExpense}</p>
-                </div>
-              </NavLink>
+              <Spring>
+                <NavLink
+                  to={"/dashboard/expense"}
+                  className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
+                >
+                  <img src={totalExpenseImg} alt="" className="w-10 h-10" />
+                  <div className="flex flex-col items-start">
+                    <p className="text-sm font-medium">Total Expences</p>
+                    <p className="text-lg font-semibold">{totalExpense}</p>
+                  </div>
+                </NavLink>
+              </Spring>
             </div>
           </div>
           <div className="w-[100%] h-[100%]">
-            <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mb-10">
-              <div className="flex flex-row justify-between items-center">
-                <div className="p-3 mb-1">
-                  <p className="text-xl font-semibold">
-                    Financial Inflow Outflow
-                  </p>
-                  <p className="text-xs text-gray-400 py-1">
-                    Visualizes the money coming in (inflow) and going out
-                    (outflow) of your account over the year.
-                  </p>
+            <RightSlide>
+              <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mb-10">
+                <div className="flex flex-row justify-between items-center">
+                  <div className="p-3 mb-1">
+                    <p className="text-xl font-semibold">
+                      Financial Inflow Outflow
+                    </p>
+                    <p className="text-xs text-gray-400 py-1">
+                      Visualizes the money coming in (inflow) and going out
+                      (outflow) of your account over the year.
+                    </p>
+                  </div>
+                  <select
+                    name="years1"
+                    id="years1"
+                    value={selectedYearIO}
+                    onChange={handleYearChangeIO}
+                    className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                  >
+                    {transactionYears.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <select
-                  name="years1"
-                  id="years1"
-                  value={selectedYearIO}
-                  onChange={handleYearChangeIO}
-                  className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
-                >
-                  {transactionYears.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
+                <InflowOutflowChart selectedYear={selectedYearIO} />
               </div>
-              <InflowOutflowChart selectedYear={selectedYearIO} />
-            </div>
+            </RightSlide>
+
             <div className="flex flex-row justify-between">
               <div className="w-[48.5%]">
                 <UserMarketOptions
@@ -334,31 +343,33 @@ const DashboardPage = () => {
                 <TradingWalletWidget />
               </div>
             </div>
-            <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mt-10 mb-10">
-              <div className="flex flex-row justify-between items-center">
-                <div className="p-3 mb-1">
-                  <p className="text-xl font-semibold">Balance Evolution</p>
-                  <p className="text-xs text-gray-400 py-1">
-                    A representation of how the balance of an account or
-                    portfolio has changed over time.
-                  </p>
+            <RightSlide>
+              <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mt-10 mb-10">
+                <div className="flex flex-row justify-between items-center">
+                  <div className="p-3 mb-1">
+                    <p className="text-xl font-semibold">Balance Evolution</p>
+                    <p className="text-xs text-gray-400 py-1">
+                      A representation of how the balance of an account or
+                      portfolio has changed over time.
+                    </p>
+                  </div>
+                  <select
+                    name="years2"
+                    id="years2"
+                    value={selectedYearBE}
+                    onChange={handleYearChangeBE}
+                    className="bg-transparent mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                  >
+                    {transactionYears.map((year) => (
+                      <option key={year} value={year}>
+                        {year}
+                      </option>
+                    ))}
+                  </select>
                 </div>
-                <select
-                  name="years2"
-                  id="years2"
-                  value={selectedYearBE}
-                  onChange={handleYearChangeBE}
-                  className="bg-transparent mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
-                >
-                  {transactionYears.map((year) => (
-                    <option key={year} value={year}>
-                      {year}
-                    </option>
-                  ))}
-                </select>
+                <BalanceEvolutionChart selectedYear={selectedYearBE} />
               </div>
-              <BalanceEvolutionChart selectedYear={selectedYearBE} />
-            </div>
+            </RightSlide>
           </div>
         </div>
       </div>

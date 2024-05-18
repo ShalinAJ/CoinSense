@@ -6,6 +6,8 @@ import CryptoChart from "../charts/CryptoChart";
 import axios from "axios";
 import StockChart from "../charts/StockChart";
 import DataLineWidget from "../components/widgets/DataLineWidget";
+import RightSlide from "../components/animations/RightSlide";
+import Spring from "../components/animations/Spring";
 
 const InvestmentsPage = () => {
   const { orderHistory, userInfo, selectToken, tradingInterval } =
@@ -206,65 +208,71 @@ const InvestmentsPage = () => {
           />
         </div>
       </div>
-      <div className="mb-10 flex flex-col gap-5">
-        <DataLineWidget />
-      </div>
-      <div className="flex flex-row justify-between gap-10">
-        <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-          <div>
-            <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
-              <div className="flex flex-row gap-3">
-                <img
-                  src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
-                  alt=""
-                  className="w-6 rounded-md"
-                />
-                <p className="text-base font-semibold">Bitcoin (BTC)</p>
-              </div>
+      <RightSlide>
+        <div className="mb-10 flex flex-col gap-5">
+          <DataLineWidget />
+        </div>
+      </RightSlide>
 
+      <Spring>
+        <div className="flex flex-row justify-between gap-10">
+          <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+            <div>
+              <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
+                <div className="flex flex-row gap-3">
+                  <img
+                    src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
+                    alt=""
+                    className="w-6 rounded-md"
+                  />
+                  <p className="text-base font-semibold">Bitcoin (BTC)</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold">
+                    Price per token :{" "}
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(cryptoDataSet)}
+                  </p>
+                </div>
+              </div>
               <div>
-                <p className="text-xs font-semibold">
-                  Price per token :{" "}
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(cryptoDataSet)}
-                </p>
+                <CryptoChart chartData={cryptoChartData} size={"200px"} />
               </div>
             </div>
+          </div>
+
+          <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
             <div>
-              <CryptoChart chartData={cryptoChartData} size={"200px"} />
+              <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
+                <div className="flex flex-row gap-3">
+                  <img
+                    src="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png"
+                    alt=""
+                    className="w-6 rounded-md"
+                  />
+                  <p className="text-base font-semibold">Apple Inc (AAPL)</p>
+                </div>
+
+                <div>
+                  <p className="text-xs font-semibold">
+                    Price per stock :{" "}
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(stockDataSet)}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <StockChart chartData={stockChartData} size={"200px"} />
+              </div>
             </div>
           </div>
         </div>
-        <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-          <div>
-            <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
-              <div className="flex flex-row gap-3">
-                <img
-                  src="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png"
-                  alt=""
-                  className="w-6 rounded-md"
-                />
-                <p className="text-base font-semibold">Apple Inc (AAPL)</p>
-              </div>
-
-              <div>
-                <p className="text-xs font-semibold">
-                  Price per stock :{" "}
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(stockDataSet)}
-                </p>
-              </div>
-            </div>
-            <div>
-              <StockChart chartData={stockChartData} size={"200px"} />
-            </div>
-          </div>
-        </div>
-      </div>
+      </Spring>
     </div>
   );
 };
