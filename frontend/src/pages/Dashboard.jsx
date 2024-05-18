@@ -9,7 +9,7 @@ import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import WalletWidget from "../components/widgets/WalletWidget";
 import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
 import NetworthModal from "../components/NetworthModal";
-import { motion } from "framer-motion";
+import Spring from "../components/animations/Spring";
 
 const DashboardPage = () => {
   const { transactions, orderHistory, assets, wallets, topups } =
@@ -236,17 +236,7 @@ const DashboardPage = () => {
                 onClick={() => setModalOpen(true)}
                 className="p-0 m-0 w-full border-none bg-transparent"
               >
-                <motion.div
-                  initial={{ scale: 0 }} // Start from a smaller scale
-                  animate={{ scale: 1 }} // Animate to default scale
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.8 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 100,
-                    yoyo: Infinity,
-                  }}
-                >
+                <Spring>
                   <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
                     <img
                       src={totalInvestmentImg}
@@ -272,7 +262,7 @@ const DashboardPage = () => {
                       </p>
                     </div>
                   </div>
-                </motion.div>
+                </Spring>
               </button>
             </div>
             <div className="basis-1/3">
