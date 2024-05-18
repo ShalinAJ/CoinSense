@@ -1,6 +1,7 @@
 import deleteImg from "../assets/delete.png";
 import { useState } from "react";
 import styles from "./TransactionTable.module.css";
+import FadeIn from "./animations/FadeIn";
 
 const TransactionsTable = ({ transactions, transactionStatus }) => {
   const deleteHandler = async (id) => {
@@ -36,98 +37,116 @@ const TransactionsTable = ({ transactions, transactionStatus }) => {
 
   return (
     <div>
-      <table className="w-[100%]">
-        <tbody>
+      <table className="w-full">
+        <thead>
           <tr className="text-left text-sm leading-[45px]">
-            <th>Transaction</th>
-            <th>Date</th>
-            <th className="w-[15%]">Amount</th>
-            <th className="text-center pl-[80px]">Status</th>
+            <th>
+              <FadeIn>Transaction</FadeIn>
+            </th>
+            <th>
+              <FadeIn>Date</FadeIn>
+            </th>
+            <th className="w-[15%]">
+              <FadeIn>Amount</FadeIn>
+            </th>
+            <th className="text-center pl-[80px]">
+              <FadeIn>Status</FadeIn>
+            </th>
           </tr>
-          {currentItems.map((transaction) => (
-            <tr
-              key={transaction._id}
-              className="text-sm font-medium leading-[48px]"
-            >
-              <td>{transaction.transaction}</td>
-              <td>
-                {new Date(transaction.createdAt).toLocaleString("en-US", {
-                  weekday: "short",
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                })}
-              </td>
-              <td>
-                <div className="flex flex-row">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(transaction.amount)}
-                  <p className="pl-2 text-[10px] text-gray-500 font-light">
-                    {transaction.card
-                      ? "Card " + transaction.card.slice(12, 16)
-                      : undefined}
-                  </p>
-                </div>
-              </td>
-              <td className="mt-3 text-center text-xs flex justify-end pr-9">
-                <p
-                  className={
-                    (transaction.status === "Income" &&
-                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
-                    (transaction.status === "Expense" &&
-                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
-                    (transaction.status === "withdraw" &&
-                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl mr-6") ||
-                    (transaction.status === "topup" &&
-                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl mr-6")
-                  }
-                >
-                  {transaction.status}
-                </p>
-                {(transaction.status === "Income" && (
-                  <button
-                    onClick={() => deleteHandler(transaction._id)}
-                    className="p-0 m-0 ml-2 border-none bg-transparent"
+        </thead>
+        <tbody>
+          {currentItems.length > 0 ? (
+            currentItems.map((transaction) => (
+              <tr
+                key={transaction._id}
+                className="text-sm font-medium leading-[48px]"
+              >
+                <td>
+                  <FadeIn>{transaction.transaction}</FadeIn>
+                </td>
+                <td>
+                  <FadeIn>
+                    {new Date(transaction.createdAt).toLocaleString("en-US", {
+                      weekday: "short",
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </FadeIn>
+                </td>
+                <td>
+                  <FadeIn>
+                    <div className="flex flex-row">
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(transaction.amount)}
+                      <p className="pl-2 text-[10px] text-gray-500 font-light">
+                        {transaction.card
+                          ? "Card " + transaction.card.slice(12, 16)
+                          : undefined}
+                      </p>
+                    </div>
+                  </FadeIn>
+                </td>
+                <td className="mt-3 text-center text-xs flex flex-row justify-end pr-9">
+                  <p
+                    className={
+                      (transaction.status === "Income" &&
+                        "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                      (transaction.status === "Expense" &&
+                        "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
+                      (transaction.status === "withdraw" &&
+                        "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl mr-6") ||
+                      (transaction.status === "topup" &&
+                        "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl mr-6")
+                    }
                   >
-                    <img src={deleteImg} className="w-4" />
-                  </button>
-                )) ||
-                  (transaction.status === "Expense" && (
+                    <FadeIn>{transaction.status}</FadeIn>
+                  </p>
+
+                  {(transaction.status === "Income" ||
+                    transaction.status === "Expense") && (
                     <button
                       onClick={() => deleteHandler(transaction._id)}
                       className="p-0 m-0 ml-2 border-none bg-transparent"
                     >
-                      <img src={deleteImg} className="w-4" />
+                      <FadeIn>
+                        <img src={deleteImg} className="w-4" />
+                      </FadeIn>
                     </button>
-                  ))}
-              </td>
-            </tr>
-          ))}
+                  )}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <p className="text-sm font-medium">No results found</p>
+          )}
         </tbody>
       </table>
-      <ul className={`${styles.pagination} flex flex-row gap-1`}>
-        {Array.from({
-          length: Math.ceil(transactions.length / itemsPerPage),
-        }).map((_, index) => (
-          <li
-            key={index}
-            className={`${styles.pageItem} ${
-              currentPage === index + 1 ? styles.active : ""
-            }`}
-          >
-            <button
-              onClick={() => paginate(index + 1)}
-              className={`${styles.pageLink} ${
+      <FadeIn>
+        <ul className={`${styles.pagination} flex flex-row gap-1`}>
+          {Array.from({
+            length: Math.ceil(transactions.length / itemsPerPage),
+          }).map((_, index) => (
+            <li
+              key={index}
+              className={`${styles.pageItem} ${
                 currentPage === index + 1 ? styles.active : ""
               }`}
             >
-              {index + 1}
-            </button>
-          </li>
-        ))}
-      </ul>
+              <button
+                onClick={() => paginate(index + 1)}
+                className={`${styles.pageLink} ${
+                  currentPage === index + 1 ? styles.active : ""
+                }`}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </FadeIn>
     </div>
   );
 };

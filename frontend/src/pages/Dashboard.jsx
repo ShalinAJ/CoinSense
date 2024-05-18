@@ -198,25 +198,6 @@ const DashboardPage = () => {
   let firstName;
   name ? (firstName = name.split(" ")[0]) : "";
 
-  // calculate total networth (othwerwise networth disply as NaN)
-  let networth = 0;
-  if (
-    incomeExpenseDifference &&
-    topupData &&
-    tradeData[0] &&
-    tradeData[1] &&
-    totalAssetValue &&
-    totalWalletBalance
-  ) {
-    networth =
-      incomeExpenseDifference +
-      topupData +
-      tradeData[0] +
-      tradeData[1] +
-      totalAssetValue +
-      totalWalletBalance;
-  }
-
   return (
     <>
       <Suspense>
@@ -230,7 +211,14 @@ const DashboardPage = () => {
               tradeData={tradeData}
               topups={topupData}
               wallets={totalWalletBalance}
-              total={networth}
+              total={
+                incomeExpenseDifference +
+                topupData +
+                tradeData[0] +
+                tradeData[1] +
+                totalAssetValue +
+                totalWalletBalance
+              }
             />
           )}
         </Await>
@@ -263,7 +251,14 @@ const DashboardPage = () => {
                           ? new Intl.NumberFormat("en-US", {
                               style: "currency",
                               currency: "USD",
-                            }).format(networth)
+                            }).format(
+                              incomeExpenseDifference +
+                                topupData +
+                                tradeData[0] +
+                                tradeData[1] +
+                                totalAssetValue +
+                                totalWalletBalance
+                            )
                           : "$0.00"}
                       </p>
                     </div>

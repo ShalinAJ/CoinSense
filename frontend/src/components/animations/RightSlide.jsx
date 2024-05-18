@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 const RightSlide = ({ children }) => {
   return (
     <motion.div
-      initial={{ x: "100vw" }} // Start from the right side (off-screen)
-      animate={{ x: 0 }} // Animate to its default position (0)
+      initial={{ x: "100vw" }}
+      animate={{ x: 0 }}
       whileHover={{ scale: 1 }}
       transition={{
         type: "spring",

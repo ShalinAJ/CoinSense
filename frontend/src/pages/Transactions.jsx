@@ -2,6 +2,8 @@ import React, { Suspense, useEffect, useState } from "react";
 import { Await, defer, json, useLoaderData } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable.jsx";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
+import Spring from "../components/animations/Spring.jsx";
+import RightSlide from "../components/animations/RightSlide.jsx";
 
 const TransactionsPage = () => {
   const { transactions, wallets } = useLoaderData();
@@ -53,21 +55,23 @@ const TransactionsPage = () => {
               Detailed view of your transactions
             </p>
           </div>
-          <div className="flex flex-row gap-3">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search transactions..."
-              className="text-[11px]"
-            />
-            <button
-              onClick={openModal}
-              className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
-            >
-              Add Transaction
-            </button>
-          </div>
+          <RightSlide>
+            <div className="flex flex-row gap-3">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search transactions..."
+                className="text-[11px]"
+              />
+              <button
+                onClick={openModal}
+                className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
+              >
+                Add Transaction
+              </button>
+            </div>
+          </RightSlide>
         </div>
         <div className="pl-[28px] py-6">
           <Suspense

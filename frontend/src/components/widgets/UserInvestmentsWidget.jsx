@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Spring from "../animations/Spring";
+import FadeIn from "../animations/FadeIn";
 
 const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
   return (
@@ -25,15 +26,22 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
                     key={index}
                     className="flex flex-row justify-between text-[13.5px] font-medium py-3"
                   >
-                    <p className="w-[30%] text-left">{investment.name}</p>
+                    <p className="w-[30%] text-left">
+                      <FadeIn>{investment.name}</FadeIn>
+                    </p>
                     <p className="w-[40%] text-center">
-                      {new Date(investment.createdAt).toLocaleString("en-US", {
-                        weekday: "short",
-                        month: "short",
-                        year: "numeric",
-                        hour: "numeric",
-                        minute: "numeric",
-                      })}
+                      <FadeIn>
+                        {new Date(investment.createdAt).toLocaleString(
+                          "en-US",
+                          {
+                            weekday: "short",
+                            month: "short",
+                            year: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                          }
+                        )}
+                      </FadeIn>
                     </p>
                     <div
                       className={"w-[30%] flex flex-row justify-end text-xs"}
@@ -45,7 +53,7 @@ const UserInvestmentsWidget = ({ investmentTotal, recentInvestments }) => {
                             : "bg-[#ff00001f] text-[#ff0000]"
                         } text-right px-[6px] py-[6px] rounded-lg`}
                       >
-                        {investment.transactionType}
+                        <FadeIn>{investment.transactionType}</FadeIn>
                       </p>
                     </div>
                   </div>
