@@ -63,4 +63,27 @@ const deleteOrder = async (req, res) => {
   res.status(200).json(order);
 };
 
-module.exports = { createOpenOrder, getOpenOrders, deleteOrder };
+// Delete all open orders associated with one user
+const deleteAllOpenOrders = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Invalid ObjectId provided" });
+  }
+
+  try {
+    // Delete all transactions with the specified user_id
+    const openOrders = await OpenOrders.deleteMany({ user_id: id });
+
+    res.status(200).json(openOrders);
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting transactions" });
+  }
+};
+
+module.exports = {
+  createOpenOrder,
+  getOpenOrders,
+  deleteOrder,
+  deleteAllOpenOrders,
+};

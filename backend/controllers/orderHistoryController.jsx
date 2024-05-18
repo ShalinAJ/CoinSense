@@ -42,24 +42,26 @@ const getOrderHistorys = async (req, res) => {
   }
 };
 
-const deleteOrder = async (req, res) => {
+// Delete all order history associated with one user
+const deleteAllOrderHistory = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res
-      .status(400)
-      .json({ error: "NO such a contact (mongoose ID is invalid)" });
+    return res.status(400).json({ error: "Invalid ObjectId provided" });
   }
 
-  const order = await OrderHistory.findOneAndDelete({ user_id: id });
+  try {
+    // Delete all transactions with the specified user_id
+    const orderHistory = await OrderHistory.deleteMany({ user_id: id });
 
-  if (!order) {
-    return res
-      .status(400)
-      .json({ error: "NO such a contact (contact ID is invalid)" });
+    res.status(200).json(orderHistory);
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting transactions" });
   }
-
-  res.status(200).json(order);
 };
 
-module.exports = { createOrderHistory, getOrderHistorys, deleteOrder };
+module.exports = {
+  createOrderHistory,
+  getOrderHistorys,
+  deleteAllOrderHistory,
+};
