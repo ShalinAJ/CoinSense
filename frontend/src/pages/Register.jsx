@@ -40,7 +40,7 @@ const RegisterPage = () => {
   return (
     <>
       <div className="h-[100%] flex flex-wrap flex-col content-center justify-center bg-coinsense-blue">
-        <Spring className="w-[350px] px-4 py-6">
+        <Spring>
           <div className="w-[350px] px-4 py-6 bg-white rounded-md">
             <form onSubmit={handleSubmit}>
               <div className="flex text-center">
