@@ -11,6 +11,7 @@ import TradingWalletWidget from "../components/widgets/TradingWalletWidget";
 import NetworthModal from "../components/NetworthModal";
 import Spring from "../components/animations/Spring";
 import RightSlide from "../components/animations/RightSlide";
+import FadeIn from "../components/animations/FadeIn";
 
 const DashboardPage = () => {
   const { transactions, orderHistory, assets, wallets, topups } =
@@ -225,12 +226,14 @@ const DashboardPage = () => {
       </Suspense>
       <div className="w-[80%]">
         <div className="bg-white flex flex-col items-start justify-between px-[28px] pt-[45px]">
-          <div className="mr-20 mb-8">
-            <p className="text-2xl font-bold">
-              Welcome Back, {!firstName ? "Username" : firstName} 👋
-            </p>
-            <p className="text-sm pt-2 font-light">{headingText} </p>
-          </div>
+          <FadeIn>
+            <div className="mr-20 mb-8">
+              <p className="text-2xl font-bold">
+                Welcome Back, {!firstName ? "Username" : firstName} 👋
+              </p>
+              <p className="text-sm pt-2 font-light">{headingText} </p>
+            </div>
+          </FadeIn>
           <div className="flex flex-row gap-5 mb-11 w-[100%]">
             <div className="basis-1/3 rounded-xl">
               <button

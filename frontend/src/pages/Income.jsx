@@ -3,6 +3,9 @@ import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
 import TransactionsTable from "../components/TransactionsTable.jsx";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
 import backArrow from "../assets/back-arrow.png";
+import FadeIn from "../components/animations/FadeIn.jsx";
+import RightSlide from "../components/animations/RightSlide.jsx";
+import Spring from "../components/animations/Spring.jsx";
 
 const IncomePage = () => {
   const { transactions: transactionPromise, wallets } = useLoaderData();
@@ -70,34 +73,44 @@ const IncomePage = () => {
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[29px]">
           <div>
-            <Link onClick={prevPage} className="p-0 m-0 w-4">
-              <img src={backArrow} alt="" />
-            </Link>
-            <h2 className="text-2xl font-bold">Income Data</h2>
-            <p className="text-sm pt-2 font-light">
-              Detailed view of all income transactions{" "}
-            </p>
+            <FadeIn>
+              <Link onClick={prevPage} className="p-0 m-0 w-4">
+                <img src={backArrow} alt="" />
+              </Link>
+              <h2 className="text-2xl font-bold">Income Data</h2>
+              <p className="text-sm pt-2 font-light">
+                <FadeIn> Detailed view of all income transactions</FadeIn>
+              </p>
+            </FadeIn>
           </div>
-          <div className="bg-[#bcffde] text-[#02B15A] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
-            <p className="text-black pr-2">Income count: </p>
-            <p className="font-semibold">{incomeCount}</p>
-          </div>
+          <RightSlide>
+            <div className="bg-[#bcffde] text-[#02B15A] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
+              <p className="text-black pr-2">Income count: </p>
+              <p className="font-semibold">{incomeCount}</p>
+            </div>
+          </RightSlide>
         </div>
         <div className="flex justify-center mt-1 mb-3">
           <div className="flex flex-col justify-center items-center my-10 ">
-            <p className="text-sm font-medium text-gray-400">Total Income</p>
-            <p className="text-[28px] font-bold pb-1">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(incomeTotal)}
+            <p className="text-sm font-medium text-gray-400">
+              <FadeIn>Total Income</FadeIn>
             </p>
-            <button
-              onClick={openModal}
-              className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
-            >
-              Add Transaction
-            </button>
+            <p className="text-[28px] font-bold pb-1">
+              <FadeIn>
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(incomeTotal)}
+              </FadeIn>
+            </p>
+            <Spring>
+              <button
+                onClick={openModal}
+                className="bg-[#152DFF] text-white text-xs px-[3rem] hover:bg-coinsense-blue-darker"
+              >
+                Add Transaction
+              </button>
+            </Spring>
           </div>
         </div>
         <hr className="mx-6" />

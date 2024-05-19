@@ -8,6 +8,7 @@ import StockChart from "../charts/StockChart";
 import DataLineWidget from "../components/widgets/DataLineWidget";
 import RightSlide from "../components/animations/RightSlide";
 import Spring from "../components/animations/Spring";
+import FadeIn from "../components/animations/FadeIn";
 
 const InvestmentsPage = () => {
   const { orderHistory, userInfo, selectToken, tradingInterval } =
@@ -186,10 +187,12 @@ const InvestmentsPage = () => {
 
   return (
     <div className="w-[80%] h-[max-content] bg-white px-[28px] pt-[45px]">
-      <div className="text-2xl font-bold">Investments</div>
-      <p className="text-sm pt-2 font-light">
-        Detailed view of your investments{" "}
-      </p>
+      <FadeIn>
+        <div className="text-2xl font-bold">Investments</div>
+        <p className="text-sm pt-2 font-light">
+          Detailed view of your investments{" "}
+        </p>
+      </FadeIn>
       <div className="flex flex-row justify-between pt-6 pb-10">
         <div className="w-[48.5%]">
           <UserInvestmentsWidget

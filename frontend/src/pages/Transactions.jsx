@@ -4,6 +4,7 @@ import TransactionsTable from "../components/TransactionsTable.jsx";
 import AddTransactionModal from "../components/AddTransactionModal.jsx";
 import Spring from "../components/animations/Spring.jsx";
 import RightSlide from "../components/animations/RightSlide.jsx";
+import FadeIn from "../components/animations/FadeIn.jsx";
 
 const TransactionsPage = () => {
   const { transactions, wallets } = useLoaderData();
@@ -50,10 +51,12 @@ const TransactionsPage = () => {
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
-            <h2 className="text-2xl font-bold">Transactions</h2>
-            <p className="text-sm pt-2 font-light">
-              Detailed view of your transactions
-            </p>
+            <FadeIn>
+              <h2 className="text-2xl font-bold">Transactions</h2>
+              <p className="text-sm pt-2 font-light">
+                Detailed view of your transactions
+              </p>
+            </FadeIn>
           </div>
           <RightSlide>
             <div className="flex flex-row gap-3">

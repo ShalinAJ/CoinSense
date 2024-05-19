@@ -4,6 +4,7 @@ import { Await, defer, json, Link, useLoaderData } from "react-router-dom";
 import WalletsList from "../components/WalletsList";
 import Spring from "../components/animations/Spring";
 import RightSlide from "../components/animations/RightSlide";
+import FadeIn from "../components/animations/FadeIn";
 
 const WalletPage = () => {
   const { wallets, transactions } = useLoaderData();
@@ -23,10 +24,12 @@ const WalletPage = () => {
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px]">
           <div>
-            <h2 className="text-2xl font-bold">My Wallets</h2>
-            <p className="text-sm pt-2 font-light">
-              Detailed view of your wallets
-            </p>
+            <FadeIn>
+              <h2 className="text-2xl font-bold">My Wallets</h2>
+              <p className="text-sm pt-2 font-light">
+                Detailed view of your wallets
+              </p>
+            </FadeIn>
           </div>
           <RightSlide>
             <div className="flex flex-row gap-3">
