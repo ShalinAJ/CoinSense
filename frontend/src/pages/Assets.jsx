@@ -126,86 +126,89 @@ const AssetsPage = () => {
             </div>
           </div>
         </FadeIn>
-        <RightSlide>
-          <div className=" mx-[28px] my-9 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-            <div className="px-5">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-row gap-2">
-                  <NavLink
-                    className={`${classes.assetsLink} ${
-                      assetType === "All" ? classes.active : ""
-                    }`}
-                    onClick={() => {
-                      setAssetType("All");
-                    }}
+        <div className="transform-none">
+          <FadeIn>
+            <div className=" mx-[28px] my-9 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+              <div className="px-5">
+                <div className="flex flex-row justify-between">
+                  <div className="flex flex-row gap-2">
+                    <NavLink
+                      className={`${classes.assetsLink} ${
+                        assetType === "All" ? classes.active : ""
+                      }`}
+                      onClick={() => {
+                        setAssetType("All");
+                      }}
+                    >
+                      All
+                    </NavLink>
+                    <NavLink
+                      className={`${classes.assetsLink} ${
+                        assetType === "Tangible" ? classes.active : ""
+                      }`}
+                      onClick={() => {
+                        setAssetType("Tangible");
+                      }}
+                    >
+                      Tangible
+                    </NavLink>
+                    <NavLink
+                      className={`${classes.assetsLink} ${
+                        assetType === "Intangible" ? classes.active : ""
+                      }`}
+                      onClick={() => {
+                        setAssetType("Intangible");
+                      }}
+                    >
+                      Intangible
+                    </NavLink>
+                    <NavLink
+                      className={`${classes.assetsLink} ${
+                        assetType === "Other" ? classes.active : ""
+                      }`}
+                      onClick={() => {
+                        setAssetType("Other");
+                      }}
+                    >
+                      Other
+                    </NavLink>
+                  </div>
+                  <button
+                    onClick={addAssetHandler}
+                    className="bg-[#152DFF] text-white text-[11px] px-[3rem] hover:bg-coinsense-blue-darker"
                   >
-                    All
-                  </NavLink>
-                  <NavLink
-                    className={`${classes.assetsLink} ${
-                      assetType === "Tangible" ? classes.active : ""
-                    }`}
-                    onClick={() => {
-                      setAssetType("Tangible");
-                    }}
-                  >
-                    Tangible
-                  </NavLink>
-                  <NavLink
-                    className={`${classes.assetsLink} ${
-                      assetType === "Intangible" ? classes.active : ""
-                    }`}
-                    onClick={() => {
-                      setAssetType("Intangible");
-                    }}
-                  >
-                    Intangible
-                  </NavLink>
-                  <NavLink
-                    className={`${classes.assetsLink} ${
-                      assetType === "Other" ? classes.active : ""
-                    }`}
-                    onClick={() => {
-                      setAssetType("Other");
-                    }}
-                  >
-                    Other
-                  </NavLink>
+                    Add Asset
+                  </button>
                 </div>
-                <button
-                  onClick={addAssetHandler}
-                  className="bg-[#152DFF] text-white text-[11px] px-[3rem] hover:bg-coinsense-blue-darker"
-                >
-                  Add Asset
-                </button>
-              </div>
-              <div className="flex flex-row items-center gap-10 mt-5 mb-3">
-                <div className="flex flex-row items-center gap-3">
-                  <p className="text-xs font-medium text-gray-400">
-                    Total asset Value :
-                  </p>
-                  <p className="text-xs font-semibold">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(total)}
-                  </p>
+                <div className="flex flex-row items-center gap-10 mt-5 mb-3">
+                  <div className="flex flex-row items-center gap-3">
+                    <p className="text-xs font-medium text-gray-400">
+                      Total asset Value :
+                    </p>
+                    <p className="text-xs font-semibold">
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(total)}
+                    </p>
+                  </div>
+                  <div className="flex flex-row items-center gap-3">
+                    <p className="text-xs font-medium text-gray-400">
+                      Total assets :
+                    </p>
+                    <p className="text-sm font-semibold">
+                      {filteredAssets ? filteredAssets.length : ""}
+                    </p>
+                  </div>
                 </div>
-                <div className="flex flex-row items-center gap-3">
-                  <p className="text-xs font-medium text-gray-400">
-                    Total assets :
-                  </p>
-                  <p className="text-sm font-semibold">
-                    {filteredAssets ? filteredAssets.length : ""}
-                  </p>
-                </div>
-              </div>
-              <hr />
+                <hr />
 
-              <AssetsTable filteredAssets={filteredAssets} />
+                <AssetsTable filteredAssets={filteredAssets} />
+              </div>
             </div>
-          </div>
-        </RightSlide>
+          </FadeIn>
+        </div>
+
         <FadeIn>
           <div className="px-[28px] mb-[40px] flex flex-row justify-between gap-3">
             <AssetTypeWidget assetsDetails={assetsDetails} />
