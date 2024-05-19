@@ -16,7 +16,7 @@ import { Form } from "react-router-dom";
 const DashboardNavigation = () => {
   return (
     <div className="w-[20%]">
-      <div className="fixed w-[20%] max-w-[400px] top-0 left-0 h-screen h-fill bg-[#F3F3F3] px-[28px] py-[37px] mt-4 rounded-r-2xl">
+      <div className="fixed w-[20%] top-0 left-0 h-screen h-fill bg-[#f3f3f3] px-[28px] py-[37px] mt-4 rounded-r-2xl">
         <div>
           <h2 className="text-[26px] font-extrabold">CoinSense</h2>
         </div>

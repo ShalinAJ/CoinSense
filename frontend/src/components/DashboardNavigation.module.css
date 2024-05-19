@@ -1,14 +1,23 @@
 .navLink {
-  font-size: 15px;
+  font-size: 14px;
+  border: 1px;
+  border-radius: 8px;
+  transition-duration: 300ms;
+}
+
+.navLink:hover {
+  background: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0px 0px 9px 1px #11111117;
 }
 
 a {
   font-size: 15px;
   display: flex;
-  gap: 18px;
+  gap: 10px;
   padding: 12px;
   align-items: center;
-  padding-left: 10px;
+  padding-left: 13px;
 }
 
 li {
@@ -16,9 +25,9 @@ li {
 }
 
 a.active {
-  font-size: 15px;
+  font-size: 14px;
   color: #fff;
   background: #152dff;
-
   border-radius: 8px;
+  box-shadow: 0px 0px 16px -10px #152dff;
 }

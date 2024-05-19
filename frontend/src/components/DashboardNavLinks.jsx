@@ -20,9 +20,9 @@ const DashboardNavLinks = ({ title, image, activeImage, link }) => {
       to={link}
     >
       {imgColor === "white" ? (
-        <img className="w-4" src={image}></img>
+        <img className="w-4 pb-[0.05rem]" src={image}></img>
       ) : (
-        <img className="w-4" src={activeImage}></img>
+        <img className="w-4 pb-[0.05rem]" src={activeImage}></img>
       )}
       {title}
     </NavLink>
