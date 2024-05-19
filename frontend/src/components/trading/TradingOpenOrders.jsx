@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { json } from "react-router-dom";
 import deleteImg from "../../assets/delete.png";
+import FadeIn from "../animations/FadeIn";
 
 const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
   const [openOrders, setOpenOrders] = useState(null);
@@ -146,10 +147,18 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
         <table className="w-full">
           <tbody>
             <tr className="text-xs leading-[25px]">
-              <th className="text-left font-normal">Token</th>
-              <th className="text-center font-normal">Amount</th>
-              <th className="text-center font-normal">Limit</th>
-              <th className="text-right font-normal pr-6">Type</th>
+              <th className="text-left font-normal">
+                <FadeIn>Token</FadeIn>
+              </th>
+              <th className="text-center font-normal">
+                <FadeIn>Amount</FadeIn>
+              </th>
+              <th className="text-center font-normal">
+                <FadeIn>Limit</FadeIn>
+              </th>
+              <th className="text-right font-normal pr-6">
+                <FadeIn>Type</FadeIn>
+              </th>
             </tr>
 
             {openOrders &&
@@ -158,18 +167,24 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
                   key={index}
                   className="text-xs font-semibold leading-[35px]"
                 >
-                  <td className="w-[25%]">{order.name}</td>
-                  <td className="text-center w-[25%]">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(order.price * order.amount)}
+                  <td className="w-[25%]">
+                    <FadeIn>{order.name}</FadeIn>
                   </td>
                   <td className="text-center w-[25%]">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(order.price)}
+                    <FadeIn>
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(order.price * order.amount)}
+                    </FadeIn>
+                  </td>
+                  <td className="text-center w-[25%]">
+                    <FadeIn>
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(order.price)}
+                    </FadeIn>
                   </td>
                   <td className="w-[25%]">
                     <div className="flex flex-row justify-end items-center">
@@ -180,7 +195,7 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
                             : " bg-[#ff00001f] text-[#ff0000] } "
                         } px-2 my-1 rounded-xl`}
                       >
-                        {order.transactionType}
+                        <FadeIn>{order.transactionType}</FadeIn>
                       </p>
                       <button
                         onClick={() => deleteBtnHandler(order._id)}

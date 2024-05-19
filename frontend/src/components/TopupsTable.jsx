@@ -1,4 +1,5 @@
 import React from "react";
+import FadeIn from "./animations/FadeIn";
 
 const TopupsTable = ({ tradingWallet }) => {
   console.log(tradingWallet);
@@ -7,9 +8,15 @@ const TopupsTable = ({ tradingWallet }) => {
       <table className="w-[100%]">
         <tbody>
           <tr className="text-xs leading-[25px]">
-            <th className="text-left font-normal">Date</th>
-            <th className="text-center font-normal">Card used for top-up</th>
-            <th className="text-right font-normal pr-3">Amount</th>
+            <th className="text-left font-normal">
+              <FadeIn>Date</FadeIn>
+            </th>
+            <th className="text-center font-normal">
+              <FadeIn>Card used for top-up</FadeIn>
+            </th>
+            <th className="text-right font-normal pr-3">
+              <FadeIn>Amount</FadeIn>
+            </th>
           </tr>
 
           {Array.isArray(tradingWallet) &&
@@ -22,28 +29,35 @@ const TopupsTable = ({ tradingWallet }) => {
                   className="text-xs font-semibold leading-[35px]"
                 >
                   <td className="text-left w-[32%] ">
-                    {new Date(transaction.createdAt).toLocaleString("en-US", {
-                      month: "2-digit",
-                      day: "2-digit",
-                      year: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                    })}
+                    <FadeIn>
+                      {new Date(transaction.createdAt).toLocaleString("en-US", {
+                        month: "2-digit",
+                        day: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </FadeIn>
                   </td>
                   <td className="flex flex-row justify-center items-center">
                     <p className="pl-2 text-[10px] text-black font-light">
-                      XXXX XXXX XXXX{" "}
-                      {transaction.cardName
-                        ? transaction.cardName.slice(12, 16)
-                        : undefined}
+                      <FadeIn>
+                        {" "}
+                        XXXX XXXX XXXX{" "}
+                        {transaction.cardName
+                          ? transaction.cardName.slice(12, 16)
+                          : undefined}
+                      </FadeIn>
                     </p>
                   </td>
                   <td className="text-right pr-3">
                     <div className="">
-                      {new Intl.NumberFormat("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      }).format(transaction.amount)}
+                      <FadeIn>
+                        {new Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        }).format(transaction.amount)}
+                      </FadeIn>
                     </div>
                   </td>
                 </tr>

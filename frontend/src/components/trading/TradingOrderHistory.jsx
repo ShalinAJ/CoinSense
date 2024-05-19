@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import FadeIn from "../animations/FadeIn";
 
 const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
   const [orderHistory, setOrderHistory] = useState(null);
@@ -24,9 +25,15 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
         <table className="w-full">
           <tbody>
             <tr className="text-xs leading-[25px]">
-              <th className="text-left font-normal">Token</th>
-              <th className="text-center font-normal">Amount</th>
-              <th className="text-right font-normal pr-4">Type</th>
+              <th className="text-left font-normal">
+                <FadeIn>Token</FadeIn>
+              </th>
+              <th className="text-center font-normal">
+                <FadeIn>Amount</FadeIn>
+              </th>
+              <th className="text-right font-normal pr-4">
+                <FadeIn>Type</FadeIn>
+              </th>
             </tr>
 
             {orderHistory &&
@@ -35,12 +42,16 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
                   key={index}
                   className="text-xs font-semibold leading-[35px]"
                 >
-                  <td>{order.name}</td>
+                  <td>
+                    <FadeIn>{order.name}</FadeIn>
+                  </td>
                   <td className="text-center">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(order.amount * order.price)}
+                    <FadeIn>
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(order.amount * order.price)}
+                    </FadeIn>
                   </td>
                   <td className="text-right flex flex-row justify-end pr-3">
                     <p
@@ -50,7 +61,7 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
                           : " bg-[#ff00001f] text-[#ff0000] } "
                       } px-2 my-1 rounded-xl`}
                     >
-                      {order.transactionType}
+                      <FadeIn>{order.transactionType}</FadeIn>
                     </p>
                   </td>
                 </tr>

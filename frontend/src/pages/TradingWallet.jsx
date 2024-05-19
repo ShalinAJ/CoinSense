@@ -226,33 +226,43 @@ const TradingWalletPage = ({}) => {
             </div>
           </div>
         </RightSlide>
-        <Spring>
-          <div className="flex flex-row justify-between gap-5">
-            <div className="w-[50%] border rounded-3xl h-[23rem]">
-              <Suspense
-                fallback={<p className="text-sm font-medium p-5">Loading...</p>}
-              >
-                <Await resolve={topups}>
-                  {(topupdata) => <Topups tradingWallet={topupdata} />}
-                </Await>
-              </Suspense>
-            </div>
-            <div className="w-[50%] border rounded-3xl p-3 h-[23rem]">
-              <Suspense
-                fallback={<p className="text-sm font-medium p-2">Loading...</p>}
-              >
-                <p className="text-xs text-gray-400 font-normal">
-                  Order History
-                </p>
-                <Await resolve={orderHistory}>
-                  {(orderHistory) => (
-                    <TradingOrderHistory orderHistoryData={orderHistory} />
-                  )}
-                </Await>
-              </Suspense>
-            </div>
+        <div className="flex flex-row justify-between gap-5">
+          <div className="w-[50%]">
+            <Spring>
+              <div className="border rounded-3xl h-[23rem]">
+                <Suspense
+                  fallback={
+                    <p className="text-sm font-medium p-5">Loading...</p>
+                  }
+                >
+                  <Await resolve={topups}>
+                    {(topupdata) => <Topups tradingWallet={topupdata} />}
+                  </Await>
+                </Suspense>
+              </div>
+            </Spring>
           </div>
-        </Spring>
+          <div className="w-[50%]">
+            <Spring>
+              <div className="border rounded-3xl p-3 h-[23rem]">
+                <Suspense
+                  fallback={
+                    <p className="text-sm font-medium p-2">Loading...</p>
+                  }
+                >
+                  <p className="text-xs text-gray-400 font-normal">
+                    Order History
+                  </p>
+                  <Await resolve={orderHistory}>
+                    {(orderHistory) => (
+                      <TradingOrderHistory orderHistoryData={orderHistory} />
+                    )}
+                  </Await>
+                </Suspense>
+              </div>
+            </Spring>
+          </div>
+        </div>
       </div>
     </>
   );
