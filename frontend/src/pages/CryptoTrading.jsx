@@ -8,6 +8,8 @@ import backArrow from "../assets/back-arrow.png";
 import TradeLiveDataBar from "../components/trading/crypto/CryptoTradeLiveDataBar";
 import CryptoTradingHorizontalMarketBar from "../components/widgets/CryptoTradingHorizontalMarketBar";
 import CryptoInfoPanel from "../components/trading/crypto/CryptoInfoPanel";
+import FadeIn from "../components/animations/FadeIn";
+import RightSlide from "../components/animations/RightSlide";
 
 const CryptoTradingPage = () => {
   const navigate = useNavigate();
@@ -199,82 +201,92 @@ const CryptoTradingPage = () => {
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
           <div>
-            <Link onClick={prevPage} className="p-0 m-0 w-4">
-              <img src={backArrow} alt="" />
-            </Link>
-            <h2 className="text-2xl font-bold">Crypto Trading</h2>
-            <p className="text-sm pt-2 font-light">
-              Trade and view realtime data of Crypto Currencies
-            </p>
-          </div>
-          <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
-            <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
-              <p>Crypto invested :</p>
-              <p>
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "USD",
-                }).format(Math.abs(investedTotal))}
+            <FadeIn>
+              <Link onClick={prevPage} className="p-0 m-0 w-4">
+                <img src={backArrow} alt="" />
+              </Link>
+              <h2 className="text-2xl font-bold">Crypto Trading</h2>
+              <p className="text-sm pt-2 font-light">
+                Trade and view realtime data of Crypto Currencies
               </p>
-            </div>
-            <Link
-              to={"../user-investments"}
-              className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full"
-            >
-              View more
-            </Link>
+            </FadeIn>
           </div>
+          <RightSlide>
+            <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
+              <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
+                <p>Crypto invested :</p>
+                <p>
+                  {new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(Math.abs(investedTotal))}
+                </p>
+              </div>
+              <Link
+                to={"../user-investments"}
+                className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full"
+              >
+                View more
+              </Link>
+            </div>
+          </RightSlide>
         </div>
         <div className="px-[28px] ">
-          <TradeLiveDataBar
-            selectToken={selectToken}
-            tokenDataSet={tokenDataSet}
-            onOpen={() => setModalOpen(true)}
-          />
-          <div className="flex flex-row items-center justify-end gap-2 mt-5">
-            <label htmlFor="">Interval </label>
-            <select
-              name="trading-interval"
-              id="trading-interval"
-              onChange={() => {
-                setTradingInterval(event.target.value);
-              }}
-              defaultValue={tradingInterval}
-              className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
-            >
-              <option value="1s">1s</option>
-              <option value="1m">1m</option>
-              <option value="5m">5m</option>
-              <option value="1h">1h</option>
-              <option value="4h">4h</option>
-              <option value="1d">1d</option>
-            </select>
-          </div>
+          <RightSlide>
+            <TradeLiveDataBar
+              selectToken={selectToken}
+              tokenDataSet={tokenDataSet}
+              onOpen={() => setModalOpen(true)}
+            />
+          </RightSlide>
+          <FadeIn>
+            <div className="flex flex-row items-center justify-end gap-2 mt-5">
+              <label htmlFor="">Interval </label>
+              <select
+                name="trading-interval"
+                id="trading-interval"
+                onChange={() => {
+                  setTradingInterval(event.target.value);
+                }}
+                defaultValue={tradingInterval}
+                className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+              >
+                <option value="1s">1s</option>
+                <option value="1m">1m</option>
+                <option value="5m">5m</option>
+                <option value="1h">1h</option>
+                <option value="4h">4h</option>
+                <option value="1d">1d</option>
+              </select>
+            </div>
 
-          <div className="mb-8 mt-3" style={{ height: "auto" }}>
-            <CryptoChart chartData={chartData} size={"100px"} />
-          </div>
+            <div className="mb-8 mt-3" style={{ height: "auto" }}>
+              <CryptoChart chartData={chartData} size={"100px"} />
+            </div>
+          </FadeIn>
           <hr />
-          <div>
-            <TradingArea
-              currentPrice={currentPrice}
-              topups={topups}
-              orderHistoryData={orderHistory}
-              openOrdersData={openOrders}
-              selectToken={selectToken[0].toUpperCase()}
-              investedTotal={investedTotal}
-              orderType={"Crypto"}
-            />
-          </div>
-          <div>
-            <CryptoInfoPanel
-              generalData={generalData}
-              selectToken={selectToken[0]}
-            />
-          </div>
-          <div>
+          <FadeIn>
+            <div>
+              <TradingArea
+                currentPrice={currentPrice}
+                topups={topups}
+                orderHistoryData={orderHistory}
+                openOrdersData={openOrders}
+                selectToken={selectToken[0].toUpperCase()}
+                investedTotal={investedTotal}
+                orderType={"Crypto"}
+              />
+            </div>
+            <div>
+              <CryptoInfoPanel
+                generalData={generalData}
+                selectToken={selectToken[0]}
+              />
+            </div>
+          </FadeIn>
+          <RightSlide>
             <CryptoTradingHorizontalMarketBar />
-          </div>
+          </RightSlide>
         </div>
       </div>
     </>

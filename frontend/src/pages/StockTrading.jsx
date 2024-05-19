@@ -8,6 +8,8 @@ import backArrow from "../assets/back-arrow.png";
 import StockTradeLiveDataBar from "../components/trading/stock/StockTradeLiveDataBar";
 import StockInfoPanel from "../components/trading/stock/StockInfoPanel";
 import StockTradingHorizontalMarketBar from "../components/widgets/StockTradingHorizontalMarketBar";
+import FadeIn from "../components/animations/FadeIn";
+import RightSlide from "../components/animations/RightSlide";
 
 const StockTradingPage = () => {
   const navigate = useNavigate();
@@ -187,85 +189,95 @@ const StockTradingPage = () => {
         <div className="w-[80%] h-[max-content] bg-white">
           <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
             <div>
-              <Link onClick={prevPage} className="p-0 m-0 w-4">
-                <img src={backArrow} alt="" />
-              </Link>
-              <h2 className="text-2xl font-bold">Stock Trading</h2>
-              <p className="text-sm pt-2 font-light">
-                Trade and view realtime data of Stocks
-              </p>
-            </div>
-            <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
-              <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
-                <p>Stock invested :</p>
-                <p>
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(Math.abs(investedTotal))}
+              <FadeIn>
+                <Link onClick={prevPage} className="p-0 m-0 w-4">
+                  <img src={backArrow} alt="" />
+                </Link>
+                <h2 className="text-2xl font-bold">Stock Trading</h2>
+                <p className="text-sm pt-2 font-light">
+                  Trade and view realtime data of Stocks
                 </p>
-              </div>
-              <Link
-                to={"../user-investments"}
-                className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full"
-              >
-                View more
-              </Link>
+              </FadeIn>
             </div>
+            <RightSlide>
+              <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
+                <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
+                  <p>Stock invested :</p>
+                  <p>
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(Math.abs(investedTotal))}
+                  </p>
+                </div>
+                <Link
+                  to={"../user-investments"}
+                  className="text-xs m-3 px-3 py-1 text-white bg-coinsense-blue rounded-full"
+                >
+                  View more
+                </Link>
+              </div>
+            </RightSlide>
           </div>
           <div className="px-[28px] ">
-            <StockTradeLiveDataBar
-              selectToken={selectToken}
-              tokenDataSet={tokenDataSet}
-              onOpen={() => setModalOpen(true)}
-            />
-            <div className="flex flex-row items-center justify-end gap-2 mt-5">
-              <label htmlFor="">Interval </label>
-              <select
-                name="trading-interval"
-                id="trading-interval"
-                onChange={(event) => {
-                  setTradingInterval(event.target.value);
-                }}
-                defaultValue={tradingInterval}
-                className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
-              >
-                <option value="1h">4H</option>
-                <option value="1d">1D</option>
-                <option value="1wk">1W</option>
-                <option value="1mo">1M</option>
-                <option value="3mo">3M</option>
-              </select>
-            </div>
-
-            <div className="mb-8 mt-3" style={{ height: "400px" }}>
-              <StockChart chartData={chartData} size={"100px"} />
-            </div>
-            <hr />
-            <div>
-              <TradingArea
-                currentPrice={tokenDataSet.price}
-                topups={topups}
-                orderHistoryData={orderHistory}
-                openOrdersData={openOrders}
-                selectToken={selectToken[0]}
-                investedTotal={investedTotal}
-                orderType={"Stock"}
-              />
-            </div>
-            <div>
-              <StockInfoPanel
-                generalData={generalData}
-                selectToken={selectToken[0]}
+            <RightSlide>
+              <StockTradeLiveDataBar
+                selectToken={selectToken}
                 tokenDataSet={tokenDataSet}
+                onOpen={() => setModalOpen(true)}
               />
-            </div>
-            <div>
+            </RightSlide>
+            <FadeIn>
+              <div className="flex flex-row items-center justify-end gap-2 mt-5">
+                <label htmlFor="">Interval </label>
+                <select
+                  name="trading-interval"
+                  id="trading-interval"
+                  onChange={(event) => {
+                    setTradingInterval(event.target.value);
+                  }}
+                  defaultValue={tradingInterval}
+                  className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                >
+                  <option value="1h">4H</option>
+                  <option value="1d">1D</option>
+                  <option value="1wk">1W</option>
+                  <option value="1mo">1M</option>
+                  <option value="3mo">3M</option>
+                </select>
+              </div>
+
+              <div className="mb-8 mt-3" style={{ height: "400px" }}>
+                <StockChart chartData={chartData} size={"100px"} />
+              </div>
+            </FadeIn>
+            <hr />
+            <FadeIn>
+              <div>
+                <TradingArea
+                  currentPrice={tokenDataSet.price}
+                  topups={topups}
+                  orderHistoryData={orderHistory}
+                  openOrdersData={openOrders}
+                  selectToken={selectToken[0]}
+                  investedTotal={investedTotal}
+                  orderType={"Stock"}
+                />
+              </div>
+              <div>
+                <StockInfoPanel
+                  generalData={generalData}
+                  selectToken={selectToken[0]}
+                  tokenDataSet={tokenDataSet}
+                />
+              </div>
+            </FadeIn>
+            <RightSlide>
               <StockTradingHorizontalMarketBar
                 generalData={generalData}
                 tradingInterval={tradingInterval}
               />
-            </div>
+            </RightSlide>
           </div>
         </div>
       )}
