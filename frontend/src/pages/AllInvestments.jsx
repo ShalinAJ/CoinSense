@@ -3,6 +3,9 @@ import { Link, NavLink, useLoaderData, useNavigate } from "react-router-dom";
 import backArrow from "../assets/back-arrow.png";
 import InvestmentsTable from "../components/InvestmentsTable.jsx";
 import classes from "./AllInvestments.module.css";
+import FadeIn from "../components/animations/FadeIn.jsx";
+import RightSlide from "../components/animations/RightSlide.jsx";
+import Spring from "../components/animations/Spring.jsx";
 
 const AllInvestmentsPage = () => {
   const { orderHistory } = useLoaderData();
@@ -50,59 +53,73 @@ const AllInvestmentsPage = () => {
       <div className="w-[80%] h-[max-content] bg-white">
         <div className="flex items-start justify-between px-[28px] pt-[29px]">
           <div>
-            <Link onClick={prevPage} className="p-0 m-0 w-4">
-              <img src={backArrow} alt="" />
-            </Link>
-            <h2 className="text-2xl font-bold">Investment Data</h2>
-            <p className="text-sm pt-2 font-light">
-              Detailed view of all investment transactions{" "}
-            </p>
+            <FadeIn>
+              <Link onClick={prevPage} className="p-0 m-0 w-4">
+                <img src={backArrow} alt="" />
+              </Link>
+              <h2 className="text-2xl font-bold">Investment Data</h2>
+              <p className="text-sm pt-2 font-light">
+                Detailed view of all investment transactions{" "}
+              </p>
+            </FadeIn>
           </div>
-          <div className="bg-[#bcffde] text-[#02B15A] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
-            <p className="text-black pr-2">Investment count: </p>
-            <p className="font-semibold">{tradeCount}</p>
-          </div>
+          <RightSlide>
+            <div className="bg-[#bcffde] text-[#02B15A] rounded-lg flex flex-row justify-center py-2 px-4 mr-3 text-[13px]">
+              <p className="text-black pr-2">Investment count: </p>
+              <p className="font-semibold">{tradeCount}</p>
+            </div>
+          </RightSlide>
         </div>
         <div className="flex justify-center mt-1 mb-3">
           <div className="flex flex-col justify-center items-center mt-10 mb-8 ">
-            <p className="text-sm font-medium text-gray-400">Total Invested</p>
+            <p className="text-sm font-medium text-gray-400">
+              <FadeIn>Total Invested</FadeIn>
+            </p>
             <p className="text-[28px] font-bold pb-1">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
-              }).format(tradeTotal)}
+              <FadeIn>
+                {new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(tradeTotal)}
+              </FadeIn>
             </p>
             <div className="flex flex-row gap-2">
-              <NavLink
-                className={`${classes.navLink} ${
-                  tradeType === "All" ? classes.active : ""
-                }`}
-                onClick={() => {
-                  setTradeType("All");
-                }}
-              >
-                All
-              </NavLink>
-              <NavLink
-                className={`${classes.navLink} ${
-                  tradeType === "Crypto" ? classes.active : ""
-                }`}
-                onClick={() => {
-                  setTradeType("Crypto");
-                }}
-              >
-                Crypto
-              </NavLink>
-              <NavLink
-                className={`${classes.navLink} ${
-                  tradeType === "Stock" ? classes.active : ""
-                }`}
-                onClick={() => {
-                  setTradeType("Stock");
-                }}
-              >
-                Stock
-              </NavLink>
+              <Spring>
+                <NavLink
+                  className={`${classes.navLink} ${
+                    tradeType === "All" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setTradeType("All");
+                  }}
+                >
+                  All
+                </NavLink>
+              </Spring>
+              <Spring>
+                <NavLink
+                  className={`${classes.navLink} ${
+                    tradeType === "Crypto" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setTradeType("Crypto");
+                  }}
+                >
+                  Crypto
+                </NavLink>
+              </Spring>
+              <Spring>
+                <NavLink
+                  className={`${classes.navLink} ${
+                    tradeType === "Stock" ? classes.active : ""
+                  }`}
+                  onClick={() => {
+                    setTradeType("Stock");
+                  }}
+                >
+                  Stock
+                </NavLink>
+              </Spring>
             </div>
           </div>
         </div>

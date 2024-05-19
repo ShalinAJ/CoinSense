@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "./TransactionTable.module.css";
+import FadeIn from "./animations/FadeIn";
 
 const InvestmentsTable = ({ tradeType, tradeData }) => {
   const pageTradeFilter = tradeData.filter(
@@ -22,33 +23,51 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
       <table className="w-[100%]">
         <tbody>
           <tr className="text-left text-sm leading-[45px]">
-            <th className="w-[20%]">Transaction</th>
-            <th className="w-[30%]">Date</th>
-            <th className="w-[20%]">Amount</th>
-            <th className="w-[20%]">Trade at</th>
-            <th className="w-[10%]">Status</th>
+            <th className="w-[20%]">
+              <FadeIn>Transaction</FadeIn>
+            </th>
+            <th className="w-[30%]">
+              <FadeIn>Date</FadeIn>
+            </th>
+            <th className="w-[20%]">
+              <FadeIn>Amount</FadeIn>
+            </th>
+            <th className="w-[20%]">
+              <FadeIn>Trade at</FadeIn>
+            </th>
+            <th className="w-[10%]">
+              <FadeIn>Status</FadeIn>
+            </th>
           </tr>
           {currentItems.map((trade) => (
             <tr key={trade._id} className="text-sm font-medium leading-[48px]">
-              <td>{trade.name}</td>
               <td>
-                {new Date(trade.createdAt).toLocaleString("en-US", {
-                  weekday: "short",
-                  month: "short",
-                  year: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                })}
+                <FadeIn>{trade.name}</FadeIn>
               </td>
               <td>
-                <div className="flex flex-row">{trade.amount}</div>
+                <FadeIn>
+                  {new Date(trade.createdAt).toLocaleString("en-US", {
+                    weekday: "short",
+                    month: "short",
+                    year: "numeric",
+                    hour: "numeric",
+                    minute: "numeric",
+                  })}
+                </FadeIn>
+              </td>
+              <td>
+                <div className="flex flex-row">
+                  <FadeIn>{trade.amount}</FadeIn>
+                </div>
               </td>
               <td>
                 <div>
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(trade.price)}
+                  <FadeIn>
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(trade.price)}
+                  </FadeIn>
                 </div>
               </td>
               <td className="mt-3 text-center text-xs flex">
@@ -60,34 +79,36 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
                       "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
                   }
                 >
-                  {trade.transactionType}
+                  <FadeIn>{trade.transactionType}</FadeIn>
                 </p>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <ul className={`${styles.pagination} flex flex-row gap-1`}>
-        {Array.from({
-          length: Math.ceil(tradeData.length / itemsPerPage),
-        }).map((_, index) => (
-          <li
-            key={index}
-            className={`${styles.pageItem} ${
-              currentPage === index + 1 ? styles.active : ""
-            }`}
-          >
-            <button
-              onClick={() => paginate(index + 1)}
-              className={`${styles.pageLink} ${
+      <FadeIn>
+        <ul className={`${styles.pagination} flex flex-row gap-1`}>
+          {Array.from({
+            length: Math.ceil(tradeData.length / itemsPerPage),
+          }).map((_, index) => (
+            <li
+              key={index}
+              className={`${styles.pageItem} ${
                 currentPage === index + 1 ? styles.active : ""
               }`}
             >
-              {index + 1}
-            </button>
-          </li>
-        ))}
-      </ul>
+              <button
+                onClick={() => paginate(index + 1)}
+                className={`${styles.pageLink} ${
+                  currentPage === index + 1 ? styles.active : ""
+                }`}
+              >
+                {index + 1}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </FadeIn>
     </div>
   );
 };
