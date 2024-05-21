@@ -18,6 +18,12 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - Figma
 - Postman
 
+## Prerequisites 
+- [x] Installation of Node (16 LTS)
+- [x] Installation of npm package manager
+- [x] Installation of Postman (optional)
+- [x] Code Editor
+
 ## Installation Guide
 1. Clone this repository to your local machine:
    ```
