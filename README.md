@@ -1,4 +1,5 @@
 # Welcome to CoinSense
+CoinSense is a comprehensive financial management platform designed to provide users with a detailed overview of their financial activities, including transactions, investments, and market data for both crypto and stock markets. It offers an intuitive and user-friendly interface for managing personal finances, investments, and trading activities.
 
 ## Pages
 1. Login and Register
