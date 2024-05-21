@@ -9,6 +9,7 @@ import FadeIn from "../components/animations/FadeIn.jsx";
 const TransactionsPage = () => {
   const { transactions, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [walletList, setWalletList] = useState();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -25,6 +26,10 @@ const TransactionsPage = () => {
 
     walletCountHandler();
   }, [wallets]);
+
+  function handlePageChange(pageNumber) {
+    setCurrentPage(pageNumber);
+  }
 
   const openModal = () => {
     setModalOpen(true);
@@ -63,7 +68,10 @@ const TransactionsPage = () => {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setCurrentPage(1);
+                }}
                 placeholder="Search transactions..."
                 className="text-[11px]"
               />
@@ -94,6 +102,8 @@ const TransactionsPage = () => {
                   <TransactionsTable
                     transactions={filteredTransactions}
                     transactionStatus=""
+                    page={currentPage}
+                    onPageChange={handlePageChange}
                   />
                 );
               }}

@@ -1,9 +1,14 @@
 import deleteImg from "../assets/delete.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./TransactionTable.module.css";
 import FadeIn from "./animations/FadeIn";
 
-const TransactionsTable = ({ transactions, transactionStatus }) => {
+const TransactionsTable = ({
+  transactions,
+  transactionStatus,
+  page,
+  onPageChange,
+}) => {
   const deleteHandler = async (id) => {
     const user = JSON.parse(localStorage.getItem("user"));
     const response = await fetch("http://localhost:4000/" + id, {
@@ -25,7 +30,7 @@ const TransactionsTable = ({ transactions, transactionStatus }) => {
     (transaction) => transaction.status === transactionStatus
   );
 
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(page);
   const [itemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -33,7 +38,14 @@ const TransactionsTable = ({ transactions, transactionStatus }) => {
     transactionStatus === "" ? transactions : pageTransactionFilter
   ).slice(indexOfFirstItem, indexOfLastItem);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    onPageChange(pageNumber);
+  };
+
+  useEffect(() => {
+    setCurrentPage(page);
+  }, [page]);
 
   return (
     <div>
