@@ -2,13 +2,14 @@
 CoinSense is a comprehensive financial management platform designed to provide users with a detailed overview of their financial activities, including transactions, investments, and market data for both crypto and stock markets. It offers an intuitive and user-friendly interface for managing personal finances, investments, and trading activities.
 
 ## Pages
-1. Login and Register
-2. Dashboard - Overview of you financials
-3. Transactions - All your transactions.
-4. Investments - Total Investments and Markets.
-5. Crypto and Stock Markets -
-6. Wallet & Trading Wallet
-7. Account
+1. Home Page
+2. Login and Register
+3. Dashboard - Offers users a comprehensive overview of their financial portfolio
+4. Transactions - Detailed view of all financial transactions
+5. Investments - Detailed view of all financial Investments
+6. Crypto and Stock Markets - 
+7. Wallet & Trading Wallet - Provides users with a detailed view of their various wallets
+8. Account
 
 ## Technologies Used in the Project
 - React JS
