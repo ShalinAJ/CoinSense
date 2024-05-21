@@ -17,6 +17,7 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - MongoDB
 - Figma
 - Postman
+- Tailwind CSS
 
 ## Prerequisites 
 - [x] Installation of Node (16 LTS)
@@ -41,7 +42,7 @@ CoinSense is a comprehensive financial management platform designed to provide u
    ```
    npm install
    ```
-5. Then open up a new terminal and cd into backend:
+5. Then open up a new terminal and cd into the backend:
    ```
    cd backend/
    ```
@@ -57,3 +58,6 @@ CoinSense is a comprehensive financial management platform designed to provide u
    ```
    npm start
    ```
+## Screens
+1. Home Page
+//images...
