@@ -14,12 +14,12 @@ const HomePage = () => {
           <div>
             <img src={Logo} alt="" className="w-32" />
           </div>
-          <div className="flex flex-row text-[13px] px-4 md:px-8 py-2 font-medium gap-6 items-center border rounded-full shadow-md shadow-grey-500/40 duration-300">
-            <p>About</p>
-            <p>Contact</p>
-            <p>Components</p>
-          </div>
-          <div>
+          <div className="flex flex-row gap-3">
+            <div className="flex flex-row text-[13px] px-4 md:px-8 font-medium gap-10 items-center">
+              <p>About</p>
+              <p>Contact</p>
+              <p>Components</p>
+            </div>
             <button className="text-xs font-medium rounded-full px-5 py-2">
               View Demo
             </button>
