@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import BannerImg from "../assets/banner-image.png";
 import DashboardImg from "../assets/dashboard-homepage.png";
 import TransactionsImg from "../assets/transactions-homepage.png";
+import InvestmentsImg from "../assets/investments-homepage.png";
+import WalletImg from "../assets/wallet-homepage.png";
 
 const HomePage = () => {
   return (
@@ -22,7 +24,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="pt-[1rem] pb-[3rem] my-[2rem] flex items-center justify-center relative overflow-hidden">
+        <div className="pt-[2rem] pb-[4rem] mt-[2rem] flex items-center justify-center relative overflow-hidden">
           <div className="absolute left-[-15rem] top-[0.5rem] bg-[#EEF0FF] w-[35rem] h-[35rem] rounded-full z-0"></div>
           <div className="z-10 px-4 md:px-8 flex flex-col md:flex-row w-full items-center justify-between">
             <div className="z-20 w-full md:w-[40%] text-center md:text-left">
@@ -208,7 +210,7 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        <div className="pt-[4rem] pb-[10rem] flex items-center bg-white justify-center relative">
+        <div className="pt-[4rem] flex items-center bg-white justify-center relative">
           <div className="absolute left-[28rem] top-[5rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
           <div className="w-[100%] z-10 px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
             <div className="w-[50%]">
@@ -256,6 +258,144 @@ const HomePage = () => {
                     input fields for transaction name, amount, date, status, and
                     the card used. A confirmation button adds the transaction to
                     the list.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="pt-[18rem] pb-[10rem] flex items-center bg-white justify-center relative">
+          <div className="absolute left-[-4rem] md:right-[25rem] top-[12rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="absolute right-0 top-[30rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="z-10 w-[100%] px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
+            <div className="pt-5 z-20 w-[50%]">
+              <div className="text-[13px]">
+                <p className="text-3xl md:text-5xl font-semibold text-coinsense-blue">
+                  Investments
+                </p>
+                <p className="my-4 font-normal pt-3">
+                  The CoinSense Investments page provides a comprehensive
+                  overview of a user's investment portfolio, detailing recent
+                  transactions, total invested amount, and market options. Users
+                  can view their investments in different markets, track the
+                  performance of individual assets, and analyze investment
+                  trends with graphical representations.
+                </p>
+                <p className="my-4 font-normal">
+                  The page ensures an organized display of essential
+                  information, making it easy for users to monitor and manage
+                  their investments effectively.
+                </p>
+              </div>
+              <div className="pt-4">
+                <p className="text-lg font-semibold pb-4">Key Features</p>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Recent Transactions:</span>{" "}
+                    Displays the latest investment activities with time stamps
+                    and transaction types (buy/sell).
+                  </p>
+                </div>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Total Invested:</span> Shows
+                    the cumulative amount invested by the user.
+                  </p>
+                </div>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Market Options:</span>{" "}
+                    Provides options to view investments in different markets
+                    such as Cryptocurrency and Stock Market.
+                  </p>
+                </div>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Asset Tracking: </span>{" "}
+                    Summarizes the total number of assets and offers a detailed
+                    view.
+                  </p>
+                </div>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Price Charts: </span> Total
+                    Graphical representation of asset performance over time,
+                    such as Bitcoin and Apple Inc. stock prices.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="w-[50%]">
+              <img src={InvestmentsImg} alt="Dashboard" className="w-full" />
+            </div>
+          </div>
+        </div>
+        <div className="pt-[6rem] pb-[10rem] flex items-center bg-white justify-center relative">
+          <div className="absolute left-[28rem] top-[6rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="w-[100%] z-10 px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
+            <div className="w-[50%]">
+              <img src={WalletImg} alt="Dashboard" className="w-full" />
+            </div>
+            <div className="w-[50%] pt-5 z-20">
+              <div className="text-[13px]">
+                <p className="text-3xl md:text-5xl font-semibold text-coinsense-blue">
+                  Wallets
+                </p>
+                <p className="my-4 font-normal pt-3">
+                  The CoinSense Wallets page hv, displaying essential
+                  information such as current balances and card details. Users
+                  can manage their wallets directly from this interface, adding
+                  new wallets or viewing specific wallet information.
+                </p>
+                <p className="my-4 font-normal pt-3">
+                  The page offers a clear and organized presentation of all
+                  associated cards, including masked card numbers for security,
+                  and the option to navigate to the trading wallet or add a new
+                  wallet for better financial management.
+                </p>
+              </div>
+              <div className="pt-4">
+                <p className="text-lg font-semibold pb-4">Key Features</p>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Wallet Overview: </span>{" "}
+                    Detailed view of each wallet with current balance and card
+                    details.
+                  </p>
+                </div>
+                <div className="flex flex-row text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Card Information: </span>{" "}
+                    Masked card numbers for security and card type (e.g.,
+                    Mastercard, Visa).
+                  </p>
+                </div>
+                <div className="flex flex-row items-start  text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Manage Wallets: </span>{" "}
+                    Options to manage each wallet individually.
+                  </p>
+                </div>
+                <div className="flex flex-row items-start  text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Add Wallet: </span> Button to
+                    add a new wallet.
+                  </p>
+                </div>
+                <div className="flex flex-row items-start  text-[13px] gap-3 mb-5">
+                  <div className="w-[0.6rem] h-[0.6rem] mt-[0.3rem] flex-shrink-0 bg-coinsense-blue rounded-full"></div>
+                  <p>
+                    <span className="font-medium">Trading Wallet: </span>Quick
+                    access to the trading wallet section.
                   </p>
                 </div>
               </div>
