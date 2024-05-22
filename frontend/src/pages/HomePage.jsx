@@ -4,18 +4,20 @@ import DashboardImg from "../assets/dashboard-homepage.png";
 import TransactionsImg from "../assets/transactions-homepage.png";
 import InvestmentsImg from "../assets/investments-homepage.png";
 import WalletImg from "../assets/wallet-homepage.png";
+import Logo from "../assets/logo-homepage.png";
 
 const HomePage = () => {
   return (
     <>
       <div className="bg-white min-h-screen">
-        <div className="mx-4 md:mx-8 bg-white flex flex-row justify-between items-center pt-8 z-20">
-          <div>CoinSense</div>
+        <div className="mx-20 bg-white flex flex-row justify-between items-center pt-8 z-20">
+          <div>
+            <img src={Logo} alt="" className="w-32" />
+          </div>
           <div className="flex flex-row text-[13px] px-4 md:px-8 py-2 font-medium gap-6 items-center border rounded-full shadow-md shadow-grey-500/40 duration-300">
             <p>About</p>
             <p>Contact</p>
-            <p>About</p>
-            <p>Contact</p>
+            <p>Components</p>
           </div>
           <div>
             <button className="text-xs font-medium rounded-full px-5 py-2">
@@ -23,13 +25,12 @@ const HomePage = () => {
             </button>
           </div>
         </div>
-
-        <div className="pt-[2rem] pb-[4rem] mt-[2rem] flex items-center justify-center relative overflow-hidden">
-          <div className="absolute left-[-15rem] top-[0.5rem] bg-[#EEF0FF] w-[35rem] h-[35rem] rounded-full z-0"></div>
-          <div className="z-10 px-4 md:px-8 flex flex-col md:flex-row w-full items-center justify-between">
-            <div className="z-20 w-full md:w-[40%] text-center md:text-left">
+        <div className="pt-[2rem] pb-[6rem] mt-[2rem] flex items-center justify-center relative overflow-hidden">
+          <div className="absolute left-[-15rem] top-[2rem] bg-[#eeeffa] w-[35rem] h-[35rem] rounded-full z-0"></div>
+          <div className="z-10 px-4 md:px-20 flex flex-col md:flex-row w-full items-start justify-between">
+            <div className="z-20 pt-28 w-full md:w-[40%] text-center md:text-left">
               <p className="text-4xl md:text-7xl font-bold text-coinsense-blue">
-                Welcome To CoinSense
+                Welcome to CoinSense
               </p>
               <p className="my-4 text-sm md:text-base font-medium">
                 Take control of your financial journey with CoinSense.
@@ -41,17 +42,17 @@ const HomePage = () => {
                 View Demo
               </button>
             </div>
-            <div className="w-full md:w-[60%] mt-8 md:mt-0">
+            <div className="w-[full] md:w-[60%] mt-8 md:mt-0">
               <img
                 src={BannerImg}
                 alt="Banner"
-                className="w-full md:w-[55rem]"
+                className="ml-10 w-full md:w-[55rem]"
               />
             </div>
           </div>
         </div>
 
-        <div className="py-[6rem] bg-[#f3f3f3] flex flex-col items-center">
+        <div className="py-[6rem] bg-[#f6f6f6] flex flex-col items-center">
           <div className="bg-coinsense-blue text-white px-8 py-10 w-full md:w-[40%] rounded-2xl">
             <div className="flex flex-col">
               <p className="text-3xl md:text-5xl font-medium">About</p>
