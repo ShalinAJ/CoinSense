@@ -11,6 +11,7 @@ const ExpensePage = () => {
   const { transactions: transactionPromise, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
   const [walletList, setWalletList] = useState();
+  const [currentPage, setCurrentPage] = useState(1);
   const [expenseCount, setExpenseCount] = useState(0);
   const [expenseTotal, setExpenseTotal] = useState(0);
   const navigate = useNavigate();
@@ -123,6 +124,7 @@ const ExpensePage = () => {
                 <TransactionsTable
                   transactions={loadedTransactions}
                   transactionStatus={"Expense"}
+                  page={currentPage}
                 />
               )}
             </Await>

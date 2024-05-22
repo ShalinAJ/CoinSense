@@ -10,6 +10,7 @@ import Spring from "../components/animations/Spring.jsx";
 const IncomePage = () => {
   const { transactions: transactionPromise, wallets } = useLoaderData();
   const [modalOpen, setModalOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [walletList, setWalletList] = useState();
   const [incomeCount, setIncomeCount] = useState(0);
   const [incomeTotal, setIncomeTotal] = useState(0);
@@ -123,6 +124,7 @@ const IncomePage = () => {
                 <TransactionsTable
                   transactions={loadedTransactions}
                   transactionStatus={"Income"}
+                  page={currentPage}
                 />
               )}
             </Await>
