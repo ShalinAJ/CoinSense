@@ -10,7 +10,7 @@ const HomePage = () => {
   return (
     <>
       <div className="bg-white min-h-screen">
-        <div className="mx-20 bg-white flex flex-row justify-between items-center pt-8 z-20">
+        <div className="mx-8 md:mx-20 bg-white flex flex-row justify-between items-center pt-8 z-20">
           <div>
             <img src={Logo} alt="" className="w-32" />
           </div>
@@ -25,24 +25,24 @@ const HomePage = () => {
             </button>
           </div>
         </div>
-        <div className="pt-[2rem] pb-[6rem] mt-[2rem] flex items-center justify-center relative overflow-hidden">
-          <div className="absolute left-[-15rem] top-[2rem] bg-[#eeeffa] w-[35rem] h-[35rem] rounded-full z-0"></div>
-          <div className="z-10 px-4 md:px-20 flex flex-col md:flex-row w-full items-start justify-between">
-            <div className="z-20 pt-28 w-full md:w-[40%] text-center md:text-left">
-              <p className="text-4xl md:text-7xl font-bold text-coinsense-blue">
+        <div className="bg-coinsense-blue md:bg-transparent pt-[2rem] pb-[6rem] mt-[2rem] flex relative overflow-hidden">
+          <div className="absolute hidden sm:block left-[-15rem] top-[2rem] bg-[#eeeffa] w-[35rem] h-[35rem] rounded-full z-0"></div>
+          <div className="z-10 px-8 md:px-20 flex flex-col md:flex-row w-full items-start">
+            <div className="z-20 pt-10 md:pt-28 w-full md:w-[40%] md:text-left">
+              <p className="text-6xl md:text-7xl font-bold text-white md:text-coinsense-blue">
                 Welcome to CoinSense
               </p>
-              <p className="my-4 text-sm md:text-base font-medium">
+              <p className="text-white md:text-black text-left my-4 text-sm md:text-base font-medium">
                 Take control of your financial journey with CoinSense.
                 Effortlessly monitor your investments, execute trades with
                 precision, and stay ahead of market trends. Empower your
                 portfolio with CoinSense today.
               </p>
-              <button className="mt-4 text-xs font-medium rounded-full px-5 py-2 text-white bg-coinsense-blue">
+              <button className="mt-4 text-xs font-medium rounded-full px-5 py-2 text-black bg-white md:text-white md:bg-coinsense-blue">
                 View Demo
               </button>
             </div>
-            <div className="w-[full] md:w-[60%] mt-8 md:mt-0">
+            <div className="hidden sm:block w-[full] md:w-[60%] mt-8 md:mt-0">
               <img
                 src={BannerImg}
                 alt="Banner"
@@ -121,8 +121,8 @@ const HomePage = () => {
           </div>
         </div>
         <div className="py-[6rem] md:py-[15rem] flex items-center bg-white justify-center relative">
-          <div className="absolute right-0 md:right-[25rem] top-[5rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
-          <div className="absolute right-0 bottom-[3rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="hidden sm:block absolute right-0 md:right-[25rem] top-[5rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="hidden sm:block absolute right-0 bottom-[3rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
           <div className="z-10 w-[100%] px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
             <div className="pt-5 z-20 w-[50%]">
               <div className="text-[13px]">
@@ -212,7 +212,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="pt-[4rem] flex items-center bg-white justify-center relative">
-          <div className="absolute left-[28rem] top-[5rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="hidden sm:block absolute left-[28rem] top-[5rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
           <div className="w-[100%] z-10 px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
             <div className="w-[50%]">
               <img src={TransactionsImg} alt="Dashboard" className="w-full" />
@@ -266,8 +266,8 @@ const HomePage = () => {
           </div>
         </div>
         <div className="pt-[18rem] pb-[10rem] flex items-center bg-white justify-center relative">
-          <div className="absolute left-[-4rem] md:right-[25rem] top-[12rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
-          <div className="absolute right-0 top-[30rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="hidden sm:block absolute left-[-4rem] md:right-[25rem] top-[12rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="hidden sm:block absolute right-0 top-[30rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
           <div className="z-10 w-[100%] px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
             <div className="pt-5 z-20 w-[50%]">
               <div className="text-[13px]">
@@ -337,7 +337,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="pt-[6rem] pb-[10rem] flex items-center bg-white justify-center relative">
-          <div className="absolute left-[28rem] top-[6rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+          <div className="hidden sm:block absolute left-[28rem] top-[6rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
           <div className="w-[100%] z-10 px-4 md:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
             <div className="w-[50%]">
               <img src={WalletImg} alt="Dashboard" className="w-full" />
