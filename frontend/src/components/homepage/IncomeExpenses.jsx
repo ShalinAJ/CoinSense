@@ -4,7 +4,7 @@ import MobileIncomeExpenseImg from "../../assets/mobile-incomeExpense-homepage.p
 
 const IncomeExpenses = () => {
   return (
-    <div className="pt-[5rem] pb-[10rem] flex items-center bg-white justify-center relative">
+    <div className="pt-[5rem] lg:pb-6 flex items-center bg-white justify-center relative">
       <div className="hidden lg:block absolute left-[28rem] top-[6rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
       <div className="w-[100%] z-10 px-8 md:px-12 lg:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
         <div className="hidden lg:block w-[50%]">
@@ -29,7 +29,7 @@ const IncomeExpenses = () => {
             <img
               src={MobileIncomeExpenseImg}
               alt="Dashboard"
-              className=" my-8"
+              className="mt-2 mb-4"
             />
           </div>
           <div className="pt-2 lg:pt-4">

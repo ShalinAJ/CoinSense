@@ -27,7 +27,7 @@ const LoginRegister = () => {
             <img
               src={MobileLoginRegisterImg}
               alt="Dashboard"
-              className="w-full my-8 border shadow rounded-3xl"
+              className="w-full my-8 rounded-3xl"
             />
           </div>
           <div className="pt-2 lg:pt-4">

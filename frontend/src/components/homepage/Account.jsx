@@ -29,7 +29,7 @@ const Account = () => {
             </p>
           </div>
           <div className="flex flex-row justify-center lg:hidden">
-            <img src={MobileAccountImg} alt="Dashboard" className=" my-8" />
+            <img src={MobileAccountImg} alt="Dashboard" className="mt-2 mb-4" />
           </div>
           <div className="pt-2 lg:pt-4">
             <p className="text-lg font-semibold pb-4">Key Features</p>
