@@ -5,7 +5,10 @@ import GitImg from "../../assets/github.png";
 
 const Developers = () => {
   return (
-    <div className="lg:px-[10rem] py-[1rem] md:py-[3rem] lg:py-[6rem] bg-coinsense-blue lg:bg-[#f6f6f6] flex flex-col items-center">
+    <div
+      id="developers"
+      className="lg:px-[10rem] py-[1rem] md:py-[3rem] lg:py-[6rem] bg-coinsense-blue lg:bg-[#f6f6f6] flex flex-col items-center"
+    >
       <div className="lg:bg-coinsense-blue text-white px-8 md:px-12 lg:px-10 py-10 w-full rounded-3xl">
         <div className="flex flex-col">
           <p className="text-3xl md:text-5xl text-white font-medium">

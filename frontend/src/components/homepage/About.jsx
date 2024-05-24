@@ -2,7 +2,10 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="py-[1rem] md:py-[3rem] lg:py-[6rem] bg-white lg:bg-[#f6f6f6] flex flex-col items-center">
+    <div
+      id="about"
+      className="py-[1rem] md:py-[3rem] lg:py-[6rem] bg-white lg:bg-[#f6f6f6] flex flex-col items-center"
+    >
       <div className="lg:bg-coinsense-blue text-white px-8 md:px-12 lg:px-10 py-10 w-full lg:w-[50%] rounded-3xl">
         <div className="flex flex-col">
           <p className="text-3xl md:text-5xl text-coinsense-blue lg:text-white font-medium">
