@@ -6,6 +6,7 @@ import Dashboard from "../components/homepage/Dashboard";
 import Transactions from "../components/homepage/Transactions";
 import Investments from "../components/homepage/Investments";
 import Wallets from "../components/homepage/Wallets";
+import Developers from "../components/homepage/Developers";
 
 const HomePage = () => {
   return (
@@ -32,6 +33,7 @@ const HomePage = () => {
         <Transactions />
         <Investments />
         <Wallets />
+        <Developers />
       </div>
     </>
   );
