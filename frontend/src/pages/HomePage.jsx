@@ -7,6 +7,12 @@ import Transactions from "../components/homepage/Transactions";
 import Investments from "../components/homepage/Investments";
 import Wallets from "../components/homepage/Wallets";
 import Developers from "../components/homepage/Developers";
+import Assets from "../components/homepage/Assets";
+import IncomeExpenses from "../components/homepage/IncomeExpenses";
+import TradingWallet from "../components/homepage/TradingWallet";
+import CryptoStock from "../components/homepage/CryptoStock";
+import LoginRegister from "../components/homepage/LoginRegister";
+import Account from "../components/homepage/Account";
 
 const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -80,6 +86,12 @@ const HomePage = () => {
         <Transactions />
         <Investments />
         <Wallets />
+        <Assets />
+        <IncomeExpenses />
+        <TradingWallet />
+        <CryptoStock />
+        <LoginRegister />
+        <Account />
         <Developers />
         <div className="pt-4 pb-5 flex flex-row justify-center">
           <p className="text-xs font-medium text-coinsense-blue">

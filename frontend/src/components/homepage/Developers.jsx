@@ -74,7 +74,7 @@ const Developers = () => {
                 </div>
 
                 <p className="mb-2 py-1 px-2 text-[9px] lg:text-[11px] text-center w-[6rem] lg:w-[7rem] bg-[#bcffde] text-[#02B15A] rounded-xl">
-                  Front end dev
+                  Full stack dev
                 </p>
                 <p className="text-[13px] mb-3">
                   I am an Undergraduate Software Engineer at SLIIT from Sri
