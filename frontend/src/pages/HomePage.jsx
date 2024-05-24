@@ -34,6 +34,11 @@ const HomePage = () => {
         <Investments />
         <Wallets />
         <Developers />
+        <div className="pt-4 pb-5 flex flex-row justify-center">
+          <p className="text-xs font-medium text-coinsense-blue">
+            CoinSense © {new Date().getFullYear()}
+          </p>
+        </div>
       </div>
     </>
   );
