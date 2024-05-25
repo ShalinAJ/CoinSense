@@ -8,10 +8,14 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
     async function fetchOrderHistoryData() {
       const data = await orderHistoryData;
       if (Array.isArray(data)) {
-        const filteredOrders = data.filter(
-          (order) => order.status === orderType
-        );
-        setOrderHistory(filteredOrders);
+        if (orderType === undefined) {
+          setOrderHistory(data);
+        } else {
+          const filteredOrders = data.filter(
+            (order) => order.status === orderType
+          );
+          setOrderHistory(filteredOrders);
+        }
       }
     }
 
