@@ -13,6 +13,7 @@ import TradingWallet from "../components/homepage/TradingWallet";
 import CryptoStock from "../components/homepage/CryptoStock";
 import LoginRegister from "../components/homepage/LoginRegister";
 import Account from "../components/homepage/Account";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -37,9 +38,11 @@ const HomePage = () => {
                 <p>Developers</p>
               </a>
             </div>
-            <button className="text-xs font-medium rounded-full px-5 py-2">
-              View Demo
-            </button>
+            <Link to="/login">
+              <button className="text-xs font-medium rounded-full px-5 py-2">
+                View Demo
+              </button>
+            </Link>
           </div>
           <div className="md:hidden flex items-center">
             <div onClick={toggleMenu} className="cursor-pointer">
