@@ -1,6 +1,6 @@
 import React from "react";
-import InvestmentsImg from "../../assets/investments-homepage.png";
-import MobileInvestmentsImg from "../../assets/mobile-investments-homepage.png";
+import InvestmentsImg from "../../../../Images/investments-homepage.png";
+import MobileInvestmentsImg from "../../../../Images/mobile-investments-homepage.png";
 
 const Investments = () => {
   return (

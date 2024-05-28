@@ -1,6 +1,6 @@
 import React from "react";
-import LoginRegisterImg from "../../assets/loginRegister-homepage.png";
-import MobileLoginRegisterImg from "../../assets/mobile-loginRegister-homepage.png";
+import LoginRegisterImg from "../../../../Images/loginRegister-homepage.png";
+import MobileLoginRegisterImg from "../../../../Images/mobile-loginRegister-homepage.png";
 
 const LoginRegister = () => {
   return (

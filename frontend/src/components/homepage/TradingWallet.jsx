@@ -1,6 +1,6 @@
 import React from "react";
-import TradingWalletImg from "../../assets/tradingWallet-homepage.png";
-import MobileTradingWalletImg from "../../assets/mobile-tradingWallet-homepage.png";
+import TradingWalletImg from "../../../../Images/tradingWallet-homepage.png";
+import MobileTradingWalletImg from "../../../../Images/mobile-tradingWallet-homepage.png";
 
 const TradingWallet = () => {
   return (

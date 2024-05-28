@@ -1,6 +1,6 @@
 import React from "react";
-import AssetsImg from "../../assets/assets-homepage.png";
-import MobileAssetsImg from "../../assets/mobile-assets-homepage.png";
+import AssetsImg from "../../../../Images/assets-homepage.png";
+import MobileAssetsImg from "../../../../Images/mobile-assets-homepage.png";
 
 const Assets = () => {
   return (

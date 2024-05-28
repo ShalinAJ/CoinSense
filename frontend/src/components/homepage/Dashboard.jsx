@@ -1,6 +1,6 @@
 import React from "react";
-import DashboardImg from "../../assets/dashboard-homepage.png";
-import MobileDashboardImg from "../../assets/mobile-dashboard-homepage.png";
+import DashboardImg from "../../../../Images/dashboard-homepage.png";
+import MobileDashboardImg from "../../../../Images/mobile-dashboard-homepage.png";
 
 const Dashboard = () => {
   return (

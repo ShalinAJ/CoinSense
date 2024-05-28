@@ -1,6 +1,6 @@
 import React from "react";
-import CryptoStockImg from "../../assets/cryptoStock-homepage.png";
-import MobileCryptoStockImg from "../../assets/mobile-cryptoStock-homepage.png";
+import CryptoStockImg from "../../../../Images/cryptoStock-homepage.png";
+import MobileCryptoStockImg from "../../../../Images/mobile-cryptoStock-homepage.png";
 
 const CryptoStock = () => {
   return (

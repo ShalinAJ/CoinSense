@@ -1,6 +1,6 @@
 import React from "react";
-import AccountImg from "../../assets/account-homepage.png";
-import MobileAccountImg from "../../assets/mobile-account-homepage.png";
+import AccountImg from "../../../../Images/account-homepage.png";
+import MobileAccountImg from "../../../../Images/mobile-account-homepage.png";
 
 const Account = () => {
   return (

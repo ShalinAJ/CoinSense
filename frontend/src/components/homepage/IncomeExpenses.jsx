@@ -1,6 +1,6 @@
 import React from "react";
-import IncomeExpenseImg from "../../assets/incomeExpense-homepage.png";
-import MobileIncomeExpenseImg from "../../assets/mobile-incomeExpense-homepage.png";
+import IncomeExpenseImg from "../../../../Images/incomeExpense-homepage.png";
+import MobileIncomeExpenseImg from "../../../../Images/mobile-incomeExpense-homepage.png";
 
 const IncomeExpenses = () => {
   return (

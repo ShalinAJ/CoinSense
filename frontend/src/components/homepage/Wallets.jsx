@@ -1,6 +1,6 @@
 import React from "react";
-import WalletImg from "../../assets/wallet-homepage.png";
-import MobileWalletImg from "../../assets/mobile-wallet-homepage.png";
+import WalletImg from "../../../../Images/wallet-homepage.png";
+import MobileWalletImg from "../../../../Images/mobile-wallet-homepage.png";
 
 const Wallets = () => {
   return (

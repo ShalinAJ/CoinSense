@@ -1,5 +1,4 @@
 import React from "react";
-import SendImg from "../../assets/send.png";
 import LinkedInImg from "../../assets/linkedin.png";
 import GitImg from "../../assets/github.png";
 
