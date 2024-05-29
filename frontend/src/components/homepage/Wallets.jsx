@@ -4,7 +4,10 @@ import MobileWalletImg from "../../../../Images/mobile-wallet-homepage.png";
 
 const Wallets = () => {
   return (
-    <div className="pt-[5rem] flex items-center bg-white justify-center relative">
+    <div
+      id="wallets"
+      className="pt-[5rem] flex items-center bg-white justify-center relative"
+    >
       <div className="hidden lg:block absolute left-[28rem] top-[6rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
       <div className="w-[100%] z-10 px-8 md:px-12 lg:px-[10rem] flex flex-col md:flex-row gap-10 items-center">
         <div className="hidden lg:block w-[50%]">

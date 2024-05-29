@@ -5,7 +5,10 @@ import MobileInvestmentsImg from "../../../../Images/mobile-investments-homepage
 const Investments = () => {
   return (
     <div className="pt-[5rem] lg:pt-[18rem] lg:pb-[10rem] flex items-center bg-white justify-center relative">
-      <div className="hidden lg:block absolute left-[-4rem] md:right-[25rem] top-[12rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
+      <div
+        id="investments"
+        className="hidden lg:block absolute left-[-4rem] md:right-[25rem] top-[12rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"
+      ></div>
       <div className="hidden lg:block absolute right-0 top-[30rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
       <div className="z-10 w-[100%] px-8 md:px-12 lg:px-[10rem]  flex flex-col md:flex-row gap-10 items-center">
         <div className="pt-5 z-20 lg:w-[50%]">

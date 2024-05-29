@@ -76,10 +76,11 @@ const HomePage = () => {
                 Developers
               </p>
             </a>
-
-            <button className="text-lg font-semibold rounded-full px-5 py-2 mt-12 bg-coinsense-blue text-white">
-              View Demo
-            </button>
+            <Link to="/login" className="p-0">
+              <button className="text-lg font-semibold rounded-full px-5 py-2 mt-12 bg-coinsense-blue text-white">
+                View Demo
+              </button>
+            </Link>
           </div>
         </div>
 

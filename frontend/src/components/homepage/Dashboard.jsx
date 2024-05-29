@@ -7,7 +7,10 @@ const Dashboard = () => {
     <div className="py-[0rem] lg:py-[15rem] flex items-center bg-white justify-center relative">
       <div className="hidden lg:block absolute right-0 md:right-[25rem] top-[5rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
       <div className="hidden lg:block absolute right-0 bottom-[3rem] bg-[#EEF0FF] w-[20rem] md:w-[28rem] h-[20rem] md:h-[28rem] rounded-full z-0"></div>
-      <div className="z-10 w-[100%] px-8 md:px-12 lg:px-[10rem] gap-10 items-center">
+      <div
+        id="dashboard"
+        className="z-10 w-[100%] px-8 md:px-12 lg:px-[10rem] gap-10 items-center"
+      >
         <div className="flex flex-row">
           <div className="pt-5 z-20 lg:w-[50%]">
             <div className="text-[13px]">

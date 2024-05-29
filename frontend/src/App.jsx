@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     //errorElement: <ErrorPage />, Disabled for now
     children: [
-      { index: true, element: user ? <HomePage /> : <LoginPage /> },
+      { index: true, element: <HomePage /> },
       {
         path: "/login",
         element: user ? <Navigate to="/dashboard" /> : <LoginPage />,
