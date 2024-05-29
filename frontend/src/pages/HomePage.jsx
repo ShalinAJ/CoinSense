@@ -29,7 +29,7 @@ const HomePage = () => {
           <div>
             <img src={Logo} alt="" className="w-32" />
           </div>
-          <div className="hidden md:flex flex-row gap-3">
+          <div className="hidden md:flex flex-row">
             <div className="flex flex-row px-4 md:px-8 font-medium gap-10 items-center">
               <a href="#about" className="p-0 text-[13px]">
                 <p>About</p>
@@ -38,7 +38,7 @@ const HomePage = () => {
                 <p>Developers</p>
               </a>
             </div>
-            <Link to="/login">
+            <Link to="/login" className="p-0">
               <button className="text-xs font-medium rounded-full px-5 py-2">
                 View Demo
               </button>
