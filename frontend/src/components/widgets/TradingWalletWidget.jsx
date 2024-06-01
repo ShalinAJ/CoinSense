@@ -31,11 +31,13 @@ const TradingWalletWidget = () => {
   return (
     <RightSlide>
       <div>
-        <div className="p-5 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[4.35rem]">
+        <div className="bg-coinsense-blue lg:bg-transparent px-2 py-4 lg:p-5 lg:rounded-3xl lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 lg:h-[4.35rem]">
           <div>
             <div className="flex flex-row items-center gap-5 justify-between px-2">
-              <p className="text-lg font-semibold">Trading wallet balance </p>
-              <p className="text-xs font-semibold bg-coinsense-blue text-white px-10 py-[6px] rounded-3xl">
+              <p className="text-white lg:text-black text-xs lg:text-lg font-semibold">
+                Trading wallet balance{" "}
+              </p>
+              <p className="text-[10px] lg:text-xs font-semibold bg-white lg:bg-coinsense-blue text-coinsense-blue lg:text-white px-6 lg:px-10 py-[6px] rounded-3xl">
                 {new Intl.NumberFormat("en-US", {
                   style: "currency",
                   currency: "USD",
@@ -43,7 +45,7 @@ const TradingWalletWidget = () => {
               </p>{" "}
               <Link
                 to={"/dashboard/investment/trading-wallet"}
-                className="text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+                className="text-white lg:text-coinsense-blue border-[1px] border-white lg:border-coinsense-blue text-[11px] lg:px-8 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
               >
                 Top up
               </Link>

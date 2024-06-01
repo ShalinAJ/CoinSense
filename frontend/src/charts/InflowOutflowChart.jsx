@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Chart from "chart.js/auto";
 
-const InflowOutflowChart = ({ selectedYear }) => {
+const InflowOutflowChart = ({ selectedYear, screenSize }) => {
   const [inflows, setInflows] = useState();
   const [outflows, setOutflows] = useState();
   const chartRef = useRef(null);
@@ -176,7 +176,13 @@ const InflowOutflowChart = ({ selectedYear }) => {
     });
   };
 
-  return <canvas width="100" height="30" id="inflowOutflow"></canvas>;
+  return (
+    <canvas
+      width="100"
+      height={screenSize < 1024 ? 100 : 30}
+      id="inflowOutflow"
+    ></canvas>
+  );
 };
 
 export default InflowOutflowChart;

@@ -29,19 +29,19 @@ const About = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
               <a
                 href="#dashboard"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Dashboard
               </a>
               <a
                 href="#transactions"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Transactions
               </a>
               <a
                 href="#investments"
-                className="hidden sm:block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="hidden sm:block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Investments
               </a>
@@ -49,25 +49,25 @@ const About = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
               <a
                 href="#investments"
-                className="block sm:hidden bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block sm:hidden bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Investments
               </a>
               <a
                 href="#wallets"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Wallets
               </a>
               <a
                 href="#assets"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Assets
               </a>
               <a
                 href="#income-expenses"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Income & Expenses
               </a>
@@ -75,19 +75,19 @@ const About = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
               <a
                 href="#trading-wallet"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Trading Wallet
               </a>
               <a
                 href="#crypto-stock-trading"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Crypto/Stock Trading
               </a>
               <a
                 href="#login-register"
-                className="hidden sm:block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="hidden sm:block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Login & Register
               </a>
@@ -95,13 +95,13 @@ const About = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-6">
               <a
                 href="#login-register"
-                className="block sm:hidden bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block sm:hidden bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Login & Register
               </a>
               <a
                 href="#account"
-                className="block bg-white text-black border-1 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
+                className="block bg-white text-black border-2 border-coinsense-blue lg:bg-white lg:text-coinsense-blue text-xs font-medium rounded-full px-5 py-2 text-center"
               >
                 Account
               </a>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Chart from "chart.js/auto";
 
-const BalanceEvolutionChart = ({ selectedYear }) => {
+const BalanceEvolutionChart = ({ selectedYear, screenSize }) => {
   const [balanceEvolution, setBalanceEvolution] = useState(Array(12).fill(0));
 
   useEffect(() => {
@@ -143,7 +143,13 @@ const BalanceEvolutionChart = ({ selectedYear }) => {
     });
   };
 
-  return <canvas width="100" height="30" id="balanceEvolution"></canvas>;
+  return (
+    <canvas
+      width="100"
+      height={screenSize < 1024 ? 100 : 30}
+      id="balanceEvolution"
+    ></canvas>
+  );
 };
 
 export default BalanceEvolutionChart;

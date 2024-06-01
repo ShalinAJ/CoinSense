@@ -16,11 +16,13 @@ const WalletWidget = () => {
 
   return (
     <Spring>
-      <div className="p-5 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 h-[17.4rem]">
+      <div className="px-2 lg:p-5 rounded-3xl lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 lg:h-[17.4rem]">
         <div className="flex flex-row justify-between pt-3 px-2 items-baseline">
           <div>
-            <p className="text-xl font-semibold">Wallets</p>
-            <p className="text-xs text-gray-400 py-1">View of your wallets</p>
+            <p className="text-base lg:text-xl font-semibold">Wallets</p>
+            <p className="text-xs text-gray-400 pb-1 lg:py-1">
+              View of your wallets
+            </p>
           </div>
 
           <div className="h-[20%]  flex flex-col justify-center items-center pb-6">
@@ -44,17 +46,17 @@ const WalletWidget = () => {
               {walletList.slice(0, 4).map((data) => (
                 <tr
                   key={data._id}
-                  className="text-xs flex flex-row justify-between px-2 pt-2 leading-[1.4rem]"
+                  className="text-xs flex flex-row justify-between px-2 pt-2 lg:leading-[1.4rem]"
                 >
-                  <td className="text-left w-[30%] font-semibold">
+                  <td className="text-[10px] lg:text-xs text-left lg:w-[30%] font-semibold">
                     {data.nickname}
                   </td>
-                  <td className="text-center w-[40%] pl-9 text-[10px] text-black font-light">
+                  <td className="text-center lg:w-[40%] pl-9 text-[10px] text-black font-light">
                     {data.number
                       ? "XXXX XXXX XXXX " + String(data.number).slice(-4)
                       : null}
                   </td>
-                  <td className="text-right w-[30%] font-semibold">
+                  <td className="text-[10px] lg:text-xs text-right lg:w-[30%] font-semibold">
                     {new Intl.NumberFormat("en-US", {
                       style: "currency",
                       currency: "USD",

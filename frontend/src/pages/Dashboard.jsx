@@ -3,7 +3,7 @@ import totalExpenseImg from "../assets/total-expenses.png";
 import totalInvestmentImg from "../assets/total-investments2.png";
 import InflowOutflowChart from "../charts/InflowOutflowChart";
 import BalanceEvolutionChart from "../charts/BalanceEvolutionChart";
-import { Await, json, NavLink, useLoaderData } from "react-router-dom";
+import { Await, NavLink, useLoaderData } from "react-router-dom";
 import { Suspense, useEffect, useState } from "react";
 import UserMarketOptions from "../components/widgets/UserMarketOptions";
 import WalletWidget from "../components/widgets/WalletWidget";
@@ -31,6 +31,7 @@ const DashboardPage = () => {
     `${new Date().getFullYear()}`
   );
   const [topupData, setTopupData] = useState();
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   useEffect(() => {
     async function fetchAssetsData() {
@@ -50,6 +51,18 @@ const DashboardPage = () => {
       0
     );
   }
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   let totalAssetValue = 0;
   if (Array.isArray(assetsDetails)) {
@@ -224,32 +237,36 @@ const DashboardPage = () => {
           )}
         </Await>
       </Suspense>
-      <div className="w-[80%]">
-        <div className="bg-white flex flex-col items-start justify-between px-[28px] pt-[45px]">
+      <div className="w-[100%] lg:w-[80%]">
+        <div className="bg-white flex flex-col items-start justify-between pt-[45px]">
           <FadeIn>
-            <div className="mr-20 mb-8">
-              <p className="text-2xl font-bold">
+            <div className="px-[10px] lg:px-[28px] mr-20 mb-5 lg:mb-8">
+              <p className="text-lg lg:text-2xl font-bold">
                 Welcome Back, {!firstName ? "Username" : firstName} 👋
               </p>
-              <p className="text-sm pt-2 font-light">{headingText} </p>
+              <p className="text-xs lg:text-sm pt-1 lg:pt-2 font-light">
+                {headingText}{" "}
+              </p>
             </div>
           </FadeIn>
-          <div className="flex flex-row gap-5 mb-11 w-[100%]">
+          <div className="px-[10px] lg:px-[28px] flex flex-col md:flex-row gap-3 lg:gap-5 mb-8 lg:mb-11 w-[100%]">
             <div className="basis-1/3 rounded-xl">
               <button
                 onClick={() => setModalOpen(true)}
                 className="p-0 m-0 w-full border-none bg-transparent"
               >
                 <Spring>
-                  <div className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
+                  <div className="flex items-center gap-4 w-[100%] py-2 px-3 lg:p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300">
                     <img
                       src={totalInvestmentImg}
                       alt=""
-                      className="w-10 h-10"
+                      className="w-5 h-5 lg:w-10 lg:h-10"
                     />
-                    <div className="flex flex-col items-start">
-                      <p className="text-sm font-medium">Net Worth</p>
-                      <p className="text-lg font-semibold">
+                    <div className="w-[100%] flex flex-row justify-between lg:flex-col items-center lg:items-start">
+                      <p className="text-xs lg:text-sm font-medium">
+                        Net Worth
+                      </p>
+                      <p className="text-xs lg:text-lg font-semibold">
                         {totalWalletBalance
                           ? new Intl.NumberFormat("en-US", {
                               style: "currency",
@@ -274,12 +291,20 @@ const DashboardPage = () => {
               <Spring>
                 <NavLink
                   to={"/dashboard/income"}
-                  className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
+                  className="flex items-center gap-4 w-[100%] py-2 px-3 lg:p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
                 >
-                  <img src={totalIncomeImg} alt="" className="w-10 h-10" />
-                  <div className="flex flex-col items-start">
-                    <p className="text-sm font-medium">Total Income</p>
-                    <p className="text-lg font-semibold">{totalIncome}</p>
+                  <img
+                    src={totalIncomeImg}
+                    alt=""
+                    className="w-5 h-5 lg:w-10 lg:h-10"
+                  />
+                  <div className="w-[100%] flex flex-row justify-between lg:flex-col items-center lg:items-start">
+                    <p className="text-xs lg:text-sm font-medium">
+                      Total Income
+                    </p>
+                    <p className="text-xs lg:text-lg font-semibold">
+                      {totalIncome}
+                    </p>
                   </div>
                 </NavLink>
               </Spring>
@@ -288,26 +313,34 @@ const DashboardPage = () => {
               <Spring>
                 <NavLink
                   to={"/dashboard/expense"}
-                  className="flex items-center gap-4 w-[100%] p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
+                  className="flex items-center gap-4 w-[100%] py-2 px-3 lg:p-4 text-black box-shadow bg-white border-[1px] border-coinsense-blue rounded-xl border-blue-1	hover:bg-gray-200 duration-300"
                 >
-                  <img src={totalExpenseImg} alt="" className="w-10 h-10" />
-                  <div className="flex flex-col items-start">
-                    <p className="text-sm font-medium">Total Expences</p>
-                    <p className="text-lg font-semibold">{totalExpense}</p>
+                  <img
+                    src={totalExpenseImg}
+                    alt=""
+                    className="w-5 h-5 lg:w-10 lg:h-10"
+                  />
+                  <div className="w-[100%] flex flex-row justify-between lg:flex-col items-center lg:items-start">
+                    <p className="text-xs lg:text-sm font-medium">
+                      Total Expences
+                    </p>
+                    <p className="text-xs lg:text-lg font-semibold">
+                      {totalExpense}
+                    </p>
                   </div>
                 </NavLink>
               </Spring>
             </div>
           </div>
-          <div className="w-[100%] h-[100%]">
+          <div className="px-0 lg:px-[28px] w-[100%] h-[100%]">
             <RightSlide>
-              <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mb-10">
-                <div className="flex flex-row justify-between items-center">
-                  <div className="p-3 mb-1">
-                    <p className="text-xl font-semibold">
+              <div className="px-[10px] rounded-3xl flex flex-col lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 lg:p-4 pb-8 lg:mb-10">
+                <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+                  <div className="lg:p-3 mb-1">
+                    <p className="text-base lg:text-xl font-semibold">
                       Financial Inflow Outflow
                     </p>
-                    <p className="text-xs text-gray-400 py-1">
+                    <p className="text-xs text-gray-400 pb-2 lg:py-1">
                       Visualizes the money coming in (inflow) and going out
                       (outflow) of your account over the year.
                     </p>
@@ -317,7 +350,7 @@ const DashboardPage = () => {
                     id="years1"
                     value={selectedYearIO}
                     onChange={handleYearChangeIO}
-                    className="bg-transparent mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                    className="text-center bg-transparent lg:mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 lg:px-2 text-xs lg:font-medium hover:cursor-pointer"
                   >
                     {transactionYears.map((year) => (
                       <option key={year} value={year}>
@@ -326,12 +359,15 @@ const DashboardPage = () => {
                     ))}
                   </select>
                 </div>
-                <InflowOutflowChart selectedYear={selectedYearIO} />
+                <InflowOutflowChart
+                  screenSize={screenSize}
+                  selectedYear={selectedYearIO}
+                />
               </div>
             </RightSlide>
 
-            <div className="flex flex-row justify-between">
-              <div className="w-[48.5%]">
+            <div className="flex flex-col lg:flex-row justify-between">
+              <div className="lg:w-[48.5%]">
                 <UserMarketOptions
                   tradeData={tradeData}
                   url={[
@@ -341,17 +377,19 @@ const DashboardPage = () => {
                   ]}
                 />
               </div>
-              <div className="w-[48.5%] h-[23rem] flex flex-col gap-5">
+              <div className="lg:w-[48.5%] lg:h-[23rem] flex flex-col gap-5">
                 <WalletWidget />
                 <TradingWalletWidget />
               </div>
             </div>
             <RightSlide>
-              <div className="rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 p-4 pb-8 mt-10 mb-10">
-                <div className="flex flex-row justify-between items-center">
-                  <div className="p-3 mb-1">
-                    <p className="text-xl font-semibold">Balance Evolution</p>
-                    <p className="text-xs text-gray-400 py-1">
+              <div className="px-[10px] rounded-3xl flex flex-col lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300 lg:p-4 pb-8 lg:mb-10 mt-7 lg:mt-10">
+                <div className="flex flex-col lg:flex-row justify-between lg:items-center">
+                  <div className="lg:p-3 mb-1">
+                    <p className="text-base lg:text-xl font-semibold">
+                      Balance Evolution
+                    </p>
+                    <p className="text-xs text-gray-400 pb-2 lg:py-1">
                       A representation of how the balance of an account or
                       portfolio has changed over time.
                     </p>
@@ -361,7 +399,7 @@ const DashboardPage = () => {
                     id="years2"
                     value={selectedYearBE}
                     onChange={handleYearChangeBE}
-                    className="bg-transparent mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                    className="text-center bg-transparent lg:mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
                   >
                     {transactionYears.map((year) => (
                       <option key={year} value={year}>
@@ -370,7 +408,10 @@ const DashboardPage = () => {
                     ))}
                   </select>
                 </div>
-                <BalanceEvolutionChart selectedYear={selectedYearBE} />
+                <BalanceEvolutionChart
+                  screenSize={screenSize}
+                  selectedYear={selectedYearBE}
+                />
               </div>
             </RightSlide>
           </div>
