@@ -238,13 +238,13 @@ const DashboardPage = () => {
         </Await>
       </Suspense>
       <div className="w-[100%] lg:w-[80%]">
-        <div className="bg-white flex flex-col items-start justify-between pt-[45px]">
+        <div className="bg-white flex flex-col items-start justify-between pt-3 lg:pt-[45px]">
           <FadeIn>
-            <div className="px-[10px] lg:px-[28px] mr-20 mb-5 lg:mb-8">
-              <p className="text-lg lg:text-2xl font-bold">
+            <div className="text-center lg:text-left px-[10px] lg:px-[28px] lg:mr-20 mb-5 lg:mb-8">
+              <p className="text-base lg:text-2xl font-bold">
                 Welcome Back, {!firstName ? "Username" : firstName} 👋
               </p>
-              <p className="text-xs lg:text-sm pt-1 lg:pt-2 font-light">
+              <p className="text-xs lg:text-sm lg:pt-2 font-light">
                 {headingText}{" "}
               </p>
             </div>
@@ -350,7 +350,7 @@ const DashboardPage = () => {
                     id="years1"
                     value={selectedYearIO}
                     onChange={handleYearChangeIO}
-                    className="text-center bg-transparent lg:mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 lg:px-2 text-xs lg:font-medium hover:cursor-pointer"
+                    className="w-[25%] lg:w-auto bg-transparent lg:mr-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 lg:px-2 text-xs lg:font-medium hover:cursor-pointer"
                   >
                     {transactionYears.map((year) => (
                       <option key={year} value={year}>
@@ -399,7 +399,7 @@ const DashboardPage = () => {
                     id="years2"
                     value={selectedYearBE}
                     onChange={handleYearChangeBE}
-                    className="text-center bg-transparent lg:mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
+                    className="w-[25%] lg:w-auto bg-transparent lg:mr-5 mb-5 border-2 text-gray-500 border-gray-300 rounded-2xl p-1 px-2 text-xs font-medium hover:cursor-pointer"
                   >
                     {transactionYears.map((year) => (
                       <option key={year} value={year}>
