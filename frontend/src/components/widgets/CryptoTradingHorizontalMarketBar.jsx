@@ -160,14 +160,14 @@ const CryptoTradingHorizontalMarketBar = () => {
   }
 
   return (
-    <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
+    <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row justify-between px-4 lg:px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+      <div className="lg:w-[30%] flex flex-row justify-between lg:flex-col gap-4 text-[10px] lg:text-sm font-medium">
         {cryptoData[0] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[0].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -187,11 +187,11 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
         {cryptoData[1] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[1].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -211,11 +211,11 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
         {cryptoData[2] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[2].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -235,14 +235,15 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
       </div>
-      <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
+      <div className="hidden lg:block border-r-[1px] border-gray-300 w-[2px]"></div>
+      <div className="block lg:hidden border-t-[1px] border-gray-200 w-[100%]"></div>
+      <div className="lg:w-[30%] flex flex-row justify-between lg:flex-col gap-4 text-[10px] lg:text-sm font-medium">
         {cryptoData[3] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[3].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -262,11 +263,11 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
         {cryptoData[4] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[4].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -286,11 +287,11 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
         {cryptoData[5] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[5].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -310,14 +311,15 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
       </div>
-      <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
+      <div className="hidden lg:block border-r-[1px] border-gray-300 w-[2px]"></div>
+      <div className="block lg:hidden border-t-[1px] border-gray-200 w-[100%]"></div>
+      <div className="lg:w-[30%] flex flex-row justify-between lg:flex-col gap-4 text-[10px] lg:text-sm font-medium">
         {cryptoData[6] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[6].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -337,11 +339,11 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
         {cryptoData[7] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[7].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -361,11 +363,11 @@ const CryptoTradingHorizontalMarketBar = () => {
           </div>
         )}
         {cryptoData[8] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={cryptoData[8].image}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {

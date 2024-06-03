@@ -143,10 +143,10 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
   return (
     <div className="px-1 my-3">
       <hr />
-      <div className="overflow-y-auto max-h-[18rem]">
+      <div className="overflow-y-auto max-h-[12.5rem] lg:max-h-[18rem]">
         <table className="w-full">
           <tbody>
-            <tr className="text-xs leading-[25px]">
+            <tr className="text-[10px] lg:text-sm leading-[25px]">
               <th className="text-left font-normal">
                 <FadeIn>Token</FadeIn>
               </th>
@@ -165,12 +165,12 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
               openOrders.map((order, index) => (
                 <tr
                   key={index}
-                  className="text-xs font-semibold leading-[35px]"
+                  className="text-[10px] lg:text-xs font-semibold leading-[24px] lg:leading-[35px]"
                 >
                   <td className="w-[25%]">
                     <FadeIn>{order.name}</FadeIn>
                   </td>
-                  <td className="text-center w-[25%]">
+                  <td className=" text-center w-[25%]">
                     <FadeIn>
                       {new Intl.NumberFormat("en-US", {
                         style: "currency",

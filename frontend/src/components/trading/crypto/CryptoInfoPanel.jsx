@@ -22,8 +22,8 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
   return (
     <FadeIn>
       <div className="mb-10 py-6 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-        <div className="flex flex-row h-[25rem] max-h-[24rem] overflow-y-auto ">
-          <div className="flex flex-col justify-between h-max w-[100%] pr-7 pl-7">
+        <div className="flex flex-col lg:flex-row h-[25rem] max-h-[24rem] overflow-y-auto ">
+          <div className="flex flex-col justify-between h-max w-[100%] pr-4 pl-4 lg:pr-7 lg:pl-7">
             <div className="flex flex-row items-center gap-2">
               {" "}
               <img
@@ -102,28 +102,28 @@ const CryptoInfoPanel = ({ generalData, selectToken }) => {
               </div>
             </div>
           </div>
-          <div className="pl-7 pr-7 w-[100%]">
+          <div className="pr-4 pl-4 lg:pr-7 lg:pl-7 pt-6 lg:pt-0 w-[100%]">
             <div className="flex flex-col gap-2">
               <p className="text-sm font-semibold">Links</p>
-              <div className="flex flex-row justify-start gap-4 mt-1">
+              <div className="flex flex-row justify-between lg:justify-start gap-1 lg:gap-4 mt-1">
                 <a
                   href={coinData.official_website}
                   target="_blank"
-                  className="border-1 text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-5 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+                  className="border-1 text-coinsense-blue border-[1px] border-coinsense-blue text-[10px] lg:text-[11px] px-3 lg:px-5 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
                 >
                   Official Website
                 </a>
                 <a
                   href={coinData.white_Paper}
                   target="_blank"
-                  className="border-1 text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-5 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+                  className="border-1 text-coinsense-blue border-[1px] border-coinsense-blue text-[10px] lg:text-[11px] px-3 lg:px-5 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
                 >
                   Whitepaper
                 </a>
                 <a
                   href={coinData.block_explorer}
                   target="_blank"
-                  className="border-1 text-coinsense-blue border-[1px] border-coinsense-blue text-[11px] px-5 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
+                  className="border-1 text-coinsense-blue border-[1px] border-coinsense-blue text-[10px] lg:text-[11px] px-3 lg:px-5 py-[5px] bg-transparent rounded-3xl hover:text-white hover:bg-coinsense-blue duration-300"
                 >
                   Block Explorer
                 </a>

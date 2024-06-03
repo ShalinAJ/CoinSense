@@ -20,15 +20,15 @@ const TradingArea = ({
   const [tradeAmountType, setTradeAmountType] = useState("market");
 
   return (
-    <div className="py-10 flex flex-row justify-between">
-      <div className="w-[48.5%] h-[23rem]">
-        <p className="text-lg font-semibold  pb-3 pl-1">Make Trade</p>
-        <div className="flex flex-row justify-between pb-7 text-xs">
-          <div className="flex flex-row gap-3">
+    <div className="py-6 lg:py-10 flex flex-col lg:flex-row justify-between">
+      <div className="lg:w-[48.5%] h-[19.5rem] lg:h-[23rem]">
+        <p className="text- lg:text-lg font-semibold  pb-3 pl-1">Make Trade</p>
+        <div className="flex flex-row justify-between pb-5 lg:pb-7 text-xs">
+          <div className="flex flex-row gap-2 lg:gap-3">
             <NavLink
               className={`${classes.buy} ${
                 tradeType === "buy" ? classes.buy_active : ""
-              }`}
+              } `}
               onClick={() => setTradeType("buy")}
             >
               Buy
@@ -42,7 +42,7 @@ const TradingArea = ({
               Sell
             </NavLink>
           </div>
-          <div className="flex flex-row gap-3">
+          <div className="flex flex-row gap-2 lg:gap-3">
             <NavLink
               className={`${classes.navLink} ${
                 tradeAmountType === "market" ? classes.active : ""
@@ -89,8 +89,8 @@ const TradingArea = ({
           </>
         )}
       </div>
-      <div className="w-[48.5%]">
-        <div className="border rounded-3xl p-3 h-[23rem]">
+      <div className="lg:w-[48.5%]">
+        <div className="border rounded-3xl p-3 h-[18rem] lg:h-[23rem]">
           <div className="text-xs flex flex-row gap-3 trading">
             <NavLink
               className={`${classes.navLink} ${

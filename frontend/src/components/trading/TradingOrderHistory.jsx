@@ -25,10 +25,10 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
   return (
     <div className="px-1 my-3">
       <hr />
-      <div className="overflow-y-auto max-h-[18rem]">
+      <div className="overflow-y-auto max-h-[12.5rem] lg:max-h-[18rem]">
         <table className="w-full">
           <tbody>
-            <tr className="text-xs leading-[25px]">
+            <tr className="text-[10px] lgtext-xs leading-[25px]">
               <th className="text-left font-normal">
                 <FadeIn>Token</FadeIn>
               </th>
@@ -44,7 +44,7 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
               orderHistory.map((order, index) => (
                 <tr
                   key={index}
-                  className="text-xs font-semibold leading-[35px]"
+                  className="text-[10px] lg:text-xs font-semibold leading-[24px] lg:leading-[35px]"
                 >
                   <td>
                     <FadeIn>{order.name}</FadeIn>

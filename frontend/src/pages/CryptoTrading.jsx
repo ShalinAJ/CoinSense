@@ -43,6 +43,7 @@ const CryptoTradingPage = () => {
     "BTC",
     "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400",
   ]);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   useEffect(() => {
     async function orderHistoryDataHandler() {
@@ -179,6 +180,18 @@ const CryptoTradingPage = () => {
     return () => clearInterval(interval);
   }, [tradingInterval, selectToken]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const tokenHandler = (token) => {
     setSelectToken([token.symbol, token.image]);
   };
@@ -198,21 +211,21 @@ const CryptoTradingPage = () => {
           orderType="Crypto"
         />
       )}
-      <div className="w-[80%] h-[max-content] bg-white">
-        <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
+      <div className="lg:w-[80%] h-[max-content] bg-white">
+        <div className="flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between px-[10px] lg:px-[28px] pt-[29px] lg:pt-[45px] pb-6 lg:pb-10">
           <div>
             <FadeIn>
-              <Link onClick={prevPage} className="p-0 m-0 w-4">
+              <Link onClick={prevPage} className="ml-32 lg:ml-0 p-0 m-0 w-4">
                 <img src={backArrow} alt="" />
               </Link>
-              <h2 className="text-2xl font-bold">Crypto Trading</h2>
-              <p className="text-sm pt-2 font-light">
+              <h2 className="text-lg lg:text-2xl font-bold">Crypto Trading</h2>
+              <p className="text-xs lg:text-sm lg:pt-2 font-light">
                 Trade and view realtime data of Crypto Currencies
               </p>
             </FadeIn>
           </div>
           <RightSlide>
-            <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
+            <div className="flex flex-row items-center mt-2 lg:mt-0 border shadow-sm lg:shadow-md rounded-full gap-3">
               <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
                 <p>Crypto invested :</p>
                 <p>
@@ -231,7 +244,7 @@ const CryptoTradingPage = () => {
             </div>
           </RightSlide>
         </div>
-        <div className="px-[28px] ">
+        <div className="px-[10px] lg:px-[28px]">
           <RightSlide>
             <TradeLiveDataBar
               selectToken={selectToken}
@@ -261,7 +274,7 @@ const CryptoTradingPage = () => {
             </div>
 
             <div className="mb-8 mt-3" style={{ height: "auto" }}>
-              <CryptoChart chartData={chartData} size={"100px"} />
+              <CryptoChart size={screenSize} chartData={chartData} />
             </div>
           </FadeIn>
           <hr />
