@@ -51,17 +51,17 @@ const TransactionsTable = ({
     <div>
       <table className="w-full">
         <thead>
-          <tr className="text-left text-sm leading-[45px]">
+          <tr className="text-left text-[11px] lg:text-sm lg:leading-[45px]">
             <th>
               <FadeIn>Transaction</FadeIn>
             </th>
-            <th>
+            <th className="text-left">
               <FadeIn>Date</FadeIn>
             </th>
-            <th className="w-[15%]">
+            <th className="text-center lg:text-left w-[15%]">
               <FadeIn>Amount</FadeIn>
             </th>
-            <th className="text-center pl-[80px]">
+            <th className="text-right lg:text-center pl-[30px] lg:pl-[80px]">
               <FadeIn>Status</FadeIn>
             </th>
           </tr>
@@ -71,7 +71,7 @@ const TransactionsTable = ({
             currentItems.map((transaction) => (
               <tr
                 key={transaction._id}
-                className="text-sm font-medium leading-[48px]"
+                className="text-[10px] lg:text-sm font-medium leading-[38px] lg:leading-[48px]"
               >
                 <td>
                   <FadeIn>{transaction.transaction}</FadeIn>
@@ -88,12 +88,15 @@ const TransactionsTable = ({
                 </td>
                 <td>
                   <FadeIn>
-                    <div className="flex flex-row">
-                      {new Intl.NumberFormat("en-US", {
-                        style: "currency",
-                        currency: "USD",
-                      }).format(transaction.amount)}
-                      <p className="pl-2 text-[10px] text-gray-500 font-light">
+                    <div className="flex flex-col leading-3 lg:leading-5 justify-start lg:flex-row text-center ">
+                      <div className="text-[8px] lg:text-sm">
+                        {new Intl.NumberFormat("en-US", {
+                          style: "currency",
+                          currency: "USD",
+                        }).format(transaction.amount)}
+                      </div>
+
+                      <p className="pl-2 text-[8px] lg:text-[10px] text-gray-500 font-light">
                         {transaction.card
                           ? "Card " + transaction.card.slice(12, 16)
                           : undefined}
@@ -101,13 +104,13 @@ const TransactionsTable = ({
                     </div>
                   </FadeIn>
                 </td>
-                <td className="mt-3 text-center text-xs flex flex-row justify-end pr-9">
+                <td className="mt-1 lg:mt-3 text-center text-[10px] lg:text-xs flex flex-row justify-end items-center lg:pr-9">
                   <p
                     className={
                       (transaction.status === "Income" &&
-                        "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                        "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#bcffde] text-[#02B15A] rounded-xl") ||
                       (transaction.status === "Expense" &&
-                        "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
+                        "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
                       (transaction.status === "withdraw" &&
                         "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl mr-6") ||
                       (transaction.status === "topup" &&
@@ -121,10 +124,10 @@ const TransactionsTable = ({
                     transaction.status === "Expense") && (
                     <button
                       onClick={() => deleteHandler(transaction._id)}
-                      className="p-0 m-0 ml-2 border-none bg-transparent"
+                      className="p-0 m-0 ml-1 lg:ml-2 border-none bg-transparent"
                     >
                       <FadeIn>
-                        <img src={deleteImg} className="w-4" />
+                        <img src={deleteImg} className="w-3 lg:w-4" />
                       </FadeIn>
                     </button>
                   )}
