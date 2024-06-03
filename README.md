@@ -17,7 +17,7 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - React JS
 - Express JS
 - MongoDB
-- Figma - (Need to add prototype link)
+- Figma - https://www.figma.com/proto/41UZK8X7ZanTE8NSPyU60V/CoinSense?node-id=702-85&t=AL1B2WguFSvG1fEy-1&scaling=scale-down&page-id=0%3A1&starting-point-node-id=648%3A293
 - Postman
 - Tailwind CSS
 
