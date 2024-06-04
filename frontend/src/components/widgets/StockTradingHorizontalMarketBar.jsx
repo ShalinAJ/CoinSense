@@ -50,16 +50,19 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
 
     const fetchData = async (stock) => {
       try {
-        const response = await axios.get(`http://localhost:4000/stock-data`, {
-          params: {
-            symbol: stock,
-            range: "1y",
-            interval: tradingInterval,
-          },
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
+        const response = await axios.get(
+          `https://coinsense-mix7.onrender.com/stock-data`,
+          {
+            params: {
+              symbol: stock,
+              range: "1y",
+              interval: tradingInterval,
+            },
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
 
         const data = response.data.chart.result[0];
 

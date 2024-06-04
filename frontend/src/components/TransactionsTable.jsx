@@ -11,7 +11,7 @@ const TransactionsTable = ({
 }) => {
   const deleteHandler = async (id) => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch("http://localhost:4000/" + id, {
+    const response = await fetch("https://coinsense-mix7.onrender.com/" + id, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user.token}`,

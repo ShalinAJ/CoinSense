@@ -60,11 +60,14 @@ const AccountDetails = ({
 
   // get image from DB
   async function getImg() {
-    const response = await fetch("http://localhost:4000/image/account", {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://coinsense-mix7.onrender.com/image/account",
+      {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       return json({ message: "Could not fetch photo." }, { status: 500 });
@@ -83,7 +86,7 @@ const AccountDetails = ({
     const handleUpload = async () => {
       if (selectedFile) {
         const response = await fetch(
-          `http://localhost:4000/image/account/${user_id}`,
+          `https://coinsense-mix7.onrender.com/image/account/${user_id}`,
           {
             method: "PATCH",
             headers: {
