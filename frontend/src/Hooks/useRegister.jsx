@@ -11,7 +11,7 @@ export const useRegister = () => {
 
     console.log(name, email, password);
 
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch("/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
@@ -31,7 +31,7 @@ export const useRegister = () => {
       // create a account details
       const user = JSON.parse(localStorage.getItem("user"));
 
-      const accountResponse = await fetch("http://localhost:4000/account/new", {
+      const accountResponse = await fetch("/account/new", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${user.token}`,
@@ -46,16 +46,13 @@ export const useRegister = () => {
       }
 
       // upload image file with null accountImg when account created
-      const imageResponse = await fetch(
-        "http://localhost:4000/image/account/new/",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const imageResponse = await fetch("/image/account/new/", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       if (!imageResponse.ok) {
         throw new Error("Could not upload.");
@@ -70,18 +67,15 @@ export const useRegister = () => {
         status: "",
       };
 
-      const tradingWalletResponse = await fetch(
-        "http://localhost:4000/tradingwallet/new",
-        {
-          method: "POST",
+      const tradingWalletResponse = await fetch("/tradingwallet/new", {
+        method: "POST",
 
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(topupData),
-        }
-      );
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(topupData),
+      });
 
       console.log(tradingWalletResponse);
 
