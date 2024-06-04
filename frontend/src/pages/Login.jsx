@@ -39,15 +39,16 @@ const LoginPage = () => {
 
   return (
     <>
-      <div className="h-[100%] flex justify-between items-center bg-coinsense-blue">
-        <div className="flex flex-row h-[100%] pt-[8rem]">
+      <div className="fixed bg-coinsense-blue h-screen w-screen z-0"></div>
+      <div className="z-10 px-[10px] lg:px-0 lg:h-[100%] flex flex-col lg:flex-row justify-between items-center bg-coinsense-blue">
+        <div className="flex flex-row h-[100%] lg:pt-[8rem]">
           <LeftSlide>
-            <div className="ml-[10rem] w-[80%] text-white mb-4 rounded-xl pt-10 flex flex-col">
-              <p className="text-4xl font-bold">CoinSense</p>
-              <p className="text-6xl font-bold mt-[4rem] leading-[4.5rem]">
+            <div className="lg:ml-[10rem] lg:w-[80%] text-white mb-4 rounded-xl pt-10 flex flex-col items-center lg:items-start">
+              <p className="text-3xl lg:text-4xl font-bold">CoinSense</p>
+              <p className="text-center lg:text-left text-base lg:text-6xl font-semibold lg:font-bold lg:mt-[4rem] pt-2 lg:pt-0 lg:leading-[4.5rem]">
                 Begin your journey with CoinSense
               </p>
-              <p className="mt-10 w-[80%]">
+              <p className="mt-2 text-xs lg:text-sm text-center lg:text-left lg:mt-10 lg:w-[80%]">
                 Unlock exclusive features and more by logging in or registering
                 with us today. Your gateway to seamless financial management
                 starts here!
@@ -56,9 +57,9 @@ const LoginPage = () => {
           </LeftSlide>
         </div>
 
-        <div className=" mt-20 mb-20 mr-[10rem] w-[400px]">
+        <div className="z-30 mt-3 lg:mt-20 mb-5 lg:mb-20 lg:mr-[10rem] lg:w-[400px]">
           <Spring>
-            <div className=" px-4 py-6 border shadow-lg bg-white rounded-xl">
+            <div className="px-4 py-6 border shadow-lg bg-white rounded-xl">
               <FadeIn>
                 <div>
                   <form onSubmit={handleSubmit}>
@@ -66,7 +67,7 @@ const LoginPage = () => {
                       <img
                         src={addUser}
                         alt="add user sign"
-                        className="w-9 ml-20"
+                        className="w-9 ml-24 lg:ml-20"
                       />
                       <p className="text-black font-medium flex justify-center mt-1 ml-5">
                         Sign In
