@@ -11,11 +11,14 @@ export const useRegister = () => {
 
     console.log(name, email, password);
 
-    const response = await fetch("/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, password }),
-    });
+    const response = await fetch(
+      "https://coinsense-mix7.onrender.com/register",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      }
+    );
     const json = await response.json();
 
     if (!response.ok) {
@@ -31,13 +34,16 @@ export const useRegister = () => {
       // create a account details
       const user = JSON.parse(localStorage.getItem("user"));
 
-      const accountResponse = await fetch("/account/new", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const accountResponse = await fetch(
+        "https://coinsense-mix7.onrender.com/account/new",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const json2 = await accountResponse.json();
       console.log(json2);
 
@@ -46,13 +52,16 @@ export const useRegister = () => {
       }
 
       // upload image file with null accountImg when account created
-      const imageResponse = await fetch("/image/account/new/", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const imageResponse = await fetch(
+        "https://coinsense-mix7.onrender.com/image/account/new/",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!imageResponse.ok) {
         throw new Error("Could not upload.");
@@ -67,15 +76,18 @@ export const useRegister = () => {
         status: "",
       };
 
-      const tradingWalletResponse = await fetch("/tradingwallet/new", {
-        method: "POST",
+      const tradingWalletResponse = await fetch(
+        "https://coinsense-mix7.onrender.com/tradingwallet/new",
+        {
+          method: "POST",
 
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(topupData),
-      });
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(topupData),
+        }
+      );
 
       console.log(tradingWalletResponse);
 
