@@ -61,7 +61,21 @@ CoinSense is a comprehensive financial management platform designed to provide u
    npm start
    ```
 ## Screens
-1. Dashboard Page
+1. Login / Register Page
+   ![login/register](https://github.com/ShalinAJ/CoinSense/blob/main/Images/loginRegister-homepage.png)
+2. Dashboard Page
   ![Dashboard](https://github.com/ShalinAJ/CoinSense/blob/main/Images/dashboard-homepage.png)
-2. Transactions Page
+3. Transactions Page
   ![Transactions](https://github.com/ShalinAJ/CoinSense/blob/main/Images/transactions-homepage.png)
+4. Income / Expense Page
+  ![income/expense](https://github.com/ShalinAJ/CoinSense/blob/main/Images/incomeExpense-homepage.png)
+5. Investment Page
+   ![investment](https://github.com/ShalinAJ/CoinSense/blob/main/Images/investments-homepage.png)
+6. Crypto / Stock Page
+   ![crypto/stock](https://github.com/ShalinAJ/CoinSense/blob/main/Images/cryptoStock-homepage.png)
+7. Assest Page
+   ![assets](https://github.com/ShalinAJ/CoinSense/blob/main/Images/assets-homepage.png)
+8. Wallet Page
+   ![wallet](https://github.com/ShalinAJ/CoinSense/blob/main/Images/wallet-homepage.png)
+9. Trading Wallet Page
+    ![trading wallet](https://github.com/ShalinAJ/CoinSense/blob/main/Images/tradingWallet-homepage.png)
