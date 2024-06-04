@@ -61,7 +61,7 @@ CoinSense is a comprehensive financial management platform designed to provide u
    npm start
    ```
 ## Screens
-1. Dashboard
+1. Dashboard Page
   ![Dashboard](https://github.com/ShalinAJ/CoinSense/blob/main/Images/dashboard-homepage.png)
-2. Transactions
+2. Transactions Page
   ![Transactions](https://github.com/ShalinAJ/CoinSense/blob/main/Images/transactions-homepage.png)
