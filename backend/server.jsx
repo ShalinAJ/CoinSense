@@ -26,11 +26,7 @@ app.use(bodyParser.json({ limit: "10mb" })); // Adjust the limit as per your req
 app.use(express.json());
 
 //Access to fetch at 'http://localhost:4000/register' from origin 'http://localhost:5173' has been blocked by CORS policy
-app.use(
-  cors({
-    origin: "https://665ebb347255b9cd848245de--coinsensefinance.netlify.app",
-  })
-);
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log(`Server js ${req.path}, ${req.method}`);
