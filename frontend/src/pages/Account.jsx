@@ -23,14 +23,17 @@ const AccountPage = () => {
     const id = account._id;
 
     try {
-      const response = await fetch("http://localhost:4000/account/" + id, {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://coinsense-mix7.onrender.com/account/" + id,
+        {
+          method: "PATCH",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to save account details");
@@ -46,11 +49,14 @@ const AccountPage = () => {
   // Get all account details
   useEffect(() => {
     const getAccountDetails = async () => {
-      const response = await fetch("http://localhost:4000/account", {
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://coinsense-mix7.onrender.com/account",
+        {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         return json(

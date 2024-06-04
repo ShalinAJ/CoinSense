@@ -83,11 +83,14 @@ const StockTradingPage = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:4000/stocks/general/", {
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
+        const response = await fetch(
+          "https://coinsense-mix7.onrender.com/stocks/general/",
+          {
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
 
         const stockDetails = await response.json();
 
@@ -96,16 +99,19 @@ const StockTradingPage = () => {
         console.error("Error fetching crypto data: ", error);
       }
       try {
-        const response = await axios.get(`http://localhost:4000/stock-data`, {
-          params: {
-            symbol: selectToken[0],
-            range: "1y",
-            interval: tradingInterval,
-          },
-          headers: {
-            Authorization: `Bearer ${userInfo.token}`,
-          },
-        });
+        const response = await axios.get(
+          `https://coinsense-mix7.onrender.com/stock-data`,
+          {
+            params: {
+              symbol: selectToken[0],
+              range: "1y",
+              interval: tradingInterval,
+            },
+            headers: {
+              Authorization: `Bearer ${userInfo.token}`,
+            },
+          }
+        );
 
         const data = response.data.chart.result[0];
 

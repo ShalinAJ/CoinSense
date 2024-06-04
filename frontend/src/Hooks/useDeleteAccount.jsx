@@ -15,12 +15,15 @@ export const useDeleteAccount = () => {
       const id = account.user_id;
       console.log(id);
 
-      const response = await fetch("http://localhost:4000/user/" + id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://coinsense-mix7.onrender.com/user/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         setError("Could not delete user.");
@@ -37,12 +40,15 @@ export const useDeleteAccount = () => {
       const account = JSON.parse(localStorage.getItem("account"));
       const id = account._id;
 
-      const response = await fetch("http://localhost:4000/account/" + id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://coinsense-mix7.onrender.com/account/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         setError("Could not delete account.");
@@ -60,12 +66,15 @@ export const useDeleteAccount = () => {
       const id = account.user_id;
       console.log(id);
 
-      const response = await fetch("http://localhost:4000/wallets/" + id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://coinsense-mix7.onrender.com/wallets/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         setError("Could not delete wallets.");
@@ -82,12 +91,15 @@ export const useDeleteAccount = () => {
       const account = JSON.parse(localStorage.getItem("account"));
       const id = account.user_id;
 
-      const response = await fetch("http://localhost:4000/transactions/" + id, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://coinsense-mix7.onrender.com/transactions/" + id,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        }
+      );
 
       if (!response.ok) {
         setError("Could not delete account.");
@@ -105,7 +117,7 @@ export const useDeleteAccount = () => {
       const id = account.user_id;
 
       const response = await fetch(
-        "http://localhost:4000/image/account/" + id,
+        "https://coinsense-mix7.onrender.com/image/account/" + id,
         {
           method: "DELETE",
           headers: {

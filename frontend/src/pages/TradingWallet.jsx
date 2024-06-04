@@ -288,7 +288,7 @@ export async function action({ request }) {
   };
 
   const tradingWalletDetailsResponse = await fetch(
-    "http://localhost:4000/tradingwalletdetails/new",
+    "https://coinsense-mix7.onrender.com/tradingwalletdetails/new",
     {
       method: "POST",
 
@@ -315,7 +315,7 @@ export async function action({ request }) {
   };
 
   const response = await fetch(
-    "http://localhost:4000/tradingwallet/" + account.user_id,
+    "https://coinsense-mix7.onrender.com/tradingwallet/" + account.user_id,
     {
       method: "PATCH",
 
@@ -341,7 +341,7 @@ export async function action({ request }) {
   };
 
   const Transactionresponse = await fetch(
-    "http://localhost:4000/transaction/new",
+    "https://coinsense-mix7.onrender.com/transaction/new",
     {
       method: "POST",
 
@@ -357,19 +357,22 @@ export async function action({ request }) {
     throw json({ message: "Could not save." }, { status: 500 });
   }
 
-  const walletResponse = await fetch("http://localhost:4000/wallet/" + cardId, {
-    method: "PATCH",
-    headers: {
-      Authorization: `Bearer ${user.token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      cardbalance:
-        status === "topup"
-          ? parseFloat(cardbalance) - amount
-          : parseFloat(cardbalance) + amount,
-    }),
-  });
+  const walletResponse = await fetch(
+    "https://coinsense-mix7.onrender.com/wallet/" + cardId,
+    {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        cardbalance:
+          status === "topup"
+            ? parseFloat(cardbalance) - amount
+            : parseFloat(cardbalance) + amount,
+      }),
+    }
+  );
 
   if (!walletResponse.ok) {
     throw new Error("Wallet value Could not be updated.");
@@ -381,7 +384,7 @@ export async function action({ request }) {
 
 async function loadWallets() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch("http://localhost:4000/wallets", {
+  const response = await fetch("https://coinsense-mix7.onrender.com/wallets", {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
