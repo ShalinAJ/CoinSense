@@ -55,7 +55,9 @@ const StockChart = ({ chartData, size }) => {
     }
   }, [chartData]);
 
-  return <canvas id="stockChart" ref={chartRef} style={{ height: size }} />;
+  return (
+    <canvas id="stockChart" ref={chartRef} height={size < 1024 ? 250 : 100} />
+  );
 };
 
 export default StockChart;

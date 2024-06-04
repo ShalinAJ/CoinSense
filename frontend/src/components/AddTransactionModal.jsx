@@ -25,7 +25,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="w-[40%] z-50 bg-transparent">
+      <dialog open className="w-[90%] lg:w-[40%] z-50 bg-transparent">
         <Spring>
           <div className="bg-white mt-[90px] pb-1 rounded-xl ">
             <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
@@ -41,7 +41,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                 </div>
 
                 <Form method="post" className="flex flex-col">
-                  <div className="flex flex-col mb-2 mt-8">
+                  <div className="flex flex-col mb-2 mt-4 lg:mt-8">
                     <label htmlFor="">Transaction</label>
                     <input
                       id="name"
@@ -68,7 +68,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                     <select
                       name="status"
                       id="status"
-                      className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
+                      className="rounded-m p-1 mt-4 lg:mt-6 ml-3 text-center rounded-md text-sm font-medium"
                       onChange={statusSelecterHandler}
                       required
                     >
@@ -82,7 +82,7 @@ const AddTransactionModal = ({ isOpen, onClose, walletCards }) => {
                     <select
                       name="card"
                       id="card"
-                      className="rounded-m p-1 mt-6 ml-3 text-center rounded-md text-sm font-medium"
+                      className="rounded-m p-1 mt-4 lg:mt-6 ml-3 text-center rounded-md text-sm font-medium"
                       onChange={cardSelecterHandler}
                       value={selectedCard}
                       required

@@ -92,7 +92,7 @@ const IncomePage = () => {
           </RightSlide>
         </div>
         <div className="flex justify-center lg:mt-1 lg:mb-3">
-          <div className="flex flex-col justify-center items-center mt-5 mb-8 lg:my-10 ">
+          <div className="flex flex-col justify-center items-center mt-5 mb-8 lg:my-10">
             <p className="text-xs lg:ext-sm lg:font-medium text-gray-400">
               <FadeIn>Total Income</FadeIn>
             </p>

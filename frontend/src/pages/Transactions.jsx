@@ -53,18 +53,18 @@ const TransactionsPage = () => {
         </Await>
       </Suspense>
 
-      <div className="w-[80%] h-[max-content] bg-white">
-        <div className="flex items-start justify-between px-[28px] pt-[45px]">
+      <div className="lg:w-[80%] h-[max-content] bg-white">
+        <div className="flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between px-[10px] lg:px-[28px] pt-[29px]">
           <div>
             <FadeIn>
-              <h2 className="text-2xl font-bold">Transactions</h2>
-              <p className="text-sm pt-2 font-light">
+              <h2 className="text-lg lg:text-2xl font-bold">Transactions</h2>
+              <p className="text-xs lg:text-sm lg:pt-2 font-light">
                 Detailed view of your transactions
               </p>
             </FadeIn>
           </div>
           <RightSlide>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-col mt-2 lg:mt-0 lg:flex-row gap-3">
               <input
                 type="text"
                 value={searchQuery}
@@ -77,14 +77,15 @@ const TransactionsPage = () => {
               />
               <button
                 onClick={openModal}
-                className="bg-[#152DFF] text-white text-xs px-10 hover:bg-coinsense-blue-darker"
+                className="bg-[#152DFF] rounded-full lg:rounded-lg text-white text-[11px] lg:text-xs lg:px-[3rem] hover:bg-coinsense-blue-darker"
               >
                 Add Transaction
               </button>
             </div>
           </RightSlide>
         </div>
-        <div className="pl-[28px] py-6">
+        <hr className="block lg:hidden mx-2 lg:mx-6 mt-5 mb-2" />
+        <div className="px-[10px] lg:pl-[28px] py-2 lg:py-6">
           <Suspense
             fallback={
               <p className="text-sm font-medium">Loading transactions...</p>

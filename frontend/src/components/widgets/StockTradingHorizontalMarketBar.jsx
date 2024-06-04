@@ -157,14 +157,14 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
   console.log();
 
   return (
-    <div className="flex flex-row justify-between px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
+    <div className="flex flex-col gap-3 lg:gap-0 lg:flex-row justify-between px-4 lg:px-10 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+      <div className="lg:w-[30%] flex flex-row justify-between lg:flex-col gap-4 text-[10px] lg:text-sm font-medium">
         {stocksData[0] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[0].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -184,11 +184,11 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
         {stocksData[1] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[1].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -208,11 +208,11 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
         {stocksData[2] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[2].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -232,14 +232,15 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
       </div>
-      <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
+      <div className="hidden lg:block border-r-[1px] border-gray-300 w-[2px]"></div>
+      <div className="block lg:hidden border-t-[1px] border-gray-200 w-[100%]"></div>
+      <div className="lg:w-[30%] flex flex-row justify-between lg:flex-col gap-4 text-[10px] lg:text-sm font-medium">
         {stocksData[3] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[3].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -259,11 +260,11 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
         {stocksData[4] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[4].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -283,11 +284,11 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
         {stocksData[5] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[5].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -307,14 +308,15 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
       </div>
-      <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-      <div className="w-[30%] flex flex-col gap-4 text-sm font-medium">
+      <div className="hidden lg:block border-r-[1px] border-gray-300 w-[2px]"></div>
+      <div className="block lg:hidden border-t-[1px] border-gray-200 w-[100%]"></div>
+      <div className="lg:w-[30%] flex flex-row justify-between lg:flex-col gap-4 text-[10px] lg:text-sm font-medium">
         {stocksData[6] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[6].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -334,11 +336,11 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
         {stocksData[7] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[7].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
@@ -358,11 +360,11 @@ const StockTradingHorizontalMarketBar = ({ generalData, tradingInterval }) => {
           </div>
         )}
         {stocksData[8] && (
-          <div className="flex flex-row items-center justify-between">
+          <div className="flex flex-row items-center gap-1 justify-between">
             <img
               src={stocksData[8].logo}
               alt=""
-              className="w-7 h-7 rounded-full"
+              className="w-4 h-4 lg:w-7 lg:h-7 rounded-full"
             />
             <p>
               {new Intl.NumberFormat("en-US", {
