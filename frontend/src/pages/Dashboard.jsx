@@ -303,7 +303,7 @@ const DashboardPage = () => {
                       Total Income
                     </p>
                     <p className="text-xs lg:text-lg font-semibold">
-                      {totalIncome}
+                      {totalIncome ? totalIncome : "$0.00"}
                     </p>
                   </div>
                 </NavLink>
@@ -325,7 +325,7 @@ const DashboardPage = () => {
                       Total Expences
                     </p>
                     <p className="text-xs lg:text-lg font-semibold">
-                      {totalExpense}
+                      {totalExpense ? totalExpense : "$0.00"}
                     </p>
                   </div>
                 </NavLink>

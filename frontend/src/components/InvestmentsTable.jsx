@@ -40,10 +40,7 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
             </th>
           </tr>
           {currentItems.map((trade) => (
-            <tr
-              key={trade._id}
-              className="text-[10px] lg:text-sm font-medium leading-[38px] lg:leading-[48px]"
-            >
+            <tr key={trade._id} className="text-[10px] lg:text-sm font-medium">
               <td>
                 <FadeIn>{trade.name}</FadeIn>
               </td>
@@ -59,7 +56,7 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
                   })}
                 </FadeIn>
               </td>
-              <td className="text-center lg:text-left">
+              <td className="text-center lg:text-left leading-[38px] lg:leading-[48px]">
                 <div className="flex flex-row">
                   <FadeIn>{trade.amount}</FadeIn>
                 </div>
@@ -74,13 +71,13 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
                   </FadeIn>
                 </div>
               </td>
-              <td className="mt-3 text-center text-xs flex justify-end lg:justify-start">
+              <td className="mt-2 lg:mt-3 text-center text-xs flex justify-end lg:justify-start leading-[38px] lg:leading-[48px]">
                 <p
                   className={
                     (trade.transactionType === "buy" &&
-                      "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                      "text-[10px] lg:text-xs px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#bcffde] text-[#02B15A] rounded-xl") ||
                     (trade.transactionType === "sell" &&
-                      "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#ff00001f] text-[#ff0000] rounded-xl")
+                      "text-[10px] lg:text-xs px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#ff00001f] text-[#ff0000] rounded-xl")
                   }
                 >
                   <FadeIn>{trade.transactionType}</FadeIn>
