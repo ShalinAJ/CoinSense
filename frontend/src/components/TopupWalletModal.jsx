@@ -37,7 +37,7 @@ const TopupWalletModal = ({ isOpen, onClose, walletCards }) => {
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="w-[40%] z-50 bg-transparent">
+      <dialog open className="w-[90%] lg:w-[40%] z-50 bg-transparent">
         <Spring>
           <div className="bg-white mt-[90px] pb-1 rounded-xl ">
             <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">

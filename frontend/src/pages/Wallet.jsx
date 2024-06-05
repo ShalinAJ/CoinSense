@@ -21,18 +21,18 @@ const WalletPage = () => {
   return (
     <>
       <AddWalletModal isOpen={modalOpen} onClose={closeModal} />
-      <div className="w-[80%] h-[max-content] bg-white">
-        <div className="flex items-start justify-between px-[28px] pt-[45px]">
+      <div className="lg:w-[80%] h-[max-content] bg-white">
+        <div className="flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between px-[10px] lg:px-[28px] pt-[29px]">
           <div>
             <FadeIn>
-              <h2 className="text-2xl font-bold">My Wallets</h2>
-              <p className="text-sm pt-2 font-light">
+              <h2 className="text-lg lg:text-2xl font-bold">My Wallets</h2>
+              <p className="text-xs lg:text-sm lg:pt-2 font-light">
                 Detailed view of your wallets
               </p>
             </FadeIn>
           </div>
           <RightSlide>
-            <div className="flex flex-row gap-3">
+            <div className="flex flex-col pt-2 lg:pt-0 lg:mt-0 lg:flex-row gap-2 lg:gap-3">
               <Link
                 to={"/dashboard/investment/trading-wallet"}
                 className="text-xs text-coinsense-blue px-8 border py-1 rounded-lg border-coinsense-blue bg-transparent"
@@ -49,7 +49,7 @@ const WalletPage = () => {
           </RightSlide>
         </div>
 
-        <div className=" px-[28px] py-6">
+        <div className="px-[10px] lg:px-[28px] py-6">
           <Suspense
             fallback={<p className="text-sm font-medium">Loading wallets...</p>}
           >

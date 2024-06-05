@@ -52,12 +52,12 @@ const WalletsList = ({ wallets, transactions }) => {
         onClose={closeModal}
         walletDetails={wallets}
       />
-      <div className="grid grid-cols-3 gap-[50px] bg-white">
+      <div className="grid lg:grid-cols-3 gap-5 lg:gap-[50px] bg-white">
         {updatedWallets.map((wallet) => (
           <Spring>
             <div
               key={wallet._id}
-              className="pt-5 pb-5 px-4 flex flex-col rounded-lg border shadow-lg shadow-grey-500/40"
+              className="pt-3 lg:pt-5 pb-5 px-4 flex flex-col rounded-lg border shadow-sm lg:shadow-lg shadow-grey-500/40"
             >
               <div className="flex flex-row items-center gap-3 pb-3">
                 <p className="text-xl font-bold">{wallet.nickname}</p>

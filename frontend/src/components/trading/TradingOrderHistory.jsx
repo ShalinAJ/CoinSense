@@ -28,7 +28,7 @@ const TradingOrderHistory = ({ orderHistoryData, orderType }) => {
       <div className="overflow-y-auto max-h-[12.5rem] lg:max-h-[18rem]">
         <table className="w-full">
           <tbody>
-            <tr className="text-[10px] lgtext-xs leading-[25px]">
+            <tr className="text-[10px] lg:text-xs leading-[25px]">
               <th className="text-left font-normal">
                 <FadeIn>Token</FadeIn>
               </th>

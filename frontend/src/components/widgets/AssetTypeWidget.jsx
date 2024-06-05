@@ -29,15 +29,15 @@ const AssetTypeWidget = ({ assetsDetails }) => {
   };
 
   return (
-    <div className="p-5 w-[48.5%] rounded-3xl flex flex-col border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-      <div className="pt-3 px-2">
-        <p className="text-xl font-semibold">Asset Type data</p>
-        <p className="text-xs text-gray-400 py-2">
+    <div className="lg:p-5 lg:w-[48.5%] lg:rounded-3xl flex flex-col lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+      <div className="pt-3 px-2 text-center lg:text-left">
+        <p className="text-lg lg:text-xl font-semibold">Asset Type data</p>
+        <p className="text-xs text-gray-400 py-1 lg:py-2">
           The chart illustrates the proportion of each asset type within your
           portfolio.
         </p>
 
-        <div className="px-6 py-3">
+        <div className="lg:px-6 py-3">
           <AssetTypeChart assetData={calculateAssetData(assetsDetails)} />
         </div>
       </div>

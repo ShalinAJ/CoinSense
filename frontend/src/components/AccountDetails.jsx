@@ -109,7 +109,7 @@ const AccountDetails = ({
   }, [selectedFile]);
 
   return (
-    <div className="w-[80%]">
+    <div className="lg:w-[80%]">
       <div className="flex flex-col items-center">
         <form>
           <label htmlFor="avatar" className="relative">
@@ -117,10 +117,10 @@ const AccountDetails = ({
               <img
                 src={profilePhoto ? profilePhoto : userImg}
                 alt=""
-                className="w-[10rem] h-[10rem] mt-[3.5rem] rounded-full box-shadow cursor-pointer"
+                className="w-[8rem] h-[8rem] lg:w-[10rem] lg:h-[10rem] mt-[3rem] lg:mt-[3.5rem] rounded-full box-shadow cursor-pointer"
               />
             </Spring>
-            <div className=" w-[10rem] h-[10rem] mt-[3.5rem] absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer">
+            <div className="w-[8rem] h-[8rem] lg:w-[10rem] lg:h-[10rem] mt-[3rem] lg:mt-[3.5rem] absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer">
               Upload Image
             </div>
             <input
@@ -137,19 +137,19 @@ const AccountDetails = ({
           </button>
         </form>
 
-        <p className="text-2xl font-bold pt-4">
+        <p className="text-lg lg:text-2xl font-bold pt-3 lg:pt-4">
           <FadeIn> {userInfo.name ?? "Username"}</FadeIn>
         </p>
-        <p className="text-xs pt-2">
+        <p className="text-[10px] lg:text-xs pt-1 lg:pt-2">
           <FadeIn>
             {" "}
             User since {accountInfo.createdAt.split("-")[0] ?? "--"}
           </FadeIn>
         </p>
       </div>
-      <div className="flex flex-row justify-between px-[9rem] pt-[4.5rem]">
-        <div className="w-[60%] flex flex-col">
-          <div className="flex flex-row items-center pb-6 gap-3">
+      <div className="flex flex-col lg:flex-row justify-between px-[10px] lg:px-[9rem] pt-[2.5rem] lg:pt-[4.5rem]">
+        <div className="lg:w-[60%] flex flex-col">
+          <div className="flex flex-row items-center pb-4 lg:pb-6 gap-2 lg:gap-3">
             <p className="text-xs font-medium  text-gray-400">
               <FadeIn>Contact Information</FadeIn>
             </p>
@@ -189,9 +189,9 @@ const AccountDetails = ({
               </FadeIn>
             </p>
           </div>
-          <div className=" flex flex-row pb-6">
+          <div className=" flex flex-row pb-4 lg:pb-6">
             <div className="w-[30%]">
-              <p className=" text-[13px]  font-bold ">
+              <p className="text-[13px]  font-bold ">
                 <FadeIn>Phone :</FadeIn>
               </p>
             </div>
@@ -223,7 +223,7 @@ const AccountDetails = ({
                 <FadeIn>Gender :</FadeIn>
               </p>
             </div>
-            <p className="w-[70%] text-[13px]  font-light pb-5">
+            <p className="lg:w-[70%] text-[13px] font-light pb-3 lg:pb-5">
               <FadeIn>
                 {accountDetails && accountDetails.gender
                   ? accountDetails.gender
@@ -264,9 +264,9 @@ const AccountDetails = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col w-[40%]">
+        <div className="hidden lg:flex flex-col lg:w-[40%] pt-5">
           <RightSlide>
-            <p className="text-xs font-medium pb-6 text-gray-400">
+            <p className="text-xs font-medium pb-3 text-gray-400">
               Quick Links
             </p>
             <div className="flex flex-col gap-3">

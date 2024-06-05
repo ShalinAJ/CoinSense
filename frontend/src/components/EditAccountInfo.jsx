@@ -52,7 +52,7 @@ const EditAccountInfo = ({
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="w-[40%] z-50 bg-transparent">
+      <dialog open className="w-[90%] lg:w-[40%] z-50 bg-transparent">
         <Spring>
           <div className="bg-white mt-[90px] pb-1 rounded-xl ">
             <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
@@ -72,7 +72,7 @@ const EditAccountInfo = ({
                   className="flex flex-col"
                   onSubmit={handleSubmit}
                 >
-                  <div className="flex flex-col mb-2 mt-8">
+                  <div className="flex flex-col mb-2 mt-6 lg:mt-8">
                     <label htmlFor="">Address</label>
                     <input
                       id="name"
