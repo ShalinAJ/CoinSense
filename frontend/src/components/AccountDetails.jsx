@@ -120,7 +120,7 @@ const AccountDetails = ({
                 className="w-[8rem] h-[8rem] lg:w-[10rem] lg:h-[10rem] mt-[3rem] lg:mt-[3.5rem] rounded-full box-shadow cursor-pointer"
               />
             </Spring>
-            <div className="w-[8rem] h-[8rem] lg:w-[10rem] lg:h-[10rem] mt-[3rem] lg:mt-[3.5rem] absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer">
+            <div className="hidden lg:flex w-[8rem] h-[8rem] lg:w-[10rem] lg:h-[10rem] mt-[3rem] lg:mt-[3.5rem] absolute inset-0 items-center justify-center bg-black bg-opacity-50 text-white opacity-0 hover:opacity-50 transition-opacity duration-300 rounded-full cursor-pointer">
               Upload Image
             </div>
             <input
@@ -128,11 +128,16 @@ const AccountDetails = ({
               type="file"
               id="avatar"
               name="avatar"
+              className="hidden lg:block"
               style={{ display: "none" }}
               onChange={handleFileChange}
             />
           </label>
-          <button type="submit" style={{ display: "none" }}>
+          <button
+            className="hidden lg:block"
+            type="submit"
+            style={{ display: "none" }}
+          >
             Upload
           </button>
         </form>
