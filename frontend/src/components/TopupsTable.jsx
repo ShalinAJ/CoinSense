@@ -4,10 +4,10 @@ import FadeIn from "./animations/FadeIn";
 const TopupsTable = ({ tradingWallet }) => {
   console.log(tradingWallet);
   return (
-    <div className="overflow-y-auto max-h-[18rem]">
+    <div className="overflow-y-auto max-h-[12.5rem] lg:max-h-[18rem]">
       <table className="w-[100%]">
         <tbody>
-          <tr className="text-xs leading-[25px]">
+          <tr className="text-[10px] lg:text-xs leading-[25px]">
             <th className="text-left font-normal">
               <FadeIn>Date</FadeIn>
             </th>
@@ -26,9 +26,9 @@ const TopupsTable = ({ tradingWallet }) => {
               .map((transaction, index) => (
                 <tr
                   key={index}
-                  className="text-xs font-semibold leading-[35px]"
+                  className="text-[10px] lg:text-xs font-semibold leading-[24px] lg:leading-[35px]"
                 >
-                  <td className="text-left w-[32%] ">
+                  <td className="text-left lg:w-[32%] ">
                     <FadeIn>
                       {new Date(transaction.createdAt).toLocaleString("en-US", {
                         month: "2-digit",
@@ -40,7 +40,7 @@ const TopupsTable = ({ tradingWallet }) => {
                     </FadeIn>
                   </td>
                   <td className="flex flex-row justify-center items-center">
-                    <p className="pl-2 text-[10px] text-black font-light">
+                    <p className="lg:pl-2 text-[10px] text-black font-light">
                       <FadeIn>
                         {" "}
                         XXXX XXXX XXXX{" "}
@@ -50,7 +50,7 @@ const TopupsTable = ({ tradingWallet }) => {
                       </FadeIn>
                     </p>
                   </td>
-                  <td className="text-right pr-3">
+                  <td className="text-right lg:pr-3">
                     <div className="">
                       <FadeIn>
                         {new Intl.NumberFormat("en-US", {

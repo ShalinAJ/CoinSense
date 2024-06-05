@@ -15,7 +15,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="w-[40%] z-50 bg-transparent">
+      <dialog open className="w-[90%] lg:w-[40%] z-50 bg-transparent">
         <Spring>
           <div className="bg-white mt-[90px] pb-1 rounded-xl ">
             <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
@@ -31,7 +31,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                 </div>
 
                 <Form method="post" className="flex flex-col">
-                  <div className="flex flex-col mb-2 mt-8">
+                  <div className="flex flex-col mb-2 mt-4 lg:mt-8">
                     <label htmlFor="">Name on card</label>
                     <input required id="name" type="text" name="name"></input>
                   </div>
@@ -65,7 +65,7 @@ const AddWalletModal = ({ isOpen, onClose }) => {
                       className="w-[13%] mx-2"
                     ></input>
                   </div>
-                  <div className="flex flex-row mb-3 mt-3 gap-5 justify-between intems-center">
+                  <div className="flex flex-row mb-3 mt-0 lg:mt-3 gap-5 justify-between items-center">
                     <div className="flex flex-col w-[50%]">
                       <label htmlFor="">Nickname</label>
                       <input

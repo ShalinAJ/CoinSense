@@ -139,8 +139,10 @@ const StockTradingForm = ({
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div className="flex flex-col pb-5">
-        <label htmlFor="">Price (USDT)</label>
+      <div className="flex flex-col pb-4 lg:pb-5">
+        <label className="text-[10px] lg:text-xs" htmlFor="">
+          Price (USDT)
+        </label>
 
         <input
           type="number"
@@ -153,7 +155,9 @@ const StockTradingForm = ({
       </div>
 
       <div className="flex flex-col pb-5">
-        <label htmlFor="">Amount ({selectToken})</label>
+        <label className="text-[10px] lg:text-xs" htmlFor="">
+          Amount ({selectToken})
+        </label>
         <input
           type="float"
           onChange={(event) => {
@@ -162,7 +166,7 @@ const StockTradingForm = ({
         />
       </div>
       <div className="flex flex-row justify-between pb-5">
-        <div className="flex flex-row items-center text-xs font-semibold gap-2">
+        <div className="flex flex-row items-center text-[10px] lg:text-xs font-semibold gap-2">
           <p>Trading wallet balance : </p>
           <p>
             {new Intl.NumberFormat("en-US", {
@@ -171,7 +175,7 @@ const StockTradingForm = ({
             }).format(tradingWalletRemaining)}
           </p>
         </div>
-        <div className="flex flex-row items-center text-xs font-semibold gap-2">
+        <div className="flex flex-row items-center text-[10px] lg:text-xs font-semibold gap-2">
           <p>
             {totalAmount} {selectToken}
           </p>
@@ -184,12 +188,12 @@ const StockTradingForm = ({
           </p>
         </div>
       </div>
-      <div className="flex flex-row justify-between mt-8">
-        <p className="text-xs font-semibold text-red-500">
+      <div className="flex flex-row justify-between lg:mt-8">
+        <p className="text-[10px] lg:text-xs font-semibold text-red-500">
           {submitError && "Trading wallet balance insufficient"}
         </p>
         <button
-          className="py-1 px-3 w-[18%] text-sm items-end hover:bg-coinsense-blue-darker"
+          className="py-1 px-3 lg:w-[18%] text-xs lg:text-sm items-end hover:bg-coinsense-blue-darker"
           disabled={submitError}
         >
           Submit

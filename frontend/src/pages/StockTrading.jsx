@@ -54,6 +54,8 @@ const StockTradingPage = () => {
     ],
   });
 
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+
   useEffect(() => {
     async function orderHistoryDataHandler() {
       const orderHistoryData = await orderHistory;
@@ -168,6 +170,18 @@ const StockTradingPage = () => {
     return () => clearInterval(interval);
   }, [selectToken, tradingInterval]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const tokenHandler = (token) => {
     if (!token.symbol) {
       setSelectToken([token.ticker, token.logo]);
@@ -192,21 +206,21 @@ const StockTradingPage = () => {
         />
       )}
       {!loading && (
-        <div className="w-[80%] h-[max-content] bg-white">
-          <div className="flex items-start justify-between px-[28px] pt-[45px] pb-10">
+        <div className="lg:w-[80%] h-[max-content] bg-white">
+          <div className="flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between px-[10px] lg:px-[28px] pt-[29px] lg:pt-[45px] pb-6 lg:pb-10">
             <div>
               <FadeIn>
-                <Link onClick={prevPage} className="p-0 m-0 w-4">
+                <Link onClick={prevPage} className="ml-24 lg:ml-0 p-0 m-0 w-4">
                   <img src={backArrow} alt="" />
                 </Link>
-                <h2 className="text-2xl font-bold">Stock Trading</h2>
-                <p className="text-sm pt-2 font-light">
+                <h2 className="text-lg lg:text-2xl font-bold">Stock Trading</h2>
+                <p className="text-xs lg:text-sm lg:pt-2 font-light">
                   Trade and view realtime data of Stocks
                 </p>
               </FadeIn>
             </div>
             <RightSlide>
-              <div className="flex flex-row items-center border shadow-md rounded-full gap-3">
+              <div className="flex flex-row items-center mt-2 lg:mt-0 border shadow-sm lg:shadow-md rounded-full gap-3">
                 <div className="flex flex-row gap-2 text-xs font-semibold pl-6">
                   <p>Stock invested :</p>
                   <p>
@@ -225,7 +239,7 @@ const StockTradingPage = () => {
               </div>
             </RightSlide>
           </div>
-          <div className="px-[28px] ">
+          <div className="px-[10px] lg:px-[28px]">
             <RightSlide>
               <StockTradeLiveDataBar
                 selectToken={selectToken}
@@ -253,8 +267,8 @@ const StockTradingPage = () => {
                 </select>
               </div>
 
-              <div className="mb-8 mt-3" style={{ height: "400px" }}>
-                <StockChart chartData={chartData} size={"100px"} />
+              <div className="mb-8 mt-3" style={{ height: "auto" }}>
+                <StockChart chartData={chartData} size={screenSize} />
               </div>
             </FadeIn>
             <hr />

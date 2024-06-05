@@ -76,7 +76,7 @@ const DataLineWidget = () => {
 
   return (
     <div
-      className={`${styles.container} rounded-2xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow`}
+      className={`${styles.container} lg:rounded-2xl border lg:shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow`}
     >
       <div className={`${styles.marquee}`}>
         {cryptoData.map((crypto, index) => (

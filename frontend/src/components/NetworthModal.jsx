@@ -28,10 +28,10 @@ const NetworthModal = ({
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="bg-transparent w-[40%] z-50">
+      <dialog open className="bg-transparent w-[90%] lg:w-[40%] z-50">
         <Spring>
           <div className="bg-white mt-[90px] pb-1 rounded-xl ">
-            <div className="z-4 px-7 pb-6 flex flex-row rounded-xl">
+            <div className="z-4 px-7 pb-2 lg:pb-6 flex flex-row rounded-xl">
               <div className="w-[100%]">
                 <div className="flex flex-wrap justify-between items-center pt-2">
                   <h2 className="font-semibold">Net Worth Overview</h2>
@@ -44,8 +44,8 @@ const NetworthModal = ({
                 </div>
               </div>
             </div>
-            <div className="px-7 mb-12 text-xs font-medium flex flex-col gap-3">
-              <p className="mb-6">
+            <div className="px-7 mb-10 lg:mb-12 text-xs font-medium flex flex-col gap-3">
+              <p className="mb-4 lg:mb-6">
                 The 'Net Worth Overview' provides a detailed breakdown of your
                 current financial position. Here's what each section entails:
               </p>

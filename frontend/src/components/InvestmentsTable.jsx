@@ -22,29 +22,33 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
     <div>
       <table className="w-[100%]">
         <tbody>
-          <tr className="text-left text-sm leading-[45px]">
-            <th className="w-[20%]">
+          <tr className="text-[11px] lg:text-sm lg:leading-[45px]">
+            <th className="text-left w-[20%]">
               <FadeIn>Transaction</FadeIn>
             </th>
-            <th className="w-[30%]">
+            <th className="text-center lg:text-left w-[30%]">
               <FadeIn>Date</FadeIn>
             </th>
-            <th className="w-[20%]">
+            <th className="text-center lg:text-left w-[20%]">
               <FadeIn>Amount</FadeIn>
             </th>
-            <th className="w-[20%]">
+            <th className="text-left w-[20%]">
               <FadeIn>Trade at</FadeIn>
             </th>
-            <th className="w-[10%]">
+            <th className="text-left w-[10%]">
               <FadeIn>Status</FadeIn>
             </th>
           </tr>
           {currentItems.map((trade) => (
-            <tr key={trade._id} className="text-sm font-medium leading-[48px]">
+            <tr
+              key={trade._id}
+              className="text-[10px] lg:text-sm font-medium leading-[38px] lg:leading-[48px]"
+            >
               <td>
                 <FadeIn>{trade.name}</FadeIn>
               </td>
-              <td>
+
+              <td className="text-[8px] lg:text-sm">
                 <FadeIn>
                   {new Date(trade.createdAt).toLocaleString("en-US", {
                     weekday: "short",
@@ -55,7 +59,7 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
                   })}
                 </FadeIn>
               </td>
-              <td>
+              <td className="text-center lg:text-left">
                 <div className="flex flex-row">
                   <FadeIn>{trade.amount}</FadeIn>
                 </div>
@@ -70,13 +74,13 @@ const InvestmentsTable = ({ tradeType, tradeData }) => {
                   </FadeIn>
                 </div>
               </td>
-              <td className="mt-3 text-center text-xs flex">
+              <td className="mt-3 text-center text-xs flex justify-end lg:justify-start">
                 <p
                   className={
                     (trade.transactionType === "buy" &&
-                      "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl") ||
+                      "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#bcffde] text-[#02B15A] rounded-xl") ||
                     (trade.transactionType === "sell" &&
-                      "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl")
+                      "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#ff00001f] text-[#ff0000] rounded-xl")
                   }
                 >
                   <FadeIn>{trade.transactionType}</FadeIn>

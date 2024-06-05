@@ -103,84 +103,86 @@ const AssetsPage = () => {
         </Suspense>
       )}
 
-      <div className="w-[80%] h-[max-content] bg-white">
+      <div className="lg:w-[80%] h-[max-content] bg-white">
         <FadeIn>
-          <div className="flex items-start justify-between px-[28px] pt-[29px]">
+          <div className="flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between px-[10px] lg:px-[28px] pt-[29px]">
             <div>
-              <Link onClick={prevPage} className="p-0 m-0 w-4">
+              <Link onClick={prevPage} className="ml-20 lg:ml-0 p-0 m-0 w-4">
                 <img src={backArrow} alt="" />
               </Link>
-              <h2 className="text-2xl font-bold">Assets Data</h2>
-              <p className="text-sm pt-2 font-light">
+              <h2 className="text-lg lg:text-2xl font-bold">Assets Data</h2>
+              <p className="text-xs lg:text-sm lg:pt-2 font-light">
                 Detailed view of all your assets
               </p>
             </div>
 
             <div className="mr-3">
               <button
-                className="bg-transparent border-none p-0 m-0"
+                className="bg-transparent border-none pr-1 lg:pr-0 m-0"
                 onClick={infoHandler}
               >
-                <img src={infoImg} alt="" className="w-5" />
+                <img src={infoImg} alt="" className="w-4 lg:w-5" />
               </button>
             </div>
           </div>
         </FadeIn>
         <div className="transform-none">
           <FadeIn>
-            <div className=" mx-[28px] my-9 py-4 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
-              <div className="px-5">
-                <div className="flex flex-row justify-between">
-                  <div className="flex flex-row gap-2">
-                    <NavLink
-                      className={`${classes.assetsLink} ${
-                        assetType === "All" ? classes.active : ""
-                      }`}
-                      onClick={() => {
-                        setAssetType("All");
-                      }}
-                    >
-                      All
-                    </NavLink>
-                    <NavLink
-                      className={`${classes.assetsLink} ${
-                        assetType === "Tangible" ? classes.active : ""
-                      }`}
-                      onClick={() => {
-                        setAssetType("Tangible");
-                      }}
-                    >
-                      Tangible
-                    </NavLink>
-                    <NavLink
-                      className={`${classes.assetsLink} ${
-                        assetType === "Intangible" ? classes.active : ""
-                      }`}
-                      onClick={() => {
-                        setAssetType("Intangible");
-                      }}
-                    >
-                      Intangible
-                    </NavLink>
-                    <NavLink
-                      className={`${classes.assetsLink} ${
-                        assetType === "Other" ? classes.active : ""
-                      }`}
-                      onClick={() => {
-                        setAssetType("Other");
-                      }}
-                    >
-                      Other
-                    </NavLink>
+            <div className="lg:mx-[28px] my-4 lg:my-9 py-4 lg:mb-10 lg:rounded-3xl border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+              <div className="lg:px-5">
+                <div className="flex flex-col-reverse lg:flex-row items-center justify-between gap-3 lg:gap-0">
+                  <div className="flex flex-row">
+                    <div className="flex flex-row gap-2">
+                      <NavLink
+                        className={`${classes.assetsLink} ${
+                          assetType === "All" ? classes.active : ""
+                        }`}
+                        onClick={() => {
+                          setAssetType("All");
+                        }}
+                      >
+                        All
+                      </NavLink>
+                      <NavLink
+                        className={`${classes.assetsLink} ${
+                          assetType === "Tangible" ? classes.active : ""
+                        }`}
+                        onClick={() => {
+                          setAssetType("Tangible");
+                        }}
+                      >
+                        Tangible
+                      </NavLink>
+                      <NavLink
+                        className={`${classes.assetsLink} ${
+                          assetType === "Intangible" ? classes.active : ""
+                        }`}
+                        onClick={() => {
+                          setAssetType("Intangible");
+                        }}
+                      >
+                        Intangible
+                      </NavLink>
+                      <NavLink
+                        className={`${classes.assetsLink} ${
+                          assetType === "Other" ? classes.active : ""
+                        }`}
+                        onClick={() => {
+                          setAssetType("Other");
+                        }}
+                      >
+                        Other
+                      </NavLink>
+                    </div>
                   </div>
                   <button
                     onClick={addAssetHandler}
-                    className="bg-[#152DFF] text-white text-[11px] px-[3rem] hover:bg-coinsense-blue-darker"
+                    className="rounded-full lg:rounded-lg bg-[#152DFF] text-white text-[11px] px-[3rem] hover:bg-coinsense-blue-darker"
                   >
                     Add Asset
                   </button>
                 </div>
-                <div className="flex flex-row items-center gap-10 mt-5 mb-3">
+                <div className="flex flex-row items-center justify-center lg:justify-start gap-10 mt-3 lg:mt-5 mb-3">
                   <div className="flex flex-row items-center gap-3">
                     <p className="text-xs font-medium text-gray-400">
                       Total asset Value :
@@ -210,7 +212,7 @@ const AssetsPage = () => {
         </div>
 
         <FadeIn>
-          <div className="px-[28px] mb-[40px] flex flex-row justify-between gap-3">
+          <div className="px-[10px] lg:px-[28px] mb-[40px] flex flex-col lg:flex-row justify-between gap-3">
             <AssetTypeWidget assetsDetails={assetsDetails} />
 
             <AssetCategoryWidget assetsDetails={assetsDetails} />

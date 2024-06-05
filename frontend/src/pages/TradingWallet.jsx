@@ -169,56 +169,62 @@ const TradingWalletPage = ({}) => {
         </>
       )}
 
-      <div className="w-[80%] h-[max-content] px-[28px] bg-white">
-        <div className="flex items-start justify-between  pt-[29px]">
+      <div className="lg:w-[80%] h-[max-content] px-[10px] lg:px-[28px] pb-10 lg:pb-0 bg-white">
+        <div className="flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between px-[10px] lg:px-[28px] pt-[29px]">
           <div>
-            <Link onClick={prevPage} className="p-0 m-0 w-4">
+            <Link onClick={prevPage} className="ml-28 lg:ml-0 p-0 m-0 w-4">
               <img src={backArrow} alt="" />
             </Link>
-            <h2 className="text-2xl font-bold">Trading wallet</h2>
-            <p className="text-sm pt-2 font-light">
+            <h2 className="text-lg lg:text-2xl font-bold">Trading wallet</h2>
+            <p className="text-xs lg:text-sm lg:pt-2 font-light">
               Detailed view of your trading wallet details
             </p>
           </div>
           <div className="mr-3">
             <button
-              className="bg-transparent border-none p-0 m-0"
+              className="bg-transparent border-none pr-1 lg:pr-0"
               onClick={infoHandler}
             >
-              <img src={infoImg} alt="" className="w-5" />
+              <img src={infoImg} alt="" className="w-4 lg:w-5" />
             </button>
           </div>
         </div>
         <RightSlide>
-          <div className="border shadow-lg shadow-grey-500/40 p-5 rounded-3xl my-9">
+          <div className="border shadow-sm lg:shadow-lg shadow-grey-500/40 p-5 rounded-3xl mt-4 mb-5 lg:my-9">
             <div className="flex flex-row justify-between">
-              <div className="flex flex-row text-sm font-medium gap-3 items-center w-[35%] ml-2">
-                <p className="font-normal">Trading wallet balance :</p>
-                <p className="font-semibold">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(totalAmount)}
-                </p>
+              <div className="flex flex-col lg:flex-row justify-evenly lg:justify-normal lg:w-[65%]">
+                <div className="flex flex-row text-sm lg:justify-start font-medium lg:gap-3 items-center lg:w-[35%] lg:ml-2">
+                  <p className="text-xs lg:text-sm font-normal">
+                    Trading wallet balance :
+                  </p>
+                  <p className="text-xs lg:text-sm font-semibold">
+                    {new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(totalAmount)}
+                  </p>
+                </div>
+                <div className="hidden xl:block border-r-[1px] border-gray-300 w-[2px]"></div>
+                <div className="flex flex-row lg:justify-end lg:ml-20 text-sm font-medium gap-3 items-center lg:w-[30%]">
+                  <p className="text-xs lg:text-sm font-normal">
+                    total top-ups :
+                  </p>
+                  <p className="bg-coinsense-blue text-xs lg:text-sm text-white px-2 rounded-lg">
+                    {entries}
+                  </p>
+                </div>
               </div>
-              <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-              <div className="flex flex-row justify-center text-sm font-medium gap-3 items-center w-[30%]">
-                <p className="text-sm font-normal">total top-ups :</p>
-                <p className="bg-coinsense-blue text-sm  text-white px-2 rounded-lg">
-                  {entries}
-                </p>
-              </div>
-              <div className="border-r-[1px] border-gray-300 w-[2px]"></div>
-              <div className="w-[35%] flex flex-row justify-end gap-1">
+              <div className="hidden xl:block border-r-[1px] border-gray-300 w-[2px]"></div>
+              <div className="w-[35%] flex flex-col lg:flex-row justify-end gap-1">
                 <button
                   onClick={withdrawHandler}
-                  className="border-[#152DFF] bg-transparent text-coinsense-blue text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker hover:text-white"
+                  className="border-[#152DFF] bg-transparent text-coinsense-blue text-xs lg:px-[4rem] lg:mr-2 hover:bg-coinsense-blue-darker hover:text-white"
                 >
                   Withdraw
                 </button>
                 <button
                   onClick={topupHandler}
-                  className="bg-[#152DFF] text-white text-xs px-[4rem] mr-2 hover:bg-coinsense-blue-darker"
+                  className="bg-[#152DFF] text-white text-xs lg:px-[4rem] lg:mr-2 hover:bg-coinsense-blue-darker"
                 >
                   Top up
                 </button>
@@ -226,10 +232,10 @@ const TradingWalletPage = ({}) => {
             </div>
           </div>
         </RightSlide>
-        <div className="flex flex-row justify-between gap-5">
-          <div className="w-[50%]">
+        <div className="flex flex-col lg:flex-row justify-between gap-5">
+          <div className="lg:w-[50%]">
             <Spring>
-              <div className="border rounded-3xl h-[23rem]">
+              <div className="border rounded-3xl h-[17rem] lg:h-[23rem]">
                 <Suspense
                   fallback={
                     <p className="text-sm font-medium p-5">Loading...</p>
@@ -242,9 +248,9 @@ const TradingWalletPage = ({}) => {
               </div>
             </Spring>
           </div>
-          <div className="w-[50%]">
+          <div className="lg:w-[50%]">
             <Spring>
-              <div className="border rounded-3xl p-3 h-[23rem]">
+              <div className="border rounded-3xl p-3 h-[17rem] lg:h-[23rem]">
                 <Suspense
                   fallback={
                     <p className="text-sm font-medium p-2">Loading...</p>

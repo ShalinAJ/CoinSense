@@ -46,6 +46,19 @@ const InvestmentsPage = () => {
       },
     ],
   });
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchCryptoData = async () => {
@@ -189,21 +202,24 @@ const InvestmentsPage = () => {
   }, [orderHistory]);
 
   return (
-    <div className="w-[80%] h-[max-content] bg-white px-[28px] pt-[45px]">
-      <FadeIn>
-        <div className="text-2xl font-bold">Investments</div>
-        <p className="text-sm pt-2 font-light">
-          Detailed view of your investments{" "}
-        </p>
-      </FadeIn>
-      <div className="flex flex-row justify-between pt-6 pb-10">
-        <div className="w-[48.5%]">
+    <div className="lg:w-[80%] h-[max-content] bg-white lg:px-[28px] pt-[29px] lg:pt-[45px]">
+      <div className="px-[10px] lg:px-0 flex flex-col lg:flex-row text-center lg:text-left items-center lg:items-start justify-between">
+        <FadeIn>
+          <div className="text-lg lg:text-2xl font-bold">Investments</div>
+          <p className="text-xs lg:text-sm lg:pt-2 font-light">
+            Detailed view of your investments
+          </p>
+        </FadeIn>
+      </div>
+
+      <div className="flex flex-col lg:flex-row justify-between pt-6 pb-2 lg:pb-10">
+        <div className="lg:w-[48.5%]">
           <UserInvestmentsWidget
             investmentTotal={investmentTotal}
             recentInvestments={recentInvestments}
           />
         </div>
-        <div className="w-[48.5%]">
+        <div className="lg:w-[48.5%]">
           <UserMarketOptions
             tradeData={tradeData}
             url={[
@@ -215,23 +231,25 @@ const InvestmentsPage = () => {
         </div>
       </div>
       <RightSlide>
-        <div className="mb-10 flex flex-col gap-5">
+        <div className="hidden lg:flex mb-10 flex-col gap-5">
           <DataLineWidget />
         </div>
       </RightSlide>
 
       <Spring>
-        <div className="flex flex-row justify-between gap-10">
-          <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+        <div className="flex flex-col lg:flex-row justify-between lg:gap-10">
+          <div className="w-[100%] px-[10px] lg:px-8 pt-8 pb-6 mb-6 lg:mb-10 rounded-3xl lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
             <div>
               <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
                 <div className="flex flex-row gap-3">
                   <img
                     src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1696501400"
                     alt=""
-                    className="w-6 rounded-md"
+                    className="w-5 h-5 lg:w-6 lg:h-6 rounded-md"
                   />
-                  <p className="text-base font-semibold">Bitcoin (BTC)</p>
+                  <p className="text-sm lg:text-base font-semibold">
+                    Bitcoin (BTC)
+                  </p>
                 </div>
 
                 <div>
@@ -245,21 +263,23 @@ const InvestmentsPage = () => {
                 </div>
               </div>
               <div>
-                <CryptoChart chartData={cryptoChartData} size={"200px"} />
+                <CryptoChart chartData={cryptoChartData} size={screenSize} />
               </div>
             </div>
           </div>
-
-          <div className="w-[100%] px-8 pt-8 pb-6 mb-10 rounded-3xl border shadow-sm hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
+          <hr />
+          <div className="w-[100%] px-[10px] lg:px-8 pt-8 pb-6 mb-10 rounded-3xl lg:border lg:shadow-sm lg:hover:shadow-lg shadow-grey-500/40 transition-shadow duration-300">
             <div>
               <div className="flex flex-row justify-between items-center gap-3 pb-5 pl-1">
                 <div className="flex flex-row gap-3">
                   <img
                     src="https://static2.finnhub.io/file/publicdatany/finnhubimage/stock_logo/AAPL.png"
                     alt=""
-                    className="w-6 rounded-md"
+                    className="w-5 h-5 lg:w-6 lg:h-6 rounded-md"
                   />
-                  <p className="text-base font-semibold">Apple Inc (AAPL)</p>
+                  <p className="text-sm lg:text-base font-semibold">
+                    Apple Inc (AAPL)
+                  </p>
                 </div>
 
                 <div>
@@ -273,7 +293,7 @@ const InvestmentsPage = () => {
                 </div>
               </div>
               <div>
-                <StockChart chartData={stockChartData} size={"200px"} />
+                <StockChart chartData={stockChartData} size={screenSize} />
               </div>
             </div>
           </div>

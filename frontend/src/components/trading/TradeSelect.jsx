@@ -17,8 +17,11 @@ const TradeSelect = ({
         className="fixed inset-0 bg-black opacity-50 z-50"
         onClick={closeModal}
       ></div>
-      <dialog open className="fixed mt-[90px] w-[30%] z-50 rounded-xl ">
-        <div className="z-4 px-7 pb-9 flex flex-row rounded-xl">
+      <dialog
+        open
+        className="fixed mt-[90px] w-[90%] lg:w-[30%] z-50 rounded-xl "
+      >
+        <div className="z-4 px-4 lg:px-7 pb-9 flex flex-row rounded-xl">
           <div className="w-[100%] leading-6">
             <div className="flex flex-wrap justify-between items-center pt-2">
               <h2 className="font-semibold">Choose Token</h2>
@@ -39,13 +42,13 @@ const TradeSelect = ({
                   }}
                   className="bg-transparent text-black border-1 border-gray-300"
                 >
-                  <div className="flex flex-row justify-center gap-3">
+                  <div className="flex flex-row text-sm lg:text-base justify-center items-center gap-3">
                     {orderType === "Stock" ? (
                       <>
                         <img
                           src={tokenData.logo}
                           alt=""
-                          className="w-6 rounded-md"
+                          className="w-5 lg:w-6 rounded-md"
                         />
                         <p>{tokenData.name}</p>
                       </>
@@ -54,7 +57,7 @@ const TradeSelect = ({
                         <img
                           src={tokenData.image}
                           alt=""
-                          className="w-6 rounded-md"
+                          className="w-5 lg:w-6 rounded-md"
                         />
                         <p>{tokenData.id}</p>
                       </>

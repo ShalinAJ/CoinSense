@@ -2,10 +2,10 @@ import React from "react";
 
 const WithdrawalsTable = ({ tradingWallet }) => {
   return (
-    <div className="overflow-y-auto max-h-[18rem]">
+    <div className="overflow-y-auto max-h-[12.5rem] lg:max-h-[18rem]">
       <table className="w-[100%]">
         <tbody>
-          <tr className="text-xs leading-[25px]">
+          <tr className="text-[10px] lg:text-xs leading-[25px]">
             <th className="text-left font-normal">Date</th>
             <th className="text-center font-normal">
               Card used for Withdrawal
@@ -20,9 +20,9 @@ const WithdrawalsTable = ({ tradingWallet }) => {
               .map((transaction, index) => (
                 <tr
                   key={index}
-                  className="text-xs font-semibold leading-[35px]"
+                  className="text-[10px] lg:text-xs font-semibold leading-[24px] lg:leading-[35px]"
                 >
-                  <td className="text-left w-[32%] ">
+                  <td className="text-left lg:w-[32%] ">
                     {new Date(transaction.createdAt).toLocaleString("en-US", {
                       month: "2-digit",
                       day: "2-digit",
@@ -32,14 +32,14 @@ const WithdrawalsTable = ({ tradingWallet }) => {
                     })}
                   </td>
                   <td className="flex flex-row justify-center items-center">
-                    <p className="pl-2 text-[10px] text-black font-light">
+                    <p className="lg:pl-2 text-[10px] text-black font-light">
                       XXXX XXXX XXXX{" "}
                       {transaction.cardName
                         ? transaction.cardName.slice(12, 16)
                         : undefined}
                     </p>
                   </td>
-                  <td className="text-right pr-3">
+                  <td className="text-right lg:pr-3">
                     <div className="">
                       {new Intl.NumberFormat("en-US", {
                         style: "currency",

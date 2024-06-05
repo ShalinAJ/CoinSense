@@ -112,9 +112,9 @@ const TransactionsTable = ({
                       (transaction.status === "Expense" &&
                         "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#ff00001f] text-[#ff0000] rounded-xl") ||
                       (transaction.status === "withdraw" &&
-                        "py-1 w-[45%] bg-[#bcffde] text-[#02B15A] rounded-xl mr-6") ||
+                        "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#bcffde] text-[#02B15A] rounded-xl lg:mr-6") ||
                       (transaction.status === "topup" &&
-                        "py-1 w-[45%] bg-[#ff00001f] text-[#ff0000] rounded-xl mr-6")
+                        "px-1 lg:py-1 lg:w-[45%] h-[20px] lg:h-auto flex flex-row items-center lg:block bg-[#ff00001f] text-[#ff0000] rounded-xl lg:mr-6")
                     }
                   >
                     <FadeIn>{transaction.status}</FadeIn>
