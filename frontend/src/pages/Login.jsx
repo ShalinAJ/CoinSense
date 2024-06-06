@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import LeftSlide from "../components/animations/LeftSlide";
 import Spring from "../components/animations/Spring";
-
+import backArrowWhite from "../assets/back-arrow-white.png";
 import { useLogin } from "../Hooks/useLogin";
 import addUser from "../assets/add-user.svg";
 import loginInputEmail from "../assets/login-input-email.png";
@@ -14,13 +14,15 @@ import FadeIn from "../components/animations/FadeIn";
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, error, isLoading } = useLogin();
+  const { login, error } = useLogin();
   const [googleError, setGoogleError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     await login(email, password);
+    setLoading(false);
   }
 
   const handleSuccess = async (credentialResponse) => {
@@ -33,6 +35,10 @@ const LoginPage = () => {
     setGoogleError("Unable to login with google.");
   };
 
+  function clickLoader() {
+    setLoading(true);
+  }
+
   const handleError = () => {
     console.log("Google login failed");
   };
@@ -43,7 +49,10 @@ const LoginPage = () => {
       <div className="z-10 px-[10px] lg:px-0 lg:h-[100%] flex flex-col lg:flex-row justify-between items-center bg-coinsense-blue">
         <div className="flex flex-row h-[100%] lg:pt-[8rem]">
           <LeftSlide>
-            <div className="lg:ml-[10rem] lg:w-[80%] text-white mb-4 rounded-xl pt-10 flex flex-col items-center lg:items-start">
+            <div className="lg:ml-[10rem] lg:w-[80%] text-white mb-4 rounded-xl flex flex-col items-center lg:items-start">
+              <Link to={".."} className="p-1 lg:mb-1 pt-6 lg:pt-0">
+                <img src={backArrowWhite} alt="" className="w-4" />
+              </Link>
               <p className="text-3xl lg:text-4xl font-bold">CoinSense</p>
               <p className="text-center lg:text-left text-base lg:text-6xl font-semibold lg:font-bold lg:mt-[4rem] pt-2 lg:pt-0 lg:leading-[4.5rem]">
                 Begin your journey with CoinSense
@@ -143,8 +152,11 @@ const LoginPage = () => {
                     </div>
 
                     <p>
-                      <button className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker">
-                        Sign in
+                      <button
+                        onClick={clickLoader}
+                        className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker"
+                      >
+                        {loading === true ? "Loading..." : "Sign in"}
                       </button>
                     </p>
                   </form>

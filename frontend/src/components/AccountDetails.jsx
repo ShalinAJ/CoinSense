@@ -100,11 +100,10 @@ const AccountDetails = ({
         if (!response.ok) {
           throw new Error("Could not upload.");
         } else {
-          console.log("File uploaded successfully");
           location.reload();
         }
       } else {
-        console.log("No file selected");
+        console.log("Error");
       }
     };
 
@@ -155,7 +154,7 @@ const AccountDetails = ({
           </FadeIn>
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between px-[10px] lg:px-[9rem] pt-[2.5rem] lg:pt-[4.5rem]">
+      <div className="flex flex-col lg:flex-row justify-between px-[10px] lg:px-[9rem] pt-[2.5rem] lg:pt-[4.5rem] lg:mb-16">
         <div className="lg:w-[60%] flex flex-col">
           <div className="flex flex-row items-center pb-4 lg:pb-6 gap-2 lg:gap-3">
             <p className="text-xs font-medium  text-gray-400">
@@ -239,38 +238,40 @@ const AccountDetails = ({
               </FadeIn>
             </p>
           </div>
-          <div>
-            {confirmDelete === false ? (
-              <button
-                onClick={() => {
-                  setConfirmDelete(true);
-                }}
-                className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
-              >
-                <FadeIn>Delete Account</FadeIn>
-              </button>
-            ) : (
-              <div className="flex flex-row gap-5">
-                <p className="text-black font-medium border-none text-xs mt-5">
-                  Confirm to delete account :
-                </p>
-                <button
-                  onClick={onDeleteAccount}
-                  className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
-                >
-                  Delete
-                </button>
+          {userInfo.email === "Johndoe@mail.com" ? undefined : (
+            <div>
+              {confirmDelete === false ? (
                 <button
                   onClick={() => {
-                    setConfirmDelete(false);
+                    setConfirmDelete(true);
                   }}
-                  className="bg-transparent text-black font-medium border-none text-xs p-0 mt-5"
+                  className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
                 >
-                  No
+                  <FadeIn>Delete Account</FadeIn>
                 </button>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="flex flex-row gap-5">
+                  <p className="text-black font-medium border-none text-xs mt-5">
+                    Confirm to delete account :
+                  </p>
+                  <button
+                    onClick={onDeleteAccount}
+                    className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() => {
+                      setConfirmDelete(false);
+                    }}
+                    className="bg-transparent text-black font-medium border-none text-xs p-0 mt-5"
+                  >
+                    No
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="hidden lg:flex flex-col lg:w-[40%] pt-5">
           <RightSlide>
