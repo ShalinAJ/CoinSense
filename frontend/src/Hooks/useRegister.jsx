@@ -9,7 +9,7 @@ export const useRegister = () => {
   const register = async (name, email, password) => {
     setIsLoading(true);
 
-    const response = await fetch("http://localhost:4000/register", {
+    const response = await fetch("https://coinsense-mix7.onrender.com/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
