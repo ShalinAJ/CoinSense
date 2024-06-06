@@ -155,7 +155,7 @@ const AccountDetails = ({
           </FadeIn>
         </p>
       </div>
-      <div className="flex flex-col lg:flex-row justify-between px-[10px] lg:px-[9rem] pt-[2.5rem] lg:pt-[4.5rem]">
+      <div className="flex flex-col lg:flex-row justify-between px-[10px] lg:px-[9rem] pt-[2.5rem] lg:pt-[4.5rem] lg:mb-16">
         <div className="lg:w-[60%] flex flex-col">
           <div className="flex flex-row items-center pb-4 lg:pb-6 gap-2 lg:gap-3">
             <p className="text-xs font-medium  text-gray-400">
@@ -239,7 +239,7 @@ const AccountDetails = ({
               </FadeIn>
             </p>
           </div>
-          {!userInfo.email === "Johndoe@mail.com" && (
+          {userInfo.email === "Johndoe@mail.com" ? undefined : (
             <div>
               {confirmDelete === false ? (
                 <button
