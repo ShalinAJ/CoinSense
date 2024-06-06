@@ -156,7 +156,7 @@ const LoginPage = () => {
                         onClick={clickLoader}
                         className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker"
                       >
-                        {loading === true ? "Loading" : "Sign in"}
+                        {loading === true ? "Loading..." : "Sign in"}
                       </button>
                     </p>
                   </form>
