@@ -97,11 +97,10 @@ const AccountDetails = ({
         if (!response.ok) {
           throw new Error("Could not upload.");
         } else {
-          console.log("File uploaded successfully");
           location.reload();
         }
       } else {
-        console.log("No file selected");
+        console.log("Error");
       }
     };
 
