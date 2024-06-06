@@ -42,7 +42,7 @@ const RegisterPage = () => {
 
   const handleError = (error) => {
     console.error("Google login failed:", error);
-    setGoogleError("Google login failed. Please try again later.");
+    setGoogleError("Google login failed. Please try again later");
     setLoading(false);
   };
 
