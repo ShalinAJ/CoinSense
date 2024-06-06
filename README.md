@@ -27,6 +27,10 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - [x] Installation of Postman (optional)
 - [x] Code Editor
 
+## Admin Credentials
+Email: Johndoe@mail.com
+Password: 123
+
 ## Installation Guide
 1. Clone this repository to your local machine:
    ```
