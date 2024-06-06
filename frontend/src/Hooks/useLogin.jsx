@@ -11,7 +11,7 @@ export const useLogin = () => {
 
     console.log(email, password, name);
 
-    const response = await fetch("https://coinsense-mix7.onrender.com/login", {
+    const response = await fetch("http://localhost:4000/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, name }),
@@ -32,14 +32,11 @@ export const useLogin = () => {
 
       // Get account details
       const user = JSON.parse(localStorage.getItem("user"));
-      const accountResponse = await fetch(
-        "https://coinsense-mix7.onrender.com/account",
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const accountResponse = await fetch("http://localhost:4000/account", {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
       if (!accountResponse.ok) {
         setError("Could not fetch account details.");

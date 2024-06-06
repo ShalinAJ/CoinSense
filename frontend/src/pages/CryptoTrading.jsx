@@ -80,14 +80,11 @@ const CryptoTradingPage = () => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://coinsense-mix7.onrender.com/crypto/general",
-          {
-            headers: {
-              Authorization: `Bearer ${userInfo.token}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:4000/crypto/general", {
+          headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+          },
+        });
 
         const cryptoDetails = await response.json();
 

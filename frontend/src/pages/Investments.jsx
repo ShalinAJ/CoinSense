@@ -104,19 +104,16 @@ const InvestmentsPage = () => {
     const fetchStockData = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        const response = await axios.get(
-          `https://coinsense-mix7.onrender.com/stock-data`,
-          {
-            params: {
-              symbol: "AAPL",
-              range: "max",
-              interval: "1wk",
-            },
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const response = await axios.get(`http://localhost:4000/stock-data`, {
+          params: {
+            symbol: "AAPL",
+            range: "max",
+            interval: "1wk",
+          },
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
         const data = response.data.chart.result[0];
 
