@@ -9,16 +9,12 @@ export const useRegister = () => {
   const register = async (name, email, password) => {
     setIsLoading(true);
 
-    console.log(name, email, password);
+    const response = await fetch("http://localhost:4000/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, password }),
+    });
 
-    const response = await fetch(
-      "https://coinsense-mix7.onrender.com/register",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
-      }
-    );
     const json = await response.json();
 
     if (!response.ok) {
@@ -45,7 +41,6 @@ export const useRegister = () => {
         }
       );
       const json2 = await accountResponse.json();
-      console.log(json2);
 
       if (accountResponse.ok) {
         localStorage.setItem("account", JSON.stringify(json2));
@@ -66,7 +61,7 @@ export const useRegister = () => {
       if (!imageResponse.ok) {
         throw new Error("Could not upload.");
       } else {
-        console.log("account File created successfully");
+        console.log("...");
       }
 
       //create a new trading wallet
@@ -89,10 +84,7 @@ export const useRegister = () => {
         }
       );
 
-      console.log(tradingWalletResponse);
-
       if (!tradingWalletResponse.ok) {
-        console.log("not ok");
         throw json({ message: "Could not save." }, { status: 500 });
       }
 
