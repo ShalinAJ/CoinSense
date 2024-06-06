@@ -3,6 +3,8 @@ CoinSense is a comprehensive financial management platform designed to provide u
 
 ![Diagram](https://github.com/ShalinAJ/CoinSense/blob/main/Images/diagram.png)
 
+## Published App - [CoinSense](https://coinsensefinance.netlify.app/)
+
 ## Pages
 1. Home Page
 2. Login and Register
