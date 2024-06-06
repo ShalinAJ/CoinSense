@@ -236,38 +236,40 @@ const AccountDetails = ({
               </FadeIn>
             </p>
           </div>
-          <div>
-            {confirmDelete === false ? (
-              <button
-                onClick={() => {
-                  setConfirmDelete(true);
-                }}
-                className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
-              >
-                <FadeIn>Delete Account</FadeIn>
-              </button>
-            ) : (
-              <div className="flex flex-row gap-5">
-                <p className="text-black font-medium border-none text-xs mt-5">
-                  Confirm to delete account :
-                </p>
-                <button
-                  onClick={onDeleteAccount}
-                  className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
-                >
-                  Delete
-                </button>
+          {!userInfo.email === "Johndoe@mail.com" && (
+            <div>
+              {confirmDelete === false ? (
                 <button
                   onClick={() => {
-                    setConfirmDelete(false);
+                    setConfirmDelete(true);
                   }}
-                  className="bg-transparent text-black font-medium border-none text-xs p-0 mt-5"
+                  className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
                 >
-                  No
+                  <FadeIn>Delete Account</FadeIn>
                 </button>
-              </div>
-            )}
-          </div>
+              ) : (
+                <div className="flex flex-row gap-5">
+                  <p className="text-black font-medium border-none text-xs mt-5">
+                    Confirm to delete account :
+                  </p>
+                  <button
+                    onClick={onDeleteAccount}
+                    className="bg-transparent text-red-500 font-medium border-none text-xs p-0 mt-5"
+                  >
+                    Delete
+                  </button>
+                  <button
+                    onClick={() => {
+                      setConfirmDelete(false);
+                    }}
+                    className="bg-transparent text-black font-medium border-none text-xs p-0 mt-5"
+                  >
+                    No
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="hidden lg:flex flex-col lg:w-[40%] pt-5">
           <RightSlide>
