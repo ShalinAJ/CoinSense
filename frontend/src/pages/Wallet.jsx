@@ -83,18 +83,15 @@ export async function action({ request }) {
     cardbalance: data.get("cardbalance"),
   };
 
-  const response = await fetch(
-    "https://coinsense-mix7.onrender.com/wallet/new",
-    {
-      method: "POST",
+  const response = await fetch("http://localhost:4000/wallet/new", {
+    method: "POST",
 
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(walletData),
-    }
-  );
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(walletData),
+  });
 
   if (!response.ok) {
     throw json({ message: "Could not save." }, { status: 500 });
@@ -106,7 +103,7 @@ export async function action({ request }) {
 
 async function loadWallets() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch("https://coinsense-mix7.onrender.com/wallets", {
+  const response = await fetch("http://localhost:4000/wallets", {
     headers: {
       Authorization: `Bearer ${user.token}`,
     },
@@ -122,14 +119,11 @@ async function loadWallets() {
 
 async function loadTransactions() {
   const user = JSON.parse(localStorage.getItem("user"));
-  const response = await fetch(
-    "https://coinsense-mix7.onrender.com/transactions",
-    {
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    }
-  );
+  const response = await fetch("http://localhost:4000/transactions", {
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  });
 
   if (!response.ok) {
     return json({ message: "Could not fetch transactions." }, { status: 500 });

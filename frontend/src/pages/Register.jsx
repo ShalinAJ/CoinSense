@@ -27,6 +27,7 @@ const RegisterPage = () => {
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
+    setLoading(true);
     await register(
       String(decoded.name),
       String(decoded.email),
@@ -41,7 +42,8 @@ const RegisterPage = () => {
 
   const handleError = (error) => {
     console.error("Google login failed:", error);
-    setGoogleError("Google login failed. Please try again later.");
+    setGoogleError("Google login failed. Please try again later");
+    setLoading(false);
   };
 
   return (

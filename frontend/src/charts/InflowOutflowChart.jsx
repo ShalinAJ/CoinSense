@@ -52,14 +52,11 @@ const InflowOutflowChart = ({ selectedYear, screenSize }) => {
     const loadTransactions = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        const response = await fetch(
-          "https://coinsense-mix7.onrender.com/transactions",
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
+        const response = await fetch("http://localhost:4000/transactions", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
 
         if (!response.ok) {
           throw new Error("Could not fetch transactions.");

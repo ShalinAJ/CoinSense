@@ -44,40 +44,34 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
     const user_id = JSON.parse(localStorage.getItem("account")).user_id;
 
     if (!processed) {
-      const response = await fetch(
-        `https://coinsense-mix7.onrender.com/orderhistory/new`,
-        {
-          method: "POST",
+      const response = await fetch(`http://localhost:4000/orderhistory/new`, {
+        method: "POST",
 
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: selectToken,
-            transactionType,
-            price,
-            amount: totalAmount,
-            status: "Crypto",
-            prevPrice,
-            user_id,
-          }),
-        }
-      );
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: selectToken,
+          transactionType,
+          price,
+          amount: totalAmount,
+          status: "Crypto",
+          prevPrice,
+          user_id,
+        }),
+      });
 
       if (!response.ok) {
         throw json({ message: "Could not save." }, { status: 500 });
       }
 
-      const openOrder = await fetch(
-        "https://coinsense-mix7.onrender.com/openorder/" + _id,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      const openOrder = await fetch("http://localhost:4000/openorder/" + _id, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
 
       if (!openOrder.ok) {
         throw json({ message: "Could not delete." }, { status: 500 });
@@ -132,15 +126,12 @@ const TradingOpenOrders = ({ openOrdersData, currentPriceData, orderType }) => {
 
   const deleteBtnHandler = async (_id) => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const openOrder = await fetch(
-      "https://coinsense-mix7.onrender.com/openorder/" + _id,
-      {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      }
-    );
+    const openOrder = await fetch("http://localhost:4000/openorder/" + _id, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    });
 
     if (!openOrder.ok) {
       throw json({ message: "Could not delete." }, { status: 500 });
