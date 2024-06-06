@@ -27,6 +27,7 @@ const LoginPage = () => {
 
   const handleSuccess = async (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
+    setLoading(true);
     await login(
       String(decoded.email),
       String(decoded.sub),
@@ -41,6 +42,7 @@ const LoginPage = () => {
 
   const handleError = () => {
     console.log("Google login failed");
+    setLoading(false);
   };
 
   return (
