@@ -148,7 +148,7 @@ const RegisterPage = () => {
                   onClick={clickLoader}
                   className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker"
                 >
-                  {loading === true ? "Loading" : "Sign up"}
+                  {loading === true ? "Loading..." : "Sign up"}
                 </button>
               </p>
             </form>
