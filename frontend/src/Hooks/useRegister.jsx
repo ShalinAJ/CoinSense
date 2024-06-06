@@ -14,6 +14,7 @@ export const useRegister = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name, email, password }),
     });
+
     const json = await response.json();
 
     if (!response.ok) {
@@ -29,13 +30,16 @@ export const useRegister = () => {
       // create a account details
       const user = JSON.parse(localStorage.getItem("user"));
 
-      const accountResponse = await fetch("http://localhost:4000/account/new", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      const accountResponse = await fetch(
+        "https://coinsense-mix7.onrender.com/account/new",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const json2 = await accountResponse.json();
 
       if (accountResponse.ok) {
@@ -44,7 +48,7 @@ export const useRegister = () => {
 
       // upload image file with null accountImg when account created
       const imageResponse = await fetch(
-        "http://localhost:4000/image/account/new/",
+        "https://coinsense-mix7.onrender.com/image/account/new/",
         {
           method: "POST",
           headers: {
@@ -68,7 +72,7 @@ export const useRegister = () => {
       };
 
       const tradingWalletResponse = await fetch(
-        "http://localhost:4000/tradingwallet/new",
+        "https://coinsense-mix7.onrender.com/tradingwallet/new",
         {
           method: "POST",
 

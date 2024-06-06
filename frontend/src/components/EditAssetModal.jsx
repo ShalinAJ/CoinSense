@@ -34,12 +34,15 @@ const EditAssetModal = ({ isOpen, onClose, editAssetId, assetDetails }) => {
 
   const deleteHandler = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch("http://localhost:4000/asset/" + editAssetId, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-      },
-    });
+    const response = await fetch(
+      "https://coinsense-mix7.onrender.com/asset/" + editAssetId,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Could not delete asset.");
@@ -65,7 +68,7 @@ const EditAssetModal = ({ isOpen, onClose, editAssetId, assetDetails }) => {
       };
 
       const response = await fetch(
-        "http://localhost:4000/asset/" + editAssetId,
+        "https://coinsense-mix7.onrender.com/asset/" + editAssetId,
         {
           method: "PATCH",
           headers: {

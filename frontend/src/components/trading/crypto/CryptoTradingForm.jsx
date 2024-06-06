@@ -97,23 +97,26 @@ const CryptoTradingForm = ({
       }
     }
 
-    const response = await fetch(`http://localhost:4000/${url}/new`, {
-      method: "POST",
+    const response = await fetch(
+      `https://coinsense-mix7.onrender.com/${url}/new`,
+      {
+        method: "POST",
 
-      headers: {
-        Authorization: `Bearer ${user.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: selectToken,
-        transactionType,
-        price,
-        amount: totalAmount,
-        prevPrice: +currentPrice,
-        status: "Crypto",
-        user_id,
-      }),
-    });
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: selectToken,
+          transactionType,
+          price,
+          amount: totalAmount,
+          prevPrice: +currentPrice,
+          status: "Crypto",
+          user_id,
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw json({ message: "Could not save." }, { status: 500 });

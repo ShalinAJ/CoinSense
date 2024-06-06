@@ -12,7 +12,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
   const deleteHandler = async () => {
     const user = JSON.parse(localStorage.getItem("user"));
     const response = await fetch(
-      "http://localhost:4000/wallet/" + editWalletId,
+      "https://coinsense-mix7.onrender.com/wallet/" + editWalletId,
       {
         method: "DELETE",
         headers: {
@@ -46,7 +46,7 @@ const EditWalletModal = ({ isOpen, onClose, editWalletId, walletDetails }) => {
       };
 
       const response = await fetch(
-        "http://localhost:4000/wallet/" + editWalletId,
+        "https://coinsense-mix7.onrender.com/wallet/" + editWalletId,
         {
           method: "PATCH",
           headers: {

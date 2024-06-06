@@ -3,6 +3,8 @@ CoinSense is a comprehensive financial management platform designed to provide u
 
 ![Diagram](https://github.com/ShalinAJ/CoinSense/blob/main/Images/diagram.png)
 
+## Published App - [CoinSense](https://coinsensefinance.netlify.app/)
+
 ## Pages
 1. Home Page
 2. Login and Register
@@ -18,7 +20,7 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - Express JS
 - MongoDB
 - Figma - [Prototype](https://www.figma.com/proto/41UZK8X7ZanTE8NSPyU60V/CoinSense?page-id=0%3A1&node-id=648-293&viewport=-834%2C2150%2C0.24&t=bPzHjQt91yI9fY4i-1&scaling=scale-down&starting-point-node-id=648%3A293)
-- Postman
+- Postman - [Workspace](https://www.postman.com/interstellar-equinox-452429/workspace/coinsense)
 - Tailwind CSS
 
 ## Prerequisites 
@@ -26,6 +28,10 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - [x] Installation of npm package manager
 - [x] Installation of Postman (optional)
 - [x] Code Editor
+
+## Demo Account Credentials
+- Email: Johndoe@mail.com
+- Password: 123
 
 ## Installation Guide
 1. Clone this repository to your local machine:
@@ -61,7 +67,21 @@ CoinSense is a comprehensive financial management platform designed to provide u
    npm start
    ```
 ## Screens
-1. Dashboard
+1. Login / Register Page
+   ![login/register](https://github.com/ShalinAJ/CoinSense/blob/main/Images/loginRegister-homepage.png)
+2. Dashboard Page
   ![Dashboard](https://github.com/ShalinAJ/CoinSense/blob/main/Images/dashboard-homepage.png)
-2. Transactions
+3. Transactions Page
   ![Transactions](https://github.com/ShalinAJ/CoinSense/blob/main/Images/transactions-homepage.png)
+4. Income / Expense Page
+  ![income/expense](https://github.com/ShalinAJ/CoinSense/blob/main/Images/incomeExpense-homepage.png)
+5. Investment Page
+   ![investment](https://github.com/ShalinAJ/CoinSense/blob/main/Images/investments-homepage.png)
+6. Crypto / Stock Page
+   ![crypto/stock](https://github.com/ShalinAJ/CoinSense/blob/main/Images/cryptoStock-homepage.png)
+7. Assest Page
+   ![assets](https://github.com/ShalinAJ/CoinSense/blob/main/Images/assets-homepage.png)
+8. Wallet Page
+   ![wallet](https://github.com/ShalinAJ/CoinSense/blob/main/Images/wallet-homepage.png)
+9. Trading Wallet Page
+    ![trading wallet](https://github.com/ShalinAJ/CoinSense/blob/main/Images/tradingWallet-homepage.png)
