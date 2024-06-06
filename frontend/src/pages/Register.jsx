@@ -5,6 +5,7 @@ import addUser from "../assets/add-user.svg";
 import loginInputEmail from "../assets/login-input-email.png";
 import loginInputPswd from "../assets/login-input-pswd.png";
 import registerInputProfile from "../assets/register-profile.png";
+import backArrowWhite from "../assets/back-arrow-white.png";
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import Spring from "../components/animations/Spring";
@@ -13,13 +14,15 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const { register, error, isLoading } = useRegister();
+  const { register, error } = useRegister();
   const [googleError, setGoogleError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
     event.preventDefault();
 
     await register(name, email, password);
+    setLoading(false);
   }
 
   const handleSuccess = async (credentialResponse) => {
@@ -32,6 +35,10 @@ const RegisterPage = () => {
     setGoogleError("Account already exists.");
   };
 
+  function clickLoader() {
+    setLoading(true);
+  }
+
   const handleError = (error) => {
     console.error("Google login failed:", error);
     setGoogleError("Google login failed. Please try again later.");
@@ -41,7 +48,12 @@ const RegisterPage = () => {
     <>
       <div className="h-[100%] flex flex-wrap flex-col content-center justify-center bg-coinsense-blue">
         <Spring>
-          <div className="w-[350px] px-4 py-6 bg-white rounded-md">
+          <div className="flex flex-row justify-center lg:justify-start pb-1">
+            <Link to={".."} className="p-1 lg:mb-1 pt-6 lg:pt-0">
+              <img src={backArrowWhite} alt="" className="w-4" />
+            </Link>
+          </div>
+          <div className="lg:w-[350px] px-4 py-6 bg-white rounded-md">
             <form onSubmit={handleSubmit}>
               <div className="flex text-center">
                 <img src={addUser} alt="add user sign" className="w-9 ml-20" />
@@ -132,8 +144,11 @@ const RegisterPage = () => {
               </div>
 
               <p>
-                <button className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker">
-                  Sign up
+                <button
+                  onClick={clickLoader}
+                  className="w-full bg-[#152DFF] hover:bg-coinsense-blue-darker"
+                >
+                  {loading === true ? "Loading" : "Sign up"}
                 </button>
               </p>
             </form>
