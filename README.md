@@ -29,7 +29,7 @@ CoinSense is a comprehensive financial management platform designed to provide u
 - [x] Installation of Postman (optional)
 - [x] Code Editor
 
-## Admin Credentials
+## Demo Account Credentials
 - Email: Johndoe@mail.com
 - Password: 123
 
