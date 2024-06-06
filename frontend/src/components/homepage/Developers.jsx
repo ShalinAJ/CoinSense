@@ -31,10 +31,13 @@ const Developers = () => {
                     Shalin Jayatilleke
                   </p>
                   <div className="flex flex-row pb-1 md:pb-0">
-                    <a href="" className="p-0 m-0">
+                    <a
+                      href="https://www.linkedin.com/in/shalin-aj/"
+                      className="p-0 m-0"
+                    >
                       <img src={LinkedInImg} alt="" className="w-6 md:w-8" />
                     </a>
-                    <a href="" className="p-0">
+                    <a href="https://github.com/ShalinAJ" className="p-0">
                       <img src={GitImg} alt="" className="w-6 md:w-8" />
                     </a>
                   </div>
@@ -63,10 +66,13 @@ const Developers = () => {
                     Nadun Weerakkody
                   </p>
                   <div className="flex flex-row pb-1 md:pb-0">
-                    <a href="" className="p-0 m-0">
+                    <a
+                      href="https://www.linkedin.com/in/nadunweerakkody/"
+                      className="p-0 m-0"
+                    >
                       <img src={LinkedInImg} alt="" className="w-6 md:w-8" />
                     </a>
-                    <a href="" className="p-0">
+                    <a href="https://github.com/nadunwee" className="p-0">
                       <img src={GitImg} alt="" className="w-6 md:w-8" />
                     </a>
                   </div>
